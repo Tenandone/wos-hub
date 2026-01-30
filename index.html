@@ -16,6 +16,49 @@
   <meta property="og:description" content="Tools, calculators, and data hub for Whiteout Survival players." />
   <meta property="og:site_name" content="WOS HUB" />
 
+  <!-- ✅ GitHub Pages project base auto-fix (fix "/img/.." absolute paths) -->
+  <script>
+  (() => {
+    // e.g. https://tenandone.github.io/wos-hub/  -> base="/wos-hub"
+    const p = location.pathname || "/";
+    const base = p.startsWith("/") ? (p.split("/")[1] ? "/" + p.split("/")[1] : "") : "";
+    if (!base || base === "/") return;
+
+    const fix = (v) => {
+      if (typeof v !== "string") return v;
+      if (v.startsWith("//")) return v;
+      if (!v.startsWith("/")) return v;
+      if (v.startsWith(base + "/")) return v;
+      return base + v;
+    };
+
+    const origSet = Element.prototype.setAttribute;
+    Element.prototype.setAttribute = function (name, value) {
+      if (name === "src" || name === "href") value = fix(value);
+      return origSet.call(this, name, value);
+    };
+
+    // Also patch direct property assignments: img.src = "/..."
+    const patchProp = (proto, prop) => {
+      const d = Object.getOwnPropertyDescriptor(proto, prop);
+      if (!d || !d.set || !d.get) return;
+      Object.defineProperty(proto, prop, {
+        get: d.get,
+        set(v) { return d.set.call(this, fix(v)); },
+        configurable: true,
+        enumerable: d.enumerable,
+      });
+    };
+
+    patchProp(HTMLImageElement.prototype, "src");
+    patchProp(HTMLScriptElement.prototype, "src");
+    patchProp(HTMLLinkElement.prototype, "href");
+    patchProp(HTMLAnchorElement.prototype, "href");
+
+    window.WOS_BASE = base;
+  })();
+  </script>
+
   <!-- ✅ relative paths for GitHub Pages -->
   <link rel="stylesheet" href="./css/app.css" />
 </head>
