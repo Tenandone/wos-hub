@@ -16,14 +16,12 @@
   <meta property="og:description" content="Tools, calculators, and data hub for Whiteout Survival players." />
   <meta property="og:site_name" content="WOS HUB" />
 
-  <!-- ✅ absolute paths -->
-  <link rel="stylesheet" href="/css/app.css" />
+  <!-- ✅ relative paths for GitHub Pages -->
+  <link rel="stylesheet" href="./css/app.css" />
 </head>
 
 <body>
-  <!-- ✅ Persistent topbar -->
   <header class="wos-topbar">
-    <!-- ✅ NEW: width-limited inner container (PC spacing fix) -->
     <div class="wos-topbar-inner">
       <button
         class="wos-iconbtn"
@@ -37,67 +35,27 @@
 
       <a class="wos-brand" href="#/" data-i18n="brand.name">WosHub</a>
 
-      <!-- ✅ Language quick links (desktop only) -->
       <div class="wos-desktop-only wos-langbar">
-        <button
-          class="wos-iconbtn"
-          type="button"
-          data-lang="en"
-          data-lang-link="en"
-          title="English"
-          aria-label="English"
-          data-i18n-title="lang.english"
-          data-i18n-aria-label="lang.english"
-        >🇺🇸</button>
+        <button class="wos-iconbtn" type="button" data-lang="en" data-lang-link="en" title="English" aria-label="English"
+          data-i18n-title="lang.english" data-i18n-aria-label="lang.english">🇺🇸</button>
 
-        <button
-          class="wos-iconbtn"
-          type="button"
-          data-lang="ko"
-          data-lang-link="ko"
-          title="Korean"
-          aria-label="Korean"
-          data-i18n-title="lang.korean"
-          data-i18n-aria-label="lang.korean"
-        >🇰🇷</button>
+        <button class="wos-iconbtn" type="button" data-lang="ko" data-lang-link="ko" title="Korean" aria-label="Korean"
+          data-i18n-title="lang.korean" data-i18n-aria-label="lang.korean">🇰🇷</button>
 
-        <button
-          class="wos-iconbtn"
-          type="button"
-          data-lang="ja"
-          data-lang-link="ja"
-          title="Japanese"
-          aria-label="Japanese"
-          data-i18n-title="lang.japanese"
-          data-i18n-aria-label="lang.japanese"
-        >🇯🇵</button>
+        <button class="wos-iconbtn" type="button" data-lang="ja" data-lang-link="ja" title="Japanese" aria-label="Japanese"
+          data-i18n-title="lang.japanese" data-i18n-aria-label="lang.japanese">🇯🇵</button>
       </div>
     </div>
   </header>
 
-  <!-- Backdrop -->
   <div class="wos-drawer-backdrop" id="drawerBackdrop" hidden></div>
 
-  <!-- Drawer -->
-  <nav
-    class="wos-drawer"
-    id="drawer"
-    aria-label="Site menu"
-    aria-hidden="true"
-    data-i18n-aria-label="aria.site_menu"
-  >
+  <nav class="wos-drawer" id="drawer" aria-label="Site menu" aria-hidden="true" data-i18n-aria-label="aria.site_menu">
     <div class="wos-drawer-head">
       <div class="wos-drawer-title" data-i18n="nav.menu">Menu</div>
-      <button
-        class="wos-iconbtn"
-        id="drawerClose"
-        type="button"
-        aria-label="Close menu"
-        data-i18n-aria-label="aria.close_menu"
-      >✕</button>
+      <button class="wos-iconbtn" id="drawerClose" type="button" aria-label="Close menu" data-i18n-aria-label="aria.close_menu">✕</button>
     </div>
 
-    <!-- ✅ Language buttons (mobile) -->
     <div class="wos-drawer-lang">
       <button class="wos-drawer-link" type="button" data-lang="en" data-lang-link="en">🇺🇸 EN</button>
       <button class="wos-drawer-link" type="button" data-lang="ko" data-lang-link="ko">🇰🇷 KO</button>
@@ -112,27 +70,23 @@
     <a class="wos-drawer-link" data-nav href="#/tips" data-i18n="nav.tips">Tips</a>
   </nav>
 
-  <!-- ✅ SPA mount -->
   <main id="app" class="wos-app"></main>
 
   <footer class="site-footer">
     <div class="site-footer-inner">
-      <a href="/about.html" data-i18n="footer.about">About</a>
+      <!-- ✅ relative link -->
+      <a href="./about.html" data-i18n="footer.about">About</a>
     </div>
   </footer>
 
-  <!-- Load order matters -->
-  <script defer src="/js/i18n.js"></script>
-
-  <script defer src="/js/buildings.js"></script>
-  <script defer src="/js/heroes.js"></script>
-  <script defer src="/js/calculator.js"></script>
-  <script defer src="/js/building-calculator.js"></script>
-  <script defer src="/js/tips.js"></script>
-  <script defer src="/js/coupons.js"></script>
-
-  <!-- ✅ app.js only (coupons handled inside app.js now) -->
-  <script defer src="/js/app.js"></script>
-  
+  <!-- ✅ relative scripts -->
+  <script defer src="./js/i18n.js"></script>
+  <script defer src="./js/buildings.js"></script>
+  <script defer src="./js/heroes.js"></script>
+  <script defer src="./js/calculator.js"></script>
+  <script defer src="./js/building-calculator.js"></script>
+  <script defer src="./js/tips.js"></script>
+  <script defer src="./js/coupons.js"></script>
+  <script defer src="./js/app.js"></script>
 </body>
 </html>
