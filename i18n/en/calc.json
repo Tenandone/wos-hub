@@ -1,0 +1,74 @@
+{
+  "tools.common.back": "Back",
+  "tools.common.none": "None",
+
+  "tools.building_calc.breadcrumb": "Tools · Building Calculator",
+  "tools.building_calc.title": "Building Calculator",
+
+  "tools.building_calc.howto.title": "How to Use",
+  "tools.building_calc.howto.step1": "Select a Building, then choose your Current Level and Target Level.",
+  "tools.building_calc.howto.step2": "Enter buffs that match your account.",
+  "tools.building_calc.howto.step3": "Enter your values and the results will update instantly.",
+  "tools.building_calc.howto.step4": "Check Total Result for overall costs/time/SVS, and Detail (Per Level) for step-by-step requirements.",
+  "tools.building_calc.howto.tip": "Tip: For the most accurate estimate, enter your buffs exactly as they are in your account.",
+
+  "tools.building_calc.error.title": "Error",
+
+  "tools.building_calc.controls.building": "Building",
+  "tools.building_calc.controls.current": "Current Level",
+  "tools.building_calc.controls.target": "Target Level",
+  "tools.building_calc.controls.build_speed": "Construction Speed (%)",
+  "tools.building_calc.controls.pet": "Pet Buff (Hyena)",
+  "tools.building_calc.controls.agenes": "Agenes Buff (Flat Time, Once)",
+  "tools.building_calc.controls.valeria": "Valeria Buff (SVS +%)",
+
+  "tools.building_calc.controls.vp_label": "Select Buff (VP)",
+  "tools.building_calc.controls.vp10": "VP +10%",
+  "tools.building_calc.controls.vp15": "VP +15%",
+
+  "tools.building_calc.controls.server_chief_label": "Select Buff (Server / Chief)",
+  "tools.building_calc.controls.server_buff": "Server Buff (+10%)",
+  "tools.building_calc.controls.chief_order": "Chief Order (-20% time)",
+
+  "tools.building_calc.total.title": "Total Result",
+  "tools.building_calc.total.fireCrystal": "Fire Crystal",
+  "tools.building_calc.total.refined": "Refined",
+  "tools.building_calc.total.food": "Food",
+  "tools.building_calc.total.wood": "Wood",
+  "tools.building_calc.total.coal": "Coal",
+  "tools.building_calc.total.iron": "Iron",
+  "tools.building_calc.total.time": "Estimated Time",
+  "tools.building_calc.total.svs": "SVS",
+
+  "tools.building_calc.summary.title": "Summary",
+  "tools.building_calc.summary.loading": "Loading building data...",
+
+  "tools.building_calc.detail.title": "Detail (Per Level)",
+  "tools.building_calc.detail.subtitle": "Shows the table up to your Target Level.",
+  "tools.building_calc.detail.placeholder": "Select Building / Current / Target.",
+  "tools.building_calc.msg.invalid_range": "Target must be greater than Current.",
+  "tools.building_calc.msg.no_rows": "No rows.",
+
+  "tools.building_calc.table.building": "Building",
+  "tools.building_calc.table.current": "Current",
+  "tools.building_calc.table.target": "Target",
+  "tools.building_calc.table.fc": "FC",
+  "tools.building_calc.table.refined": "Refined",
+  "tools.building_calc.table.food": "Food",
+  "tools.building_calc.table.wood": "Wood",
+  "tools.building_calc.table.coal": "Coal",
+  "tools.building_calc.table.iron": "Iron",
+  "tools.building_calc.table.est_time": "Est. Time",
+  "tools.building_calc.table.svs": "SVS",
+  "tools.building_calc.table.step_level": "Step Level",
+  "tools.building_calc.detail.base_time": "Base Time",
+
+  "building.furnace": "Furnace",
+  "building.embassy": "Embassy",
+  "building.commandcenter": "Command Center",
+  "building.infirmary": "Infirmary",
+  "building.infantrycamp": "Infantry Camp",
+  "building.lancercamp": "Lancer Camp",
+  "building.marksmancamp": "Marksman Camp",
+  "building.waracademy": "War Academy"
+}

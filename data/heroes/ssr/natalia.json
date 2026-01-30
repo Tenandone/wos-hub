@@ -1,0 +1,112 @@
+{
+  "slug": "natalia",
+  "name": "Natalia",
+  "rarity": "SSR",
+  "season": 1,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s1/natalia/img/natalia.png",
+  "story": "\"Natalia knows the scientific and common names of every species of flora or fauna\".Above is Bahiti’s impression of Natalia, the young prodigy. Natalia possesses knowledge far beyond her years, having studied ecology, geology, and astronomy.\n\nYet Natalia's most extraordinary ability is to communicate with and befriend wild animals. She is a good companion for fellow survivors as well, although she tends to talk non-stop on topics of of her own interest.\n\nNatalia was little more than a baby when she met the grizzly cub Kasia. The cub was separated from its family, and wouldn’t have survived in the wilderness alone. Natalia and her father took Kasia in and raised it into a strong beast. The two were inseparable, and the cross-species bond is strong. After the passing of Natalia’s father, they depended on each other and survived together in the long winter...\n\nNatalia's father Tyle is a \"planetary ecologist\". By comparing soil samples throughout the years, Tyle concluded that the global cooling process might be slowing, and could even reverse at some point in the near future. This observation filled him with optimism. Tyle had also begun work on self-sustaining heat sources with experimental fire crystals. Even Phaethon took great interest in Tyle's work and began to sponsor his research...\n\nTyle's fire crystal technology was the greatest accomplishment of his scientific career. It had the potential to help all humankind, but can also cause disasters in the wrong hands. Tyle soon realized his sponsor was much more interested in personal gains than the greater good. Tyle passed his most crucial research notes to Natalia before his death at Phaethon's hands. He hoped that Natalia might finish his designs. Tyle’s noble sacrifice continues to inspire Natalia.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 1873,
+      "defense": 2220,
+      "health": 36630
+    },
+    "expedition": {
+      "attack_percent": "200.16%",
+      "defense_percent": "200.16%"
+    }
+  },
+  "sources": [
+    "1st Purchase",
+    "VIP Packs"
+  ],
+  "skills": [
+    {
+      "id": "500091",
+      "name": "Beast Charge",
+      "mode": "exploration",
+      "description": "Natalia's bear violently smashes the ground, knocking back enemies in range and stunning them for 1s, while dealing Attack*160%/176%/192%/208%/224% Area of Effect Damage.",
+      "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500091.png"
+    },
+    {
+      "id": "500092",
+      "name": "Whip",
+      "mode": "exploration",
+      "description": "Natalia wields her whip against a target for Attack*150%/165%/180%/195%/210% damage.",
+      "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500092.png"
+    },
+    {
+      "id": "500093",
+      "name": "Rage Response",
+      "mode": "exploration",
+      "description": "Only fools would dare anger Natalia or her furry companion. Natalia has a 10% chance of gaining a + 4%/6%/8%/10%/12% Attack boost for 3s upon taking damage (max 5 stacks).",
+      "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500093.png"
+    },
+    {
+      "id": "500095",
+      "name": "Feral Protection",
+      "mode": "expedition",
+      "description": "Natalia Commands the beasts to cover your troops, granting a 40% chance of reducing all troops' Damage Taken by 10%/20%/30%/40%/50%",
+      "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500095.png"
+    },
+    {
+      "id": "500094",
+      "name": "Queen of the Wild",
+      "mode": "expedition",
+      "description": "Natalia is a natural leader, increasing Attack by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500094.png"
+    },
+    {
+      "id": "500096",
+      "name": "Call of the Wild",
+      "mode": "expedition",
+      "description": "Natalia's unexplained connection with nature allows her to rally wild beast, increasing damage dealt by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500096.png"
+    }
+  ],
+  "talent": [
+    {
+      "id": null,
+      "name": "Ursus Strength",
+      "description": "Natalia exhibits the ferocity of a polar bear on the field, inspiring friendlies even in her absence, increasing all troops' Attack and Defense by 2%/4%/6%/8%/10%",
+      "icon": "../assets/heroes/ssr/s1/natalia/img/娜塔莉亚天赋.png"
+    }
+  ],
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 379,
+        "def": 495,
+        "health": 7425
+      },
+      "expedition": {
+        "lethality": "55.50%",
+        "health": "55.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Gale Force",
+      "power": 247500,
+      "image": "../assets/heroes/ssr/s1/natalia/img/equipment_icon_1050009.png",
+      "perks": [
+        {
+          "id": "500097",
+          "name": "Unity",
+          "level": 5,
+          "description": "Natalia and the Polar Bear are in perfect synchrony, increasing damage dealt by 30%. (maxed)",
+          "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500097.png"
+        },
+        {
+          "id": "500098",
+          "name": "Invincibles",
+          "level": 5,
+          "description": "Natalia summons a herd of beasts to join the rally, raising the rallying Troops' Lethality by 15%. (maxed)",
+          "icon": "../assets/heroes/ssr/s1/natalia/img/hero_skill_icon_500098.png"
+        }
+      ]
+    }
+  }
+}

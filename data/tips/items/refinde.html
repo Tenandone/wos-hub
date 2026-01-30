@@ -1,0 +1,365 @@
+<!-- /tips/refining-efficiency-table.html  (Single HTML: EN + KO + JA, auto-show by site language) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fire Crystal Refining Efficiency Table</title>
+
+  <style>
+    :root{
+      --fg:#0f172a;
+      --muted:rgba(15,23,42,.68);
+      --bd:rgba(15,23,42,.12);
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --soft:#f8fafc;
+      --pri:#2563eb;
+      --orange:#fb923c;
+      --shadow:0 10px 28px rgba(2,6,23,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+    }
+    .tip-page a{color:inherit}
+    .tip-wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:22px clamp(16px,4vw,28px) 70px;
+    }
+    .tip-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .tip-title{margin:0;font-size:22px;letter-spacing:-.2px;font-weight:900;line-height:1.25}
+    .tip-sub{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.6}
+
+    .tip-panel{
+      border:1px solid var(--bd);
+      border-radius:16px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      padding:16px 18px;
+    }
+
+    /* language blocks */
+    [data-lang]{display:none}
+    [data-lang].is-active{display:block}
+
+    /* table */
+    .table-wrap{overflow-x:auto}
+    table{
+      border-collapse:collapse;
+      width:100%;
+      font-size:12px;
+      min-width:760px;
+    }
+    th,td{
+      border:1px solid var(--bd);
+      padding:8px 10px;
+      vertical-align:top;
+    }
+    thead th{
+      background:color-mix(in srgb, var(--orange) 28%, white);
+      font-weight:900;
+      text-align:center;
+      white-space:nowrap;
+    }
+    td.center{text-align:center;white-space:nowrap}
+    td.left{text-align:left}
+    tr:hover td{background:color-mix(in srgb, var(--soft) 70%, white)}
+
+    /* mobile readability */
+    @media (max-width:640px){
+      .tip-panel{padding:14px}
+      th,td{padding:8px}
+    }
+
+    /* guard media blow-up */
+    .tip-page img,.tip-page svg{max-width:100%;height:auto}
+  </style>
+</head>
+
+<body class="tip-page">
+  <main class="tip-wrap">
+    <header class="tip-header">
+      <div>
+        <h1 class="tip-title" data-title="1">Fire Crystal Refining Efficiency Table</h1>
+        <p class="tip-sub" data-subtitle="1">Weekly cost vs. weekly refined crystals gained (EN/KO/JA in one HTML).</p>
+      </div>
+    </header>
+
+    <!-- EN -->
+    <section class="tip-panel" data-lang="en"
+      data-page-title="Fire Crystal Refining Efficiency Table"
+      data-page-subtitle="Weekly cost vs. weekly refined crystals gained.">
+      <div class="table-wrap">
+        <table aria-label="Fire Crystal Refining Efficiency Table (EN)">
+          <thead>
+            <tr>
+              <th>Refining Plan</th>
+              <th>Weekly Fire Crystal Cost</th>
+              <th>Weekly Refined Fire Crystals Gained</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">Refine once per day (daily only)</td>
+              <td class="center">70</td>
+              <td class="center">10.15</td>
+            </tr>
+            <tr>
+              <td class="left">14 times on Monday, then once per day (20 times/week)</td>
+              <td class="center">330</td>
+              <td class="center">29.00</td>
+            </tr>
+            <tr>
+              <td class="left">20 times on Monday, then once per day (26 times/week)</td>
+              <td class="center">540</td>
+              <td class="center">41.90</td>
+            </tr>
+            <tr>
+              <td class="left">34 times on Monday, then once per day (40 times/week)</td>
+              <td class="center">1,240</td>
+              <td class="center">72.00</td>
+            </tr>
+            <tr>
+              <td class="left">40 times on Monday, then once per day (46 times/week)</td>
+              <td class="center">1,690</td>
+              <td class="center">91.08</td>
+            </tr>
+            <tr>
+              <td class="left">54 times on Monday, then once per day (60 times/week)</td>
+              <td class="center">3,090</td>
+              <td class="center">135.60</td>
+            </tr>
+            <tr>
+              <td class="left">60 times on Monday, then once per day (66 times/week)</td>
+              <td class="center">3,700</td>
+              <td class="center">156.60</td>
+            </tr>
+            <tr>
+              <td class="left">74 times on Monday, then once per day (80 times/week)</td>
+              <td class="center">5,600</td>
+              <td class="center">204.60</td>
+            </tr>
+            <tr>
+              <td class="left">80 times on Monday, then once per day (86 times/week)</td>
+              <td class="center">6,470</td>
+              <td class="center">226.56</td>
+            </tr>
+            <tr>
+              <td class="left">94 times on Monday, then once per day (100 times/week)</td>
+              <td class="center">8,710</td>
+              <td class="center">278.50</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- KO -->
+    <section class="tip-panel" data-lang="ko"
+      data-page-title="불수정 정제 효율 표"
+      data-page-subtitle="주간 비용 대비 주간 정제 불수정 획득량.">
+      <div class="table-wrap">
+        <table aria-label="불수정 정제 효율 표 (KO)">
+          <thead>
+            <tr>
+              <th>정제 플랜</th>
+              <th>주간 불수정 소모</th>
+              <th>주간 정제 불수정 획득</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">하루 1회 정제 (일일만)</td>
+              <td class="center">70</td>
+              <td class="center">10.15</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 14회 + 이후 하루 1회 (주 20회)</td>
+              <td class="center">330</td>
+              <td class="center">29.00</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 20회 + 이후 하루 1회 (주 26회)</td>
+              <td class="center">540</td>
+              <td class="center">41.90</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 34회 + 이후 하루 1회 (주 40회)</td>
+              <td class="center">1,240</td>
+              <td class="center">72.00</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 40회 + 이후 하루 1회 (주 46회)</td>
+              <td class="center">1,690</td>
+              <td class="center">91.08</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 54회 + 이후 하루 1회 (주 60회)</td>
+              <td class="center">3,090</td>
+              <td class="center">135.60</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 60회 + 이후 하루 1회 (주 66회)</td>
+              <td class="center">3,700</td>
+              <td class="center">156.60</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 74회 + 이후 하루 1회 (주 80회)</td>
+              <td class="center">5,600</td>
+              <td class="center">204.60</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 80회 + 이후 하루 1회 (주 86회)</td>
+              <td class="center">6,470</td>
+              <td class="center">226.56</td>
+            </tr>
+            <tr>
+              <td class="left">월요일 94회 + 이후 하루 1회 (주 100회)</td>
+              <td class="center">8,710</td>
+              <td class="center">278.50</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- JA -->
+    <section class="tip-panel" data-lang="ja"
+      data-page-title="火晶 精製 効率表"
+      data-page-subtitle="週あたりの消費と、週あたりの精製火晶の獲得量。">
+      <div class="table-wrap">
+        <table aria-label="火晶 精製 効率表 (JA)">
+          <thead>
+            <tr>
+              <th>精製プラン</th>
+              <th>週あたりの火晶消費</th>
+              <th>週あたりの精製火晶獲得</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">毎日1回のみ（週7回）</td>
+              <td class="center">70</td>
+              <td class="center">10.15</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に14回＋以降は毎日1回（週20回）</td>
+              <td class="center">330</td>
+              <td class="center">29.00</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に20回＋以降は毎日1回（週26回）</td>
+              <td class="center">540</td>
+              <td class="center">41.90</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に34回＋以降は毎日1回（週40回）</td>
+              <td class="center">1,240</td>
+              <td class="center">72.00</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に40回＋以降は毎日1回（週46回）</td>
+              <td class="center">1,690</td>
+              <td class="center">91.08</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に54回＋以降は毎日1回（週60回）</td>
+              <td class="center">3,090</td>
+              <td class="center">135.60</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に60回＋以降は毎日1回（週66回）</td>
+              <td class="center">3,700</td>
+              <td class="center">156.60</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に74回＋以降は毎日1回（週80回）</td>
+              <td class="center">5,600</td>
+              <td class="center">204.60</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に80回＋以降は毎日1回（週86回）</td>
+              <td class="center">6,470</td>
+              <td class="center">226.56</td>
+            </tr>
+            <tr>
+              <td class="left">月曜に94回＋以降は毎日1回（週100回）</td>
+              <td class="center">8,710</td>
+              <td class="center">278.50</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      function pickLang(v) {
+        v = String(v || "").toLowerCase();
+        if (v === "ko" || v === "ja" || v === "en") return v;
+        if (v.startsWith("ko")) return "ko";
+        if (v.startsWith("ja")) return "ja";
+        if (v.startsWith("en")) return "en";
+        return "en";
+      }
+
+      function getSiteLang() {
+        try {
+          if (window.WOS_I18N && typeof window.WOS_I18N.getLang === "function") {
+            return pickLang(window.WOS_I18N.getLang());
+          }
+        } catch (_) {}
+
+        try {
+          var htmlLang = document.documentElement.getAttribute("lang");
+          if (htmlLang) return pickLang(htmlLang);
+        } catch (_) {}
+
+        try {
+          var ls = localStorage.getItem("lang") || localStorage.getItem("locale") || "";
+          if (ls) return pickLang(ls);
+        } catch (_) {}
+
+        try {
+          return pickLang((navigator.language || navigator.userLanguage || "en"));
+        } catch (_) {
+          return "en";
+        }
+      }
+
+      function applyLang(lang) {
+        var blocks = document.querySelectorAll("[data-lang]");
+        blocks.forEach(function (el) {
+          el.classList.toggle("is-active", el.getAttribute("data-lang") === lang);
+        });
+
+        document.documentElement.setAttribute("lang", lang);
+
+        var active = document.querySelector('[data-lang].is-active');
+        if (active) {
+          var pageTitle = active.getAttribute("data-page-title") || "";
+          var pageSub = active.getAttribute("data-page-subtitle") || "";
+          var h1 = document.querySelector("[data-title='1']");
+          var sub = document.querySelector("[data-subtitle='1']");
+          if (h1 && pageTitle) h1.textContent = pageTitle;
+          if (sub && pageSub) sub.textContent = pageSub;
+          if (pageTitle) document.title = pageTitle;
+        }
+      }
+
+      applyLang(getSiteLang());
+      window.addEventListener("wos:langchange", function () {
+        applyLang(getSiteLang());
+      });
+    })();
+  </script>
+</body>
+</html>

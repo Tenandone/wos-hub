@@ -1,0 +1,106 @@
+{
+  "slug": "vulcanus",
+  "name": "Vulcanus",
+  "rarity": "SSR",
+  "gen": 13,
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s13/vulcanus/img/vulcanus.png",
+  "story": "Grim-faced Vulcanus is a harsh man. Harsh-mouthed, cold-eyed, bad-tempered and liable to dark moods.\nVulcanus is tough and so he should be. As one of the chief leaders of an undercity where survival is a daily battle, Vulcanus has to embody the ideal of a ruler who is both terrifying and yet not unjust, cunning and yet not paranoid, and violent but only against enemies.\n\nVulcanus is not just a political warrior and commander—the man is extremely proficient with a heavy crossbow and an expert in siege equipment. Vulcanus customized his own weapon to fire arrows with such force as to strike fear into even the most heavily armored enemy.\n\nVulcanus comes from a long line of pioneers. The pioneers of old decided that the best solution to freezing surface temperatures was to go low.\n\nThe great mystery of the Forbidden Zone attracts adventurers throughout the land like moths to a flame. Vulcanus too is biding his time, waiting for the right moment to expel the arrogant interlopers from this sacred land.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 25998,
+      "defense": 21400,
+      "health": 160506
+    },
+    "expedition": {
+      "attack_percent": "1621.29%",
+      "defense_percent": "1621.29%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500521",
+      "name": "Siege Bolts",
+      "mode": "exploration",
+      "description": "Vulcanus rips a Barricade to shreds with three heavy bolts, dealing Attack*200%/220%/240%/260%/280% damage and inflicting Bleed.",
+      "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500521.png"
+    },
+    {
+      "id": "500522",
+      "name": "Chainlinked",
+      "mode": "exploration",
+      "description": "Vulcanus targets an enemy hero with a chained dart, dealing Attack*100%/110%/120%/130%/140% damage and stunning the target for 2s.",
+      "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500522.png"
+    },
+    {
+      "id": "500523",
+      "name": "Fire of Hope",
+      "mode": "exploration",
+      "description": "Increases Escorts' Attack and Defense by 10%/15%/20%/25%/30%.",
+      "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500523.png"
+    },
+    {
+      "id": "500524",
+      "name": "Raging Storm",
+      "mode": "expedition",
+      "description": "Reduces all enemy troops' Attack by 4%/8%/12%/16%/20%.",
+      "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500524.png"
+    },
+    {
+      "id": "500525",
+      "name": "Breaker Steel",
+      "mode": "expedition",
+      "description": "All troops deal extra damage every 5 attacks and increase damage taken by the target.",
+      "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500525.png"
+    },
+    {
+      "id": "500526",
+      "name": "True Strike",
+      "mode": "expedition",
+      "description": "Reduces enemy Infantry and Lancer Defense and increases Marksmen Attack.",
+      "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500526.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 5263,
+        "def": 4338,
+        "health": 32535
+      },
+      "expedition": {
+        "lethality": "405.00%",
+        "health": "405.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Doom Sigil",
+      "power": 2169000,
+      "image": "../assets/heroes/ssr/s13/vulcanus/img/equipment_icon_1050052.png",
+      "perks": [
+        {
+          "id": "500527",
+          "name": "Laceration",
+          "level": 5,
+          "description": "Inflicts Bleed on all targets. Bleed deals Attack*20% damage every 0.5s for 3s.",
+          "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500527.png"
+        },
+        {
+          "id": "500528",
+          "name": "Born King",
+          "level": 5,
+          "description": "Increases Rally Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s13/vulcanus/img/hero_skill_icon_500528.png"
+        }
+      ]
+    }
+  }
+}

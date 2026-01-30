@@ -1,0 +1,105 @@
+{
+  "slug": "fred",
+  "name": "Fred",
+  "rarity": "SSR",
+  "season": 9,
+  "gen": 9,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s9/fred/img/fred.jpg",
+  "story": "\"Show me the fire. I'll deal with the heat!\"\n\nFred has been a dependable fixture of the City's fire brigade for what seems like centuries, first to wade into the fiery maelstrom, last to surrender survivors' dwellings to the flames. Many years of service have built up a strong sense of gratitude on behalf of grateful survivors for his efforts.\n\nA Fire Chief has to be smart too. Fred hasn't survived this long without building up an uncanny understanding of unusual scenarios and a sixth sense for risk. This is surely why the last great engineers of the Solaris Dynasty gifted Fred with the so-called \"Antifire\", an extremely advanced and powerful piece of firefighting equipment the likes of which has never been seen since.\n\nStrip away all the oldworld heroics and Fred consistently models a strong sense of humility and kindness, endearing him to his fervent fans everywhere—particularly in the Dawn Alliance. If Fred has a fault, an extremely minor one, it is that the man simply doesn't have much of a sense of humor (or, for that matter, the ability to detect sarcasm). To quote Bahiti on this topic: \"Fred's the nearest I've ever seen to a perfect human being. If only he could lighten up a little...\"\n\nFred would not claim to be perfect. Many decades ago, when the world was a very different place, Fred was already well-known in the Solaris Capital as the city's youngest ever and most successful fire chief. It was in fact on the eve of a ceremony celebrating Fred's achievements, with the anointing of a great bronze figurine in his honor at the Fire Bureau's gates, when disaster struck! The great Fire Crystal at the heart of the capital, powering much of its industry, ignited into an enormous explosion that rocked the city. Fred's failures that night have become an eternal weight on his conscience.\n\nFred has had plenty of time to ponder the collapse of the Empire in the years following. Had he been but a noble cog in its unfeeling machine, blinded by devotion? Which, once the pomp and majesty were removed, was covered by the scars of suffering and injustice? Fred has learned to accept that for all the faults of the new world, cities today do not have to maintain themselves at such a vast human cost.\n\nIt was the arrival of the Dawn Alliance that ultimately filled Fred's heart with the hope missing since the Great Collapse. Now he is devoted not only to the extinguishing of harmful fires, but to that much deadlier fire: the fire of war, which threatens all of humanity.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 10300,
+      "defense": 10300,
+      "health": 103008
+    },
+    "expedition": {
+      "attack_percent": "940.75%",
+      "defense_percent": "940.75%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel"
+  ],
+  "skills": [
+    {
+      "id": "500391",
+      "name": "Acid Rain",
+      "mode": "exploration",
+      "description": "Fred rains down his special acidic formulation on the target area, dealing Attack*60%/66%/72%/78%/84% damage every 0.5 seconds while increasing targets' damage taken by 15% for 3 seconds.",
+      "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500391.png"
+    },
+    {
+      "id": "500392",
+      "name": "Water Cannon",
+      "mode": "exploration",
+      "description": "Fred water-blasts the target, rinsing away their combat bonuses while dealing damage equal to Attack*200%/220%/240%/260%/280%.",
+      "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500392.png"
+    },
+    {
+      "id": "500393",
+      "name": "Perfect Responder",
+      "mode": "exploration",
+      "description": "Fred performs better under extreme stress, increasing Attack by 8%/12%/16%/20%/24% and Defense by 25%/37.5%/50%/62.5%/75% when under 50% Health.",
+      "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500393.png"
+    },
+    {
+      "id": "500394",
+      "name": "Hydraulic Suppression",
+      "mode": "expedition",
+      "description": "Fred's water volleys destroy opponent momentum, reducing all enemy troops’ lethality by 4%/8%/12%/16%/20%.",
+      "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500394.png"
+    },
+    {
+      "id": "500395",
+      "name": "Acidification",
+      "mode": "expedition",
+      "description": "Fred coats enemy Infantry shields with a special acidic blend, amplifying their damage taken by 4%/8%/12%/16%/20%.",
+      "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500395.png"
+    },
+    {
+      "id": "500396",
+      "name": "Floodbringer",
+      "mode": "expedition",
+      "description": "A master of pressure both hydraulic and tactical, Fred's Lancers deal 40%/80%/120%/160%/200% additional damage every 4 strikes and reduce enemy troop damage dealt by 4%/8%/12%/16%/20% on the next turn.",
+      "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500396.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 2088,
+        "def": 2088,
+        "health": 20880
+      },
+      "expedition": {
+        "lethality": "232%",
+        "health": "232%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Blazebearer",
+      "power": 1044000,
+      "image": "../assets/heroes/ssr/s9/fred/img/equipment_icon_1050039.png",
+      "perks": [
+        {
+          "id": "500397",
+          "name": "Idealism",
+          "level": 5,
+          "description": "The noble idealism of Fred's calling increases his attack by 24%, and increases his Defense by 10% for each bonus dispelled until the end of battle (max 5 stacks).",
+          "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500397.png"
+        },
+        {
+          "id": "500398",
+          "name": "Call of the Firefighter",
+          "level": 5,
+          "description": "Few troops can remain unmoved by Fred's remarkable heroics, increasing Rally Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s9/fred/img/hero_skill_icon_500398.png"
+        }
+      ]
+    }
+  }
+}

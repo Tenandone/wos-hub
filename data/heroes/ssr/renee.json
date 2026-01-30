@@ -1,0 +1,105 @@
+{
+  "slug": "renee",
+  "name": "Renee",
+  "rarity": "SSR",
+  "season": 6,
+  "gen": 6,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s6/renee/img/rene.png",
+  "story": "The wandering caravan attracts attention wherever it goes. Mia's fortune-telling mesmerizes the adults,and Renee the clown is a favorite with children with her juggling and magic tricks. Renee also prefers spending time with children.\nAlthough Renee has a mind with thoughts that jump around too much for people to follow, she has an incredibly relatable personality and can easily makepeople open up their hearts to her. In addition, her performances also seem to have magic that can healthe soul, and make gloomy and hurt souls find joy again.\n\nHowever, like the other members of the caravan,Renee has secrets of her own too. No one knows what's hidden behind that mask covered with paints\n\nOnce, Mia's caravan was attacked by a group of bandits but they cried and ran screaming after seeing Renee's face.\n\nBecause of this, all sorts of rumors spread about Renee's face. Some curious people sneaked into the tent set up by the caravan to have a look at Renee's terrifying face, but there was nobody in there. They turned back and were about to make their escape when they ran into Renee, who was returning. Unprepared, the intruders fell to the floor in fright, peeking between their fingers at Renee whose ghastly face was... not ghastly at all, but kind and friendly. They were not hurt due to their reckless actions either.\n\nIt was not a ghastly face that had scared off those bandits, but a potion that made people fall inton ightmares called \"Dream Mold\" that Renee uses to fight and to defend herself.\n\nRenee has some immunity to these substances due to long term exposure to unstable Fire Crystals as a victim of an evil experiment, where her mind had been damaged. As Philly said, \"No one can make someone who's already insane go mad after all.\"Renee is not sad about her state, since she sees the world as a fairytale kingdom full of rainbows and lush green nature. Her companions are animals and elves, and those with ill-intent are transformed into evil magical creatures. In Renee's view, she is in a wonderful land fighting bad monsters that want to disturb the peace.\n\nLong ago, Renee was a resident of the lost city of Arcadia. As a researcher, she worked towards finding a way to communicate with the will of the world with Fire Crystals, and to uncover the truth of why the world had changed.\n\nRenee was captured when Phaethon sacked Arcadia, and forced to forcibly connect with the world's will, though her research was not yet perfected. Her will was assaulted horribly and destroyed in the process of coming into contact with a large number of unstable Fire Crystals, and her mind shattered completely. As her last shred of sanity was shed, unimaginable strength burst from her, and she broke free from Phaethon's clutches.She was the only living person left in the huge laboratory when she was discovered by others.From that moment on, \"the world she sees\" included the melting of ice and snow.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 5926,
+      "defense": 5926,
+      "health": 59274
+    },
+    "expedition": {
+      "attack_percent": "540.43%",
+      "defense_percent": "540.43%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel"
+  ],
+  "skills": [
+    {
+      "id": "500301",
+      "name": "Illusion Cloud",
+      "mode": "exploration",
+      "description": "Renee's colorful ball explodes and release a strage cloud, dealing Attack 100%/110%/120%/130%/140% Area of Effect damage to ennemies and confuse them for 1s. Confused ennemies attacks all surrounding targets, friend and foe.",
+      "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500301.png"
+    },
+    {
+      "id": "500302",
+      "name": "Starpaint",
+      "mode": "exploration",
+      "description": "Renee splashes dreamy paint, dealing Attack 50%/55%/60%/65%/70% damage to targets and placing a Star Mark target's damage taken by 2%/3%/4%/5%/6% for 4s.",
+      "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500302.png"
+    },
+    {
+      "id": "500303",
+      "name": "Dream Vision",
+      "mode": "exploration",
+      "description": "Renee's targets painted with a Star Mark cannot escape her detection, incresaing her Attack by 8%/12%/16%/20%/24%, increasing damage dealt to marked targets by 4%/6%/8%/10%/12%.",
+      "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500303.png"
+    },
+    {
+      "id": "500304",
+      "name": "Nightmare Trace",
+      "mode": "expedition",
+      "description": "Renee always fights in unbelievable ways. The troops she commands can place Dream Marks on their targets every two turns, dealing extra 40%/80%/120%/160%/200% Lancer Damage once next turn. The Dream Marks last for 1 turns.",
+      "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500304.png"
+    },
+    {
+      "id": "500305",
+      "name": "Dreamcatcher",
+      "mode": "expedition",
+      "description": "Renee's Dreams Marks highilght ennemy vulnerabilities, incresing her troop's damage to marked targets by 30%/60%/90%/120%/150%.",
+      "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500305.png"
+    },
+    {
+      "id": "500306",
+      "name": "Dreamslice",
+      "mode": "expedition",
+      "description": "Renee's Dream Marks expose ennemy weaknesses, increasing damage dealt to marked targets by 15%/30%/45%/60%/75% for all troops.",
+      "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500306.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 1201,
+        "def": 1201,
+        "health": 12015
+      },
+      "expedition": {
+        "lethality": "133.50%",
+        "health": "133.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Illusion Magiball",
+      "power": 600750,
+      "image": "../assets/heroes/ssr/s6/renee/img/equipment_icon_1050030.png",
+      "perks": [
+        {
+          "id": "500307",
+          "name": "Dream Illusion",
+          "level": 5,
+          "description": "Renee attacks with drugged needles, granting attacks a 8% chance of confusing the target for 1s. Confused ennemies attacks all surrounding targets, friend and foe.",
+          "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500307.png"
+        },
+        {
+          "id": "500308",
+          "name": "Wistful Enchantment",
+          "level": 5,
+          "description": "Renee boosts morale with her extraordinay talents, incresaing Rally Troops' Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s6/renee/img/hero_skill_icon_500308.png"
+        }
+      ]
+    }
+  }
+}

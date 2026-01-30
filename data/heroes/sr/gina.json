@@ -1,0 +1,61 @@
+{
+  "slug": "gina",
+  "name": "Gina",
+  "rarity": "SR",
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "/assets/heroes/sr/gina/img/gina.png",
+  "stats": {
+    "exploration": {
+      "attack": 2157,
+      "defense": 2220,
+      "health": 13320
+    },
+    "expedition": {
+      "attack_percent": "110.08%",
+      "defense_percent": "110.08%"
+    }
+  },
+  "sources": [
+    "Gina's Revenge"
+  ],
+  "skills": [
+    {
+      "id": "hero_skill_icon_500081",
+      "name": "Incendiary Arrow",
+      "mode": "exploration",
+      "description": "Gina’s Incendiary Shot deals Attack*210%/230%/250%/270%/290% damage to an enemy target as well as Attack*70%/77%/84%/91%/98% damage to others nearby.",
+      "icon": "/assets/heroes/sr/gina/img/hero_skill_icon_500081.png"
+    },
+    {
+      "id": "hero_skill_icon_500082",
+      "name": "Windtalker",
+      "mode": "exploration",
+      "description": "Gina improves the design of her crossbow, increasing Attack Speed by 10%/15%/20%/25%/30%.",
+      "icon": "/assets/heroes/sr/gina/img/hero_skill_icon_500082.png"
+    },
+    {
+      "id": "hero_skill_icon_500083",
+      "name": "Eagle Eyes",
+      "mode": "exploration",
+      "description": "Gina can quickly latch onto an enemy's weakness, increasing Crit Rate by 7%/10%/13%/16%/20%.",
+      "icon": "/assets/heroes/sr/gina/img/hero_skill_icon_500083.png"
+    },
+    {
+      "id": "hero_skill_icon_500084",
+      "name": "Endurance Training",
+      "mode": "expedition",
+      "description": "Gina's strict Governor training regimen can be counted upon to reduce Stamina cost by 10%/12%/15%/18%/20%.",
+      "icon": "/assets/heroes/sr/gina/img/hero_skill_icon_500084.png"
+    },
+    {
+      "id": "hero_skill_icon_500085",
+      "name": "Quick Paced",
+      "mode": "expedition",
+      "description": "Gina is a fast and aggressive wilderness rider, boosting Wilderness March Speed by 20%/40%/60%/80%/100%.",
+      "icon": "/assets/heroes/sr/gina/img/hero_skill_icon_500085.png"
+    }
+  ],
+  "storyHtml": "<p>Curt, tight-lipped, reserved - all these traits make Gina one of the least approachable survivors of the City. Of course, being the leader of a fearsome band of mercenaries probably has a lot to do with that as well.</p><p>\"You'd better pray she stays on our side because she would make one hell of an enemy\" is what Sergey says about her. Gina's tactics are ruthless, her bow skills are legendary, and her explosive arrows strike fear into the hearts of enemies. Gina is also an extremely aggressive commander that deploys \"guerilla-style\" strategies, launching attacks from multiple fronts to ensure maximum enemy confusion.</p><p>Mercenaries generally have a bad reputation in Cities. They are often loud, obnoxious, and take whatever that pleases them (even from clients). Mercenaries represent a two-edged sword for Cities without military defenses. However, Gina's Eagles are different. They have the same rigorous standards as an elite military group. Many crews are orphans, and some were even rescued by Gina herself. Gina’s motto is ingrained in every member of the group: \"Discipline is strength\".</p><p>Gina had a very negative experience early in her career. It was an inter-City war. After she helped the winning Chief secure victory, Gina saw the fallen City's survivors being put to the sword. Gina kept telling herself they were merely performing a contract, but the war crimes had caused much self-doubt. Since then, the group never raised their swords against innocent survivors.</p><p>Gina is a hard-nosed mercenary, but she also has a softer side. Patrick once talked about her love of sweet desserts and cute plush toys, and Gina had to teach him a lesson on confidentiality afterward.</p>",
+  "description": null
+}

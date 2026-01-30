@@ -1,0 +1,110 @@
+{
+  "slug": "sonya",
+  "name": "Sonya",
+  "rarity": "SSR",
+  "season": 8,
+  "gen": 8,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s8/sonya/img/sonya.png",
+  "story": "Sonya is the chief engineer on The Neptune, a submarine. Despite only joining the crew a few years ago, she has risen as a queen-like presence on the submarine. The rundown vessel is spared from frequent breakdowns, thanks to her exceptional skills.\n\nJust like the captain, Sonya longs to find the \"Sunken Nation\", but she is only interested in the treasure. Some are surprised by her belief in the elusive legend, given how rational and wise she is. The truth is, Sonya had already secured clues leading to the underwater nation from various ancient ruins around the world even before joining The Neptune. She believes she will find her long-desired treasure with her wisdom and Hendrik's vessel.\n\nInitially, Sonya boarded The Neptune as a prisoner. When Captain Hendrik realized she could let herself free using her skills and intelligence, and no one could stop her, he simply allowed her to roam freely on the vessel.\n\nEveryone knows that Sonya and Hendrik are merely using each other. Once there is a conflict of interests, they will turn against each other. At least for now, their \"partnership\" has been going well. The crew members find Sonya intimidating not only because of her physical prowess but also because she knows everyone's secrets and weaknesses and how to exploit them.\n\nSonya's desire for wealth stems from her past. As a distant relative of the old kingdom's royal family, she used to live an extravagant life but lost everything on the day Sunfire Castle fell. Years of homelessness and destitution gave her a hard time and stripped her of dignity. Although she has gradually mastered the law of survival in the icy post-apocalyptic world, she finds herself increasingly convinced that money is the sole path to redemption and the ultimate truth! Hence, she spares no effort in seeking the opportunities to get rich.\n\nHer outstanding knowledge and combat skills gained during her time as a wanderer drew invitations from the Dawn Alliance, the mercenaries, and even the Phaethon. However, she was not satisfied with the \"meager\" pay they offered, so she focused all her attention on the treasures across the world instead.\n\nDuring her treasure hunt, she stumbled upon clues regarding a \"Sunken Nation.\" She intentionally got herself captured by Captain Hendrik, as she needed his expensive vessel to locate the mysterious realm hidden underwater. She believes that once she discovers the lost treasure, she will become the wealthiest person in the entire tundra. She will then rebuild the kingdom of Solaris and crown herself as the new queen.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 8568,
+      "defense": 8568,
+      "health": 85692
+    },
+    "expedition": {
+      "attack_percent": "780.62%",
+      "defense_percent": "780.62%"
+    }
+  },
+  "sources": [
+    "Hall of Chiefs",
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Hero Rally",
+    "Mythic General Hero Shard"
+  ],
+  "skills": [
+    {
+      "id": "500351",
+      "name": "Extreme Cold",
+      "mode": "exploration",
+      "description": "Sonya shoots jets of cryogen, freezing a target for 1.5s and dealing Attack*220%/240%/260%/280%/300% Area of Effect Damage to the target and nearby enemies.",
+      "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500351.png"
+    },
+    {
+      "id": "500352",
+      "name": "Frozen Bomb",
+      "mode": "exploration",
+      "description": "Sonya fires a frozen bomb, dealing Attack*100%/110%/120%/130%/140% damage to an enemy and reducing the Attack Speed of nearby enemies by 50% for 3s.",
+      "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500352.png"
+    },
+    {
+      "id": "500353",
+      "name": "Money-Hungry",
+      "mode": "exploration",
+      "description": "Sonya’s burning desire for bounty propels her into a frenzied state on the battlefield, increasing her Attack by 10%/15%/20%/25%/30%.",
+      "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500353.png"
+    },
+    {
+      "id": "500354",
+      "name": "Treasure Hunter",
+      "mode": "expedition",
+      "description": "“Everyone has a share when the legendary ocean treasure is found!” Sonya’s promise inspires everyone, increasing Damage by 4%/8%/12%/16%/20% for all troops.",
+      "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500354.png"
+    },
+    {
+      "id": "500355",
+      "name": "Bounty Temptation",
+      "mode": "expedition",
+      "description": "Sonya motivates her Troops with bounty, making her Lancers deal 15%/30%/45%/60%/75% more damage every 2 attacks and increasing Attack by 5%/10%/15%/20%/25% for all troops for 1 turn.",
+      "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500355.png"
+    },
+    {
+      "id": "500356",
+      "name": "Torrential Impact",
+      "mode": "expedition",
+      "description": "Sonya’s Lancers will seize every chance to launch a surprise raid like underwater currents. Her Lancers deal 50%/100%/150%/200%/250% damage every 5 turns and stun the target for 1 turn.",
+      "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500356.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 1737,
+        "def": 1737,
+        "health": 17370
+      },
+      "expedition": {
+        "lethality": "193.00%",
+        "health": "193.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Mangrove Frog",
+      "power": 868500,
+      "image": "../assets/heroes/ssr/s8/sonya/img/equipment_icon_1050035.png",
+      "perks": [
+        {
+          "id": "500357",
+          "name": "Chilled to the Bone",
+          "level": 5,
+          "description": "Sonya improves the formula of her cryogen, increasing her Attack by 24%. When the freezing effect of Extreme Cold ends, shattered ice will deal Attack*70% Damage to nearby enemies.",
+          "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500357.png"
+        },
+        {
+          "id": "500358",
+          "name": "Vortex Turret",
+          "level": 5,
+          "description": "Sonya sets up turrets that spurt out streams of water, increasing Defender Troops Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s8/sonya/img/hero_skill_icon_500358.png"
+        }
+      ]
+    }
+  }
+}

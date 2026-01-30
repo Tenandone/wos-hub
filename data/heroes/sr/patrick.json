@@ -1,0 +1,62 @@
+{
+  "slug": "patrick",
+  "name": "Patrick",
+  "rarity": "SR",
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "/assets/heroes/sr/patrick/img/patrick.png",
+  "stats": {
+    "exploration": {
+      "attack": 1776,
+      "defense": 2220,
+      "health": 17760
+    },
+    "expedition": {
+      "attack_percent": "140.11%",
+      "defense_percent": "140.11%"
+    }
+  },
+  "sources": [
+    "Lighthouse Intel",
+    "Hero Recruitment"
+  ],
+  "skills": [
+    {
+      "id": "hero_skill_icon_500051",
+      "name": "BBQ Feast",
+      "mode": "exploration",
+      "description": "Patrick prepares a lavish feast, restoring Health by Attack*200%/220%/240%/260%/280% to all troops and increasing Attack by 5%/5.5%/6%/6.5%/7% for all troops for 4s.",
+      "icon": "/assets/heroes/sr/patrick/img/hero_skill_icon_500051.png"
+    },
+    {
+      "id": "hero_skill_icon_500052",
+      "name": "Thick Belly",
+      "mode": "exploration",
+      "description": "Patrick's protective blubber reduces damage taken by 10%/15%/20%/25%/30%.",
+      "icon": "/assets/heroes/sr/patrick/img/hero_skill_icon_500052.png"
+    },
+    {
+      "id": "hero_skill_icon_500053",
+      "name": "Emergency Snack",
+      "mode": "exploration",
+      "description": "Patrick's regular snacking restores Health equal to Attack*50%/55%/60%/65%/70% every 5s.",
+      "icon": "/assets/heroes/sr/patrick/img/hero_skill_icon_500053.png"
+    },
+    {
+      "id": "hero_skill_icon_500054",
+      "name": "Super Nutrients",
+      "mode": "expedition",
+      "description": "Patrick's culinary masterpieces invigorate our troops, increasing Health by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "/assets/heroes/sr/patrick/img/hero_skill_icon_500054.png"
+    },
+    {
+      "id": "hero_skill_icon_500055",
+      "name": "Caloric Booster",
+      "mode": "expedition",
+      "description": "Patrick's gourmet meals motivate and unleash the potential of our soldiers, increasing Attack by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "/assets/heroes/sr/patrick/img/hero_skill_icon_500055.png"
+    }
+  ],
+  "storyHtml": "<p>\"Who cares if the world's turned to ice? At least our diners can reach heaven!\" - Patrick.\\n Masterchef Patrick of Sunfire Castle has always believed nice food helps to uplift the spirit. He has spent most of his life developing, researching, and cooking the best dishes in the world. He has earned recognition from the President and local nobles of all stripes.<br />\n<br />\nPatrick's life was turned upside down by the collapse of the Solaris Royal Family. Though he was no longer the Masterchef, life still has to go on. In the Cities, he no longer had access to the royal pantry and had to scramble for ingredients and condiments. Many still remark on his inventive cuisine as comparable to the finest in the old world.<br />\n<br />\nOccasionally, Patrick's skills are also needed in battle. Pantry thieves and resource hunt have made combat a necessity. To many\u2019s surprise, Patrick is a descent fighter. Not only does he possess a lifetime's worth of experience handling all kinds of knives, he also has the strength and stamina to use them quite efficiently. The busy kitchen has honed his intuition that can be easily applied to other \"dynamic\" situations.<br />\n<br />\nThis is not to say the renowned Masterchef Patrick never gets it wrong. Necessity is the mother of invention, and much inventiveness is needed in Cities. Anyone sampling his newest creations should be cautious - new ingredients can be tricky even for a seasoned chef like Patrick. Bahiti can particularly attest to this.<br />\n<br />\nPatrick has taken the loss of his position at Sunfire Castle fairly well, all things considered. The low point was when he and several other public servants were trapped in a makeshift shelter following the collapse of Sunfire Castle. After a while, the supply ran low and everyone thought they were doomed. <br />\n<br />\nPatrick went to great effort to ensure the group's \"last meal\" would at least be a happy one. But despair soon gave way to warmth as the delicious food soothed their earlier exhaustion. The group outlasted the snowstorm and arrived together at a new shelter - in no small part thanks to that meal, which was the most meaningful moment of Patrick's career.</p>",
+  "description": null
+}

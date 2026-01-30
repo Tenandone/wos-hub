@@ -1,0 +1,108 @@
+{
+  "slug": "norah",
+  "name": "Norah",
+  "rarity": "SSR",
+  "season": 5,
+  "gen": 5,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s5/norah/img/norah.png",
+  "story": "Norah's three defining qualities must be her remarkable courage, leadership of a light mechanized brigade, and identity as one of very few truly exceptional leaders in the Dawn Alliance.Norah and her brigade often penetrate deep into enemy territory with the speed of an arrow,undertaking reconnaissance missions, strikes, and rescue operations. And the combination of Norah's tactical brilliance, timing on the battlefield, and weapons expertise makes her an absolute nightmare for Phaethon.Norah's exceptional calmness under pressure and decisive demeanor impress even the most seasoned soldiers-even against near-insurmountable odds. If anything could possibly disturb Norah's resolve, it must be fears for her younger sister Gwen's safety.\n\nNorah may have been part of the same training cohort as Bahiti at the Academy, but the two could not be more different. Unlike Bahiti, Norah is a a master battlefield commander and tactician with little interest in anything unrelated to the intricacies of fighting since her scientist father's tragic fate.Norah has developed the firm belief no amount of knowledge can compare to what truly matters:safeguarding those she holds dear.\n\nNorah was only a child when she spotted Phaethon's columns advancing toward her father's laboratory.All her father's brilliance, his vast wealth of knowledge, proved powerless in saving him from the dreadful fate that followed. Norah stood resolute by her father's side, receiving his final testament and instructions on how to flee, all while her baby sister Gwen remained cradled in swaddling clothes. With aheavy heart, Norah carried Gwen to their father's steam-powered sled and escaped with the great\ndriving skills he had carefully fostered.Eventually, she stopped to look back at the lab. All she could see was rising smoke.\n\nNorah and her sister were rescued by her father's colleagues at the Dawn Alliance. This encounter ignited a burning hatred for Phaethon, an unyielding dedication to her younger sister, and zeal for the path of the warrior-soldier within Norah.In the course of time Norah's younger sister has become something of a weak spot in Norah's rigid life-or perhaps Norah's only soft spot. Unlike Norah, Gwen showed extraordinary talent as an inventor, a challenge for Norah who would have preferred Gwen to focus more on ordinary combat skills. Yet Norah could not bring herself to spar against Gwen even in a controlled setting, the thought of an accident and fresh grief too much to bear. Yet Norah has since grown to value Gwen's ingenuity on the battlefield, especially when rescuing fellow soldiers.And over time Norah has gradually come to terms with the reality that Gwen has found her own strong and independent footing.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 4928,
+      "defense": 4928,
+      "health": 49284
+    },
+    "expedition": {
+      "attack_percent": "444.35%",
+      "defense_percent": "444.35%"
+    }
+  },
+  "sources": [
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Mythic General Hero Shard"
+  ],
+  "skills": [
+    {
+      "id": "500251",
+      "name": "Barrage",
+      "mode": "exploration",
+      "description": "Norah unleashes a 5-grenade cascade against random target (heroes first), dealing Attack 60%/66%/72%/78%/84% Area of Effect damage.",
+      "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500251.png"
+    },
+    {
+      "id": "500252",
+      "name": "Flashbang",
+      "mode": "exploration",
+      "description": "Norah throws the flasbang, dealing Attack 50%/55%/60%/65%/70% damage and stuns the target for 1.5s.",
+      "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500252.png"
+    },
+    {
+      "id": "500253",
+      "name": "Valkyrie Cry",
+      "mode": "exploration",
+      "description": "Norah blitzes the ennemy, boosting all Troops Attack by 3%/3.5%/4%/4.5%/5%.",
+      "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500253.png"
+    },
+    {
+      "id": "500255",
+      "name": "Combined Arms",
+      "mode": "expedition",
+      "description": "Norah is well trained in combined arms tactics, decreasing Damage Taken by 3%/6%/9%/12%/15% and boosting Damage Dealt by 3%/6%/9%/12%/15% for Infantry and Marksman.",
+      "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500255.png"
+    },
+    {
+      "id": "500254",
+      "name": "Sneak Strike",
+      "mode": "expedition",
+      "description": "Norah has an eye for weaknesses, granting troops under her command a 20% chance of dealing 20%/40%/60%/80%/100% extra damage to all ennemies on attack.",
+      "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500254.png"
+    },
+    {
+      "id": "500256",
+      "name": "Momentum",
+      "mode": "expedition",
+      "description": "Norah motivates our troops, increasing all troops' Damage Dealt by 5%/10%/15%/20%/25% and reducing their damage taken by 5%/10%/15%/20%/25% every 5 attack made by lancer for 2 turns.",
+      "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500256.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 999,
+        "def": 999,
+        "health": 9990
+      },
+      "expedition": {
+        "lethality": "111%",
+        "health": "111%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Snow Cruiser",
+      "power": 499500,
+      "image": "../assets/heroes/ssr/s5/norah/img/equipment_icon_1050025.png",
+      "perks": [
+        {
+          "id": "500257",
+          "name": "Disruptor",
+          "level": 5,
+          "description": "Norah improves her Barrage grenades, granting a 35% chance of stunning the target for 1s.",
+          "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500257.png"
+        },
+        {
+          "id": "500258",
+          "name": "True Grit",
+          "level": 5,
+          "description": "Norah inspires other with her courage under fire, boosting Defender Troops Deffense by 15%.",
+          "icon": "../assets/heroes/ssr/s5/norah/img/hero_skill_icon_500258.png"
+        }
+      ]
+    }
+  }
+}

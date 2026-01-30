@@ -1,0 +1,106 @@
+{
+  "slug": "hendrik",
+  "name": "Hendrik",
+  "rarity": "SSR",
+  "season": 8,
+  "gen": 8,
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s8/hendrik/img/hendrik.png",
+  "story": "Captain Hendrik is a firm believer in the \"Sunken Nation\" legend. He has dedicated most of his life to navigating the depth of the ocean in darkness aboard his beloved giant submarine, The Neptune, only to search for the mythical, lost ruins. Occasionally, he surfaces to interact with the outside world, trading treasures found in the ocean for supplies. While he is well-mannered on one hand, he sometimes speaks and behaves eccentrically on the other. Many speculate that he has gone mad. After all, more than ten thousand hours spent exploring the deep sea must have taken a toll on him psychologically. Still, his profound knowledge of navigation and his remarkable talent in naval warfare are not to be doubted.\n\nHendrik was good-looking, wealthy, and full of charisma in his youth. However, the long-term lack of exposure to sunlight has utterly changed him. Now, he looks old and haggard, giving out a depressed vibe and an unpleasant smell that repels others. Hendrik is oblivious to the changes, as impractical items like mirrors are not found on The Neptune. One day while in town, he happened to catch sight of his own reflection and thought that some evil sorcerer had cast a spell on him or that mirror.\n\nMany have attempted to look for the \"Sunken Nation,\" mostly because of the treasure. However, Hendrik is different. He believes that the legendary lost nation is the destination for his soul. Hendrik was once an ambitious navigator who encountered a shipwreck during a voyage. As he sunk into the icy ocean along with the vessel, he caught a glimpse of an ancient underwater city before losing consciousness. By the time he woke up, he found himself in a coastal town. Some dismissed what he saw as a mere hallucination in his dying moments, yet no one could explain how he survived such a critical situation.\n\nHendrik was convinced that he was rescued by an envoy of the \"Sunken Nation,\" as he often heard calls from there in his dreams. Driven by this belief, he vowed to find the ancient city at all costs.\n\nHendrik returned to the sea area where the shipwreck happened, but his search for the \"Sunken Nation\" ended up futile. Nevertheless, he was not ready to give up just yet.\n\nHe broke the bank and built a gigantic submarine called \"The Neptune,\" believing that the ancient city had merely \"moved\" to another part of the sea. Although The Neptune was capable of traversing the seven seas, few were willing to be a part of his crazy plan, except for those treasure hunters who believed in the treasure of the \"Sunken Nation.\" Hendrik had no choice but to attack other ships and commandeered their crews to serve aboard his vessel. Those lucky survivors often mistook the assaults for attacks by sea monsters.\n\nThe time Hendrik spent talking to the murmurs in his dreams has granted him the special ability to communicate with the sea creatures around his submarine in astonishing ways, as if through telepathy. These sea inhabitants are his helpers whenever he finds himself in trouble.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 10410,
+      "defense": 8568,
+      "health": 64268
+    },
+    "expedition": {
+      "attack_percent": "780.62%",
+      "defense_percent": "780.62%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Mythic General Hero Shard"
+  ],
+  "skills": [
+    {
+      "id": "500361",
+      "name": "Song of R'lyeh",
+      "mode": "exploration",
+      "description": "Hendrik summons ancient spirits from the dark abyss to attack the enemies, dealing Attack*220%/240%/260%/280%/300% damage to targets within range and stunning them for 1.5s.",
+      "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500361.png"
+    },
+    {
+      "id": "500362",
+      "name": "Sinking Anchor",
+      "mode": "exploration",
+      "description": "Captain Hendrik hurls a heavy anchor with unbelievable strength, dealing Attack*100%/110%/120%/130%/140% damage to enemies within range.",
+      "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500362.png"
+    },
+    {
+      "id": "500363",
+      "name": "Lamprey's Kiss",
+      "mode": "exploration",
+      "description": "Captain Hendrik possesses an uncanny ability to harness power from others, dealing 0.5%/1%/1.5%/2%/2.5% more damage with each defeated enemy (max 15 stacks).",
+      "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500363.png"
+    },
+    {
+      "id": "500364",
+      "name": "Worm's Ravage",
+      "mode": "expedition",
+      "description": "Captain Hendrik commands a gigantic naval shipworm to gnaw at the enemies’ armor, reducing all enemy troops’ Defense by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500364.png"
+    },
+    {
+      "id": "500365",
+      "name": "Armor of Barnacles",
+      "mode": "expedition",
+      "description": "Hendrik covers all friendly troops with a layer of hard-shelled barnacles every 4 turns, increasing their Defense by 6%/12%/18%/24%/30% for 2 turns.",
+      "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500365.png"
+    },
+    {
+      "id": "500366",
+      "name": "Dragon's Heir",
+      "mode": "expedition",
+      "description": "Every 3 turns, the ancient abyssal spirit’s descendants work together with Hendrik’s Marksmen to launch an attack, dealing 8%/16%/24%/32%/40% damage to all enemies.",
+      "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500366.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 2107,
+        "def": 1737,
+        "health": 13027
+      },
+      "expedition": {
+        "lethality": "193.00%",
+        "health": "193.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Abyss Driver",
+      "power": 868500,
+      "image": "../assets/heroes/ssr/s8/hendrik/img/equipment_icon_1050036.png",
+      "perks": [
+        {
+          "id": "500367",
+          "name": "Hydra’s Dance",
+          "level": 5,
+          "description": "When the spirit summoned by Song of R’lyeh is gone, it leaves behind moving tentacles that attract nearby enemies to attack. The tentacles have 30% of Hendrik’s initial Health and exist for 5s.",
+          "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500367.png"
+        },
+        {
+          "id": "500368",
+          "name": "Abyssal Blessing",
+          "level": 5,
+          "description": "The ancient abyssal spirit’s blessing increases the Rally Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s8/hendrik/img/hero_skill_icon_500368.png"
+        }
+      ]
+    }
+  }
+}

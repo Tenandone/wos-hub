@@ -1,0 +1,107 @@
+{
+  "slug": "eleonora",
+  "name": "Eleonora",
+  "rarity": "SSR",
+  "season": 11,
+  "gen": 11,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s11/eleonora/img/eleonora.png",
+  "story": "The frozen queen, the nation liberator, the Sunfire Castle mayor, the ruler of the tundra, the hope of Solaris, and the shield princess... All these describe Eleonora III, the current ruler of the Solaris Dynasty, whose legitimacy is recognized by few.\nAfter the fall of the her kingdom, Eleonora lived in exile under the protection of her loyal knights until she came of age. Now, she has blossomed into a formidable knight and an exceptional commander. While restoring her kingdom is her ultimate goal, she has to work as a mercenary to make a living.\n\nEleonora was just an infant when Sunfire Castle collapsed, leaving her with no memory of the old kingdom. For a long time, she simply accepted the mission to restore it, without truly resonating with the aspiration. However, during her years of exile, she endured much contempt and humiliation from the emerging nobility, and it was through this hardship that the desire to create her own kingdom began to take root in her heart.\n\nEleonora mastered the art of combat under the tutelage of Sir Gregory, even surpassing her mentor. She slowly built a reputation on the tundra with her remarkable skills.\nNevertheless, she didn't win everyone's approval. In Jeronimo's eyes, Eleonora and her followers were nothing more than some imposters pretending to be royalty, and he boldly claimed to have found the true princess. To clear her name, Eleonora decided to challenge the arrogant swordsman. Although Sir Gregory eventually intervened and stopped the duel, the desire to prove herself against Jeronimo still burned deep within her.\n\nWith the backing of some old nobles, Eleonora once captured a sprawling city to serve as her new capital. Yet, it wasn't long before she fell out with her benefactors.\nThe indulgent and corrupt nobles levied heavy taxes and forced labor upon the people, plunging them into misery. Eleonora, having once experienced the pain of being uprooted, saw through the cruelty of the old order. She tried to help the struggling masses, but her actions threatened the nobles' interests. In response, they turned their backs on her, expelled her from the new capital, and accused her of being an imposter.\n\nWith no other option but to start anew, Eleonora had the support of Sir Gregory and other loyal warriors. Now, she has wholeheartedly embraced the dream of restoring her kingdom—one founded on equality and compassion.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 11392,
+      "defense": 14850,
+      "health": 222776
+    },
+    "expedition": {
+      "attack_percent": "1281.02%",
+      "defense_percent": "1281.02%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500441",
+      "name": "Shield of Blaze",
+      "mode": "exploration",
+      "description": "Eleonora raises a spiked shield, a symbol of royalty, gaining Attack*100%/130%/160%/190%/220% shield value and reflecting 30% of damage taken to the enemy. The shield ruptures after 3s, dealing 60%/65%/70%/75%/80% damage to nearby enemies.",
+      "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500441.png"
+    },
+    {
+      "id": "500442",
+      "name": "Regal Sanction",
+      "mode": "exploration",
+      "description": "Eleonora strikes forcefully at the target with a heavy hammer, dealing Attack*100%/110%/120%/130%/140% damage and reducing the target's Defense by 10%/15%/20%/25%/30% for 2s.",
+      "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500442.png"
+    },
+    {
+      "id": "500443",
+      "name": "Majestic Corona",
+      "mode": "exploration",
+      "description": "The noble blood in Eleonora renders her an unyielding spirit, reducing her damage taken by 5%/7.5%/10%/12.5%/15% and increasing her damage dealt by 5%/7.5%/10%/12.5%/15%.",
+      "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500443.png"
+    },
+    {
+      "id": "500444",
+      "name": "Scorching Sun",
+      "mode": "expedition",
+      "description": "Eleonora inspires all troops with her royal aura and sense of honor, increasing their Health by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500444.png"
+    },
+    {
+      "id": "500445",
+      "name": "Solaris Nexus",
+      "mode": "expedition",
+      "description": "Eleonora deploys a balanced formation, reducing damage taken by 2%/4%/6%/8%/10% for her Infantries and increasing damage dealt by 2%/4%/6%/8%/10% for her Marksmen.",
+      "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500445.png"
+    },
+    {
+      "id": "500446",
+      "name": "Soaring Flame",
+      "mode": "expedition",
+      "description": "Eleonora strikes fear into her enemies with her fierce assaults, increasing all troops' damage dealt by 5%/10%/15%/20%/25% and reducing their damage taken by 5%/10%/15%/20%/25% every 5 attacks made by Infantry for 2 turns.",
+      "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500446.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 2308,
+        "def": 3010,
+        "health": 45157
+      },
+      "expedition": {
+        "lethality": "320%",
+        "health": "320%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Scepter of Solaris",
+      "power": 1505250,
+      "image": "../assets/heroes/ssr/s11/eleonora/img/equipment_icon_1050044.png",
+      "perks": [
+        {
+          "id": "500447",
+          "name": "Hammer & Shield",
+          "level": 5,
+          "description": "Eleonora developed adaptability during her exile, increasing Attack by 24% when her Health is higher than 50% and increasing her Defense by 75% when her Health is under 50%.",
+          "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500447.png"
+        },
+        {
+          "id": "500448",
+          "name": "Last Fortress",
+          "level": 5,
+          "description": "Eleonora fights every battle like her last, inspiring Defender Troops and increasing their Health by 15%.",
+          "icon": "../assets/heroes/ssr/s11/eleonora/img/hero_skill_icon_500448.png"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "slug": "karol",
+  "name": "Karol",
+  "rarity": "SSR",
+  "season": 12,
+  "gen": 12,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s12/karol/img/karol.png",
+  "story": "There is a flutter and howl on the battlefield unlike any other. Allies know salvation is at hand and enemies quake with fear: the charge of the Eagle Brigade has come. With lances, swords, and cleansing steel, the Eagle Brigade can quickly crisscross the battlefield to win crucial victories for their cause.\nKarol may be one of the youngest in the Brigade's history but he has already achieved near legendary status among his men for mastery of war on horseback and long string of successes in war.\n\nKarol's hometown was known before the Great Chill for endless fertile fields and excellent stables, which continue to supply horses into the tundra. Humble families like Karol's and their frost-hardened horses have become the backbone of the Eagles and bulwark to a number of cities along the plains region.\nKarol was always interested in joining the Eagles. What boy wouldn't dream of being part of a heroic brigade defending people's lives? Yet visiting recruiters nearly rejected the rather short and stocky Karol until he proved them wrong with a stunning display of footwork that left the recruiter flat on his back.\n\nKarol's cohort received a baptism of fire when a group of mercenaries equipped with Helios Cannons and plated steam-tanks arrived with imperial ambitions. The Eagles were ill-prepared for such devilry. Karol's hometown would likely have fallen had a fierce blizzard not intervened.\nSnowstorms may be bad for horses, but they are even worse for siege engines and Helios Cannons. By morning the blizzard had eased and what was left of the defenders saw their chance. Karol sounded the horn for the defiant final charge of the Eagles.\n\nKarol rode with his commander into the thick of the action while a smaller group attacked from the flank. The battle lasted until the middle of the day until the invaders signaled a general retreat. Losses were terrible.\nKarol took up the standard from his fallen commander. He surveyed the victory. There were so few of them now. But he saw in his men's eyes that the Eagles had found a new leader, one much younger than expected. Karol would have to move quickly. New alliances must be found to keep such enemies far away from home.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 17826,
+      "defense": 17826,
+      "health": 178266
+    },
+    "expedition": {
+      "attack_percent": "1451.16%",
+      "defense_percent": "1451.16%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500481",
+      "name": "Dawn Charge",
+      "mode": "exploration",
+      "description": "The dawn sun lights a path for Karol's invincible charge, lancing frontal enemies with Attack*200%/220%/240%/260%/280% area damage and reducing their Defense by 5%/10%/15%/20%/25% for 2 seconds.",
+      "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500481.png"
+    },
+    {
+      "id": "500482",
+      "name": "Bristling Strike",
+      "mode": "exploration",
+      "description": "Karol launches a blistering series of strikes dealing Attack*100%/110%/120%/130%/140% damage against enemies within a certain area.",
+      "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500482.png"
+    },
+    {
+      "id": "500483",
+      "name": "Soaring Victory",
+      "mode": "exploration",
+      "description": "The taste of victory gives sweet succor to the warrior, increasing Karol's Attack by 4%/6%/8%/10%/12% for every fallen hero enemy while restoring 2%/4%/6%/8%/10% of Health.",
+      "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500483.png"
+    },
+    {
+      "id": "500484",
+      "name": "In the Wings",
+      "mode": "expedition",
+      "description": "A great offence is a great defense in the case of Karol's cavalry diversions, reducing all troops' damage taken by 4%/8%/12%/16%/20%.",
+      "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500484.png"
+    },
+    {
+      "id": "500485",
+      "name": "Shieldbreaker",
+      "mode": "expedition",
+      "description": "Karol knows exactly where enemy infantry are weakest against forces like his own, increasing all troops' Damage Dealt to Lancers by 6%/12%/18%/24%/30% and 5%/10%/15%/20%/25% to Infantry.",
+      "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500485.png"
+    },
+    {
+      "id": "500486",
+      "name": "Standard of Ages",
+      "mode": "expedition",
+      "description": "Karol has turned the lessons of past brigades into a roadmap for victory, increasing all Troops' Attack by 3%/6%/9%/12%/15% and Defense by 2%/4%/6%/8%/10%.",
+      "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500486.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 3613,
+        "def": 3613,
+        "health": 36135
+      },
+      "expedition": {
+        "lethality": "362.50%",
+        "health": "362.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Spirit of Winterwind",
+      "power": 1806750,
+      "image": "../assets/heroes/ssr/s12/karol/img/equipment_icon_1050048.png",
+      "perks": [
+        {
+          "id": "500487",
+          "name": "Eagle Flutter",
+          "level": 5,
+          "description": "The howling flutter of Karol's Eagles is instantly recognizable, spurring an increase in friendly Squad Attack by 14% and Movement Speed by 100% for 5 seconds with every Dawn Charge.",
+          "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500487.png"
+        },
+        {
+          "id": "500488",
+          "name": "Triumphant March",
+          "level": 5,
+          "description": "Karol's Eagle Brigade often relies on combined arms, enhancing his Rally Squad Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s12/karol/img/hero_skill_icon_500488.png"
+        }
+      ]
+    }
+  }
+}

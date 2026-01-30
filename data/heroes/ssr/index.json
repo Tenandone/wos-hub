@@ -1,0 +1,393 @@
+[
+  {
+    "slug": "jeronimo",
+    "name": "Jeronimo",
+    "rarity": "SSR",
+    "season": 1,
+    "image": "/assets/heroes/ssr/s1/jeronimo/img/jeronimo.png"
+  },
+  {
+    "slug": "natalia",
+    "name": "Natalia",
+    "rarity": "SSR",
+    "season": 1,
+    "image": "/assets/heroes/ssr/s1/natalia/img/natalia.png"
+  },
+  {
+    "slug": "molly",
+    "name": "Molly",
+    "rarity": "SSR",
+    "season": 1,
+    "image": "/assets/heroes/ssr/s1/molly/img/molly.png"
+  },
+  {
+    "slug": "zinman",
+    "name": "Zinman",
+    "rarity": "SSR",
+    "season": 1,
+    "image": "/assets/heroes/ssr/s1/zinman/img/zinman.png"
+  },
+  {
+    "slug": "alonso",
+    "name": "Alonso",
+    "rarity": "SSR",
+    "season": 2,
+    "image": "/assets/heroes/ssr/s2/alonso/img/alonso.png"
+  },
+  {
+    "slug": "flint",
+    "name": "Flint",
+    "rarity": "SSR",
+    "season": 2,
+    "image": "/assets/heroes/ssr/s2/flint/img/flint.png"
+  },
+  {
+    "slug": "philly",
+    "name": "Philly",
+    "rarity": "SSR",
+    "season": 2,
+    "image": "/assets/heroes/ssr/s2/philly/img/philly.png"
+  },
+  {
+  "slug": "greg",
+  "name": "Greg",
+  "rarity": "SSR",
+  "season": 3,
+  "image": "/assets/heroes/ssr/s3/greg/img/greg.png"  
+},
+{
+  "slug": "logan",
+  "name": "Logan",
+  "rarity": "SSR",
+  "season": 3,
+  "image": "/assets/heroes/ssr/s3/logan/img/logan.png"
+},
+{
+  "slug": "mia",
+  "name": "Mia",
+  "rarity": "SSR",
+  "season": 3,
+  "image": "/assets/heroes/ssr/s3/mia/img/mia.png"
+},
+{
+  "slug": "ahmose",
+  "name": "Ahmose",
+  "rarity": "SSR",
+  "season": 4,
+  "image": "/assets/heroes/ssr/s4/ahmose/img/ahmos.png"
+},
+{
+  "slug": "lynn",
+  "name": "Lynn",
+  "rarity": "SSR",
+  "season": 4,
+  "image": "/assets/heroes/ssr/s4/lynn/img/lynn.png"
+},
+{
+  "slug": "reina",
+  "name": "Reina",
+  "rarity": "SSR",
+  "season": 4,
+  "image": "/assets/heroes/ssr/s4/reina/img/reina.png"
+},
+{
+  "slug": "gwen",
+  "name": "Gwen",
+  "rarity": "SSR",
+  "season": 5,
+  "image": "/assets/heroes/ssr/s5/gwen/img/gwen.png"
+},
+{
+  "slug": "hector",
+  "name": "Hector",
+  "rarity": "SSR",
+  "season": 5,
+  "image": "/assets/heroes/ssr/s5/hector/img/hector.png"
+},
+{
+  "slug": "norah",
+  "name": "Norah",
+  "rarity": "SSR",
+  "season": 5,
+  "gen": 5,
+  "image": "/assets/heroes/ssr/s5/norah/img/norah.png"
+},
+{
+  "slug": "renee",
+  "name": "Renee",
+  "rarity": "SSR",
+  "season": 6,
+  "gen": 6,
+  "image": "/assets/heroes/ssr/s6/renee/img/renee.png"
+},
+{
+  "slug": "wayne",
+  "name": "Wayne",
+  "rarity": "SSR",
+  "season": 6,
+  "gen": 6,
+  "image": "/assets/heroes/ssr/s6/wayne/img/wayne.png"
+},
+{
+  "slug": "wuming",
+  "name": "Wu Ming",
+  "rarity": "SSR",
+  "season": 6,
+  "gen": 6,
+  "image": "/assets/heroes/ssr/s6/wuming/img/wuming.png"
+},
+{
+  "slug": "bradley",
+  "name": "Bradley",
+  "rarity": "SSR",
+  "season": 7,
+  "gen": 7,
+  "image": "/assets/heroes/ssr/s7/bradley/img/bradley.png"
+},
+{
+  "slug": "edith",
+  "name": "Edith",
+  "rarity": "SSR",
+  "season": 7,
+  "gen": 7,
+  "image": "/assets/heroes/ssr/s7/edith/img/edith.png"
+},
+{
+  "slug": "gordon",
+  "name": "Gordon",
+  "rarity": "SSR",
+  "season": 7,
+  "gen": 7,
+  "image": "/assets/heroes/ssr/s7/gordon/img/gordon.png"
+},
+{
+  "slug": "gatot",
+  "name": "Gatot",
+  "rarity": "SSR",
+  "season": 8,
+  "gen": 8,
+  "image": "/assets/heroes/ssr/s8/gatot/img/gatot.png"
+},
+{
+  "slug": "hendrik",
+  "name": "Hendrik",
+  "rarity": "SSR",
+  "season": 8,
+  "gen": 8,
+  "image": "/assets/heroes/ssr/s8/hendrik/img/hendrik.png"
+},
+{
+  "slug": "sonya",
+  "name": "Sonya",
+  "rarity": "SSR",
+  "season": 8,
+  "gen": 8,
+  "image": "/assets/heroes/ssr/s8/sonya/img/sonya.png"
+},
+
+  {
+    "slug": "fred",
+    "name": "Fred",
+    "rarity": "SSR",
+    "season": 9,
+    "gen": 9,
+    "image": "/assets/heroes/ssr/s9/fred/img/fred.png"
+  },
+  
+  {
+    "slug": "magnus",
+    "name": "Magnus",
+    "rarity": "SSR",
+    "season": 9,
+    "gen": 9,
+    "image": "/assets/heroes/ssr/s9/magnus/img/magnus.png"
+  },
+  {
+  "slug": "xura",
+  "name": "Xura",
+  "rarity": "SSR",
+  "season": 9,
+  "gen": 9,
+  "image": "/assets/heroes/ssr/s9/xura/img/xura.png"
+},
+
+  {
+    "slug": "blanchette",
+    "name": "Blanchette",
+    "rarity": "SSR",
+    "season": 10,
+    "gen": 10,
+    "image": "/assets/heroes/ssr/s10/blanchette/img/blanchette.png"
+  },
+  {
+    "slug": "freya",
+    "name": "Freya",
+    "rarity": "SSR",
+    "season": 10,
+    "gen": 10,
+    "image": "/assets/heroes/ssr/s10/freya/img/freya.png"
+  },
+  {
+    "slug": "gregory",
+    "name": "Gregory",
+    "rarity": "SSR",
+    "season": 10,
+    "gen": 10,
+    "image": "/assets/heroes/ssr/s10/gregory/img/gregory.png"
+  },
+  {
+    "slug": "eleonora",
+    "name": "Eleonora",
+    "rarity": "SSR",
+    "season": 11,
+    "gen": 11,
+    "image": "/assets/heroes/ssr/s11/eleonora/img/eleonora.png"
+  },
+  {
+    "slug": "lloyd",
+    "name": "Lloyd",
+    "rarity": "SSR",
+    "season": 11,
+    "gen": 11,
+    "image": "/assets/heroes/ssr/s11/lloyd/img/lloyd.png"
+  },
+  {
+    "slug": "rufus",
+    "name": "Rufus",
+    "rarity": "SSR",
+    "season": 11,
+    "gen": 11,
+    "image": "/assets/heroes/ssr/s11/rufus/img/rufus.png"
+  },
+  {
+    "slug": "hervor",
+    "name": "Hervor",
+    "rarity": "SSR",
+    "season": 12,
+    "gen": 12,
+    "image": "/assets/heroes/ssr/s12/hervor/img/hervor.png"
+  },
+  {
+    "slug": "karol",
+    "name": "Karol",
+    "rarity": "SSR",
+    "season": 12,
+    "gen": 12,
+    "image": "/assets/heroes/ssr/s12/karol/img/karol.png"
+  },
+  {
+    "slug": "ligeia",
+    "name": "Ligeia",
+    "rarity": "SSR",
+    "season": 12,
+    "gen": 12,
+    "image": "/assets/heroes/ssr/s12/ligeia/img/ligeia.png"
+  },
+  {
+    "slug": "flora",
+    "name": "Flora",
+    "rarity": "SSR",
+    "season": 13,
+    "gen": 13,
+    "image": "/assets/heroes/ssr/s13/flora/img/flora.png"
+  },
+  {
+  "slug": "gisela",
+  "name": "Gisela",
+  "rarity": "SSR",
+  "season": 13,
+  "gen": 13,
+  "image": "/assets/heroes/ssr/s13/gisela/img/gisela.png"
+},
+{
+  "slug": "vulcanus",
+  "name": "Vulcanus",
+  "rarity": "SSR",
+  "season": 13,
+  "gen": 13,
+  "image": "/assets/heroes/ssr/s13/vulcanus/img/vulcanus.png"
+},
+{
+  "slug": "cara",
+  "name": "Cara",
+  "rarity": "SSR",
+  "season": 14,
+  "gen": 14,
+  "image": "/assets/heroes/ssr/s14/cara/img/cara.png"
+},
+{
+  "slug": "dominic",
+  "name": "Dominic",
+  "rarity": "SSR",
+  "season": 14,
+  "gen": 14,
+  "image": "/assets/heroes/ssr/s14/dominic/img/dominic.png"
+},
+{
+  "slug": "elif",
+  "name": "Elif",
+  "rarity": "SSR",
+  "season": 14,
+  "gen": 14,
+  "image": "/assets/heroes/ssr/s14/elif/img/elif.png"
+},
+{
+  "slug": "estrella",
+  "name": "Estrella",
+  "rarity": "SSR",
+  "season": 15,
+  "gen": 15,
+  "image": "/assets/heroes/ssr/s15/estrella/img/estrella.png"
+},
+{
+  "slug": "hank",
+  "name": "Hank",
+  "rarity": "SSR",
+  "season": 15,
+  "gen": 15,
+  "image": "/assets/heroes/ssr/s15/hank/img/hank.png"
+},
+{
+  "slug": "viveca",
+  "name": "Viveca",
+  "rarity": "SSR",
+  "season": 15,
+  "gen": 15,
+  "image": "/assets/heroes/ssr/s15/viveca/img/viveca.png"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

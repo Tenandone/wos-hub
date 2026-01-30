@@ -1,0 +1,56 @@
+{
+  "slug": "cloris",
+  "name": "Cloris",
+  "rarity": "R",
+  "class": "Marksmen",
+  "subClass": "Growth",
+  "image": "/assets/heroes/r/cloris/img/cloris.png",
+  "storyHtml": "<p><strong>Cloris grew up in a small rural town nestled</strong> deep in the heart of the forest. Her family was always self-sufficient, growing their own crops, raising their own livestock, and hunting for their food. From a young age, Cloris was taught how to hunt with a bow and arrow, skills passed down to her from her ancestors.<br>\n<br/>\nAs a child, Cloris was fascinated by the natural world around her. She would spend hours exploring the forest, tracking animals, and learning about the different plants and animals that lived in the area. She became particularly skilled at hunting, and it wasn’t long before she was bringing home game for her family.<br/>\n<br/>\nAs she grew older, Cloris became more and more interested in survivalism. She started reading books about wilderness survival, learning about everything from building shelters to making fire without matches. She became obsessed with the idea of living off the land and being completely self-sufficient.<br/>\n<br/>\nWhen she turned 18, Cloris decided to strike out on her own. She packed up her gear, including her trusty bow and arrows, and set out into the forest. For the first few weeks, she struggled to find enough food and water to survive. But eventually, her hunting and survival skills kicked in, and she was able to make a life for herself in the wilderness.</br></p>",
+  "descriptionHtml": null,
+  "sources": [
+    "Exploration",
+    "Lighthouse Intel",
+    "Hero Recruitment"
+  ],
+  "stats": {
+    "exploration": {
+      "attack": 1752,
+      "defense": 2220,
+      "health": 10822
+    },
+    "expedition": {
+      "attack_percent": "90.07%",
+      "defense_percent": "90.07%"
+    }
+  },
+  "skills": [
+    {
+      "id": "hero_skill_icon_500031",
+      "name": "Rain of Arrows",
+      "mode": "exploration",
+      "description": "Cloris launches a hail of arrows, dealing Attack180%/198%/216%/234%/252% Area of Effect Damage around the target.",
+      "icon": "/assets/heroes/r/cloris/img/hero_skill_icon_500031.png"
+    },
+    {
+      "id": "hero_skill_icon_500032",
+      "name": "Hunter's Mark",
+      "mode": "exploration",
+      "description": "Cloris paints a bullseye on a target, raising damage inflicted on the target by 10%/15%/20%/25%/30% for this attack.",
+      "icon": "/assets/heroes/r/cloris/img/hero_skill_icon_500032.png"
+    },
+    {
+      "id": "hero_skill_icon_500034",
+      "name": "Top Hunter",
+      "mode": "expedition",
+      "description": "Cloris, the tundra's best hunter, has single-handedly raised City Hunter's Hut Output by 5%/10%/15%/20%/25%.",
+      "icon": "/assets/heroes/r/cloris/img/hero_skill_icon_500034.png"
+    },
+    {
+      "id": "hero_skill_icon_500035",
+      "name": "Predator",
+      "mode": "expedition",
+      "description": "Cloris knows the ecosystem like the back of her hand. +5%/10%/15%/20%/25% Meat Gathering Speed on the map.",
+      "icon": "/assets/heroes/r/cloris/img/hero_skill_icon_500035.png"
+    }
+  ]
+}

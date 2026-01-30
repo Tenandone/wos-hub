@@ -1,0 +1,65 @@
+{
+  "brand": {
+    "name": "WosHub"
+  },
+  "nav": {
+    "menu": "Menu",
+    "home": "Home",
+    "buildings": "Buildings",
+    "heroes": "Heroes",
+    "hero": "Hero",
+    "coupons": "Coupons",
+    "calculator": "Calculator",
+    "tools": "Tools",
+    "tips": "Tips"
+  },
+  "home": {
+    "quick_access": "Quick Access",
+    "todays_tips": "Today’s Tips",
+    "see_all_tips": "See All Tips",
+    "no_tips": "No tips data yet.",
+    "latest_uploads": "Latest Uploads",
+    "no_latest": "No latest uploads data."
+  },
+  "tools": {
+    "title": "Tools",
+    "subtitle": "Calculators & utilities",
+    "building_calc": "Building Calculator"
+  },
+  "footer": {
+    "about": "About",
+    "latest_coupons": "Latest Coupons",
+    "open": "Open",
+    "no_coupons": "No coupon data yet."
+  },
+  "coupon": {
+    "copied": "Copied!",
+    "active": "Active",
+    "expired": "Expired",
+    "permanent": "Permanent",
+    "expires": "Expires"
+  },
+  "hero": {
+    "skills": "Skills",
+    "rarity": "Rarity",
+    "class": "Class",
+    "subclass": "SubClass"
+  },
+  "coupons": {
+    "not_found": "Coupons page not found."
+  },
+  "error": {
+    "title": "Error",
+    "tried_urls": "Tried URLs"
+  },
+  "aria": {
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "site_menu": "Site menu"
+  },
+  "lang": {
+    "english": "English",
+    "korean": "Korean",
+    "japanese": "Japanese"
+  }
+}

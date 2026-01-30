@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "category": {
+        "ko": "건물",
+        "en": "Buildings",
+        "ja": "建物"
+      },
+      "title": {
+        "ko": "용광로 업데이트 (레벨 추가)",
+        "en": "Furnace Updated (Levels Added)",
+        "ja": "溶鉱炉アップデート（レベル追加）"
+      },
+      "href": "#/buildings/furnace",
+      "date": "2026-01-30"
+    },
+    {
+      "category": {
+        "ko": "계산기",
+        "en": "Calculator",
+        "ja": "計算機"
+      },
+      "title": {
+        "ko": "건물 계산기 개선",
+        "en": "Building Calculator Improved",
+        "ja": "建物計算機の改善"
+      },
+      "href": "#/tools/building-calculator",
+      "date": "2026-01-30"
+    },
+    {
+      "category": {
+        "ko": "영웅",
+        "en": "Heroes",
+        "ja": "英雄"
+      },
+      "title": {
+        "ko": "신규 영웅 추가: Eugene",
+        "en": "New Hero Added: Eugene",
+        "ja": "新英雄追加：Eugene"
+      },
+      "href": "#/heroes/eugene",
+      "date": "2026-01-30"
+    }
+  ]
+}

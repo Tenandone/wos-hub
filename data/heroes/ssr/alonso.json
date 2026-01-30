@@ -1,0 +1,105 @@
+{
+  "slug": "alonso",
+  "name": "Alonso",
+  "rarity": "SSR",
+  "season": 2,
+  "class": "Marksman",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s2/alonso/img/alonso.png",
+  "story": "The legends of Alonso \"the whale hunter\" was known far and wide.\nHe is described as a stout, well-built man of few words. He always carries his netting and trusty harpoon wherever he goes. This whale hunter travels from one seaside town to another in search of good ale and the intel on a certain sea monster.\n\nAccording to the stories, the monster that Alonso seeks is the same one that slaughtered his entire crew 30 years ago. He wishes to settle scores with the mythical \"Leviathan\" that took his crew, his friends, and his family...\n\nThe creature \"Leviathan\" grows more bizarre with each tavern retelling. Apparently, the beast has a huge horn and a body that spans hundreds of meters. Many laughed at such an impossible tale behind Alonso's back, but none dared to mock Alonso to his face. After all, this man is capable of taking down Giant Apes and Cryptids single-handedly.\n\nAlonso had defended many Cities from pillagers during his travel. In one instance, all the townsfolks panicked at the sight of bandits but Alonso rallied them and organized an excellent defense. When he gave orders, Alonso was like the captain of a City-sized ship.\n\nNot long ago, he caught a glimpse of a former crew member that was supposedly killed by \"Leviathan\" many years ago.\nAlonso refused to believe it had been a trick of the eyes. He questioned half the town and finally learned his former crew is now a slave onboard a giant, steam-powered submarine called the \"Neptune\". \"That’s it...\" Alonso thought to himself, \"Leviathan is not a monster, but a submarine!\". Now, he hopes to find Neptune and reunite with his former crew.\n\nTo Alonso, there is not much difference between hunting down a Leviathan and a lot of bandits.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 3235,
+      "defense": 2220,
+      "health": 19980
+    },
+    "expedition": {
+      "attack_percent": "240.19%",
+      "defense_percent": "240.19%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Daily Deals"
+  ],
+  "skills": [
+    {
+      "id": "500181",
+      "name": "Trapnet",
+      "mode": "exploration",
+      "description": "Alonso casts a wide net over the target area, dealing Attack*200%/220%/240%/260%/280% Area of Effect Damage and immobilizing enemies for 1.5s.",
+      "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500181.png"
+    },
+    {
+      "id": "500182",
+      "name": "Tidal Force",
+      "mode": "exploration",
+      "description": "Alonso shoots a harpoon with tsunami-like force at a target, dealing Attack*50%/55%/60%/65%/70% Area of Effect Damage.",
+      "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500182.png"
+    },
+    {
+      "id": "500183",
+      "name": "Harpoon Blast",
+      "mode": "exploration",
+      "description": "Alonso's heavy harpoon can really do some damage, stunning targets for 0.2/0.2/0.4/0.4/0.5s after every 8/7/7/6/5 strikes.",
+      "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500183.png"
+    },
+    {
+      "id": "500184",
+      "name": "Onslaught",
+      "mode": "expedition",
+      "description": "Alonso attacks like the waves, granting a 40% chance of increasing all troop's Lethality by 10%/20%/30%/40%/50%",
+      "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500184.png"
+    },
+    {
+      "id": "500185",
+      "name": "Iron Strength",
+      "mode": "expedition",
+      "description": "Alonso's indomitable will grants all troops' attack a 20% chance of reducing damage dealt by 10%/20%/30%/40%/50% for all enemy troops for 2 turns.",
+      "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500185.png"
+    },
+    {
+      "id": "500186",
+      "name": "Poison Harpoon",
+      "mode": "expedition",
+      "description": "Alonso coats weapons with lethal toxins, granting all troops' attack a 50% chance of dealing +10%/20%/30%/40%/50% more damage.",
+      "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500186.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 655,
+        "def": 540,
+        "health": 4050
+      },
+      "expedition": {
+        "lethality": "60%",
+        "health": "60%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Captain Ahab",
+      "power": 270000,
+      "image": "../assets/heroes/ssr/s2/alonso/img/equipment_icon_1050018.png",
+      "perks": [
+        {
+          "id": "500187",
+          "name": "Ocean's Bounty",
+          "level": 5,
+          "description": "Alonso knows how to share the spoils of success, with his fresh fish meals healing your weakest hero by 15% with each basic attack.",
+          "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500187.png"
+        },
+        {
+          "id": "500188",
+          "name": "Harpoon Enhancement",
+          "level": 5,
+          "description": "Alonso has made some modifications to your troops' weapons, boosting Rally Squad Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s2/alonso/img/hero_skill_icon_500188.png"
+        }
+      ]
+    }
+  }
+}

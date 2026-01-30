@@ -1,0 +1,112 @@
+{
+  "slug": "jeronimo",
+  "name": "Jeronimo",
+  "rarity": "SSR",
+  "season": 1,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s1/jeronimo/img/jeronimo.png",
+  "story": "Jeronimo was born with a silver spoon in his mouth. He was the heir of a local Duke in the old empire. Even after the old world's collapse, he maintained the noble style of dress, decorum, and speech. Many people dislike his demeanor, but none can deny that Jeronimo is an invaluable asset to the Dawn Alliance.\n\nHe is an extremely capable swordfighter. Jeronimo's techniques are the embodiment of sword-fighting science and art. Unfortunately, the intricacy of his techniques made it almost impossible for other soldiers to learn.\n\nJeronimo is also one of Dawn Alliance’s finest commanders, thanks to his education at the Imperial Military Academy. Jeronimo's early life in the upper class has raised him with expensive tastes. Such tastes are impossible to maintain even for an accomplished fighter like him. As a result, he accumulated a huge amount of debt. The debt drove him to work as a \"contract commander\" under Phaethon Mercenaries. He also became their duel master and trainer.\n\nHis years in the Phaethon had seen various engagements against the Dawn Alliance. Some members of the Alliance, Bahiti for one, can’t come to terms with that so easily. Jeronimo's upbringing and education made him a model of chivalry. He hated the underhanded techniques of Phaethon leaders, and his departure was an inevitability.\n\nPhaethon's revenge came quicker than Jeronimo's resignation. In a fight against bandits, Jeronimo was outmanned and Phaethon's promised reinforcements were nowhere to be seen. He sent an urgent request to the Dawn Alliance for help instead. From there, it was easy enough for the Alliance to persuade Jeronimo to join them.\n\nOff the battlefield, Jeronimo fancies himself as a poet, and most of his creations are love poetry. When they were on the same assignments, Cloris' fighting prowess and supposed royal bloodline stirred something in Jeronimo's heart. However, below is Cloris’ response to Jeronimo's many advances: \"Of all the awkward, stupid, and moronic things you do and say, Jeronimo, your love poems are surely the worst.\"",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 2128,
+      "defense": 2220,
+      "health": 41624
+    },
+    "expedition": {
+      "attack_percent": "260.2%",
+      "defense_percent": "260.2%"
+    }
+  },
+  "sources": [
+    "VIP Packs"
+  ],
+  "skills": [
+    {
+      "id": "500111",
+      "name": "Combo Slash",
+      "mode": "exploration",
+      "description": "Jeronimo launches enemies in the target area into the air, following up with three slashes, each dealing Attack* 160%/176%/192%/208%/224% damage.",
+      "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500111.png"
+    },
+    {
+      "id": "500112",
+      "name": "Sword Art",
+      "mode": "exploration",
+      "description": "Each of Jeronimo's attacks releases sword energy, dealing Attack* 15%/17%/19%/21%/23% damage to enemies in a rectangular area straight ahead.",
+      "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500112.png"
+    },
+    {
+      "id": "500113",
+      "name": "Lone Wolf",
+      "mode": "exploration",
+      "description": "Jeronimo is a master at pressing advantages, gaining a +16%/24%/32%/40%/48% Attack boost over 50% Health.",
+      "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500113.png"
+    },
+    {
+      "id": "500114",
+      "name": "Battle Manifesto",
+      "mode": "expedition",
+      "description": "Jeronimo delivers a rousing rally speech ahead of the battle, increasing damage dealt by +5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500114.png"
+    },
+    {
+      "id": "500115",
+      "name": "Swordmentor",
+      "mode": "expedition",
+      "description": "Jeronimo imparts the secrets of swordsmanship, increasing attack by +5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500115.png"
+    },
+    {
+      "id": "500116",
+      "name": "Expert Swordsmanship",
+      "mode": "expedition",
+      "description": "Jeronimo's sword arts empower soldiers to seize battle opportunities, increasing Damage Dealt by 6%/12%/18%/24%/30% for all troops for 2 turns every 4 turns.",
+      "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500116.png"
+    }
+  ],
+  "talent": [
+    {
+      "id": null,
+      "name": "Natural Leader",
+      "description": "Jeronimo easily inspires others even from afar, boosting all troops' Lethality and Health by 3%/6%/9%/12%/15%",
+      "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_icon_005.png"
+    }
+  ],
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 431,
+        "def": 562,
+        "health": 8437
+      },
+      "expedition": {
+        "lethality": "62.50%",
+        "health": "62.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Dawnbreak",
+      "power": 281250,
+      "image": "../assets/heroes/ssr/s1/jeronimo/img/equipment_icon_1050011.png",
+      "perks": [
+        {
+          "id": "500117",
+          "name": "Shield of Swords",
+          "level": 5,
+          "description": "When attacking, Jeronimo's sword energy forms a shield, reducing his damage received by 30%.",
+          "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500117.png"
+        },
+        {
+          "id": "500118",
+          "name": "Discernment",
+          "level": 5,
+          "description": "Jeronimo attacks with a sword formation, increasing Rally Troops' attack by 15%.",
+          "icon": "../assets/heroes/ssr/s1/jeronimo/img/hero_skill_icon_500118.png"
+        }
+      ]
+    }
+  }
+}
+

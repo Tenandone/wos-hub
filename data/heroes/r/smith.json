@@ -1,0 +1,56 @@
+{
+  "slug": "smith",
+  "name": "Smith",
+  "rarity": "R",
+  "class": "Infantry",
+  "subClass": "Growth",
+  "image": "/assets/heroes/r/smith/img/smith.png",
+  "storyHtml": "<p>Smith comes across as an inconspicuous fellow running an everyday smithery in an average City. But his reputation for forging the best weapons has won him customers from all over the wilderness. Smith also offers perfectly-tailored custom weapons (be it guns or swords) if the price is right.</p><p>Some say Smith himself is an expert in martial arts, hence his precise understanding of the weight, length, center of gravity, and other such specifications required of the perfect weapon. In any case, wise troublemakers know better than to upset this humble blacksmith.</p><p>Smith prefers crafting melee weapons over ranged weapons. He find something truly exciting in the downward stroke of the rapier, the quick lunge of the scimitar, and the deflected blow of the spear. His drinking buddy Eugene also loves the aesthetics and feel of melee weapons, although Smith would rather Eugene not use his well-crafted axes simply for logging.</p><p>Smith loves the loud clangs of hammer against anvil and the sparks from iron in the hot furnace. He has an intuitive understanding of each piece of metal and hears its \"inner voice\". He has claimed to friends that he simply follows the \"will\" of the metal as he intuitively interprets it - that's his secret to making the best weapons.</p><p>Smith's forging talents did not come easily. In fact, he was abducted and forced to work as a blacksmith on the \"Neptune\" steam submarine as a child.</p><p>It was a dark time, made darker still by Smith's fear of the sea and confined spaces. One day, after years of forced labor, Smith suddenly heard a whisper from the metal he was working on… It was that same night Smith began to truly master forging. When the submarine docked for supplies, Smith used a secret weapon he had crafted to knock out the guards and escape from the \"Neptune\".</p>",
+  "descriptionHtml": null,
+  "sources": [
+    "Exploration",
+    "Lighthouse Intel",
+    "Hero Recruitment"
+  ],
+  "stats": {
+    "exploration": {
+      "attack": 1106,
+      "defense": 2220,
+      "health": 21644
+    },
+    "expedition": {
+      "attack_percent": "90.07%",
+      "defense_percent": "90.07%"
+    }
+  },
+  "skills": [
+    {
+      "id": "hero_skill_icon_500011",
+      "name": "Hammer Burn",
+      "mode": "exploration",
+      "description": "Smith swings his hammer forward in a devastating arc, dealing Attack 200%/220%/240%/260%/280% damage.",
+      "icon": "/assets/heroes/r/smith/img/hero_skill_icon_500011.png"
+    },
+    {
+      "id": "hero_skill_icon_500012",
+      "name": "Armor Enhancement",
+      "mode": "exploration",
+      "description": "Smith upgrades his armor to reduce damage taken by 10%/15%/20%/25%/30%.",
+      "icon": "/assets/heroes/r/smith/img/hero_skill_icon_500012.png"
+    },
+    {
+      "id": "hero_skill_icon_500014",
+      "name": "Burnished Iron",
+      "mode": "expedition",
+      "description": "Smith's contagious passion for the art of crafting has raised City Iron Mine Output by 5%/10%/15%/20%/25%.",
+      "icon": "/assets/heroes/r/smith/img/hero_skill_icon_500014.png"
+    },
+    {
+      "id": "hero_skill_icon_500015",
+      "name": "Craftsmanship",
+      "mode": "expedition",
+      "description": "Smith has an extraordinary sixth sense when it comes to iron. +5%/10%/15%/20%/25% Iron Gathering Speed on the map.",
+      "icon": "/assets/heroes/r/smith/img/hero_skill_icon_500015.png"
+    }
+  ]
+}

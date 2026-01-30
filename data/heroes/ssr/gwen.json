@@ -1,0 +1,106 @@
+{
+  "slug": "gwen",
+  "name": "Gwen",
+  "rarity": "SSR",
+  "season": 5,
+  "class": "Marksman",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s5/gwen/img/gwen.png",
+  "story": "Gwen and Norah often elicit diverse first impressions although both may be equally respected commanders of the Dawn Alliance.\n\nThe commander of a mechanized brigade, Norah excels at lightning-fast charges, disrupting enemy formations, ambushes, and daring raids. By contrast, Gwen exudes a scholarly, bookish aura. Her high standing in the Dawn Alliance has come only from her revolutionary flying machines which can mark enemy movements from high above the battlefield. An exceptional pilot, Gwen has pioneered a myriad of intricate inventions instrumental to many difficult Dawn Alliance missions.\n\nAs the machinist Jessie once said of Gwen: \"An engineering prodigy, one of only a few in the world, Gwen's trinkets have done the Alliance enormous good. But I think what Gwen really wants is to create aircraft that will conquer the skies.\"\n\nGwen is not fond of combat, but her father's tragedy has also left her with the realization that sometimes fighting and its brutal consequences cannot be avoided. Gwen is a remarkably strong fighter thanks to her older sister Norah's guidance and training. Gwen's prudence still shines through as she tends to disengage when the outcome is uncertain. Ironically, Gwen finds herself most at risk when testing out new machine prototypes. Invention can often be a risky endeavor.\n\nThe love Norah holds for her younger sister Gwen is undeniable, yet their journey together has not been without its fair share of conflict. Despite Norah's many attempts to make Gwen wise to the ways of battle, she still harbors profound fears for Gwen's safety in a real firefight. Norah does not want to go through the loss of another family member. Similarly, Norah is anxious about her sister's obsession with flying machines. She worries for Gwen's safety during the invention process and that all these trinket may well prove fruitless. There is also Norah's perspective on Gwen's scientific efforts, highly reminiscent of their father. Just like their father's tragic tale, Norah believes that all the knowledge in the world is futile when faced with the threat of violence and need for self-preservation.\n\nNorah and Gwen's sisterly relationship has improved. For example, Norah has recently embraced Gwen's active involvement in combat and focus on research. A considerable part of this positive transformation has come from Gwen's exceptional contribution during a particularly nasty engagement with Phaethon. One fateful morning, Phaethon launched a vicious invasion led by mechanized infantry backed by heavily-armored guards in what can only be described as a ring of steel around the city. It was a daunting, hopeless sight. Gwen, who had earlier been evacuated, returned in an airship which dropped barrage after barrage of explosives on confused enemy forces. Phaethon's panicked response provided Norah the perfect moment for an effective counterattack. Norah had witnessed her younger sister's extraordinary courage, skill, determination, and resourcefulness with a dawning realization: her sister was no longer a child in need of protective guidance. Gwen was fully capable of protecting herself.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 5987,
+      "defense": 4928,
+      "health": 36962
+    },
+    "expedition": {
+      "attack_percent": "444.35%",
+      "defense_percent": "444.35%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Daily Deals",
+    "Mythic General Hero Shard"
+  ],
+  "skills": [
+    {
+      "id": "500261",
+      "name": "Salvo",
+      "mode": "exploration",
+      "description": "Gwen unleashes a devastating salvo against enemies at the rear (heroes first), dealing Attack*180%/198%/216%/234%/252% Area of Effect damage. Shockwaves will also decrease target's Attack Speed by 50% for 2 seconds.",
+      "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500261.png"
+    },
+    {
+      "id": "500262",
+      "name": "Sky Sniper",
+      "mode": "exploration",
+      "description": "Gwen unleashes a devastating air-assisted precision strike against the target (heroes first), dealing Attack*100%/110%/120%/130%/140% damage with a 50% chance of dealing double damage.",
+      "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500262.png"
+    },
+    {
+      "id": "500263",
+      "name": "Hellfire",
+      "mode": "exploration",
+      "description": "Gwen launches an incendiary grenade to burn all enemy targets in the area, dealing Attack*35%/38.5%/42%/45.5%/49% damage per second for 3s.",
+      "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500263.png"
+    },
+    {
+      "id": "500264",
+      "name": "Eagle Vision",
+      "mode": "expedition",
+      "description": "Gwen provides unfettered vision of enemy weakpoints during fights, increasing target's Damage Taken by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500264.png"
+    },
+    {
+      "id": "500265",
+      "name": "Air Dominance",
+      "mode": "expedition",
+      "description": "Gwen dominates the skies, dealing 20%/40%/60%/80%/100% extra damage once every five attacks and grants 5%/7.5%/10%/12.5%/15% extra damage to the next attack from any source.",
+      "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500265.png"
+    },
+    {
+      "id": "500266",
+      "name": "Blastmaster",
+      "mode": "expedition",
+      "description": "Gwen equips her troops with grenades, dealing 10%/20%/30%/40%/50% extra damage to all enemies once every 4 attacks.",
+      "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500266.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 1212,
+        "def": 999,
+        "health": 7492
+      },
+      "expedition": {
+        "lethality": "111%",
+        "health": "111%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Wings of Hope",
+      "power": 499500,
+      "image": "../assets/heroes/ssr/s5/gwen/img/equipment_icon_1050026.png",
+      "perks": [
+        {
+          "id": "500267",
+          "name": "Fire Support Unit",
+          "level": 5,
+          "description": "Gwen's automated secondary weapon attacks a random target on skill cast (heroes first), dealing Attack*70% damage.",
+          "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500267.png"
+        },
+        {
+          "id": "500268",
+          "name": "Marauder",
+          "level": 5,
+          "description": "Gwen uses her expertise in offensive tactics, boosting Rally Troops' Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s5/gwen/img/hero_skill_icon_500268.png"
+        }
+      ]
+    }
+  }
+}

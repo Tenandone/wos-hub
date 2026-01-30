@@ -1,0 +1,106 @@
+{
+  "slug": "zinman",
+  "name": "Zinman",
+  "rarity": "SSR",
+  "season": 1,
+  "class": "Marksman",
+  "subClass": "Growth",
+  "image": "../assets/heroes/ssr/s1/zinman/img/zinman.png",
+  "story": "In the bygone era of the Sunfire Castle, Zinman was renowned as \"the Greatest Architect\". His understanding of architectural science and art is unparalleled. His designs were brilliant, and his reputation was oustanding. However, his appearance... let’s just say Zinman had no time for such trivial things. If not for the Great Chill, he would no doubt reach ever greater heights in his field of study.\n\nWhile many of Zinman's former colleagues settled in the nearest Cities, Zinman mysteriously vanished for several years. When he showed himself again, he became a key member of the powerful Dawn Alliance. Under the alliance, Zinman developed new defensive engineering techniques and improvements to the City Furnace. He takes pride in these less artistic but highly practical structures.\n\nZinman rarely speaks of his family, but people knew of the sudden passing of his daughter. It had always been her dream to see a magnificent greenhouse full of all kinds of flowers. This project was eventually approved by the President of Sunfire Castle after Zinman spent years petitioning for it. Nearly a decade of work on the unfinished greenhouse was destroyed in the chaos following the Great Chill.\n\nInitially, Zinman could not let go of his daughter's dream greenhouse. Then reality beckoned, and he realized survival is everyone’s top priority in the frozen world.\n\nZinman's post-Chill inventions include shelters with enhanced snow cover and conversion kits to turn nail guns into effective weapons. Although he is helping a lot of survivors with his knowledge, Zinman is painfully aware of his failure to fulfill the promise to his daughter.\n\nAfter joining Dawn Alliance as the chief architect, Zinman found hope and purpose again. He was glad to use his architectural knowledge to save countless lives, families, and cities. The smile on their faces offered immeasurable comfort to Zinman. He still dreams that one day far in the future, he would build that greenhouse, as an act of remembrance for his family...",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 2697,
+      "defense": 2220,
+      "health": 16650
+    },
+    "expedition": {
+      "attack_percent": "200.16%",
+      "defense_percent": "200.16%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel",
+    "Daily Deals",
+    "Mythic General Hero Shard"
+  ],
+  "skills": [
+    {
+      "id": "500171",
+      "name": "Nail Scatter",
+      "mode": "exploration",
+      "description": "Zinman covers the target in a stream of nails, each dealing Attack*55%/60%/65%/70%/75% damage and a 2-second Stun.",
+      "icon": "../assets/heroes/ssr/s1/zinman/img/hero_skill_icon_500171.png"
+    },
+    {
+      "id": "500172",
+      "name": "Quick Defense",
+      "mode": "exploration",
+      "description": "Zinman works well under pressure, fortifying his position under 50% Health with a +50%/75%/100%/125%/150% boost to his Defense.",
+      "icon": "../assets/heroes/ssr/s1/zinman/img/hero_skill_icon_500172.png"
+    },
+    {
+      "id": "500173",
+      "name": "Robust",
+      "mode": "exploration",
+      "description": "Zinman's energetic poise provides a +10%/15%/20%/25%/30% Attack Speed boost.",
+      "icon": "../assets/heroes/ssr/s1/zinman/img/hero_skill_icon_500173.png"
+    },
+    {
+      "id": null,
+      "name": "Implacable",
+      "mode": "expedition",
+      "description": "Zinman the master builder understands what is required of a strong defensive line, increasing all troops' Defense by 2%/4%/6%/8%/10% and Health by 2%/4%/6%/8%/10%.",
+      "icon": "../assets/heroes/ssr/s1/zinman/img/ziman-new-1.png"
+    },
+    {
+      "id": "500174",
+      "name": "Bastionist",
+      "mode": "expedition",
+      "description": "Zinman's logistics expertise reduces building costs by 3%/6%/9%/12%/15% and accelerates building upgrades by 3%/6%/9%/12%/15%.",
+      "icon": "../assets/heroes/ssr/s1/zinman/img/hero_skill_icon_500174.png"
+    },
+    {
+      "id": null,
+      "name": "Positional Battler",
+      "mode": "expedition",
+      "description": "Zinman is a master of the offensive use of terrain, increasing all troops' damage by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s1/zinman/img/ziman-new-2.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 546,
+        "def": 450,
+        "health": 3375
+      },
+      "expedition": {
+        "lethality": "50%",
+        "health": "50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Woodpecker",
+      "power": 225000,
+      "image": "../assets/heroes/ssr/s1/zinman/img/equipment_icon_1050017.png",
+      "perks": [
+        {
+          "id": "500177",
+          "name": "Overclocked Nail Gun",
+          "level": 5,
+          "description": "Zinman's Nail Gun enters Overcharged Mode, increasing his Attack by 24%.",
+          "icon": "../assets/heroes/ssr/s1/zinman/img/hero_skill_icon_500177.png"
+        },
+        {
+          "id": "500178",
+          "name": "Defend to Attack",
+          "level": 5,
+          "description": "Zinman constructs an Archer Towers, increasing Defender Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s1/zinman/img/hero_skill_icon_500178.png"
+        }
+      ]
+    }
+  }
+}

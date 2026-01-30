@@ -1,0 +1,106 @@
+{
+  "slug": "elif",
+  "name": "Elif",
+  "rarity": "SSR",
+  "season": 14,
+  "gen": 14,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s14/elif/img/elif.png",
+  "story": "The deadly Tundra flower Elif bloomed in a distant land before coming to this remnant of civilization.\n\nA skilled dancer and martial artist, Elif appears adaptable as water and dangerous as fire to her enemies, while remaining charming to those she meets. She often travels with convoys, using them to safely move between Cities where she settles temporarily, forming new contacts and pursuing mysteries that intrigue her.\n\nTrained in a remote land before the ice plague spread, Elif’s performances carry a wistful sadness for the lost past. Her twin-blade combat style mirrors the ribbons of her youth, translating extraordinary dexterity into deadly battlefield effectiveness.\n\nHer mission traces back to a tragedy involving a strange scientist whose visit coincided with a curse afflicting local children, including her sister Defne. With the help of Philly the physician, Elif seeks both to stabilize Defne’s condition and uncover the truth behind the curse—possibly linked to Kaisha and Phaethon. Despite the dangers, Elif will never abandon her pursuit, even in the heart of the storm.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 19702,
+      "defense": 25684,
+      "health": 385280
+    },
+    "expedition": {
+      "attack_percent": "1791.43%",
+      "defense_percent": "1791.43%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500531",
+      "name": "Spectral Glide",
+      "mode": "exploration",
+      "description": "Confuses enemies for 1s and grants a 10/15/20/25/30% chance to dodge attacks for 5s.",
+      "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500531.png"
+    },
+    {
+      "id": "500532",
+      "name": "Blade Dance",
+      "mode": "exploration",
+      "description": "Deals Attack*100/110/120/130/140% damage and confuses the target for 1s.",
+      "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500532.png"
+    },
+    {
+      "id": "500533",
+      "name": "Ethereal Steps",
+      "mode": "exploration",
+      "description": "Increases dodge chance by 7/10/13/16/20% and grants a chance to confuse targets for 1s on normal attacks.",
+      "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500533.png"
+    },
+    {
+      "id": "500534",
+      "name": "Shackling Veil",
+      "mode": "expedition",
+      "description": "Reduces all enemy troops' Attack by 5/10/15/20/25%.",
+      "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500534.png"
+    },
+    {
+      "id": "500535",
+      "name": "Slash Formation",
+      "mode": "expedition",
+      "description": "Increases troops' Attack by 3/6/9/12/15% and Defense by 2/4/6/8/10%.",
+      "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500535.png"
+    },
+    {
+      "id": "500536",
+      "name": "Enchanting Tapestry",
+      "mode": "expedition",
+      "description": "Infantry attacks grant a shield equal to Attack*6/12/18/24/30% for 1 turn.",
+      "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500536.png"
+    }
+  ],
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 3991,
+        "def": 5206,
+        "health": 78097
+      },
+      "expedition": {
+        "lethality": "447.50%",
+        "health": "447.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Moonscar",
+      "power": 2603250,
+      "image": "../assets/heroes/ssr/s14/elif/img/equipment_icon_1050053.png",
+      "perks": [
+        {
+          "id": "500537",
+          "name": "Blazing Edge",
+          "level": null,
+          "description": "Increases Attack Speed and Ethereal Steps confusion chance by 7/10/13/16/20%.",
+          "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500537.png"
+        },
+        {
+          "id": "500538",
+          "name": "Guardian's Grace",
+          "level": null,
+          "description": "Increases Defender Troops' Defense by 5/7.5/10/12.5/15%.",
+          "icon": "../assets/heroes/ssr/s14/elif/img/hero_skill_icon_500538.png"
+        }
+      ]
+    }
+  }
+}

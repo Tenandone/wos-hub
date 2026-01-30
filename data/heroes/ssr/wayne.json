@@ -1,0 +1,109 @@
+{
+  "slug": "wayne",
+  "name": "Wayne",
+  "rarity": "SSR",
+  "season": 6,
+  "gen": 6,
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s6/wayne/img/wayne.jpg",
+  "story": "Wayne has always kept to himself as a bounty hunter, and he is as capable as he is experienced. He always completes his missions precisely and efficiently like a stone-cold machine, and never utters a word more than necessary.\nHe is an excellent sharpshooter with razor reflexes,making him one of the best shooters on the ice fields. According to Bahiti, Wayne can do a quick draw at 100 paces and hit multiple coins thrown in the air in quick succession. However, he prefers to deal with his opponents with his modified Power Boomerang, which is a more effective tool for him to turn in the targets \"intact\" to the employer.\nSometimes, he gives his combative and resistant \"prey\" a fair fighting chance. He's never lost, of course.\nWayne has practically no friends, and doesn't view \"bonding with other people\" as something that's necessary. He also says that he accepts various arduous and dangerous missions—mostly pursuing vicious bandits—not out of a sense of justice, but for the money.\nAs a long-time \"business partner,\" Greg the judge is thankful that Wayne probably has his own moral code and doesn't blindly accept all commissions, and doesn't become an accomplice to evil \"for the money.\" \n\"I'm from another world—a world that no longer exists,\" said Wayne when one of his acquaintances asked about his past. This absurd statement wasn't taken seriously, but it wasn't entirely untrue. The town where Wayne was born and raised had indeed met its demise under extreme circumstances. His beloved home was lost to history, and all the people and things he had loved had turned to dust. Because of this, Wayne closed himself off so that he would not form connections, and stepped onto the path of a lone wolf.\nWayne's \"hunts\" do not always go smoothly. On a hunt for Zenobia, Queen of Violence, he was shot and fell to the bottom of a valley. A young mountain maid named Matilda saved him and brought him home to nurse him back to health. After losing her husband, Matilda and her young son depended on each other to live, and the arrival of a stranger brought much color to their daily grind. Just as Wayne recovered, Zenobia and her cronies invaded Matilda's village. Expecting helpless victims, Zenobia was stopped short by her old nemesis. Wayne captured the vicious criminal and bid farewell to Matilda. Even he did not realize that small change had been wrought in a small part of his heart.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 7200,
+      "defense": 5926,
+      "health": 44454
+    },
+    "expedition": {
+      "attack_percent": "540.43%",
+      "defense_percent": "540.43%"
+    }
+  },
+  "sources": [
+    "Hall of Chiefs",
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Hero Rally"
+  ],
+  "skills": [
+    {
+      "id": "500311",
+      "name": "Hurricane Blowback",
+      "mode": "exploration",
+      "description": "Wayne throws a boomerang, dealing Attack*100%/110%/120%/130%/140% Area of Effect damage to enemies in a straight line. On its return, it deals the same amount of damage to enemies in its path.",
+      "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500311.png"
+    },
+    {
+      "id": "500312",
+      "name": "Phantom Blitz",
+      "mode": "exploration",
+      "description": "Wayne draws and fires in the blink of an eye. Each normal attack has a 15%/20%/25%/30%/35% chance of triggering another normal attack.",
+      "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500312.png"
+    },
+    {
+      "id": "500313",
+      "name": "Noon Time",
+      "mode": "exploration",
+      "description": "Wayne's impeccable aim grants a 3%/6%/9%/12%/15% Crit Rate on dealing damage.",
+      "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500313.png"
+    },
+    {
+      "id": "500314",
+      "name": "Thunder Strike",
+      "mode": "expedition",
+      "description": "Wayne's brilliant battle planning allows all troops to launch an extra attack every 4 turns, dealing 20%/40%/60%/80%/100% damage.",
+      "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500314.png"
+    },
+    {
+      "id": "500315",
+      "name": "Roundabout Hit",
+      "mode": "expedition",
+      "description": "Wayne's stratagems can pierce the thickest of defense. On every other attack, his Marksmen deal 8%/16%/24%/32%/40% extra damage to enemy Lancer and 4%/8%/12%/16%/20% extra damage to enemy Marksmen.",
+      "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500315.png"
+    },
+    {
+      "id": "500316",
+      "name": "Fleet",
+      "mode": "expedition",
+      "description": "Wayne ensures no misstep goes unpunished with an eagle's eye for weakness, granting all troops' attacks a 5%/10%/15%/20%/25% Crit Rate.",
+      "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500316.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 1457,
+        "def": 1201,
+        "health": 9011
+      },
+      "expedition": {
+        "lethality": "133.50%",
+        "health": "133.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Power Boomerang",
+      "power": 600750,
+      "image": "../assets/heroes/ssr/s6/wayne/img/equipment_icon_1050031.png",
+      "perks": [
+        {
+          "id": "500317",
+          "name": "Gunslinger",
+          "level": 5,
+          "description": "Wayne unleashes a rapid five-shot barrage, dealing Attack*56% damage to a random enemy. If the target is an Escort, there is a 100% chance of instantly knocking them down.",
+          "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500317.png"
+        },
+        {
+          "id": "500318",
+          "name": "Offensive Defense",
+          "level": 5,
+          "description": "Wayne's strategic brilliance increases Defender Troops' Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s6/wayne/img/hero_skill_icon_500318.png"
+        }
+      ]
+    }
+  }
+}

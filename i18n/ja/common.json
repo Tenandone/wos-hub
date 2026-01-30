@@ -1,0 +1,65 @@
+{
+  "brand": {
+    "name": "WosHub"
+  },
+  "nav": {
+    "menu": "メニュー",
+    "home": "ホーム",
+    "buildings": "建物",
+    "heroes": "英雄",
+    "hero": "英雄",
+    "coupons": "クーポン",
+    "calculator": "計算機",
+    "tools": "ツール",
+    "tips": "ヒント"
+  },
+  "home": {
+    "quick_access": "クイックアクセス",
+    "todays_tips": "今日のヒント",
+    "see_all_tips": "すべてのヒント",
+    "no_tips": "ヒントデータがありません。",
+    "latest_uploads": "最新アップロード",
+    "no_latest": "最新アップロードのデータがありません。"
+  },
+  "tools": {
+    "title": "ツール",
+    "subtitle": "計算機とユーティリティ",
+    "building_calc": "建物計算機"
+  },
+  "footer": {
+    "about": "概要",
+    "latest_coupons": "最新クーポン",
+    "open": "開く",
+    "no_coupons": "クーポンデータがありません。"
+  },
+  "coupon": {
+    "copied": "コピーしました！",
+    "active": "有効",
+    "expired": "期限切れ",
+    "permanent": "常設",
+    "expires": "期限"
+  },
+  "hero": {
+    "skills": "スキル",
+    "rarity": "レア度",
+    "class": "クラス",
+    "subclass": "サブクラス"
+  },
+  "coupons": {
+    "not_found": "クーポンページが見つかりません。"
+  },
+  "error": {
+    "title": "エラー",
+    "tried_urls": "試行したURL"
+  },
+  "aria": {
+    "open_menu": "メニューを開く",
+    "close_menu": "メニューを閉じる",
+    "site_menu": "サイトメニュー"
+  },
+  "lang": {
+    "english": "英語",
+    "korean": "韓国語",
+    "japanese": "日本語"
+  }
+}

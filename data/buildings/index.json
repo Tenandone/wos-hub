@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "furnace",
+    "name": "Furnace",
+    "json": "/data/buildings/furnace.json",
+    "img": "/assets/buildings/furnace/firecrystal_img/furnace.png"
+  },
+  {
+  "slug": "crystallaboratory",
+  "name": "Crystal Laboratory",
+  "json": "/data/buildings/crystallaboratory.json",
+  "img": "/assets/buildings/crystallaboratory/firecrystal_img/crystallaboratory.png"
+}
+,
+  {
+    "slug": "embassy",
+    "name": "Embassy",
+    "json": "/data/buildings/embassy.json",
+    "img": "/assets/buildings/embassy/firecrystal_img/embassy.png"
+  },
+  {
+    "slug": "commandcenter",
+    "name": "Command Center",
+    "json": "/data/buildings/commandcenter.json",
+    "img": "/assets/buildings/commandcenter/firecrystal_img/commandcenter.png"
+  },
+  {
+    "slug": "infantrycamp",
+    "name": "Infantry Camp",
+    "json": "/data/buildings/infantrycamp.json",
+    "img": "/assets/buildings/infantrycamp/firecrystal_img/infantrycamp.png"
+  },
+  {
+    "slug": "infirmary",
+    "name": "Infirmary",
+    "json": "/data/buildings/infirmary.json",
+    "img": "/assets/buildings/infirmary/firecrystal_img/infirmary.png"
+  },
+  {
+    "slug": "lancercamp",
+    "name": "Lancer Camp",
+    "json": "/data/buildings/lancercamp.json",
+    "img": "/assets/buildings/lancercamp/firecrystal_img/lancercamp.png"
+  },
+  {
+    "slug": "marksmancamp",
+    "name": "Marksman Camp",
+    "json": "/data/buildings/marksmancamp.json",
+    "img": "/assets/buildings/marksmancamp/firecrystal_img/marksmancamp.png"
+  },
+  {
+    "slug": "researchcenter",
+    "name": "Research Center",
+    "json": "/data/buildings/researchcenter.json",
+    "img": "/assets/buildings/researchcenter/firecrystal_img/researchcenter.png"
+  },
+  {
+    "slug": "waracademy",
+    "name": "War Academy",
+    "json": "/data/buildings/waracademy.json",
+    "img": "/assets/buildings/waracademy/firecrystal_img/waracademy.png"
+  }
+]

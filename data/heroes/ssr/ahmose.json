@@ -1,0 +1,106 @@
+{
+  "slug": "ahmose",
+  "name": "Ahmose",
+  "rarity": "SSR",
+  "season": 4,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s4/ahmose/img/ahmos.png",
+  "story": "Ahmose hailed from an ancient clan of guardians whose sacred duty was to safeguard the Cthugha's Heart - an active Fire Crystal - and regulate its use. With the assistance of these guardians, the Solaris Dynasty came to possess control over the energy of the Fire Crystal.\n\nHowever, when the kingdom attained great power, the king betrayed his protectors and banished them. The Fire Crystal subsequently entered a dormant state, and the fate of the guardians remained shrouded in mystery.\n\nRecently, Ahmose's weapon alerted him to the reawakening of the Fire Crystal. As one of the last surviving descendants of the guardians, he left his clan behind and embarked on a mission of vengeance. After arriving at his destination, Ahmose was confronted with the reality that the former empire had collapsed. This left him in a dilemma as to whether he should support or oppose the new ruler of Sunfire Castle.\n\nAhmose’s spear and shield were once the sources of pride for his ancestors. The two weapons were infused with the energy of Fire Crystal and thus became alive. Once lost, the weapons were found when Ahmose heard their call. He restored them through forgery like he was rebuilding the former glory of his ancestors.\n\nAfter spending some time in the Sunfire Castle, Ahmose was certain that the new president was not a tyrant like the ruler of the old empire. By talking to the Cthugha’s Heart using his gift of resonating with it, he was sure that the president was the ruler acknowledged by many.\n\nCthugha’s Heart released Ahmose from his destiny as a guardian and gave him and his clansmen their freedom. Without the mission as a guardian, Ahmose suddenly lost his direction in life. Fortunately, his courage and outstanding combat skills won him the admiration of the chiefs. Now, he protects newly built cities and helps the survivors struggling in the extremely cold with his shield.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 3150,
+      "defense": 4106,
+      "health": 61604
+    },
+    "expedition": {
+      "attack_percent": "370.29%",
+      "defense_percent": "370.29%"
+    }
+  },
+  "sources": [
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals"
+  ],
+  "skills": [
+    {
+      "id": "500231",
+      "name": "Cthugha's Protection",
+      "mode": "exploration",
+      "description": "Ahmose wields his robust shield, entering an invulnerable state (unable to move or cast skills, immune to control effects) and reducing damage taken by 30%/40%/50%/60%/70% for nearby friendly troops for 2s.",
+      "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500231.png"
+    },
+    {
+      "id": "500232",
+      "name": "Daybreak Knife",
+      "mode": "exploration",
+      "description": "Ahmose pierces the enemies at the front with a sharp spear, dealing Attack*70%/77%/84%/91%/98% damage, tearing apart the enemy’s defense, and making enemies take 20% more damage for the next 2s.",
+      "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500232.png"
+    },
+    {
+      "id": "500233",
+      "name": "Ancestral Blessing",
+      "mode": "exploration",
+      "description": "The energy of Fire Crystal, which is akin to the blessing of ancestors, heals Ahmose’s wounds. After casting \"Cthugha’s Protection\", Ahmose will recover Attack*30%/33%/36%/39%/42% Health for 5s.",
+      "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500233.png"
+    },
+    {
+      "id": "500234",
+      "name": "Viper Formation",
+      "mode": "expedition",
+      "description": "Ahmose revives the lost art of ancient guardians. His Infantry pauses the attack once every four times, reducing damage taken by Lancers and Marksmen by 10%/15%/20%/25%/30% and Infantry by 10%/25%/40%/55%/70% for 2 turns.",
+      "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500234.png"
+    },
+    {
+      "id": "500235",
+      "name": "Prayer of Flame",
+      "mode": "expedition",
+      "description": "Ahmose amplifies the combat spirit of friendly Infantry with the power of the Fire Crystal, increasing their damage dealt by 20%/40%/60%/80%/100%.",
+      "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500235.png"
+    },
+    {
+      "id": "500236",
+      "name": "Blade of Light",
+      "mode": "expedition",
+      "description": "Ahmose infuses friendly Infantry's weapons with the essence of Fire Crystals, increasing his Infantries' damage per attack by 12%/24%/36%/48%/60% and the target's damage taken by 5%/10%/15%/20%/25% for 1 turn.",
+      "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500236.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 638,
+        "def": 832,
+        "health": 12487
+      },
+      "expedition": {
+        "lethality": "92.50%",
+        "health": "92.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Guardian's Relic",
+      "power": 416250,
+      "image": "../assets/heroes/ssr/s4/ahmose/img/equipment_icon_1050023.png",
+      "perks": [
+        {
+          "id": "500237",
+          "name": "Unyielding Determination",
+          "level": 5,
+          "description": "Ahmose imbues allies with steadfast conviction, increasing Attack by 42% for friendly troops under Cthugha’s Protection for 2.5s.",
+          "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500237.png"
+        },
+        {
+          "id": "500238",
+          "name": "Oath of Guardian",
+          "level": 5,
+          "description": "Ahmose fortifies the city with the resolve of a guardian, increasing Defender Troops' Health by 15%.",
+          "icon": "../assets/heroes/ssr/s4/ahmose/img/hero_skill_icon_500238.png"
+        }
+      ]
+    }
+  }
+}

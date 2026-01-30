@@ -1,0 +1,106 @@
+{
+  "slug": "philly",
+  "name": "Philly",
+  "rarity": "SSR",
+  "season": 2,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s2/philly/img/philly.png",
+  "story": "The sight of a strange masked woman can be unsettling. What does she look like behind that beaked mask? Or is it actually part of her? For that, people always stayed away from Dr. Philly, until a plague struck several years ago.\n\nThe deadly disease hit the Cities without warning. The Chiefs designated a village as the quarantine spot for all those infected. Although, without proper resources, people in the village were practically left to die. When all hope was lost for the sick and forsaken, Dr. Philly chose to enter the village in search of a cure.\n\nAnd she succeeded. She was dubbed a miracle worker, an angel of the Cities. Philly spends a lot of time in the City graveyards and often faced accusations of grave robbery. Her studies of dead bodies are now encouraged by authorities, as her discoveries often lead to new cures for diseases. Philly is still regarded as a somewhat mysterious figure for spending long hours at the morgue and apothecary. This air of mystery made some people believe that Philly possesses supernatural power against diseases.\n\nThe truth was far more mundane. Philly was a promising medical researcher in the academy before a plague claimed the lives of all her families. Philly was the only survivor in her house. After that, she became determined to push boundaries and find new treatments for the plague.\n\nPhilly threw herself back into her studies with a vengeance. She has marked out disease and death as her personal enemies. And with anger came courage to face whatever dangers head on. However, Philly's goal is not just to conquer disease. She believes that one day she will be able to find a way to reverse death, even to the extent of bringing her family back...",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 2664,
+      "defense": 2220,
+      "health": 26640
+    },
+    "expedition": {
+      "attack_percent": "240.19%",
+      "defense_percent": "240.19%"
+    }
+  },
+  "sources": [
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals"
+  ],
+  "skills": [
+    {
+      "id": "500131",
+      "name": "First Aid",
+      "mode": "exploration",
+      "description": "Philly's advanced medical training immediately restores Health equal to her Attack *200%/220%/240%/260%/280% to all friendly heroes.",
+      "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500131.png"
+    },
+    {
+      "id": "500132",
+      "name": "Restorative Hands",
+      "mode": "exploration",
+      "description": "A master of first aid on the point of death, Philly immediately restores Health equal to her Attack *100%/110%/120%/130%/140% to the weakest friendly hero.",
+      "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500132.png"
+    },
+    {
+      "id": "500133",
+      "name": "Paralytic Lotion",
+      "mode": "exploration",
+      "description": "Philly poisons the target, disabling the enemy for 1s while dealing Attack*140%/154%/168%/182%/196% damage.",
+      "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500133.png"
+    },
+    {
+      "id": "500134",
+      "name": "Vigor Tactics",
+      "mode": "expedition",
+      "description": "Philly's secret remedy strengthens the soldiers, increasing Attack by 3%/6%/9%/12%/15% and Defense by 2%/4%/6%/8%/10% for all troops.",
+      "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500134.png"
+    },
+    {
+      "id": "500135",
+      "name": "Dosage Boost",
+      "mode": "expedition",
+      "description": "Philly's uses her secret tonic to enhance the warriors' strength, granting all troops' attack a 25% chance of dealing +120%/140%/160%/180%/200% damage.",
+      "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500135.png"
+    },
+    {
+      "id": "500136",
+      "name": "Energizing Shot",
+      "mode": "expedition",
+      "description": "Philly's special shot improves troops' focus, granting a 40% chance of reducing all troops' Damage Taken by 10%/20%/30%/40%/50%",
+      "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500136.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 540,
+        "def": 540,
+        "health": 5400
+      },
+      "expedition": {
+        "lethality": "60%",
+        "health": "60%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Pharmacologica",
+      "power": 270000,
+      "image": "../assets/heroes/ssr/s2/philly/img/equipment_icon_1050013.png",
+      "perks": [
+        {
+          "id": "500137",
+          "name": "Extraction",
+          "level": 5,
+          "description": "Philly has done much to raise the strength of her herbal skills, increasing their healing effects by 70%.",
+          "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500137.png"
+        },
+        {
+          "id": "500138",
+          "name": "First Aid Training",
+          "level": 5,
+          "description": "Philly imparts her basic first-aid and care techniques, increasing Defender Troops' Health by 15%.",
+          "icon": "../assets/heroes/ssr/s2/philly/img/hero_skill_icon_500138.png"
+        }
+      ]
+    }
+  }
+}

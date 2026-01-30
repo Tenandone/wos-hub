@@ -1,0 +1,107 @@
+{
+  "slug": "flora",
+  "name": "Flora",
+  "rarity": "SSR",
+  "season": 13,
+  "gen": 13,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s13/flora/img/flora.png",
+  "story": "Flora is not an inherently unfriendly person, nor is she arrogant. Her aloofness comes from a deep-seated preference for interacting with nature and plants rather than the rough-and-tumble world of complex social interactions. Flora would much rather deal with the former and she does, sometimes for days at a time, in a special greenhouse expertly constructed by Zinman and Jessie.\nFlora does enjoy the company of others — she’s just particular about whose company she keeps. Lydia, fellow botanist and agricultural expert, is a great source of joy. Jessie too, whose ingenuity designed the greenhouse temperature regulator. With these like-minded souls of deep thoughts Flora can enjoy many hours of spirited conversation.\n\nHorticulture is great expertise in these icy times. It was not so many years ago that a Dawn Alliance patrol stumbled on a seed preservation facility left by scientists unknown. Flora was given the task of categorizing and, if possible, reusing the revitalized seeds to grow cold-resistant crops to meet food shortages. Many survivors today owe their soft warm bread and fresh fruit to Flora's pioneering work in the cultivation of new seed varieties.\n\nFlora's love of plants began with books her parents read to her at bedtime, books filled with pictures of the old world and its lush paradise. Could there really have been such lush jungles as shown in the faded yellow pages? Such verdant gardens? The thought tantalized and fascinated Flora.\nFlora couldn't stop imagining the fantastic potential within plants. What new and magical varieties could be grown by careful cultivation? She would make it her life's work. Alongside classic food crops, Flora has also taken an interest in the darker and more sinister varieties: poisonous, flesh-eating flowers and highly aggressive climbing vines. Luckily, the terrors of these dangerous pests have been kept mostly in check... mostly.\n\nIn these later years Flora has been deeply involved in the study of the great City of Arcadia, which first enchanted her when she was a child with stories of its magnificence and eyewitness accounts. Among them is Agnes, a living eyewitness scholar, who, together with other diehard souls, has been trying to gather a team to restore their lost home's former glory.\nAgnes' dreams of a New Arcadia shine to Flora like a beacon of hope. New Arcadia has big shoes to fill, but Flora is excited to be rebuilding paradise with the other survivors on fertile volcanic soil. Flora is the official Dawn Alliance emissary and this is her grandest project to date.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 21400,
+      "defense": 21400,
+      "health": 214008
+    },
+    "expedition": {
+      "attack_percent": "1621.29%",
+      "defense_percent": "1621.29%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500511",
+      "name": "Envelopment",
+      "mode": "exploration",
+      "description": "Flora summons a fast-moving vine against enemies, dealing Attack*100%/110%/120%/130%/140% Area Damage and stuns the target for 2s.",
+      "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500511.png"
+    },
+    {
+      "id": "500512",
+      "name": "Rosebloom",
+      "mode": "exploration",
+      "description": "Flora litters the target area with toxic Adoria bloom, dealing Attack*20%/25%/30%/35%/40% Area Damage which sprouts into a flesh-eating Adoria Rose versus heroes. It inherits 10%/15%/20%/25%/30% of Flora's attributes and attacks nearby enemies.",
+      "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500512.png"
+    },
+    {
+      "id": "500513",
+      "name": "Nature's Strength",
+      "mode": "exploration",
+      "description": "What does not kill the cultivator and the cultivated makes them stronger. Flora and summoned plants gain 2%/4%/6%/8%/10% Health and 4%/8%/12%/16%/20% Defense.",
+      "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500513.png"
+    },
+    {
+      "id": "500514",
+      "name": "Enmiring Vines",
+      "mode": "expedition",
+      "description": "Flora litters the ground with sharp vines to hobble enemy soldiers, granting all troops a 50% chance of increasing enemies' Damage Taken by 10%/20%/30%/40%/50%.",
+      "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500514.png"
+    },
+    {
+      "id": "500515",
+      "name": "Plantage",
+      "mode": "expedition",
+      "description": "Flora's defensive foliage reduces Infantry Damage Taken by 5%/10%/15%/20%/25% while better Adoria Rose coordination with Lancers gives joint attacks dealing 5%/10%/15%/20%/25% extra damage.",
+      "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500515.png"
+    },
+    {
+      "id": "500516",
+      "name": "Confusion Pollen",
+      "mode": "expedition",
+      "description": "Flora's hallucinatory pollen increases enemy Infantry's Damage Taken by 6%/12%/18%/24%/30%, and decreases enemy Marksmen's Damage Dealt by 6%/12%/18%/24%/30% for 2 turns every 4 turns.",
+      "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500516.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 4338,
+        "def": 4338,
+        "health": 43380
+      },
+      "expedition": {
+        "lethality": "405.00%",
+        "health": "405.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Kernel of Plenty",
+      "power": 2169000,
+      "image": "../assets/heroes/ssr/s13/flora/img/equipment_icon_1050051.png",
+      "perks": [
+        {
+          "id": "500517",
+          "name": "Venom's Heart",
+          "level": 5,
+          "description": "Adoria Roses and vines can always be more toxic. Targets now suffer Attack*25% damage every 0.5s for 2s.",
+          "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500517.png"
+        },
+        {
+          "id": "500518",
+          "name": "Fruit of Life",
+          "level": 5,
+          "description": "Flora's new fruit is highly rejuvenating, granting Defender Troops 15% increased Health.",
+          "icon": "../assets/heroes/ssr/s13/flora/img/hero_skill_icon_500518.png"
+        }
+      ]
+    }
+  }
+}

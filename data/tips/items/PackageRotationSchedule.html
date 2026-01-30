@@ -1,0 +1,322 @@
+<!-- /tips/rotation.html  (Single HTML: EN + KO + JA, auto-show by site language) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rotation Schedule</title>
+
+  <style>
+    /* =========================
+       Tip Page (single HTML, multi-lang)
+       - self-contained CSS
+       - scoped to .tip-page to avoid global conflicts
+       ========================= */
+    :root{
+      --fg:#0f172a;
+      --muted:rgba(15,23,42,.68);
+      --bd:rgba(15,23,42,.12);
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --soft:#f8fafc;
+      --pri:#2563eb;
+      --shadow:0 10px 28px rgba(2,6,23,.06);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+    }
+    .tip-page a{color:inherit}
+    .tip-wrap{
+      max-width:960px;
+      margin:0 auto;
+      padding:22px clamp(16px,4vw,28px) 70px;
+    }
+
+    .tip-header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .tip-title{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.2px;
+      font-weight:900;
+      line-height:1.25;
+    }
+    .tip-sub{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .tip-panel{
+      border:1px solid var(--bd);
+      border-radius:16px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      padding:16px 18px;
+    }
+
+    .tip-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width:720px){ .tip-grid{grid-template-columns:1fr;} }
+
+    .tip-card{
+      border:1px solid var(--bd);
+      border-radius:14px;
+      background:linear-gradient(180deg,var(--soft), #fff);
+      padding:14px;
+    }
+
+    .tip-h3{
+      margin:0 0 8px;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:-.1px;
+      color:color-mix(in srgb, var(--pri) 85%, var(--fg));
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .tip-list{
+      margin:0;
+      padding-left:18px;
+      color:var(--fg);
+      font-size:13px;
+      line-height:1.65;
+    }
+    .tip-list li{margin:6px 0}
+    .tip-muted{
+      margin-top:12px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.65;
+    }
+
+    /* language blocks */
+    [data-lang]{display:none}
+    [data-lang].is-active{display:block}
+
+    /* guard media blow-up */
+    .tip-page img,.tip-page svg{max-width:100%;height:auto}
+  </style>
+</head>
+
+<body class="tip-page">
+  <main class="tip-wrap">
+    <header class="tip-header">
+      <div>
+        <h1 class="tip-title">Rotation Schedule</h1>
+        <p class="tip-sub">Shows the schedule in your site language (EN/KO/JA) using a single HTML.</p>
+      </div>
+    </header>
+
+    <!-- EN -->
+    <section class="tip-panel" data-lang="en">
+      <div class="tip-grid">
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Custom Packages</h3>
+          <ul class="tip-list">
+            <li>Fire Crystals: Mon–Wed (every 2 weeks)</li>
+            <li>Hero Gear: Thu–Fri (weekly)</li>
+            <li>Chief Gems: Sun–Mon (every 2 weeks)</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Craftsman’s Treasure Vault</h3>
+          <ul class="tip-list">
+            <li>Chief Gems: Wed–Thu (weekly)</li>
+            <li>Chief Gear: Fri–Sun (weekly)</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Hope Market</h3>
+          <ul class="tip-list">
+            <li>Fire Crystals: Fri–Sun (every 2 weeks)</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Strongest Chief Event Packages</h3>
+          <ul class="tip-list">
+            <li>Fire Crystals: Mon–Sat (every 2 weeks)</li>
+            <li>Stamina: Tue–Wed (every 2 weeks)</li>
+            <li>Troop Training: Wed–Thu (every 2 weeks)</li>
+            <li>Research: Thu–Fri (every 2 weeks)</li>
+            <li>Universal Speedups: Fri–Sun (every 2 weeks)</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="tip-muted">
+        Note: “every 2 weeks” means it appears on alternating cycles depending on your server rotation.
+      </p>
+    </section>
+
+    <!-- KO -->
+    <section class="tip-panel" data-lang="ko">
+      <div class="tip-grid">
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 커스텀 패키지</h3>
+          <ul class="tip-list">
+            <li>불수정: 월–수 (격주)</li>
+            <li>영웅 장비: 목–금 (매주)</li>
+            <li>집정관 보석: 일–월 (격주)</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 장인의 보물 창고</h3>
+          <ul class="tip-list">
+            <li>집정관 보석: 수–목 (매주)</li>
+            <li>집정관 장비: 금–일 (매주)</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 희망 마켓</h3>
+          <ul class="tip-list">
+            <li>불수정: 금–일 (격주)</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 최강 집정관 이벤트 패키지</h3>
+          <ul class="tip-list">
+            <li>불수정: 월–토 (격주)</li>
+            <li>스태미나: 화–수 (격주)</li>
+            <li>병력 훈련: 수–목 (격주)</li>
+            <li>연구: 목–금 (격주)</li>
+            <li>범용 가속: 금–일 (격주)</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="tip-muted">
+        참고: “격주”는 서버 로테이션(주기)에 따라 번갈아 등장한다는 의미예요.
+      </p>
+    </section>
+
+    <!-- JA -->
+    <section class="tip-panel" data-lang="ja">
+      <div class="tip-grid">
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 カスタムパッケージ</h3>
+          <ul class="tip-list">
+            <li>火晶: 月–水（隔週）</li>
+            <li>英雄装備: 木–金（毎週）</li>
+            <li>執政官ジェム: 日–月（隔週）</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 職人の宝物庫</h3>
+          <ul class="tip-list">
+            <li>執政官ジェム: 水–木（毎週）</li>
+            <li>執政官装備: 金–日（毎週）</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 ホープマーケット</h3>
+          <ul class="tip-list">
+            <li>火晶: 金–日（隔週）</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 最強執政官イベント パッケージ</h3>
+          <ul class="tip-list">
+            <li>火晶: 月–土（隔週）</li>
+            <li>スタミナ: 火–水（隔週）</li>
+            <li>部隊訓練: 水–木（隔週）</li>
+            <li>研究: 木–金（隔週）</li>
+            <li>汎用スピードアップ: 金–日（隔週）</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="tip-muted">
+        注: 「隔週」はサーバーのローテーション周期により交互に登場する意味です。
+      </p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      function pickLang(v) {
+        v = String(v || "").toLowerCase();
+        if (v === "ko" || v === "ja" || v === "en") return v;
+        // normalize like "en-us", "ko-kr", "ja-jp"
+        if (v.startsWith("ko")) return "ko";
+        if (v.startsWith("ja")) return "ja";
+        if (v.startsWith("en")) return "en";
+        return "en";
+      }
+
+      function getSiteLang() {
+        // 1) WOS_I18N (if your site uses it)
+        try {
+          if (window.WOS_I18N && typeof window.WOS_I18N.getLang === "function") {
+            return pickLang(window.WOS_I18N.getLang());
+          }
+        } catch (_) {}
+
+        // 2) <html lang="">
+        try {
+          var htmlLang = document.documentElement.getAttribute("lang");
+          if (htmlLang) return pickLang(htmlLang);
+        } catch (_) {}
+
+        // 3) localStorage/cookie (optional common patterns)
+        try {
+          var ls = localStorage.getItem("lang") || localStorage.getItem("locale") || "";
+          if (ls) return pickLang(ls);
+        } catch (_) {}
+
+        // 4) browser language fallback
+        try {
+          return pickLang((navigator.language || navigator.userLanguage || "en"));
+        } catch (_) {
+          return "en";
+        }
+      }
+
+      function applyLang(lang) {
+        var blocks = document.querySelectorAll("[data-lang]");
+        blocks.forEach(function (el) {
+          el.classList.toggle("is-active", el.getAttribute("data-lang") === lang);
+        });
+        document.documentElement.setAttribute("lang", lang);
+      }
+
+      // initial
+      applyLang(getSiteLang());
+
+      // if your site fires a language-change event, react to it
+      window.addEventListener("wos:langchange", function () {
+        applyLang(getSiteLang());
+      });
+    })();
+  </script>
+</body>
+</html>

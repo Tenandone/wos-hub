@@ -1,0 +1,15 @@
+{
+  "slug": "crystallaboratory",
+  "meta": {
+    "title": "Crystal Laboratory - Whiteout Survival Wiki",
+    "description": "In the crystal laboratory, you can exchange resources for fire crystals every day.\n\nYou can make 5-8 exchanges per day, depending on the FC level of your state.\n5 refinements unlock with FC 5\n6 refinements unlock with War Academy\n7 refinements unlock with FC 8\n8 refinements unlock with FC10\n\nan exchange costs:\n1st refinement: 5,000 meat, 5,000 wood, 5,000 coal, 5,000 iron\n2nd refinement: 10,000 meat, 10,000 wood, 10,000 coal, 10,000 iron\n3rd refinement: 20,000 meat, 20,000 wood, 20,000 coal, 20,000 iron\n4th refinement: 30,000 meat, 30,000 wood, 30,000 coal, 30,000 iron\n5th refinement: 40,000 meat, 40,000 wood, 40,000 coal, 40,000 iron\n6th-8th refinement: 50,000 meat, 50,000 wood, 50,000 coal, 50,000 iron\n\nEach exchange can give between 1 and 5 fire crystals, with the following chance rate:\n- 1 : 40%\n- 2 : 30%\n- 3 : 15%\n- 4 : 10%\n- 5 : 5%\n\nOnce your state unlocks FC6-8 you can perform super refinements. You can read more about super refinements here.",
+    "truegold": {
+      "text": "",
+      "bullets": []
+    }
+  },
+  "base": { "rows": [], "costColumns": [] },
+  "firecrystal": { "rows": [], "costColumns": [] },
+  "firecrystalPlus": { "rows": [], "costColumns": [] },
+  "firecrystalUnknown": { "rows": [], "costColumns": [] }
+}

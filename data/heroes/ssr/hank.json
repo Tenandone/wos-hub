@@ -1,0 +1,106 @@
+{
+  "slug": "hank",
+  "name": "Hank",
+  "rarity": "SSR",
+  "gen": 15,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s15/hank/img/hank.png",
+  "story": "Atop the vast tundra lie regions where humanity struggles to survive, whether due to harsh terrain or wild beasts. The mission of the Icebreaker Alliance is to conquer these perilous lands and expand the horizons of human civilization to survive this long winter of raging winds and heavy snow. Hank belongs to the Icebreaker Alliance as one of its fearless pioneers.\n\nGifted with tremendous strength and great courage, Hank has developed immense willpower through his decades of pioneering adventures, including countless clashes with bandits amidst the lawless icefields. Through all those battles, Hank mastered the art of wielding a variety of hand tools as weapons, allowing him to take on up to ten enemies at a time.\n\nThe Icebreaker Alliance's most celebrated achievement has to be the establishment of Arena tournaments that swept across the tundra, of which Hank is a massive fan. He knows the stats of every Arena legend by heart, possesses a deep understanding of Arena tactics and formations, and he's even put forth new strategic concepts of his own.\n\nHank might seem like just another tough guy, but he's also got a tender heart. His chainsaw is rugged, but he can also use it to craft exquisite works of art, including carvings in ice and wood. He even dreams up fantastic stories for the lifelike figures he creates, which tundra children find enthralling. Not only that, but Hank is also a chef who specializes in desserts.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 23637,
+      "defense": 30812,
+      "health": 462204
+    },
+    "expedition": {
+      "attack_percent": "1961.56%",
+      "defense_percent": "1961.56%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500561",
+      "name": "Frenzied Slashes",
+      "mode": "exploration",
+      "description": "Hank switches his circular saw to Frenzy mode to perform two slashes in a row. Each slash deals Attack*120%/130%/140%/150%/160% damage to frontal enemies within range and reduces their Defense by 10%/15%/20%/25%/30% for 2s.",
+      "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500561.png"
+    },
+    {
+      "id": "500562",
+      "name": "Urgent Energy",
+      "mode": "exploration",
+      "description": "When Hank's Health drops below 50%, his Attack increases by 10%/15%/20%/25%/30%. Triggers once per battle.",
+      "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500562.png"
+    },
+    {
+      "id": "500563",
+      "name": "Recycle & Reuse",
+      "mode": "exploration",
+      "description": "10%/15%/20%/25%/30% of Hank's damage dealt is converted into Health for himself.",
+      "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500563.png"
+    },
+    {
+      "id": "500564",
+      "name": "Roaring Rage",
+      "mode": "expedition",
+      "description": "Boosts all troops' Lethality by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500564.png"
+    },
+    {
+      "id": "500565",
+      "name": "Flying Sparks",
+      "mode": "expedition",
+      "description": "For every 5 Infantry attacks, all allied troops deal 5%/10%/15%/20%/25% more damage and take 5%/10%/15%/20%/25% less damage.",
+      "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500565.png"
+    },
+    {
+      "id": "500566",
+      "name": "Raging Force",
+      "mode": "expedition",
+      "description": "Every 4 turns, enemy Infantry take 6%/12%/18%/24%/30% more damage while enemy Marksmen deal 6%/12%/18%/24%/30% less damage for 2 turns.",
+      "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500566.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 4788,
+        "def": 6246,
+        "health": 93690
+      },
+      "expedition": {
+        "lethality": "490.00%",
+        "health": "490.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Roaring Rage",
+      "power": 3123000,
+      "image": "../assets/heroes/ssr/s15/hank/img/equipment_icon_1050056.png",
+      "perks": [
+        {
+          "id": "500567",
+          "name": "Steel Barricade",
+          "level": null,
+          "description": "Hank gains a shield worth Attack*220% when using Frenzied Slashes for 3 seconds.",
+          "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500567.png"
+        },
+        {
+          "id": "500568",
+          "name": "Wall of Despair",
+          "level": null,
+          "description": "Increases the Health of Defender Troops by 15%.",
+          "icon": "../assets/heroes/ssr/s15/hank/img/hero_skill_icon_500568.png"
+        }
+      ]
+    }
+  }
+}

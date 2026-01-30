@@ -1,0 +1,104 @@
+{
+  "slug": "flint",
+  "name": "Flint",
+  "rarity": "SSR",
+  "season": 2,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s2/flint/img/flint.png",
+  "story": "Flint is the flame that is always ready to burn down Phaethon in his vengeance. It’s almost certain that his personal crusade against Phaethon will only end in either his or Phaethon's demise.\n\nFlint and his ragtag followers (most of whom have suffered at the hands of Phaethon) often partnered with the Dawn Alliance in their fight against Phaethon's forces. Bahiti and the others knew that Flint would never take an innocent life. As for criminals and wrongdoers? They won’t receive any mercy from Flint's hands.\n\nFlint was a high-ranking military officer. In a scouting mission, he got separated from his own platoon and ended up in a remote City known as “Arcadia”. That City was the closest thing to utopia - a place filled with theaters, auditoriums, and even libraries! The City did not have weapons; its citizens were peace-loving scholars, so they do not see a need for firearms.\n\nFlint fell in love with the City and the machinist Jessie. His time in Arcadia made him believe a bright future can be built even in this icy world. His hope and belief were soon destroyed in a horrible raid on Arcadia.\n\nAn emissary from Phaethon showed up at Arcadia’s door and demanded the immediate transfer of all knowledge pertaining to \"fire crystal\". The Chief refused, knowing full well their research can be turned into destructive weapons of war. When Phaethon razed the City to the ground, Flint was the only fighter that put up a resistance. He was terribly injured during the fight but somehow survived the ordeal. His hopes for a better future are now replaced by a burning desire for vengeance.\n\nFlint and Jessie crossed paths again many years later. Embers of the couple's old affection still remained, but Jessie could not approve of Flint's all-consuming quest for vengeance. Flint will always hold a special place in Jessie's heart, but she can never bring herself to love a man dedicated to destruction. The former lovers have now drifted apart.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 2043,
+      "defense": 2664,
+      "health": 39960
+    },
+    "expedition": {
+      "attack_percent": "240.19%",
+      "defense_percent": "240.19%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel"
+  ],
+  "skills": [
+    {
+      "id": "500211",
+      "name": "Fires of Vengeance",
+      "mode": "exploration",
+      "description": "Flint's fire-breathing attack deals Attack*60%/66%/72%/78%/84% damage every 0.5s and amplifies damage taken by the target by 10%/15%/20%/25%/30% for 2s.",
+      "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500211.png"
+    },
+    {
+      "id": "500212",
+      "name": "Incinerator",
+      "mode": "exploration",
+      "description": "Pain only boosts Flint's potential. Flint immediately regains 20%/25%/30%/35%/40% of his max Health when Health is below 50%. Can only activate once per battle.",
+      "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500212.png"
+    },
+    {
+      "id": "500213",
+      "name": "Heat Diffusion",
+      "mode": "exploration",
+      "description": "The warmth of Flint's fire represents hope in troubling times, boosting your heroes' Attack Speed by 3%/4%/5%/6%/7%.",
+      "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500213.png"
+    },
+    {
+      "id": "500214",
+      "name": "Pyromaniac",
+      "mode": "expedition",
+      "description": "Every flame, no matter how small, can ignite a roaring fire. Flint increases his infantry's Damage Dealt by 20%/40%/60%/80%/100%.",
+      "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500214.png"
+    },
+    {
+      "id": "500215",
+      "name": "Burning Resolve",
+      "mode": "expedition",
+      "description": "Flint's fire not only dispels the cold but also ignites the passion for battle, increasing Attack by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500215.png"
+    },
+    {
+      "id": "500216",
+      "name": "Immolation",
+      "mode": "expedition",
+      "description": "Flint's flame of anger devours everything. Increasing all troops' Lethality by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500216.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 414,
+        "def": 540,
+        "health": 8100
+      },
+      "expedition": {
+        "lethality": "60%",
+        "health": "60%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Dragonbane",
+      "power": 270000,
+      "image": "../assets/heroes/ssr/s2/flint/img/equipment_icon_1050021.png",
+      "perks": [
+        {
+          "id": "500217",
+          "name": "Vengeful Task",
+          "level": 5,
+          "description": "Once released, the fires of Flint's vengeance cannot be quenched, boosting Attack by 24% until the end of battle once \"Incinerator\" is triggered.",
+          "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500217.png"
+        },
+        {
+          "id": "500218",
+          "name": "Dragonbreath",
+          "level": 5,
+          "description": "Flint fortifies his flamethrower for city defense, increasing Defense Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s2/flint/img/hero_skill_icon_500218.png"
+        }
+      ]
+    }
+  }
+}

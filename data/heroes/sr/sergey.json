@@ -1,0 +1,63 @@
+{
+  "slug": "sergey",
+  "name": "Sergey",
+  "rarity": "SR",
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "/assets/heroes/sr/sergey/img/sergey.png",
+  "stats": {
+    "exploration": {
+      "attack": 1361,
+      "defense": 2220,
+      "health": 26640
+    },
+    "expedition": {
+      "attack_percent": "140.11%",
+      "defense_percent": "140.11%"
+    }
+  },
+  "sources": [
+    "Exploration",
+    "Lighthouse Intel",
+    "Hero Recruitment"
+  ],
+  "skills": [
+    {
+      "id": "hero_skill_icon_500041",
+      "name": "Shielded Strike",
+      "mode": "exploration",
+      "description": "Sergey gives an enemy a solid whack with his heavy shield, knocking the target back while dealing Attack*200%/220%/240%/260%/280% Area of Effect damage.",
+      "icon": "/assets/heroes/sr/sergey/img/hero_skill_icon_500041.png"
+    },
+    {
+      "id": "hero_skill_icon_500042",
+      "name": "Joint Defense",
+      "mode": "exploration",
+      "description": "Sergey can organize strong perimeters, increasing all friendly hero Defense by 5%/7.5%/10%/12.5%/15%",
+      "icon": "/assets/heroes/sr/sergey/img/hero_skill_icon_500042.png"
+    },
+    {
+      "id": "hero_skill_icon_500043",
+      "name": "Shield Block",
+      "mode": "exploration",
+      "description": "Sergey trades in his shield for an upgraded model, reducing damage taken by 10%/15%/20%/25%/30%.",
+      "icon": "/assets/heroes/sr/sergey/img/hero_skill_icon_500043.png"
+    },
+    {
+      "id": "hero_skill_icon_500044",
+      "name": "Defenders' Edge",
+      "mode": "expedition",
+      "description": "Sergey's guards our troops with his shield, reducing damage taken by 4%/8%/12%/16%/20% for all troops.",
+      "icon": "/assets/heroes/sr/sergey/img/hero_skill_icon_500044.png"
+    },
+    {
+      "id": "hero_skill_icon_500045",
+      "name": "Weaken",
+      "mode": "expedition",
+      "description": "Sergey's intimidating presence reduces Attack by 4%/8%/12%/16%/20% for all enemy troops.",
+      "icon": "/assets/heroes/sr/sergey/img/hero_skill_icon_500045.png"
+    }
+  ],
+  "storyHtml": "<p>Sergey is a true veteran of the battlefield and a distinguished victor of numerous engagements. The unflappable veteran's reputation for courage is also matched by his steely demeanor off the field. He and his military expertise are invaluable assets to the Dawn Alliance. Sergey and his band are often the only force standing between a City and the deadly threats of this frozen land.<br />\n<br />\nIt is public knowledge that Sergey was at one point, sentenced to death for \"unforgivable crimes\" as a senior captain in the Royal Solaris Guard. Exactly what crime could have merited death for the distinguished serviceman, and how he escaped the sentence, are much lesser known.<br />\n<br />\nSergey spent much of his youth in the Sunfire Military Academy located near the castle. There, he studied the best of military strategy, history, and tactics. He also learned the importance of rigid discipline, a standard that he has maintained with his own elite soldiers.<br />\n<br />\nAfter joining the Dawn Alliance, Sergey often serves as a City Constable. He certainly excels in the role of maintaining public order. However, outside of work, Sergey's strictness and lack of humor did not win him many personal friends.<br />\n<br />\nSergey's lack of personal engagement with the people around him may be a result of the scars of battle he received. Some scars are mental, others physical. This is particularly true of his last mission in the Royal Solaris Guard: to evacuate a City and save its people from enemy assault. Unfortunately, the pillagers came earlier than expected, and Sergey's forces were too small in comparison.<br />\n<br />\nThe royal guardsmen fought with everything they had and held on for three full days. Sergey's commanding officer saw the defense as a lost cause and ordered a tactical retreat to contain the military losses. Sergey was trained to follow the orders of a superior, but he knew retreating meant giving up on the lives of the civilians. Sergey was stuck.<br />\n<br />\nRacked with guilt over the fate of the survivors, Sergey ultimately decided to disobey a direct order for the first time in his life.He and his men organized the best possible defense the City could muster. They held out against all odds until the bandits retreated. The City was saved, and a grateful child handed him a bottle cap as the “medal” for his brave exploit. Little did the townsfolk know, the man that saved them would soon be standing before a military tribunal on the charge of insubordination.<br />\n<br />\nThe tribunal judged that discipline shall be upheld whatever the cost. Sergey the hero was to be executed by firing squad at dawn. It was the bottle cap “medal” in his breast pocket that miraculously saved his life. Sergey would often reflect on his decision, but never once did he regret remaining behind and saving the City.</p>",
+  "description": null
+}

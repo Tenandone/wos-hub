@@ -1,0 +1,1325 @@
+{
+  "slug": "embassy",
+  "meta": {
+    "title": "Furnace - Whiteout Survival Wiki",
+    "description": "This is one of your Alliance buildings. The purpose of it is to have a place to keep reinforcements that are sent to you by Alliance members. It is also what dictates the amount of help you can get from your Alliance members when it comes to Construction, Research, and Healing.\nUpgrading this building is typically a requirement to upgrade your Furnace to the next level. Upgrading the Embassy increases the total amount of reinforcements your Alliance can send you, the amount of times your Alliance members can help you speed up Construction/Research/Healing, and boosts your power.",
+    "truegold": {
+      "text": "",
+      "bullets": []
+    }
+  },
+  "base": {
+    "rows": [
+      {
+        "level": "1",
+        "levelInfo": {
+          "type": "base",
+          "n": 1,
+          "sub": 0,
+          "key": "1"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 60
+        },
+        "time": {
+          "raw": "00:00:02",
+          "seconds": 2
+        },
+        "power": 440
+      },
+      {
+        "level": "2",
+        "levelInfo": {
+          "type": "base",
+          "n": 2,
+          "sub": 0,
+          "key": "2"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 90
+        },
+        "time": {
+          "raw": "00:00:10",
+          "seconds": 10
+        },
+        "power": 836
+      },
+      {
+        "level": "3",
+        "levelInfo": {
+          "type": "base",
+          "n": 3,
+          "sub": 0,
+          "key": "3"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 400
+        },
+        "time": {
+          "raw": "00:01:00",
+          "seconds": 60
+        },
+        "power": 1430
+      },
+      {
+        "level": "4",
+        "levelInfo": {
+          "type": "base",
+          "n": 4,
+          "sub": 0,
+          "key": "4"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 900,
+          "res_104": 180
+        },
+        "time": {
+          "raw": "00:02:00",
+          "seconds": 120
+        },
+        "power": 2222
+      },
+      {
+        "level": "5",
+        "levelInfo": {
+          "type": "base",
+          "n": 5,
+          "sub": 0,
+          "key": "5"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 3800,
+          "res_104": 760
+        },
+        "time": {
+          "raw": "00:06:40",
+          "seconds": 400
+        },
+        "power": 3410
+      },
+      {
+        "level": "6",
+        "levelInfo": {
+          "type": "base",
+          "n": 6,
+          "sub": 0,
+          "key": "6"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 9600,
+          "res_104": 1900,
+          "res_105": 480
+        },
+        "time": {
+          "raw": "00:13:20",
+          "seconds": 800
+        },
+        "power": 5192
+      },
+      {
+        "level": "7",
+        "levelInfo": {
+          "type": "base",
+          "n": 7,
+          "sub": 0,
+          "key": "7"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 34000,
+          "res_104": 6900,
+          "res_105": 1700
+        },
+        "time": {
+          "raw": "00:25:00",
+          "seconds": 1500
+        },
+        "power": 7766
+      },
+      {
+        "level": "8",
+        "levelInfo": {
+          "type": "base",
+          "n": 8,
+          "sub": 0,
+          "key": "8"
+        },
+        "prerequisites": "Furnace Lv. 8",
+        "costs": {
+          "res_103": 63000,
+          "res_104": 12000,
+          "res_105": 3100
+        },
+        "time": {
+          "raw": "00:45:00",
+          "seconds": 2700
+        },
+        "power": 10340
+      },
+      {
+        "level": "9",
+        "levelInfo": {
+          "type": "base",
+          "n": 9,
+          "sub": 0,
+          "key": "9"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 130000,
+          "res_104": 26000,
+          "res_105": 6500
+        },
+        "time": {
+          "raw": "02:00:00",
+          "seconds": 7200
+        },
+        "power": 12914
+      },
+      {
+        "level": "10",
+        "levelInfo": {
+          "type": "base",
+          "n": 10,
+          "sub": 0,
+          "key": "10"
+        },
+        "prerequisites": "Furnace Lv. 10",
+        "costs": {
+          "res_103": 230000,
+          "res_104": 46000,
+          "res_105": 11000
+        },
+        "time": {
+          "raw": "03:57:30",
+          "seconds": 14250
+        },
+        "power": 16654
+      },
+      {
+        "level": "11",
+        "levelInfo": {
+          "type": "base",
+          "n": 11,
+          "sub": 0,
+          "key": "11"
+        },
+        "prerequisites": "Furnace Lv. 11",
+        "costs": {
+          "res_100011": 260000,
+          "res_103": 260000,
+          "res_104": 52000,
+          "res_105": 13000
+        },
+        "time": {
+          "raw": "04:57:00",
+          "seconds": 17820
+        },
+        "power": 20394
+      },
+      {
+        "level": "12",
+        "levelInfo": {
+          "type": "base",
+          "n": 12,
+          "sub": 0,
+          "key": "12"
+        },
+        "prerequisites": "Furnace Lv. 12",
+        "costs": {
+          "res_100011": 330000,
+          "res_103": 330000,
+          "res_104": 67000,
+          "res_105": 16000
+        },
+        "time": {
+          "raw": "05:56:00",
+          "seconds": 21360
+        },
+        "power": 24134
+      },
+      {
+        "level": "13",
+        "levelInfo": {
+          "type": "base",
+          "n": 13,
+          "sub": 0,
+          "key": "13"
+        },
+        "prerequisites": "Furnace Lv. 13",
+        "costs": {
+          "res_100011": 470000,
+          "res_103": 470000,
+          "res_104": 95000,
+          "res_105": 23000
+        },
+        "time": {
+          "raw": "07:15:30",
+          "seconds": 26130
+        },
+        "power": 30448
+      },
+      {
+        "level": "14",
+        "levelInfo": {
+          "type": "base",
+          "n": 14,
+          "sub": 0,
+          "key": "14"
+        },
+        "prerequisites": "Furnace Lv. 14",
+        "costs": {
+          "res_100011": 630000,
+          "res_103": 630000,
+          "res_104": 120000,
+          "res_105": 31000
+        },
+        "time": {
+          "raw": "09:14:00",
+          "seconds": 33240
+        },
+        "power": 36762
+      },
+      {
+        "level": "15",
+        "levelInfo": {
+          "type": "base",
+          "n": 15,
+          "sub": 0,
+          "key": "15"
+        },
+        "prerequisites": "Furnace Lv. 15",
+        "costs": {
+          "res_100011": 930000,
+          "res_103": 930000,
+          "res_104": 180000,
+          "res_105": 46000
+        },
+        "time": {
+          "raw": "11:52:30",
+          "seconds": 42750
+        },
+        "power": 43076
+      },
+      {
+        "level": "16",
+        "levelInfo": {
+          "type": "base",
+          "n": 16,
+          "sub": 0,
+          "key": "16"
+        },
+        "prerequisites": "Furnace Lv.  16",
+        "costs": {
+          "res_100011": 1100000,
+          "res_103": 1100000,
+          "res_104": 230000,
+          "res_105": 59000
+        },
+        "time": {
+          "raw": "20:07:00",
+          "seconds": 72420
+        },
+        "power": 51964
+      },
+      {
+        "level": "17",
+        "levelInfo": {
+          "type": "base",
+          "n": 17,
+          "sub": 0,
+          "key": "17"
+        },
+        "prerequisites": "Furnace Lv. 17",
+        "costs": {
+          "res_100011": 1800000,
+          "res_103": 1800000,
+          "res_104": 370000,
+          "res_105": 93000
+        },
+        "time": {
+          "raw": "1d 00:08:00",
+          "seconds": 86880
+        },
+        "power": 60852
+      },
+      {
+        "level": "18",
+        "levelInfo": {
+          "type": "base",
+          "n": 18,
+          "sub": 0,
+          "key": "18"
+        },
+        "prerequisites": "Furnace Lv. 18",
+        "costs": {
+          "res_100011": 2500000,
+          "res_103": 2500000,
+          "res_104": 500000,
+          "res_105": 120000
+        },
+        "time": {
+          "raw": "1d 04:58:00",
+          "seconds": 104280
+        },
+        "power": 69740
+      },
+      {
+        "level": "19",
+        "levelInfo": {
+          "type": "base",
+          "n": 19,
+          "sub": 0,
+          "key": "19"
+        },
+        "prerequisites": "Furnace Lv. 19",
+        "costs": {
+          "res_100011": 3100000,
+          "res_103": 3100000,
+          "res_104": 620000,
+          "res_105": 150000
+        },
+        "time": {
+          "raw": "1d 19:27:00",
+          "seconds": 156420
+        },
+        "power": 82368
+      },
+      {
+        "level": "20",
+        "levelInfo": {
+          "type": "base",
+          "n": 20,
+          "sub": 0,
+          "key": "20"
+        },
+        "prerequisites": "Furnace Lv. 20",
+        "costs": {
+          "res_100011": 4300000,
+          "res_103": 4300000,
+          "res_104": 860000,
+          "res_105": 210000
+        },
+        "time": {
+          "raw": "2d 06:19:00",
+          "seconds": 195540
+        },
+        "power": 94996
+      },
+      {
+        "level": "21",
+        "levelInfo": {
+          "type": "base",
+          "n": 21,
+          "sub": 0,
+          "key": "21"
+        },
+        "prerequisites": "Furnace Lv. 21",
+        "costs": {
+          "res_100011": 5400000,
+          "res_103": 5400000,
+          "res_104": 1000000,
+          "res_105": 270000
+        },
+        "time": {
+          "raw": "2d 22:36:00",
+          "seconds": 254160
+        },
+        "power": 107624
+      },
+      {
+        "level": "22",
+        "levelInfo": {
+          "type": "base",
+          "n": 22,
+          "sub": 0,
+          "key": "22"
+        },
+        "prerequisites": "Furnace Lv. 22",
+        "costs": {
+          "res_100011": 7200000,
+          "res_103": 7200000,
+          "res_104": 1400000,
+          "res_105": 360000
+        },
+        "time": {
+          "raw": "4d 09:55:00",
+          "seconds": 381300
+        },
+        "power": 126566
+      },
+      {
+        "level": "23",
+        "levelInfo": {
+          "type": "base",
+          "n": 23,
+          "sub": 0,
+          "key": "23"
+        },
+        "prerequisites": "Furnace Lv. 23",
+        "costs": {
+          "res_100011": 8900000,
+          "res_103": 8900000,
+          "res_104": 1700000,
+          "res_105": 440000
+        },
+        "time": {
+          "raw": "6d 04:17:00",
+          "seconds": 533820
+        },
+        "power": 145508
+      },
+      {
+        "level": "24",
+        "levelInfo": {
+          "type": "base",
+          "n": 24,
+          "sub": 0,
+          "key": "24"
+        },
+        "prerequisites": "Furnace Lv. 24",
+        "costs": {
+          "res_100011": 12000000,
+          "res_103": 12000000,
+          "res_104": 2400000,
+          "res_105": 600000
+        },
+        "time": {
+          "raw": "8d 15:36:00",
+          "seconds": 747360
+        },
+        "power": 164450
+      },
+      {
+        "level": "25",
+        "levelInfo": {
+          "type": "base",
+          "n": 25,
+          "sub": 0,
+          "key": "25"
+        },
+        "prerequisites": "Furnace Lv. 25",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3200000,
+          "res_105": 810000
+        },
+        "time": {
+          "raw": "12d 02:38:00",
+          "seconds": 1046280
+        },
+        "power": 183392
+      },
+      {
+        "level": "26",
+        "levelInfo": {
+          "type": "base",
+          "n": 26,
+          "sub": 0,
+          "key": "26"
+        },
+        "prerequisites": "Furnace Lv. 26",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4200000,
+          "res_105": 1000000
+        },
+        "time": {
+          "raw": "13d 22:14:00",
+          "seconds": 1203240
+        },
+        "power": 211222
+      },
+      {
+        "level": "27",
+        "levelInfo": {
+          "type": "base",
+          "n": 27,
+          "sub": 0,
+          "key": "27"
+        },
+        "prerequisites": "Furnace Lv. 27",
+        "costs": {
+          "res_100011": 29000000,
+          "res_103": 29000000,
+          "res_104": 5900000,
+          "res_105": 1400000
+        },
+        "time": {
+          "raw": "16d 17:05:00",
+          "seconds": 1443900
+        },
+        "power": 239052
+      },
+      {
+        "level": "28",
+        "levelInfo": {
+          "type": "base",
+          "n": 28,
+          "sub": 0,
+          "key": "28"
+        },
+        "prerequisites": "Furnace Lv. 28",
+        "costs": {
+          "res_100011": 39000000,
+          "res_103": 39000000,
+          "res_104": 7900000,
+          "res_105": 1900000
+        },
+        "time": {
+          "raw": "19d 05:15:00",
+          "seconds": 1660500
+        },
+        "power": 266882
+      },
+      {
+        "level": "29",
+        "levelInfo": {
+          "type": "base",
+          "n": 29,
+          "sub": 0,
+          "key": "29"
+        },
+        "prerequisites": "Furnace Lv. 29",
+        "costs": {
+          "res_100011": 49000000,
+          "res_103": 49000000,
+          "res_104": 9800000,
+          "res_105": 2400000
+        },
+        "time": {
+          "raw": "22d 02:26:00",
+          "seconds": 1909560
+        },
+        "power": 294712
+      },
+      {
+        "level": "30",
+        "levelInfo": {
+          "type": "base",
+          "n": 30,
+          "sub": 0,
+          "key": "30"
+        },
+        "prerequisites": "Furnace Lv. 30",
+        "costs": {
+          "res_100011": 60000000,
+          "res_103": 60000000,
+          "res_104": 12000000,
+          "res_105": 3000000
+        },
+        "time": {
+          "raw": "26d 12:32:00",
+          "seconds": 2291520
+        },
+        "power": 335170
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystal": {
+    "rows": [
+      {
+        "level": "30-1",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 1,
+          "key": "30-1"
+        },
+        "prerequisites": "Furnace FC-1",
+        "costs": {
+          "res_100011": 13000000,
+          "res_103": 13000000,
+          "res_104": 2700000,
+          "res_105": 679000,
+          "res_100081": 33
+        },
+        "time": {
+          "raw": "4d 14:52:00",
+          "seconds": 399120
+        },
+        "power": 347798
+      },
+      {
+        "level": "30-2",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 2,
+          "key": "30-2"
+        },
+        "prerequisites": "Furnace FC-1",
+        "costs": {
+          "res_100011": 13000000,
+          "res_103": 13000000,
+          "res_104": 2700000,
+          "res_105": 670000,
+          "res_100081": 33
+        },
+        "time": {
+          "raw": "4d 14:52:00",
+          "seconds": 399120
+        },
+        "power": 360426
+      },
+      {
+        "level": "30-3",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 3,
+          "key": "30-3"
+        },
+        "prerequisites": "Furnace FC-1",
+        "costs": {
+          "res_100011": 13000000,
+          "res_103": 13000000,
+          "res_104": 2700000,
+          "res_105": 670000,
+          "res_100081": 33
+        },
+        "time": {
+          "raw": "4d 14:52:00",
+          "seconds": 399120
+        },
+        "power": 373054
+      },
+      {
+        "level": "30-4",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 4,
+          "key": "30-4"
+        },
+        "prerequisites": "Furnace FC-1",
+        "costs": {
+          "res_100011": 13000000,
+          "res_103": 13000000,
+          "res_104": 2700000,
+          "res_105": 670000,
+          "res_100081": 33
+        },
+        "time": {
+          "raw": "4d 14:52:00",
+          "seconds": 399120
+        },
+        "power": 385682
+      },
+      {
+        "level": "FC 1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 0,
+          "key": "FC1"
+        },
+        "prerequisites": "Furnace FC-1",
+        "costs": {
+          "res_100011": 13000000,
+          "res_103": 13000000,
+          "res_104": 2700000,
+          "res_105": 670000,
+          "res_100081": 33
+        },
+        "time": {
+          "raw": "4d 14:52:00",
+          "seconds": 399120
+        },
+        "power": 398310
+      },
+      {
+        "level": "FC1-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 1,
+          "key": "FC1-1"
+        },
+        "prerequisites": "Furnace FC-2",
+        "costs": {
+          "res_100011": 14000000,
+          "res_103": 14000000,
+          "res_104": 2900000,
+          "res_105": 720000,
+          "res_100081": 39
+        },
+        "time": {
+          "raw": "5d 22:33:00",
+          "seconds": 513180
+        },
+        "power": 410938
+      },
+      {
+        "level": "FC1-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 2,
+          "key": "FC1-2"
+        },
+        "prerequisites": "Furnace FC-2",
+        "costs": {
+          "res_100011": 14000000,
+          "res_103": 14000000,
+          "res_104": 2900000,
+          "res_105": 720000,
+          "res_100081": 39
+        },
+        "time": {
+          "raw": "5d 22:33:00",
+          "seconds": 513180
+        },
+        "power": 423566
+      },
+      {
+        "level": "FC1-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 3,
+          "key": "FC1-3"
+        },
+        "prerequisites": "Furnace FC-2",
+        "costs": {
+          "res_100011": 14000000,
+          "res_103": 14000000,
+          "res_104": 2900000,
+          "res_105": 720000,
+          "res_100081": 39
+        },
+        "time": {
+          "raw": "5d 22:33:00",
+          "seconds": 513180
+        },
+        "power": 436194
+      },
+      {
+        "level": "FC1-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 4,
+          "key": "FC1-4"
+        },
+        "prerequisites": "Furnace FC-2",
+        "costs": {
+          "res_100011": 14000000,
+          "res_103": 14000000,
+          "res_104": 2900000,
+          "res_105": 720000,
+          "res_100081": 39
+        },
+        "time": {
+          "raw": "5d 22:33:00",
+          "seconds": 513180
+        },
+        "power": 448822
+      },
+      {
+        "level": "FC 2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 0,
+          "key": "FC2"
+        },
+        "prerequisites": "Furnace FC-2",
+        "costs": {
+          "res_100011": 14000000,
+          "res_103": 14000000,
+          "res_104": 2900000,
+          "res_105": 1000000,
+          "res_100081": 39
+        },
+        "time": {
+          "raw": "5d 22:33:00",
+          "seconds": 513180
+        },
+        "power": 461450
+      },
+      {
+        "level": "FC2-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 1,
+          "key": "FC2-1"
+        },
+        "prerequisites": "Furnace FC-3",
+        "costs": {
+          "res_100011": 15000000,
+          "res_103": 15000000,
+          "res_104": 3100000,
+          "res_105": 790000,
+          "res_100081": 59
+        },
+        "time": {
+          "raw": "7d 06:14:00",
+          "seconds": 627240
+        },
+        "power": 474087
+      },
+      {
+        "level": "FC2-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 2,
+          "key": "FC2-2"
+        },
+        "prerequisites": "Furnace FC-3",
+        "costs": {
+          "res_100011": 15000000,
+          "res_103": 15000000,
+          "res_104": 3100000,
+          "res_105": 790000,
+          "res_100081": 59
+        },
+        "time": {
+          "raw": "7d 06:14:00",
+          "seconds": 627240
+        },
+        "power": 486706
+      },
+      {
+        "level": "FC2-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 3,
+          "key": "FC2-3"
+        },
+        "prerequisites": "Furnace FC-3",
+        "costs": {
+          "res_100011": 15000000,
+          "res_103": 15000000,
+          "res_104": 3100000,
+          "res_105": 790000,
+          "res_100081": 59
+        },
+        "time": {
+          "raw": "7d 06:14:00",
+          "seconds": 627240
+        },
+        "power": 499334
+      },
+      {
+        "level": "FC2-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 4,
+          "key": "FC2-4"
+        },
+        "prerequisites": "Furnace FC-3",
+        "costs": {
+          "res_100011": 15000000,
+          "res_103": 15000000,
+          "res_104": 3100000,
+          "res_105": 790000,
+          "res_100081": 59
+        },
+        "time": {
+          "raw": "7d 06:14:00",
+          "seconds": 627240
+        },
+        "power": 511962
+      },
+      {
+        "level": "FC 3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 0,
+          "key": "FC3"
+        },
+        "prerequisites": "Furnace FC-3",
+        "costs": {
+          "res_100011": 15000000,
+          "res_103": 15000000,
+          "res_104": 3100000,
+          "res_105": 790000,
+          "res_100081": 59
+        },
+        "time": {
+          "raw": "7d 06:14:00",
+          "seconds": 627240
+        },
+        "power": 524590
+      },
+      {
+        "level": "FC 3-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 1,
+          "key": "FC3-1"
+        },
+        "prerequisites": "Furnace FC-4",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3200000,
+          "res_105": 820000,
+          "res_100081": 70
+        },
+        "time": {
+          "raw": "7d 22:04:00",
+          "seconds": 684240
+        },
+        "power": 538494
+      },
+      {
+        "level": "FC 3-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 2,
+          "key": "FC3-2"
+        },
+        "prerequisites": "Furnace FC-4",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3200000,
+          "res_105": 820000,
+          "res_100081": 70
+        },
+        "time": {
+          "raw": "7d 22:04:00",
+          "seconds": 684240
+        },
+        "power": 552398
+      },
+      {
+        "level": "FC 3-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 3,
+          "key": "FC3-3"
+        },
+        "prerequisites": "Furnace FC-4",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3200000,
+          "res_105": 820000,
+          "res_100081": 70
+        },
+        "time": {
+          "raw": "7d 22:04:00",
+          "seconds": 684240
+        },
+        "power": 566302
+      },
+      {
+        "level": "FC 3-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 4,
+          "key": "FC3-4"
+        },
+        "prerequisites": "Furnace FC-4",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3200000,
+          "res_105": 820000,
+          "res_100081": 70
+        },
+        "time": {
+          "raw": "7d 22:04:00",
+          "seconds": 684240
+        },
+        "power": 580206
+      },
+      {
+        "level": "FC 4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 0,
+          "key": "FC4"
+        },
+        "prerequisites": "Furnace FC-4",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3200000,
+          "res_105": 820000,
+          "res_100081": 70
+        },
+        "time": {
+          "raw": "7d 22:04:00",
+          "seconds": 684240
+        },
+        "power": 594110
+      },
+      {
+        "level": "FC 4-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 1,
+          "key": "FC4-1"
+        },
+        "prerequisites": "Furnace FC-5",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3300000,
+          "res_105": 840000,
+          "res_100081": 83
+        },
+        "time": {
+          "raw": "9d 05:45:00",
+          "seconds": 798300
+        },
+        "power": 608014
+      },
+      {
+        "level": "FC 4-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 2,
+          "key": "FC4-2"
+        },
+        "prerequisites": "Furnace FC-5",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3300000,
+          "res_105": 840000,
+          "res_100081": 83
+        },
+        "time": {
+          "raw": "9d 05:45:00",
+          "seconds": 798300
+        },
+        "power": 621918
+      },
+      {
+        "level": "FC 4-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 3,
+          "key": "FC4-3"
+        },
+        "prerequisites": "Furnace FC-5",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3300000,
+          "res_105": 840000,
+          "res_100081": 83
+        },
+        "time": {
+          "raw": "9d 05:45:00",
+          "seconds": 798300
+        },
+        "power": 635822
+      },
+      {
+        "level": "FC 4-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 4,
+          "key": "FC4-4"
+        },
+        "prerequisites": "Furnace FC-5",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3300000,
+          "res_105": 840000,
+          "res_100081": 83
+        },
+        "time": {
+          "raw": "9d 05:45:00",
+          "seconds": 798300
+        },
+        "power": 649726
+      },
+      {
+        "level": "FC 5",
+        "levelInfo": {
+          "type": "fc",
+          "n": 5,
+          "sub": 0,
+          "key": "FC5"
+        },
+        "prerequisites": "Furnace FC-5",
+        "costs": {
+          "res_100011": 16000000,
+          "res_103": 16000000,
+          "res_104": 3300000,
+          "res_105": 840000,
+          "res_100081": 83
+        },
+        "time": {
+          "raw": "9d 05:45:00",
+          "seconds": 798300
+        },
+        "power": 663630
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_100081",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystalPlus": {
+    "rows": [
+      {
+        "level": "FC 6",
+        "levelInfo": {
+          "type": "fc",
+          "n": 6,
+          "sub": 0,
+          "key": "FC6"
+        },
+        "prerequisites": "Furnace FC-6",
+        "costs": {
+          "res_100011": 19000000,
+          "res_103": 19000000,
+          "res_104": 3800000,
+          "res_105": 960000,
+          "res_100081": 25,
+          "res_100082": 5
+        },
+        "time": {
+          "raw": "9d 21:36:00",
+          "seconds": 855360
+        },
+        "power": 738
+      },
+      {
+        "level": "FC 7",
+        "levelInfo": {
+          "type": "fc",
+          "n": 7,
+          "sub": 0,
+          "key": "FC7"
+        },
+        "prerequisites": "Furnace FC-7",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4300000,
+          "res_105": 1000000,
+          "res_100081": 30,
+          "res_100082": 7
+        },
+        "time": {
+          "raw": "11d 21:07:00",
+          "seconds": 1026420
+        },
+        "power": 812
+      },
+      {
+        "level": "FC 8",
+        "levelInfo": {
+          "type": "fc",
+          "n": 8,
+          "sub": 0,
+          "key": "FC8"
+        },
+        "prerequisites": "Furnace FC-8",
+        "costs": {
+          "res_100011": 26000000,
+          "res_103": 26000000,
+          "res_104": 5300000,
+          "res_105": 1300000,
+          "res_100081": 30,
+          "res_100082": 10
+        },
+        "time": {
+          "raw": "13d 04:48:00",
+          "seconds": 1140480
+        },
+        "power": 887
+      },
+      {
+        "level": "FC 9",
+        "levelInfo": {
+          "type": "fc",
+          "n": 9,
+          "sub": 0,
+          "key": "FC9"
+        },
+        "prerequisites": "Furnace FC-9",
+        "costs": {
+          "res_100011": 29000000,
+          "res_103": 29000000,
+          "res_104": 5800000,
+          "res_105": 1400000,
+          "res_100081": 35,
+          "res_100082": 15
+        },
+        "time": {
+          "raw": "8d 13:55:00",
+          "seconds": 741300
+        },
+        "power": 966
+      },
+      {
+        "level": "FC 10",
+        "levelInfo": {
+          "type": "fc",
+          "n": 10,
+          "sub": 0,
+          "key": "FC10"
+        },
+        "prerequisites": "Furnace FC-10",
+        "costs": {
+          "res_100011": 33000000,
+          "res_103": 33000000,
+          "res_104": 6700000,
+          "res_105": 1600000,
+          "res_100081": 43,
+          "res_100082": 35
+        },
+        "time": {
+          "raw": "13d 04:48:00",
+          "seconds": 1140480
+        },
+        "power": null
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_100081",
+      "res_100082",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystalUnknown": {
+    "rows": [],
+    "costColumns": []
+  }
+}

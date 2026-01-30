@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WOS HUB – Whiteout Survival Tools & Data</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Tools, calculators, and data hub for Whiteout Survival players." />
+  <meta name="keywords" content="Whiteout Survival, WOS, calculator, hero data, building data, tools, guide" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical + hreflang -->
+  <link rel="canonical" href="/en/" />
+  <link rel="alternate" href="/en/" hreflang="en" />
+  <link rel="alternate" href="/ko/" hreflang="ko" />
+  <link rel="alternate" href="/ja/" hreflang="ja" />
+  <link rel="alternate" href="/en/" hreflang="x-default" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="WOS HUB – Whiteout Survival Tools & Data" />
+  <meta property="og:description" content="Tools, calculators, and data hub for Whiteout Survival players." />
+  <meta property="og:site_name" content="WOS HUB" />
+
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+
+<body>
+  <!-- ✅ Persistent topbar -->
+  <header class="wos-topbar">
+    <button
+      class="wos-iconbtn"
+      id="menuBtn"
+      type="button"
+      aria-label="Open menu"
+      aria-controls="drawer"
+      aria-expanded="false"
+    >☰</button>
+
+    <!-- Router is "#/" 기준이므로 #/ 로 고정 -->
+    <a class="wos-brand" href="#/" data-i18n="app.brand">WosHub</a>
+
+    <!-- ✅ Language quick links (desktop only) -->
+    <!-- 해시 유지: i18n.js가 data-lang-link 클릭을 가로채서 /{lang}/#/현재라우트 로 이동 -->
+    <div class="wos-desktop-only" style="display:flex; gap:8px; align-items:center;">
+      <a class="wos-iconbtn" data-lang-link="en" href="/en/" title="English" aria-label="English">🇺🇸</a>
+      <a class="wos-iconbtn" data-lang-link="ko" href="/ko/" title="Korean" aria-label="Korean">🇰🇷</a>
+      <a class="wos-iconbtn" data-lang-link="ja" href="/ja/" title="Japanese" aria-label="Japanese">🇯🇵</a>
+    </div>
+  </header>
+
+  <!-- Backdrop -->
+  <div class="wos-drawer-backdrop" id="drawerBackdrop" hidden></div>
+
+  <!-- Drawer -->
+  <nav class="wos-drawer" id="drawer" aria-label="Site menu" aria-hidden="true">
+    <div class="wos-drawer-head">
+      <div class="wos-drawer-title" data-i18n="ui.menu">Menu</div>
+      <button class="wos-iconbtn" id="drawerClose" type="button" aria-label="Close menu">✕</button>
+    </div>
+
+    <!-- ✅ Language links (mobile inside drawer) -->
+    <div style="display:flex; gap:8px; padding: 10px; margin-top: 6px;">
+      <a class="wos-drawer-link" data-lang-link="en" href="/en/" style="margin:0; flex:1; text-align:center;">🇺🇸 EN</a>
+      <a class="wos-drawer-link" data-lang-link="ko" href="/ko/" style="margin:0; flex:1; text-align:center;">🇰🇷 KO</a>
+      <a class="wos-drawer-link" data-lang-link="ja" href="/ja/" style="margin:0; flex:1; text-align:center;">🇯🇵 JA</a>
+    </div>
+
+    <a class="wos-drawer-link" data-nav href="#/" data-i18n="nav.home">Home</a>
+    <a class="wos-drawer-link" data-nav href="#/buildings" data-i18n="nav.buildings">Buildings</a>
+    <a class="wos-drawer-link" data-nav href="#/heroes" data-i18n="nav.heroes">Heroes</a>
+    <a class="wos-drawer-link" data-nav href="#/coupons" data-i18n="nav.coupons">Coupons</a>
+    <a class="wos-drawer-link" data-nav href="#/tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
+    <a class="wos-drawer-link" data-nav href="#/tips" data-i18n="nav.tips">Tips</a>
+  </nav>
+
+  <!-- SPA mount -->
+  <main id="app" class="wos-app"></main>
+
+  <footer class="site-footer">
+    <a href="/about.html" data-i18n="footer.about">About</a>
+    <!-- app.js가 여기에 #wosFooterCoupons 자동 주입 -->
+  </footer>
+
+  <!-- Load order matters (i18n 먼저) -->
+  <script defer src="./js/i18n.js"></script>
+  <script defer src="./js/buildings.js"></script>
+  <script defer src="./js/heroes.js"></script>
+  <script defer src="./js/calculator.js"></script>
+  <script defer src="./js/building-calculator.js"></script>
+  <script defer src="./js/tips.js"></script>
+  <script defer src="./js/app.js"></script>
+</body>
+</html>

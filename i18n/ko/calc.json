@@ -1,0 +1,74 @@
+{
+  "tools.common.back": "뒤로",
+  "tools.common.none": "없음",
+
+  "tools.building_calc.breadcrumb": "도구 · 건물 계산기",
+  "tools.building_calc.title": "건물 계산기",
+
+  "tools.building_calc.howto.title": "사용 방법",
+  "tools.building_calc.howto.step1": "건물을 선택한 뒤, 현재 레벨과 목표 레벨을 선택하세요.",
+  "tools.building_calc.howto.step2": "계정에 적용된 버프에 맞게 입력하세요.",
+  "tools.building_calc.howto.step3": "수치를 입력하면 결과가 즉시 갱신됩니다.",
+  "tools.building_calc.howto.step4": "총합 결과에서 전체 비용/시간/SVS를 확인하고, 상세(레벨별)에서 단계별 필요량을 확인하세요.",
+  "tools.building_calc.howto.tip": "팁: 더 정확한 예측을 위해 계정의 버프 수치를 그대로 입력하세요.",
+
+  "tools.building_calc.error.title": "오류",
+
+  "tools.building_calc.controls.building": "건물",
+  "tools.building_calc.controls.current": "현재 레벨",
+  "tools.building_calc.controls.target": "목표 레벨",
+  "tools.building_calc.controls.build_speed": "건설 속도(%)",
+  "tools.building_calc.controls.pet": "펫 버프(하이에나)",
+  "tools.building_calc.controls.agenes": "아게네스 버프(고정 시간, 1회)",
+  "tools.building_calc.controls.valeria": "발레리아 버프(SVS +%)",
+
+  "tools.building_calc.controls.vp_label": "버프 선택(VP)",
+  "tools.building_calc.controls.vp10": "VP +10%",
+  "tools.building_calc.controls.vp15": "VP +15%",
+
+  "tools.building_calc.controls.server_chief_label": "버프 선택(서버 / 치프)",
+  "tools.building_calc.controls.server_buff": "서버 버프(+10%)",
+  "tools.building_calc.controls.chief_order": "치프 명령(-20% 시간)",
+
+  "tools.building_calc.total.title": "총합 결과",
+  "tools.building_calc.total.fireCrystal": "불수정",
+  "tools.building_calc.total.refined": "정제석",
+  "tools.building_calc.total.food": "고기",
+  "tools.building_calc.total.wood": "나무",
+  "tools.building_calc.total.coal": "석탄",
+  "tools.building_calc.total.iron": "철광",
+  "tools.building_calc.total.time": "예상 시간",
+  "tools.building_calc.total.svs": "SVS",
+
+  "tools.building_calc.summary.title": "요약",
+  "tools.building_calc.summary.loading": "건물 데이터 불러오는 중...",
+
+  "tools.building_calc.detail.title": "상세(레벨별)",
+  "tools.building_calc.detail.subtitle": "목표 레벨까지의 표를 표시합니다.",
+  "tools.building_calc.detail.placeholder": "건물 / 현재 / 목표를 선택하세요.",
+  "tools.building_calc.msg.invalid_range": "목표 레벨은 현재 레벨보다 높아야 합니다.",
+  "tools.building_calc.msg.no_rows": "표시할 항목이 없습니다.",
+
+  "tools.building_calc.table.building": "건물",
+  "tools.building_calc.table.current": "현재",
+  "tools.building_calc.table.target": "목표",
+  "tools.building_calc.table.fc": "FC",
+  "tools.building_calc.table.refined": "정제석",
+  "tools.building_calc.table.food": "고기",
+  "tools.building_calc.table.wood": "나무",
+  "tools.building_calc.table.coal": "석탄",
+  "tools.building_calc.table.iron": "철광",
+  "tools.building_calc.table.est_time": "예상 시간",
+  "tools.building_calc.table.svs": "SVS",
+  "tools.building_calc.table.step_level": "단계 레벨",
+  "tools.building_calc.detail.base_time": "기본 시간",
+
+  "building.furnace": "용광로",
+  "building.embassy": "대사관",
+  "building.commandcenter": "지휘본부",
+  "building.infirmary": "의무실",
+  "building.infantrycamp": "보병 훈련소",
+  "building.lancercamp": "창병 훈련소",
+  "building.marksmancamp": "궁병 훈련소",
+  "building.waracademy": "전쟁 아카데미"
+}

@@ -1,0 +1,61 @@
+{
+  "slug": "lumakbokan",
+  "name": "Lumak Bokan",
+  "rarity": "SR",
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "/assets/heroes/sr/lumakbokan/img/lumakbokan.png",
+  "stats": {
+    "exploration": {
+      "attack": 1776,
+      "defense": 2220,
+      "health": 17760
+    },
+    "expedition": {
+      "attack_percent": "140.11%",
+      "defense_percent": "140.11%"
+    }
+  },
+  "sources": [
+    "Hero Recruitment"
+  ],
+  "skills": [
+    {
+      "id": "hero_skill_icon_500291",
+      "name": "Earthshake",
+      "mode": "exploration",
+      "description": "Lumak Bokan lets out an intimidating war cry, reducing Attack by 1%/2%/3%/4%/5% for all enemy troops for 2s.",
+      "icon": "/assets/heroes/sr/lumakbokan/img/hero_skill_icon_500291.png"
+    },
+    {
+      "id": "hero_skill_icon_500292",
+      "name": "Echoing Boost",
+      "mode": "exploration",
+      "description": "Beyond intimidating enemies, Lumak Bokan’s war cry invigorates allies. Upon casting Earthshake, increases his and nearby friendly troops’ Attack by 15%/20%/25%/30%/35% for 2s.",
+      "icon": "/assets/heroes/sr/lumakbokan/img/hero_skill_icon_500292.png"
+    },
+    {
+      "id": "hero_skill_icon_500293",
+      "name": "Jungle-Born Agility",
+      "mode": "exploration",
+      "description": "Years of fighting in the jungles and mountains grant Lumak Bokan swift agility, increasing Attack Speed by 10%/15%/20%/25%/30%.",
+      "icon": "/assets/heroes/sr/lumakbokan/img/hero_skill_icon_500293.png"
+    },
+    {
+      "id": "hero_skill_icon_500294",
+      "name": "Tactical Deception",
+      "mode": "expedition",
+      "description": "With Lumak Bokan's expert guerrilla tactics, all enemy troops' damage dealt is reduced by 4%/8%/12%/16%/20%.",
+      "icon": "/assets/heroes/sr/lumakbokan/img/hero_skill_icon_500294.png"
+    },
+    {
+      "id": "hero_skill_icon_500295",
+      "name": "Emerald Warrior",
+      "mode": "expedition",
+      "description": "Lumak Bokan passes his people's traditional techniques to the soldiers, increasing Hunting March Speed by 20%/40%/60%/80%/100%.",
+      "icon": "/assets/heroes/sr/lumakbokan/img/hero_skill_icon_500295.png"
+    }
+  ],
+  "storyHtml": "<p>Lumak Bokan is a fierce warrior from an ancient tribe in Emerald Valley. Surrounded by lush green mountains, his homeland was a hidden paradise untouched by the frozen Tundra. For generations, his people lived in harmony with the land, until the frost began to creep in.<br />\n<br />\nWhen Phaethon arrived uninvited, the valley's vibrant life began to fade. The tribe knew that the \"heart\" of the land had been tainted, allowing the cold to take root. Determined to save the home he loved, Lumak set out on a journey to find a way to heal the land.<br />\n<br />\nLumak's father was a legendary warrior, and that legacy lives on in him. Even as a child, he had the strength and courage to face wild beasts head-on. By the time he came of age, he was already a match for his father. Armed only with traditional weapons, he was able to hold his own against Phaethon's forces and their far superior equipment. He fought side by side with his father, defending their sacred land from those who dared to defile it.<br />\n<br />\nAt the heart of Emerald Valley lies a spring—pure, sacred, and full of life. Its waters nourish every corner of the land with energy and spirit.Phaethon, driven by greed, sought to unravel its secrets. But their reckless experiments poisoned the spring beyond repair. To protect his people and the sacred spring, Lumak's father sacrificed his life. Taking up his father's spear, Lumak vowed to drive out the invaders. After years of struggle, he finally led his people to reclaim their homeland.<br />\n<br />\nLumak roamed the Tundra in search of a cure. He clashed with Phaethon time and again, but also forged lasting bonds with the heroes of the Dawn Alliance. With their help, the sacred spring was finally purified, and Emerald Valley began to flourish once more. Still, Lumak chose to remain on the front lines, to honor his newfound friendships, and to make sure Phaethon paid for what they had done.</p>",
+  "description": null
+}

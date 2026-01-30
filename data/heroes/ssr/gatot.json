@@ -1,0 +1,106 @@
+{
+  "slug": "gatot",
+  "name": "Gatot",
+  "rarity": "SSR",
+  "season": 8,
+  "gen": 8,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s8/gatot/img/gatot.png",
+  "story": "Gatot is a valiant warrior as well as an outstanding commander. He came from a faraway land with an elite squad, seemingly in search of something on the tundra.\n\nLittle is known about Gatot's past. Uncertain about his stance, many chiefs on the tundra keep their distances from him. For some reason, Gatot and his followers exhibit strong hostility toward the Phaethon. Following the principle, \"The enemy of my enemy is my friend,\" the Dawn Alliance has high hopes for Gatot. Gatot might not be interested in joining the alliance, but he is impressed by the valor displayed by its warriors in their battles against the Phaethon.\n\nThe first cooperation between the Dawn Alliance and Gatot took place when the former was facing a perilous situation.\n\nAt that time, the Phaethon launched an attack on the camp resided by the alliance's top guns, having intercepted crucial intelligence. The camp was in dire straits under Helios Cannon's relentless Firepower and Zenobia's swift charge.\n\nAt that critical moment, Gatot joined the battle as a third party. The unexpected presence of his squad on the flanks tore apart the Phaethon's formation.\n\nDuring a one-on-one battle, Gatot successfully stabbed the arrogant Zenobia, providing an opportunity for Logan to break free. All by himself, Logan reached the peak of a cliff and destroyed the cannon. In the end, the two formidable forces worked in tandem to repel the Phaethon's attack. Despite turning down the chance to join the Dawn Alliance, Gatot made no secret of his admiration for Logan and his wish to recruit him as a general of his squad.\n\nGatot is actually a king of a faraway, exotic land. As a teenager, he ascended to the throne when his kingdom was plagued by both internal conflicts and external threats. In just a few years, he stabilized his precarious rule and quelled rebellions, restoring unity in his discordant kingdom. His people saw him as a hero after he fended off formidable enemies against overwhelming odds.\n\nThrough his persistent efforts in territorial expansion, his kingdom had prospered like never before. In just ten years on the throne, he already emerged as the greatest king of the kingdom.\n\nHowever, the good times did not last long. Because of an incident, Gatot was forced to entrust his kingdom to another to embark on a journey away from his homeland...\n\nA priceless treasure was once hidden in Gatot's palace—a peculiar book that recorded the fate of the world but remained undecipherable.\n\nA few years back, a Phaethon's emissary visited his palace. Considering the emissary was knowledgeable and well-versed in ancient languages, Gatot invited her to unravel the secrets within the book. However, the mystery remained unsolved, and the book was gone along with the mysterious emissary.\n\nGatot attributed the loss of the book to his negligence. As the king, he felt compelled to shoulder the responsibility of retrieving the national treasure. Before setting off on his expedition together with his most trusted legion, he swore in front of his people to never return until the book was reclaimed from the Phaethon.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 6573,
+      "defense": 8568,
+      "health": 128538
+    },
+    "expedition": {
+      "attack_percent": "780.62%",
+      "defense_percent": "780.62%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel",
+    "Mythic General Hero Shard"
+  ],
+  "skills": [
+    {
+      "id": "500341",
+      "name": "King's Resolve",
+      "mode": "exploration",
+      "description": "Gatot activated a shield of Resolve as the heir of kings, providing Shield with protection equals to Attack*220%/260%/300%/340%/380% that will be deducted first, lasts for 5s.",
+      "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500341.png"
+    },
+    {
+      "id": "500342",
+      "name": "Royal Authority",
+      "mode": "exploration",
+      "description": "Gatot’s inherent regal aura intimidates all enemy heroes, reducing Attack by 1%/2%/3%/4%/5% and increasing his Attack by an amount equal to 1%/2%/3%/4%/5%*number of intimidated heroes for 3s.",
+      "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500342.png"
+    },
+    {
+      "id": "500343",
+      "name": "Regal Dance",
+      "mode": "exploration",
+      "description": "Gatot’s exceptional combat skills resemble a powerful war dance, granting him a 3%/6%/9%/12%/15% chance of dodging enemy’s Normal Attack and a 4%/8%/12%/16%/20% Crit Rate.",
+      "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500343.png"
+    },
+    {
+      "id": "500344",
+      "name": "Golden Guard",
+      "mode": "expedition",
+      "description": "Gatot commands his troops with imperial guard tactics, increasing his Infantry’s Defense by 6%/12%/18%/24%/30%.",
+      "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500344.png"
+    },
+    {
+      "id": "500345",
+      "name": "King's Bestowal",
+      "mode": "expedition",
+      "description": "The great kings blesses Gatot’s Infantry, granting Infantry a Shield with protection equal to Attack*6%/12%/18%/24%/30% each time they attack, for 1 turn.",
+      "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500345.png"
+    },
+    {
+      "id": "500346",
+      "name": "Royal Legion",
+      "mode": "expedition",
+      "description": "Gatot’s formidable legion instills fear in enemies, reducing their Attack by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500346.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 1331,
+        "def": 1737,
+        "health": 26055
+      },
+      "expedition": {
+        "lethality": "193.00%",
+        "health": "193.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Golden Fang",
+      "power": 868500,
+      "image": "../assets/heroes/ssr/s8/gatot/img/equipment_icon_1050034.png",
+      "perks": [
+        {
+          "id": "500347",
+          "name": "King’s Punishment",
+          "level": 5,
+          "description": "Extra Shield protection equal to Attack*95% is granted to King’s Resolve, reflecting 30% damage to the enemy while shield is active.",
+          "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500347.png"
+        },
+        {
+          "id": "500348",
+          "name": "Indestructible City",
+          "level": 5,
+          "description": "Indestructible cities are forged with courage and determination, increases Defender Troops' Defense by 15%.",
+          "icon": "../assets/heroes/ssr/s8/gatot/img/hero_skill_icon_500348.png"
+        }
+      ]
+    }
+  }
+}

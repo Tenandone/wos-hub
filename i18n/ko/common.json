@@ -1,0 +1,65 @@
+{
+  "brand": {
+    "name": "WosHub"
+  },
+  "nav": {
+    "menu": "메뉴",
+    "home": "홈",
+    "buildings": "건물",
+    "heroes": "영웅",
+    "hero": "영웅",
+    "coupons": "쿠폰",
+    "calculator": "계산기",
+    "tools": "도구",
+    "tips": "팁"
+  },
+  "home": {
+    "quick_access": "바로가기",
+    "todays_tips": "오늘의 팁",
+    "see_all_tips": "팁 전체보기",
+    "no_tips": "아직 팁 데이터가 없어요.",
+    "latest_uploads": "최근 업데이트",
+    "no_latest": "최근 업데이트 데이터가 없어요."
+  },
+  "tools": {
+    "title": "도구",
+    "subtitle": "계산기 및 유틸리티",
+    "building_calc": "건물 계산기"
+  },
+  "footer": {
+    "about": "소개",
+    "latest_coupons": "최신 쿠폰",
+    "open": "열기",
+    "no_coupons": "아직 쿠폰 데이터가 없어요."
+  },
+  "coupon": {
+    "copied": "복사됨!",
+    "active": "사용 가능",
+    "expired": "만료",
+    "permanent": "상시",
+    "expires": "만료"
+  },
+  "hero": {
+    "skills": "스킬",
+    "rarity": "등급",
+    "class": "클래스",
+    "subclass": "서브클래스"
+  },
+  "coupons": {
+    "not_found": "쿠폰 페이지를 찾을 수 없어요."
+  },
+  "error": {
+    "title": "오류",
+    "tried_urls": "시도한 URL"
+  },
+  "aria": {
+    "open_menu": "메뉴 열기",
+    "close_menu": "메뉴 닫기",
+    "site_menu": "사이트 메뉴"
+  },
+  "lang": {
+    "english": "영어",
+    "korean": "한국어",
+    "japanese": "일본어"
+  }
+}

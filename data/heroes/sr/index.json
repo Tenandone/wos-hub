@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "bahiti",
+    "name": "Bahiti",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/bahiti/img/bahiti.png"
+  },
+  {
+    "slug": "gina",
+    "name": "Gina",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/gina/img/gina.png"
+  },
+  {
+    "slug": "jasser",
+    "name": "Jasser",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/jasser/img/jasser.png"
+  },
+  {
+    "slug": "jessie",
+    "name": "Jessie",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/jessie/img/jessie.png"
+  },
+  {
+    "slug": "lingxue",
+    "name": "Ling Xue",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/lingxue/img/lingxue.png"
+  },
+  {
+    "slug": "lumakbokan",
+    "name": "Lumak Bokan",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/lumakbokan/img/lumakbokan.png"
+  },
+  {
+    "slug": "patrick",
+    "name": "Patrick",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/patrick/img/patrick.png"
+  },
+  {
+    "slug": "seoyoon",
+    "name": "Seo-yoon",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/seoyoon/img/seoyoon.png"
+  },
+  {
+    "slug": "sergey",
+    "name": "Sergey",
+    "rarity": "SR",
+    "image": "/assets/heroes/sr/sergey/img/sergey.png"
+  }
+]

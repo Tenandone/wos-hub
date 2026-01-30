@@ -1,0 +1,105 @@
+{
+  "slug": "reina",
+  "name": "Reina",
+  "rarity": "SSR",
+  "season": 4,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s4/reina/img/reina.png",
+  "story": "Mia’s group of traveling merchants is never short of people with extraordinary abilities. Among them, there is a foreign young lady named Reina. Reina might not stand out at first sight, but she is, only known to a few, an excellent juggler during the day and a ninjutsu master at night.\n\nReina is a changed woman once she puts on her ninja attire. Leaving no traces when moving around, she is good at disguising herself and sneaking into places. Her target could hardly notice her presence even if she were close at hand. With this amazing skill, Reina has collected a lot of vital intel for Mia.\n\nUndoubtedly, assassination is Reina’s best skill. Whether using a ninjaken, a sword, or her bare hands, she can easily finish off her target without causing a stir.\n\nReina is Mia’s right-hand woman as well as her best friend. From time to time, some forces will go after Mia and the other merchants because they have discovered too many secrets. Whenever Mia is in danger, Reina will put her life on the line to protect Mia and help her deal with the crisis. Reina always goes all out for Mia, not only to repay Mia’s kindness of taking her in but also for the sake of their close friendship formed during their expedition.\n\nReina was unconscious when Mia met her for the first time, Mia's caravan took Reina in, and saved her life. At first, Reina was wary about things around her and was unwilling to interact with other people. It was Mia’s pet cat, Bastet, that opened Reina’s heart and provided her with warmth. Now, Reina and Bastet have become inseparable.\n\nReina was an orphan raised by the Phaethon Mercenaries. Together with her childhood friends, she was trained to be an assassin. Despite performing her duties with dedication, she became a target to be eliminated after finding out a crucial secret of the mercenaries. Reina’s dark past leaves her tormented by guilt, but Mia believes that Reina is capable of moving on. What is truly concerning for Mia is the possibility of the Phaethon Mercenaries coming to their door again...",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 4106,
+      "defense": 4106,
+      "health": 41070
+    },
+    "expedition": {
+      "attack_percent": "370.29%",
+      "defense_percent": "370.29%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Daily Deals"
+  ],
+  "skills": [
+    {
+      "id": "500141",
+      "name": "Phantom Assault",
+      "mode": "exploration",
+      "description": "Reina conjures an illusion to ambush enemy forces from behind, dealing Attack*300%/330%/360%/390%/420% Area of Effect Damage.",
+      "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500141.png"
+    },
+    {
+      "id": "500142",
+      "name": "Vanishing Technique",
+      "mode": "exploration",
+      "description": "Reina has a 5%/10%/15%/20%/25% chance of confusing the opponent with Illusion and dodging the damage when receiving a Normal Attack.",
+      "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500142.png"
+    },
+    {
+      "id": "500143",
+      "name": "Poison of Demon",
+      "mode": "exploration",
+      "description": "Reina inflicts Illusion on enemy targets (hero first), dealing damage equal to Attack*100%/110%/120%/130%/140% and immobilizing them for 1.5s.",
+      "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500143.png"
+    },
+    {
+      "id": "500144",
+      "name": "Assassin's Instinct",
+      "mode": "expedition",
+      "description": "Reina targets enemy weak spots, increasing normal attack damage by 10%/15%/20%/25%/30% for all troops.",
+      "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500144.png"
+    },
+    {
+      "id": "500145",
+      "name": "Swift Jive",
+      "mode": "expedition",
+      "description": "Reina's adept leadership grants all troops a 4%/8%/12%/16%/20% chance of dodging normal attacks.",
+      "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500145.png"
+    },
+    {
+      "id": "500146",
+      "name": "Shadow Blade",
+      "mode": "expedition",
+      "description": "With Reina's clever tactics, her lancers have a 25% chance of performing an extra attack, dealing 120%/140%/160%/180%/200% damage.",
+      "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500146.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 832,
+        "def": 832,
+        "health": 8325
+      },
+      "expedition": {
+        "lethality": "92.50%",
+        "health": "92.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Ninjaken - Raikiri",
+      "power": 416250,
+      "image": "../assets/heroes/ssr/s4/reina/img/equipment_icon_1050014.png",
+      "perks": [
+        {
+          "id": "500147",
+          "name": "Silhouette Strike",
+          "level": 5,
+          "description": "Reina has a 40% chance of throwing an extra kunai, dealing Attack*45% damage with Normal Attack.",
+          "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500147.png"
+        },
+        {
+          "id": "500148",
+          "name": "Fiery Invasion",
+          "level": 5,
+          "description": "Reina's unmatched precision increases Rally Troops' Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s4/reina/img/hero_skill_icon_500148.png"
+        }
+      ]
+    }
+  }
+}

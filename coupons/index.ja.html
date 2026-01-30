@@ -1,0 +1,365 @@
+<!-- /coupons/index.ja.html -->
+<!doctype html>
+<html lang="ja" data-page="coupons-index">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>ホワイトアウト・サバイバル ギフトコード（更新）· 期限基準（UTC 00:00）/ 引き換え</title>
+
+  <!-- SEO -->
+  <meta name="description" content="ホワイトアウト・サバイバル最新ギフトコード。コピーして、期限（UTC 00:00 判定）を確認し、公式ページで引き換えできます。" />
+  <link rel="canonical" href="https://woshub.net/coupons/index.ja.html" />
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="en" href="https://woshub.net/coupons/index.en.html" />
+  <link rel="alternate" hreflang="ko" href="https://woshub.net/coupons/index.ko.html" />
+  <link rel="alternate" hreflang="ja" href="https://woshub.net/coupons/index.ja.html" />
+  <link rel="alternate" hreflang="x-default" href="https://woshub.net/coupons/index.en.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="ホワイトアウト・サバイバル ギフトコード（更新）· 期限基準（UTC 00:00）/ 引き換え" />
+  <meta property="og:description" content="最新コードと期限基準（UTC 00:00）。コピーして公式ページで引き換え。" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://woshub.net/coupons/index.ja.html" />
+  <meta property="og:image" content="https://woshub.net/assets/img/og-wos.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ホワイトアウト・サバイバル ギフトコード（更新）· 期限基準（UTC 00:00）/ 引き換え" />
+  <meta name="twitter:description" content="最新ギフトコード。期限は UTC 00:00 기준で判定されます。" />
+  <meta name="twitter:image" content="https://woshub.net/assets/img/og-wos.png" />
+
+  <meta name="robots" content="max-image-preview:large" />
+
+  <style>
+    /* =========================================================
+       Coupons Standalone Page (JA) — Readability First
+       - Self-contained CSS (no global dependency)
+       - Scoped to .coupon-page to avoid conflicts
+       - Styles both page markup + coupons.js generated markup
+       ========================================================= */
+    :root{
+      --cp-fg:#0f172a;
+      --cp-muted:#64748b;
+      --cp-bd:#e2e8f0;
+      --cp-bg:#ffffff;
+      --cp-panel:#ffffff;
+      --cp-soft:#f8fafc;
+      --cp-pri:#2563eb;
+      --cp-pri2:#1d4ed8;
+      --cp-good:#16a34a;
+      --cp-bad:#ef4444;
+      --cp-shadow:0 10px 28px rgba(2,6,23,.06);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--cp-bg);
+      color:var(--cp-fg);
+    }
+
+    .coupon-page a{color:inherit}
+    .coupon-page .toplink{
+      display:block;
+      padding:10px 14px;
+      font:800 13px/1 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      text-decoration:none;
+      color:var(--cp-pri);
+    }
+
+    .coupon-page .wrap{
+      max-width:1080px;
+      margin-inline:auto;
+      padding:22px clamp(16px,4vw,32px) 72px;
+    }
+
+    .coupon-page header .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:8px;
+    }
+    .coupon-page .brand{
+      font-weight:900;
+      font-size:13px;
+      color:var(--cp-muted);
+      letter-spacing:.2px;
+    }
+    .coupon-page .h1{
+      font-size:28px;
+      margin:6px 0 0;
+      letter-spacing:-.2px;
+    }
+    .coupon-page .muted{color:var(--cp-muted)}
+    .coupon-page h2{
+      font-size:18px;
+      margin:0;
+      letter-spacing:-.2px;
+    }
+
+    .coupon-page .panel{
+      border:1px solid var(--cp-bd);
+      border-radius:16px;
+      background:var(--cp-panel);
+      box-shadow:var(--cp-shadow);
+      padding:16px 18px;
+      margin-top:14px;
+    }
+
+    .coupon-page .divider{
+      height:1px;
+      background:#eef2f7;
+      margin:22px 0;
+    }
+
+    .coupon-page .note{
+      font-size:13px;
+      color:var(--cp-muted);
+      line-height:1.7;
+    }
+
+    /* ===== coupons.js output classes (standalone mode) ===== */
+    .coupon-page .grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-top:14px;
+    }
+    @media (max-width:900px){.coupon-page .grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:600px){.coupon-page .grid{grid-template-columns:1fr}}
+
+    .coupon-page .card{
+      border:1px solid var(--cp-bd);
+      border-radius:14px;
+      padding:14px;
+      background:#fff;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .coupon-page .code{
+      font:900 16px/1.1 ui-monospace,SFMono-Regular,Consolas,monospace;
+      letter-spacing:.6px;
+      word-break:break-word;
+    }
+
+    .coupon-page .meta{
+      font-size:12px;
+      color:var(--cp-muted);
+      line-height:1.55;
+    }
+
+    .coupon-page .actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .coupon-page .btn{
+      padding:8px 10px;
+      border:1px solid var(--cp-bd);
+      border-radius:12px;
+      background:#fff;
+      cursor:pointer;
+      white-space:nowrap;
+      font-weight:900;
+      font-size:13px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .coupon-page .btn:hover{background:#f5f7fb}
+    .coupon-page .btn.primary{
+      background:var(--cp-pri);
+      border-color:var(--cp-pri2);
+      color:#fff;
+    }
+    .coupon-page .btn.primary:hover{background:var(--cp-pri2)}
+    .coupon-page .btn[disabled]{opacity:.55;cursor:not-allowed}
+
+    .coupon-page .badge{
+      display:inline-flex;
+      align-items:center;
+      font-size:12px;
+      padding:2px 8px;
+      border-radius:999px;
+      border:1px solid var(--cp-bd);
+      background:#fff;
+      width:max-content;
+      gap:6px;
+      line-height:1.2;
+      font-weight:900;
+    }
+    .coupon-page .badge.active{
+      border-color:color-mix(in srgb,var(--cp-good) 65%,var(--cp-bd));
+      color:#14532d;
+      background:#dcfce7;
+    }
+    .coupon-page .badge.expired{
+      border-color:color-mix(in srgb,var(--cp-bad) 65%,var(--cp-bd));
+      color:#7f1d1d;
+      background:#fee2e2;
+    }
+    .coupon-page .expired .code{
+      color:var(--cp-muted);
+      text-decoration:line-through;
+    }
+
+    /* Global IMG/SVG blow-up guard */
+    .coupon-page img, .coupon-page svg{
+      max-width:100%;
+      height:auto;
+    }
+
+    details{
+      border:1px solid var(--cp-bd);
+      border-radius:12px;
+      padding:10px 12px;
+      background:#fff;
+      margin:8px 0;
+    }
+    summary{cursor:pointer;font-weight:900}
+
+    footer{margin-top:22px}
+    .coupon-page .small{
+      font-size:12px;
+      color:var(--cp-muted);
+      line-height:1.6;
+    }
+  </style>
+
+  <!-- FAQ structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "inLanguage":"ja",
+    "mainEntity":[
+      {
+        "@type":"Question",
+        "name":"ギフトコードはどこで入力しますか？",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"公式 Gift Code Center（Web）で入力できます。一部のAndroidではゲーム内の設定にコード入力が表示される場合があります。"
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"コードが使えません。なぜ？",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"期限切れ、1回限りの制限、サーバー/地域制限、入力ミスなどが考えられます。大文字小文字と空白を確認してください。"
+        }
+      },
+      {
+        "@type":"Question",
+        "name":"期限の判定基準は？",
+        "acceptedAnswer":{
+          "@type":"Answer",
+          "text":"表示されている期限日の 00:00 UTC を基準に、期限切れかどうかを判定します。"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body class="coupon-page">
+  <a href="/" class="toplink">← WosHub に戻る</a>
+
+  <main class="wrap">
+    <header>
+      <div class="topbar">
+        <div class="brand">WOSHUB.NET</div>
+        <div class="muted" style="font-size:13px;">更新</div>
+      </div>
+
+      <h1 class="h1">ホワイトアウト・サバイバル ギフトコード</h1>
+    </header>
+
+    <section class="panel" aria-live="polite">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;">
+        <div>
+          <h2>最新コード</h2>
+          <div class="muted" style="font-size:13px; line-height:1.55; margin-top:6px;">
+            期限は <strong>UTC 00:00</strong> を基準に判定されます。コードをコピーして公式ページで引き換えてください。
+          </div>
+        </div>
+        <div class="muted" style="font-size:12px;">
+          最終更新: <span id="lastUpdated">—</span>
+        </div>
+      </div>
+
+      <!-- coupons.js renders cards here -->
+      <div id="couponGrid" class="grid" data-coupon-grid="1"></div>
+
+      <p class="note" style="margin:14px 0 0;">
+        使えない場合: 期限切れ、既に使用済み、サーバー/地域制限、入力ミスの可能性があります。
+      </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="panel">
+      <h2>引き換え方法</h2>
+
+      <ol style="margin:10px 0 0 18px; line-height:1.75;">
+        <li>ゲームでアバター（左上）をタップします。</li>
+        <li><strong>Player ID</strong> をコピーします。</li>
+        <li>
+          公式ページ:
+          <a href="https://wos-giftcode.centurygame.com/" target="_blank" rel="noopener">wos-giftcode.centurygame.com</a>
+        </li>
+        <li>Player ID + ギフトコード + 認証コードを入力して確定します。</li>
+        <li>ゲーム内のメールで報酬を受け取ります。</li>
+      </ol>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="panel">
+      <h2>FAQ</h2>
+
+      <details>
+        <summary>ギフトコードはどこで入力しますか？</summary>
+        <div class="note" style="margin-top:8px;">
+          ブラウザで公式 Gift Code Center を利用してください。一部のAndroidでは
+          <strong>設定 → Gift Code</strong> が表示される場合があります。
+        </div>
+      </details>
+
+      <details>
+        <summary>期限の判定基準は？</summary>
+        <div class="note" style="margin-top:8px;">
+          表示されている期限日の <strong>00:00 UTC</strong> を基準に判定されます。
+        </div>
+      </details>
+
+      <details>
+        <summary>コードが使えません。なぜ？</summary>
+        <div class="note" style="margin-top:8px;">
+          期限切れ、使用済み、サーバー/地域制限、入力ミスなどが原因です。
+          コピー時に余計な空白が入っていないか確認してください。
+        </div>
+      </details>
+    </section>
+
+    <footer>
+      <div class="small">
+        注意: ファンサイトです。コードは予告なく変更される場合があります。引き換えは必ず公式ページで行ってください。
+      </div>
+    </footer>
+  </main>
+
+  <!-- coupons renderer -->
+  <script src="/js/coupons.js" defer data-locale="ja" data-coupons-json="/coupons/coupons.json" data-max="6"></script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+{
+  "slug": "molly",
+  "name": "Molly",
+  "rarity": "SSR",
+  "season": 1,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s1/molly/img/molly.png",
+  "story": "Most survivors loathe the permanent winter, but Molly's attitude is quite unique. She seems to greatly enjoy the wintry landscape and its new flora and fauna. After all, she can do snowball fights, bobsled runs, and build a snowman whenever she wants. But most importantly, the snowy world is all Molly has ever known.\n\nIn fact, not much is known about her life before Dawn Alliance.\nBahiti found Molly during a peacekeeping operation against a Phaethon stronghold. The incredible part of the story is, Bahiti claims Molly's combat instincts were key to the team's successful escape from the heavily guarded fortress.\n\nAccording to Bahiti, Molly was an essential part of Phaethon’s combat program. This also explains her peculiar weapon - a snowball launcher. Although Molly seems much more interested in using it for snowball fights.\n\nBahiti's successful rescue owed much to his ability to win Molly's trust. When a Phaethon soldier's arrow injured Bahiti, Molly flew into a rage, took down all the guards with ease, and then fled with the members of Dawn Alliance.\n\nMolly has a strange affinity for the cold. She has no problem enduring freezing conditions. Moreover, her excellent combat intuition and unusually strong fighting techniques (particularly on snow and ice) have truly piqued the Dawn Alliance's interest. What’s the source of Molly's preternatural abilities? The investigation is still ongoing.\n\nIt was later revealed that Phaethon first discovered Molly in a large underground facility, where she was hibernating in a strange ‘pod’. Some believe Molly is connected to the planet in a mysterious and unexplained way.\n\nWhen she awakened, Molly had no memory of her past, but she exhibited superhuman vitality and physical strength. Phaethon wanted to use this and train her into an elite assassin for the organization. Fortunately, the Dawn Alliance saved her from that fate. Bahiti and the others only wish for Molly to find happiness in this strange new world.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 2220,
+      "defense": 2220,
+      "health": 22200
+    },
+    "expedition": {
+      "attack_percent": "200.16%",
+      "defense_percent": "200.16%"
+    }
+  },
+  "sources": [
+    "7 Daily Sign-in Gift",
+    "Molly's Blessing",
+    "Lighthouse Intel",
+    "Hero Recruitment",
+    "Hall of Heroes"
+  ],
+  "skills": [
+    {
+      "id": "500121",
+      "name": "Super Snowball",
+      "mode": "exploration",
+      "description": "Molly launches a Super Snowball which plops down to deal Attack*180%/198%/216%/234%/252% Area of Effect Damage and freezes them for 1.5s.",
+      "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500121.png"
+    },
+    {
+      "id": "500122",
+      "name": "Frost Ambush",
+      "mode": "exploration",
+      "description": "Molly ambushes the enemy with her great camouflage skills, dealing Attack*150%/165%/180%/195%/210% damage.",
+      "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500122.png"
+    },
+    {
+      "id": "500123",
+      "name": "Youthful Persistence",
+      "mode": "exploration",
+      "description": "Molly loves a challenge, gaining +20%/30%/40%/50%/60% Attack Speed under 50% Health.",
+      "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500123.png"
+    },
+    {
+      "id": "500124",
+      "name": "Snow's Grace",
+      "mode": "expedition",
+      "description": "Molly creates an avalanche that clouds enemy sights, granting a 40% chance of reducing all troops' Damage Taken by 10%/20%/30%/40%/50%",
+      "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500124.png"
+    },
+    {
+      "id": "500125",
+      "name": "Ice Dominion",
+      "mode": "expedition",
+      "description": "Molly excels in snowy terrains, granting all troops' attack a 50% chance of increasing damage dealt by +10%/20%/30%/40%/50%.",
+      "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500125.png"
+    },
+    {
+      "id": "500126",
+      "name": "Youthful Rage",
+      "mode": "expedition",
+      "description": "Hell hath no fury like an angry Molly. Increasing damage dealt by +5%/10%/15%/20%/25% damage.",
+      "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500126.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 450,
+        "def": 450,
+        "health": 4500
+      },
+      "expedition": {
+        "lethality": "50%",
+        "health": "50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Yeti Spirit",
+      "power": 225000,
+      "image": "../assets/heroes/ssr/s1/molly/img/equipment_icon_1050012.png",
+      "perks": [
+        {
+          "id": "500127",
+          "name": "Modified Launcher",
+          "level": 5,
+          "description": "Molly wields a modified version of the launcher, boosting damage dealt by 30%.",
+          "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500127.png"
+        },
+        {
+          "id": "500128",
+          "name": "Snowy Blessing",
+          "level": 5,
+          "description": "With the blessing of the snow, Defender Troops' Lethality is increased by 15%.",
+          "icon": "../assets/heroes/ssr/s1/molly/img/hero_skill_icon_500128.png"
+        }
+      ]
+    }
+  }
+}

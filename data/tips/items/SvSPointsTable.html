@@ -1,0 +1,485 @@
+<!-- /tips/event-phase-task-table.html  (Single HTML: EN + KO + JA, auto-show by site language) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Phase Task Table</title>
+
+  <style>
+    :root{
+      --fg:#0f172a;
+      --muted:rgba(15,23,42,.68);
+      --bd:rgba(15,23,42,.12);
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --soft:#f8fafc;
+      --pri:#2563eb;
+      --amber:#f59e0b;
+      --shadow:0 10px 28px rgba(2,6,23,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+    }
+    .tip-page a{color:inherit}
+    .tip-wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:22px clamp(16px,4vw,28px) 70px;
+    }
+    .tip-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .tip-title{margin:0;font-size:22px;letter-spacing:-.2px;font-weight:900;line-height:1.25}
+    .tip-sub{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.6}
+
+    .tip-panel{
+      border:1px solid var(--bd);
+      border-radius:16px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      padding:16px 18px;
+    }
+
+    /* language blocks */
+    [data-lang]{display:none}
+    [data-lang].is-active{display:block}
+
+    /* table */
+    .table-wrap{overflow-x:auto}
+    table{border-collapse:collapse;width:100%;font-size:12px;min-width:720px}
+    th,td{border:1px solid var(--bd);padding:8px 10px;vertical-align:top}
+    thead th{
+      background:color-mix(in srgb, var(--amber) 25%, white);
+      font-weight:900;
+      text-align:left;
+      white-space:nowrap;
+    }
+    td.phase{
+      font-weight:900;
+      text-align:center;
+      white-space:nowrap;
+      width:64px;
+    }
+    tr.alt td{background:color-mix(in srgb, var(--amber) 10%, white)}
+    .muted{color:var(--muted)}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+
+    /* mobile readability */
+    @media (max-width:640px){
+      .tip-panel{padding:14px}
+      th,td{padding:8px}
+    }
+
+    /* guard media blow-up */
+    .tip-page img,.tip-page svg{max-width:100%;height:auto}
+  </style>
+</head>
+
+<body class="tip-page">
+  <main class="tip-wrap">
+    <header class="tip-header">
+      <div>
+        <h1 class="tip-title" data-title="1">Phase Task Table</h1>
+        <p class="tip-sub" data-subtitle="1">Points by phase (EN/KO/JA in one HTML).</p>
+      </div>
+    </header>
+
+    <!-- EN -->
+    <section class="tip-panel" data-lang="en"
+      data-page-title="Phase Task Table"
+      data-page-subtitle="Points by phase (EN/KO/JA in one HTML).">
+      <div class="table-wrap">
+        <table aria-label="Phase Task Table (EN)">
+          <thead>
+            <tr>
+              <th style="width:78px;">Phase</th>
+              <th>Task</th>
+              <th style="width:110px;">Points</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Phase 1 -->
+            <tr>
+              <td class="phase" rowspan="7">1st</td>
+              <td>Increase max Chief Gear Charm score by 1</td>
+              <td>70 pts</td>
+            </tr>
+            <tr><td>Use 1 Fire Crystal to upgrade buildings</td><td>2,000 pts</td></tr>
+            <tr><td>Use 1 Fire Crystal Shard for Tech Research</td><td>1,000 pts</td></tr>
+            <tr><td>Use 1 Refined Fire Crystal to upgrade buildings</td><td>30,000 pts</td></tr>
+            <tr><td>Use 1 minute of Construction Speedups</td><td>30 pts</td></tr>
+            <tr><td>Use 1 minute of Research Speedups</td><td>30 pts</td></tr>
+            <tr><td>Use 1 minute of Training Speedups (Training / Promotion)</td><td>30 pts</td></tr>
+
+            <!-- Phase 2 -->
+            <tr class="alt">
+              <td class="phase" rowspan="14">2nd</td>
+              <td>Use 1 Fire Crystal to upgrade buildings</td>
+              <td>2,000 pts</td>
+            </tr>
+            <tr class="alt"><td>Use 1 Fire Crystal Shard for Tech Research</td><td>1,000 pts</td></tr>
+            <tr class="alt"><td>Use 1 Refined Fire Crystal to upgrade buildings</td><td>30,000 pts</td></tr>
+            <tr class="alt"><td>Use 1 minute of Construction Speedups</td><td>30 pts</td></tr>
+            <tr class="alt"><td>Use 1 minute of Research Speedups</td><td>30 pts</td></tr>
+            <tr class="alt"><td>Use 1 minute of Training Speedups (Training / Promotion)</td><td>30 pts</td></tr>
+            <tr class="alt"><td>Play Lucky Wheel 1 time</td><td>8,000 pts</td></tr>
+            <tr class="alt"><td>Use 1 Rare Hero Shard to ascend a hero</td><td>350 pts</td></tr>
+            <tr class="alt"><td>Use 1 Epic Hero Shard to ascend a hero</td><td>1,220 pts</td></tr>
+            <tr class="alt"><td>Use 1 Mythic Hero Shard to ascend a hero</td><td>3,040 pts</td></tr>
+            <tr class="alt"><td>Gather 1,000 Meat in the Wilderness</td><td>2 pts</td></tr>
+            <tr class="alt"><td>Gather 1,000 Wood in the Wilderness</td><td>2 pts</td></tr>
+            <tr class="alt"><td>Gather 200 Coal in the Wilderness</td><td>2 pts</td></tr>
+            <tr class="alt"><td>Gather 50 Iron in the Wilderness</td><td>2 pts</td></tr>
+
+            <!-- Phase 3 -->
+            <tr>
+              <td class="phase" rowspan="14">3rd</td>
+              <td>Increase Pet Advancement score by 1</td>
+              <td>50 pts</td>
+            </tr>
+            <tr><td>Use 1 Advanced Wild Mark to refine pets</td><td>15,000 pts</td></tr>
+            <tr><td>Use 1 Common Wild Mark to refine pets</td><td>1,150 pts</td></tr>
+            <tr><td>Increase max Chief Gear Charm score by 1</td><td>70 pts</td></tr>
+            <tr><td>Play Lucky Wheel 1 time</td><td>8,000 pts</td></tr>
+            <tr><td>Use 1 Rare Hero Shard to ascend a hero</td><td>350 pts</td></tr>
+            <tr><td>Use 1 Epic Hero Shard to ascend a hero</td><td>1,220 pts</td></tr>
+            <tr><td>Use 1 Mythic Hero Shard to ascend a hero</td><td>3,040 pts</td></tr>
+            <tr><td>Call a rally and defeat 1 Polar Terror</td><td>30,000 pts</td></tr>
+            <tr><td>Defeat 1 Beast (Lv. 1–10)</td><td>9,000 pts</td></tr>
+            <tr><td>Defeat 1 Beast (Lv. 11–15)</td><td>9,750 pts</td></tr>
+            <tr><td>Defeat 1 Beast (Lv. 16–20)</td><td>10,500 pts</td></tr>
+            <tr><td>Defeat 1 Beast (Lv. 21–25)</td><td>11,250 pts</td></tr>
+            <tr><td>Defeat 1 Beast (Lv. 26–30)</td><td>12,000 pts</td></tr>
+
+            <!-- Phase 4 -->
+            <tr class="alt">
+              <td class="phase" rowspan="14">4th</td>
+              <td>Increase max Chief Gear Charm score by 1</td>
+              <td>70 pts</td>
+            </tr>
+            <tr class="alt"><td>Use 1 Hero Gear Essence Stone</td><td>4,000 pts</td></tr>
+            <tr class="alt"><td>Use 1 piece of any Hero Exclusive Gear</td><td>8,000 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 1)</td><td>3 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 2)</td><td>4 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 3)</td><td>5 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 4)</td><td>8 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 5)</td><td>12 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 6)</td><td>18 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 7)</td><td>25 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 8)</td><td>35 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 9)</td><td>45 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 10)</td><td>60 pts</td></tr>
+            <tr class="alt"><td>Train 1 Troop (Lv. 11)</td><td>75 pts</td></tr>
+
+            <!-- Phase 5 -->
+            <tr>
+              <td class="phase" rowspan="12">5th</td>
+              <td>Increase Pet Advancement score by 1</td>
+              <td>50 pts</td>
+            </tr>
+            <tr><td>Use 1 Advanced Wild Mark to refine pets</td><td>15,000 pts</td></tr>
+            <tr><td>Use 1 Common Wild Mark to refine pets</td><td>1,150 pts</td></tr>
+            <tr><td>Increase max Chief Gear score by 1</td><td>36 pts</td></tr>
+            <tr><td>Use 1 Mithril</td><td>144,000 pts</td></tr>
+            <tr><td>Use 1 piece of any Hero Exclusive Gear</td><td>8,000 pts</td></tr>
+            <tr><td>Use 1 Fire Crystal to upgrade buildings</td><td>2,000 pts</td></tr>
+            <tr><td>Use 1 Fire Crystal Shard for Tech Research</td><td>1,000 pts</td></tr>
+            <tr><td>Use 1 Refined Fire Crystal to upgrade buildings</td><td>30,000 pts</td></tr>
+            <tr><td>Use 1 minute of Construction Speedups</td><td>30 pts</td></tr>
+            <tr><td>Use 1 minute of Research Speedups</td><td>30 pts</td></tr>
+            <tr><td>Use 1 minute of Training Speedups (Training / Promotion)</td><td>30 pts</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- KO -->
+    <section class="tip-panel" data-lang="ko"
+      data-page-title="단계별 미션 표"
+      data-page-subtitle="단계(Phase)별 과제와 포인트를 정리한 표 (단일 HTML: EN/KO/JA).">
+      <div class="table-wrap">
+        <table aria-label="단계별 미션 표 (KO)">
+          <thead>
+            <tr>
+              <th style="width:78px;">단계</th>
+              <th>과제</th>
+              <th style="width:110px;">포인트</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Phase 1 -->
+            <tr>
+              <td class="phase" rowspan="7">1단계</td>
+              <td>집정관 장비 매력(Charm) 최대 점수 1 증가</td>
+              <td>70점</td>
+            </tr>
+            <tr><td>불수정 1개로 건물 업그레이드</td><td>2,000점</td></tr>
+            <tr><td>불수정 조각 1개로 기술 연구</td><td>1,000점</td></tr>
+            <tr><td>정제 불수정 1개로 건물 업그레이드</td><td>30,000점</td></tr>
+            <tr><td>건설 가속 1분 사용</td><td>30점</td></tr>
+            <tr><td>연구 가속 1분 사용</td><td>30점</td></tr>
+            <tr><td>훈련 가속 1분 사용 (훈련/승급)</td><td>30점</td></tr>
+
+            <!-- Phase 2 -->
+            <tr class="alt">
+              <td class="phase" rowspan="14">2단계</td>
+              <td>불수정 1개로 건물 업그레이드</td>
+              <td>2,000점</td>
+            </tr>
+            <tr class="alt"><td>불수정 조각 1개로 기술 연구</td><td>1,000점</td></tr>
+            <tr class="alt"><td>정제 불수정 1개로 건물 업그레이드</td><td>30,000점</td></tr>
+            <tr class="alt"><td>건설 가속 1분 사용</td><td>30점</td></tr>
+            <tr class="alt"><td>연구 가속 1분 사용</td><td>30점</td></tr>
+            <tr class="alt"><td>훈련 가속 1분 사용 (훈련/승급)</td><td>30점</td></tr>
+            <tr class="alt"><td>럭키휠 1회 플레이</td><td>8,000점</td></tr>
+            <tr class="alt"><td>희귀(레어) 영웅 조각 1개로 승급</td><td>350점</td></tr>
+            <tr class="alt"><td>에픽 영웅 조각 1개로 승급</td><td>1,220점</td></tr>
+            <tr class="alt"><td>신화(미식) 영웅 조각 1개로 승급</td><td>3,040점</td></tr>
+            <tr class="alt"><td>야외에서 고기 1,000 채집</td><td>2점</td></tr>
+            <tr class="alt"><td>야외에서 나무 1,000 채집</td><td>2점</td></tr>
+            <tr class="alt"><td>야외에서 석탄 200 채집</td><td>2점</td></tr>
+            <tr class="alt"><td>야외에서 철 50 채집</td><td>2점</td></tr>
+
+            <!-- Phase 3 -->
+            <tr>
+              <td class="phase" rowspan="14">3단계</td>
+              <td>펫 진화 점수 1 증가</td>
+              <td>50점</td>
+            </tr>
+            <tr><td>고급 야성의 인장 1개로 펫 정련</td><td>15,000점</td></tr>
+            <tr><td>일반 야성의 인장 1개로 펫 정련</td><td>1,150점</td></tr>
+            <tr><td>집정관 장비 매력(Charm) 최대 점수 1 증가</td><td>70점</td></tr>
+            <tr><td>럭키휠 1회 플레이</td><td>8,000점</td></tr>
+            <tr><td>희귀(레어) 영웅 조각 1개로 승급</td><td>350점</td></tr>
+            <tr><td>에픽 영웅 조각 1개로 승급</td><td>1,220점</td></tr>
+            <tr><td>신화(미식) 영웅 조각 1개로 승급</td><td>3,040점</td></tr>
+            <tr><td>집결 발동 후 북극 테러(Polar Terror) 1회 처치</td><td>30,000점</td></tr>
+            <tr><td>야수 1마리 처치 (Lv. 1–10)</td><td>9,000점</td></tr>
+            <tr><td>야수 1마리 처치 (Lv. 11–15)</td><td>9,750점</td></tr>
+            <tr><td>야수 1마리 처치 (Lv. 16–20)</td><td>10,500점</td></tr>
+            <tr><td>야수 1마리 처치 (Lv. 21–25)</td><td>11,250점</td></tr>
+            <tr><td>야수 1마리 처치 (Lv. 26–30)</td><td>12,000점</td></tr>
+
+            <!-- Phase 4 -->
+            <tr class="alt">
+              <td class="phase" rowspan="14">4단계</td>
+              <td>집정관 장비 매력(Charm) 최대 점수 1 증가</td>
+              <td>70점</td>
+            </tr>
+            <tr class="alt"><td>영웅 장비 정수석(Essence Stone) 1개 사용</td><td>4,000점</td></tr>
+            <tr class="alt"><td>영웅 전용 장비(Exclusive Gear) 1개 사용</td><td>8,000점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 1)</td><td>3점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 2)</td><td>4점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 3)</td><td>5점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 4)</td><td>8점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 5)</td><td>12점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 6)</td><td>18점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 7)</td><td>25점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 8)</td><td>35점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 9)</td><td>45점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 10)</td><td>60점</td></tr>
+            <tr class="alt"><td>병사 1명 훈련 (Lv. 11)</td><td>75점</td></tr>
+
+            <!-- Phase 5 -->
+            <tr>
+              <td class="phase" rowspan="12">5단계</td>
+              <td>펫 진화 점수 1 증가</td>
+              <td>50점</td>
+            </tr>
+            <tr><td>고급 야성의 인장 1개로 펫 정련</td><td>15,000점</td></tr>
+            <tr><td>일반 야성의 인장 1개로 펫 정련</td><td>1,150점</td></tr>
+            <tr><td>집정관 장비 점수 1 증가</td><td>36점</td></tr>
+            <tr><td>미스릴 1개 사용</td><td>144,000점</td></tr>
+            <tr><td>영웅 전용 장비(Exclusive Gear) 1개 사용</td><td>8,000점</td></tr>
+            <tr><td>불수정 1개로 건물 업그레이드</td><td>2,000점</td></tr>
+            <tr><td>불수정 조각 1개로 기술 연구</td><td>1,000점</td></tr>
+            <tr><td>정제 불수정 1개로 건물 업그레이드</td><td>30,000점</td></tr>
+            <tr><td>건설 가속 1분 사용</td><td>30점</td></tr>
+            <tr><td>연구 가속 1분 사용</td><td>30점</td></tr>
+            <tr><td>훈련 가속 1분 사용 (훈련/승급)</td><td>30점</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- JA -->
+    <section class="tip-panel" data-lang="ja"
+      data-page-title="フェーズ別ミッション表"
+      data-page-subtitle="フェーズ(Phase)ごとのタスクとポイント（単一HTML: EN/KO/JA）。">
+      <div class="table-wrap">
+        <table aria-label="フェーズ別ミッション表 (JA)">
+          <thead>
+            <tr>
+              <th style="width:78px;">フェーズ</th>
+              <th>タスク</th>
+              <th style="width:110px;">ポイント</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Phase 1 -->
+            <tr>
+              <td class="phase" rowspan="7">1</td>
+              <td>執政官装備チャーム(Charm)最大スコアを1増加</td>
+              <td>70</td>
+            </tr>
+            <tr><td>火晶を1個使用して建物を強化</td><td>2,000</td></tr>
+            <tr><td>火晶の欠片を1個使用して技術研究</td><td>1,000</td></tr>
+            <tr><td>精製火晶を1個使用して建物を強化</td><td>30,000</td></tr>
+            <tr><td>建設スピードアップを1分使用</td><td>30</td></tr>
+            <tr><td>研究スピードアップを1分使用</td><td>30</td></tr>
+            <tr><td>訓練スピードアップを1分使用（訓練/昇格）</td><td>30</td></tr>
+
+            <!-- Phase 2 -->
+            <tr class="alt">
+              <td class="phase" rowspan="14">2</td>
+              <td>火晶を1個使用して建物を強化</td>
+              <td>2,000</td>
+            </tr>
+            <tr class="alt"><td>火晶の欠片を1個使用して技術研究</td><td>1,000</td></tr>
+            <tr class="alt"><td>精製火晶を1個使用して建物を強化</td><td>30,000</td></tr>
+            <tr class="alt"><td>建設スピードアップを1分使用</td><td>30</td></tr>
+            <tr class="alt"><td>研究スピードアップを1分使用</td><td>30</td></tr>
+            <tr class="alt"><td>訓練スピードアップを1分使用（訓練/昇格）</td><td>30</td></tr>
+            <tr class="alt"><td>ラッキーホイールを1回プレイ</td><td>8,000</td></tr>
+            <tr class="alt"><td>レア英雄の欠片を1個使用して昇格</td><td>350</td></tr>
+            <tr class="alt"><td>エピック英雄の欠片を1個使用して昇格</td><td>1,220</td></tr>
+            <tr class="alt"><td>ミシック英雄の欠片を1個使用して昇格</td><td>3,040</td></tr>
+            <tr class="alt"><td>野外で肉を1,000採集</td><td>2</td></tr>
+            <tr class="alt"><td>野外で木材を1,000採集</td><td>2</td></tr>
+            <tr class="alt"><td>野外で石炭を200採集</td><td>2</td></tr>
+            <tr class="alt"><td>野外で鉄を50採集</td><td>2</td></tr>
+
+            <!-- Phase 3 -->
+            <tr>
+              <td class="phase" rowspan="14">3</td>
+              <td>ペット進化スコアを1増加</td>
+              <td>50</td>
+            </tr>
+            <tr><td>上級ワイルドマークを1個使用してペット精錬</td><td>15,000</td></tr>
+            <tr><td>一般ワイルドマークを1個使用してペット精錬</td><td>1,150</td></tr>
+            <tr><td>執政官装備チャーム(Charm)最大スコアを1増加</td><td>70</td></tr>
+            <tr><td>ラッキーホイールを1回プレイ</td><td>8,000</td></tr>
+            <tr><td>レア英雄の欠片を1個使用して昇格</td><td>350</td></tr>
+            <tr><td>エピック英雄の欠片を1個使用して昇格</td><td>1,220</td></tr>
+            <tr><td>ミシック英雄の欠片を1個使用して昇格</td><td>3,040</td></tr>
+            <tr><td>集結を発動し、ポーラーテラーを1体討伐</td><td>30,000</td></tr>
+            <tr><td>ビースト1体討伐（Lv. 1–10）</td><td>9,000</td></tr>
+            <tr><td>ビースト1体討伐（Lv. 11–15）</td><td>9,750</td></tr>
+            <tr><td>ビースト1体討伐（Lv. 16–20）</td><td>10,500</td></tr>
+            <tr><td>ビースト1体討伐（Lv. 21–25）</td><td>11,250</td></tr>
+            <tr><td>ビースト1体討伐（Lv. 26–30）</td><td>12,000</td></tr>
+
+            <!-- Phase 4 -->
+            <tr class="alt">
+              <td class="phase" rowspan="14">4</td>
+              <td>執政官装備チャーム(Charm)最大スコアを1増加</td>
+              <td>70</td>
+            </tr>
+            <tr class="alt"><td>英雄装備エッセンスストーンを1個使用</td><td>4,000</td></tr>
+            <tr class="alt"><td>英雄専用装備(Exclusive Gear)を1個使用</td><td>8,000</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 1）</td><td>3</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 2）</td><td>4</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 3）</td><td>5</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 4）</td><td>8</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 5）</td><td>12</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 6）</td><td>18</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 7）</td><td>25</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 8）</td><td>35</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 9）</td><td>45</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 10）</td><td>60</td></tr>
+            <tr class="alt"><td>兵士を1人訓練（Lv. 11）</td><td>75</td></tr>
+
+            <!-- Phase 5 -->
+            <tr>
+              <td class="phase" rowspan="12">5</td>
+              <td>ペット進化スコアを1増加</td>
+              <td>50</td>
+            </tr>
+            <tr><td>上級ワイルドマークを1個使用してペット精錬</td><td>15,000</td></tr>
+            <tr><td>一般ワイルドマークを1個使用してペット精錬</td><td>1,150</td></tr>
+            <tr><td>執政官装備スコアを1増加</td><td>36</td></tr>
+            <tr><td>ミスリルを1個使用</td><td>144,000</td></tr>
+            <tr><td>英雄専用装備(Exclusive Gear)を1個使用</td><td>8,000</td></tr>
+            <tr><td>火晶を1個使用して建物を強化</td><td>2,000</td></tr>
+            <tr><td>火晶の欠片を1個使用して技術研究</td><td>1,000</td></tr>
+            <tr><td>精製火晶を1個使用して建物を強化</td><td>30,000</td></tr>
+            <tr><td>建設スピードアップを1分使用</td><td>30</td></tr>
+            <tr><td>研究スピードアップを1分使用</td><td>30</td></tr>
+            <tr><td>訓練スピードアップを1分使用（訓練/昇格）</td><td>30</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      function pickLang(v) {
+        v = String(v || "").toLowerCase();
+        if (v === "ko" || v === "ja" || v === "en") return v;
+        if (v.startsWith("ko")) return "ko";
+        if (v.startsWith("ja")) return "ja";
+        if (v.startsWith("en")) return "en";
+        return "en";
+      }
+
+      function getSiteLang() {
+        try {
+          if (window.WOS_I18N && typeof window.WOS_I18N.getLang === "function") {
+            return pickLang(window.WOS_I18N.getLang());
+          }
+        } catch (_) {}
+
+        try {
+          var htmlLang = document.documentElement.getAttribute("lang");
+          if (htmlLang) return pickLang(htmlLang);
+        } catch (_) {}
+
+        try {
+          var ls = localStorage.getItem("lang") || localStorage.getItem("locale") || "";
+          if (ls) return pickLang(ls);
+        } catch (_) {}
+
+        try {
+          return pickLang((navigator.language || navigator.userLanguage || "en"));
+        } catch (_) {
+          return "en";
+        }
+      }
+
+      function applyLang(lang) {
+        var blocks = document.querySelectorAll("[data-lang]");
+        blocks.forEach(function (el) {
+          el.classList.toggle("is-active", el.getAttribute("data-lang") === lang);
+        });
+
+        document.documentElement.setAttribute("lang", lang);
+
+        var active = document.querySelector('[data-lang].is-active');
+        if (active) {
+          var pageTitle = active.getAttribute("data-page-title") || "";
+          var pageSub = active.getAttribute("data-page-subtitle") || "";
+          var h1 = document.querySelector("[data-title='1']");
+          var sub = document.querySelector("[data-subtitle='1']");
+          if (h1 && pageTitle) h1.textContent = pageTitle;
+          if (sub && pageSub) sub.textContent = pageSub;
+          if (pageTitle) document.title = pageTitle;
+        }
+      }
+
+      applyLang(getSiteLang());
+      window.addEventListener("wos:langchange", function () {
+        applyLang(getSiteLang());
+      });
+    })();
+  </script>
+</body>
+</html>

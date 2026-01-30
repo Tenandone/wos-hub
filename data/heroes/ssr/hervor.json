@@ -1,0 +1,107 @@
+{
+  "slug": "hervor",
+  "name": "Hervor",
+  "rarity": "SSR",
+  "season": 12,
+  "gen": 12,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s12/hervor/img/hervor.png",
+  "story": "The icy peaks of Sathla tower majestically over the frigid far north. The cold land harbors a ruthless kingdom and Hervor is its Chieftain.\nThere are no Furnaces here, let alone Cities. There is only survival—survival in deep winter caverns or strongholds, easier in better days than now. But this is a strong people. They have always buried their weaker brethren in mountain tombs, long before the Great Chill.\nChieftainship of Sathla lends credibility to certain legends about Hervor—that her arms are as strong as tree trunks, her battle cries can trigger avalanches or her skin can survive steel. Of course, proving any would require a living challenger to Hervor's reign.\n\nChieftainship over Sathla is earned in every generation by a grueling series of arena duels.\nHervor's predecessor, Hraesvelgr Kinslayer, ruled for an astounding half a century. So resilient was Hraesvelgr that it was assumed that if he were not under the active protection of the ancestors or mountain gods, he was partly a demigod himself. People began to wonder which eagle flying over the valley might not be Hraesvelgr in disguise. His throne room was very well-adorned with challengers' heads and other body parts.\nFear was a tool and Hraesvelgr fanned the flame of legend. But even fear could not protect Hraesvelgr from the One Who Had Been Foretold and her miraculous return from the dead.\n\nThe witch's prophecy slithered through the tribal council like a curse: twins born under eternal night would one day feast upon the blood of a god. Hraesvelgr's wife had delivered during a lunar eclipse. Although painful, Hraesvelgr could not ignore any threat to his power. But rather than wield the knife himself, he would allow the mountain to do its work.\nCold and alone but for each other, challenged by the elements and predators, Hervor somehow survived. Years passed and their fate became a distant memory.\nThe chiefsguard stepped back in astonishment when the adult Hervor arrived one day to claim Hraesvelgr's throne. Surely this must be the will of the gods!\n\nThe battle between the undefeated father and the invincible daughter raged into the morning when, in the sight of all, Hraesvelgr's daughter did \"drink of the blood of a god\". The breaking of his so-called wings echoed alongside a new cry: Long live Chief Hervor!\nHervor had graduated as the most powerful queen in Sathla's history. Smarter and more cunning than her father, Hervor knew that someday she would share her father's fate as even the strongest oak withers—unless, that is, she chose the hard path and went abroad in search of a more enduring source of strength.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 13674,
+      "defense": 17826,
+      "health": 267398
+    },
+    "expedition": {
+      "attack_percent": "1451.16%",
+      "defense_percent": "1451.16%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500471",
+      "name": "Earthmover",
+      "mode": "exploration",
+      "description": "Hervor hammer-strikes the ground with thunderous force, inflicting Attack*100%/110%/120%/130%/140% damage to frontal enemies, a 1-second stun, and Intimidation that reduces enemy Attack by 25% for 3 seconds.",
+      "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500471.png"
+    },
+    {
+      "id": "500472",
+      "name": "Mountain Strength",
+      "mode": "exploration",
+      "description": "Hervor's miraculous strength is terrifying to behold, granting her normal attacks a 5%/10%/15%/20%/25% chance of inflicting \"Intimidation\" which increases enemy damage taken by 3%/6%/9%/12%/15% (max 3 stacks).",
+      "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500472.png"
+    },
+    {
+      "id": "500473",
+      "name": "Stone Arms",
+      "mode": "exploration",
+      "description": "Brutal mountain life has endowed Hervor with superhuman endurance, reducing her damage taken by 5%/10%/15%/20%/25% and becoming immune to stun, paralysis or freeze and other control effect for the first 9 seconds of battle.",
+      "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500473.png"
+    },
+    {
+      "id": "500474",
+      "name": "Call For Blood",
+      "mode": "expedition",
+      "description": "Hervor's heartfelt war cry ignites fearlessness in her soldiers, increasing all troops' Lethality by 5%/10%/15%/20%/25%",
+      "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500474.png"
+    },
+    {
+      "id": "500475",
+      "name": "Undying",
+      "mode": "expedition",
+      "description": "The enemy menace pales beside Hervor's icy homeland, her Infantry's Damage Taken from Normal Attacks is reduced by 5%/10%/15%/20%/25% and 6%/12%/18%/24%/30% from enemy skills.",
+      "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500475.png"
+    },
+    {
+      "id": "500476",
+      "name": "Battlethirsty",
+      "mode": "expedition",
+      "description": "Hervor and her Infantry are singularly devoted to the idea of battle, reducing her Infantry's damage taken by 3%/6%/9%/12%/15% and increasing their damage dealt by 2%/4%/6%/8%/10%",
+      "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500476.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 2770,
+        "def": 3613,
+        "health": 54202
+      },
+      "expedition": {
+        "lethality": "362.50%",
+        "health": "362.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Hammer of Sathla",
+      "power": 1806750,
+      "image": "../assets/heroes/ssr/s12/hervor/img/equipment_icon_1050047.png",
+      "perks": [
+        {
+          "id": "500477",
+          "name": "Mark of the Chieftain",
+          "level": 5,
+          "description": "Hervor's hammer is a glorious symbol of Sathla's power, increasing Attack Speed by 30% and normal attacks' chance of \"Intimidation\" by 25%.",
+          "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500477.png"
+        },
+        {
+          "id": "500478",
+          "name": "Fort of Rock",
+          "level": 5,
+          "description": "Hervor's reforges defenders in her unyielding image, increasing Defender Troops' Defense by 15%.",
+          "icon": "../assets/heroes/ssr/s12/hervor/img/hero_skill_icon_500478.png"
+        }
+      ]
+    }
+  }
+}

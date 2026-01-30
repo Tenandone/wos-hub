@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "charlie",
+    "name": "Charlie",
+    "rarity": "R",
+    "image": "/assets/heroes/r/charlie/img/charlie.png"
+  },
+  {
+    "slug": "cloris",
+    "name": "Cloris",
+    "rarity": "R",
+    "image": "/assets/heroes/r/cloris/img/cloris.png"
+  },
+  {
+    "slug": "eugene",
+    "name": "Eugene",
+    "rarity": "R",
+    "image": "/assets/heroes/r/eugene/img/eugene.png"
+  },
+  {
+    "slug": "smith",
+    "name": "Smith",
+    "rarity": "R",
+    "image": "/assets/heroes/r/smith/img/smith.png"
+  }
+]

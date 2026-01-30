@@ -1,0 +1,109 @@
+{
+  "slug": "dominic",
+  "name": "Dominic",
+  "rarity": "SSR",
+  "gen": 14,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s14/dominic/img/dominic.png",
+  "story": "Dominic is the most brilliant magician to be found on the tundra. Not even Mia, renowned for her mastery of illusions, can match his remarkable skill and boundless imagination. So impressed was she by his extraordinary talent that she invited him to join her caravan on its journey across the land.\nFrom teleportation and telekinesis to levitating the caravan, conjuring elegant ladies from paintings, or transforming audience into portraits—his inventive performances never fail to bring the house down. Thanks to him, the caravan rakes in a fortune. Yet, the applause of the crowd seems to leave him indifferent, as his sole passion lies in crafting even more breathtaking magic.\n\nBeyond the elaborate setups for his illusions, Dominic also excels at designing a range of concealable weapons, such as umbrellas that fire tranquilizer darts and boxes that unleash powerful punches. These ingenious tools help the caravan to turn the tables in the face of unexpected ambushes.\nPhysically strong and fearless, Dominic never fails to slip away from danger, using his masterful escape techniques to defy the odds.\nOn top of all his talents, Dominic is a master of disguise, able to gather vital intelligence for Mia with impeccable personas. What baffles her, however, is that while he effortlessly mingles with people in disguise, once he reverts to his true self, he becomes cold and utterly unapproachable.\n\nIn contrast to many members of the caravan, who have complex backgrounds or are on the run from enemies, Dominic is just an average man, making him an anomaly.\nDominic was once a wanderer with no place to call home, but that was due to his eccentric personality putting him at odds with the powerful. Joining the caravan has granted him true freedom, allowing him to focus entirely on perfecting his magic without needing to interact much with his quirky companions. With Mia's wealth, even his wildest ideas can be brought to life.\n\nDominic's father was once the most prominent magician in town, until the arrival of an engineer who ruined everything by seeing through even the most intricately designed tricks before they were completed. As the magic shows quickly lost their appeal, Dominic's father, disheartened, left home in search of greater skill.\nIn the beginning, Dominic's passion for magic was fueled by a desire to create the perfect illusion his father had always dreamed of, believing it would make his father stay if he ever returned. As he grew, he eventually crafted the ultimate trick that fooled everyone, including the engineer, but he never saw his father again. Still, the genius was not disappointed; he realized that magic was the only thing that truly mattered to him.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 25684,
+      "defense": 25684,
+      "health": 256854
+    },
+    "expedition": {
+      "attack_percent": "1791.43%",
+      "defense_percent": "1791.43%"
+    }
+  },
+  "sources": [
+    "Hall of Chiefs",
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Hero Rally",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500541",
+      "name": "Box Trick",
+      "mode": "exploration",
+      "description": "Dominic conjures three magical boxes around the target, each delivering heavy punches that deal Attack*200%/220%/240%/260%/280% Area Damage and stun the target for 1s.",
+      "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500541.png"
+    },
+    {
+      "id": "500542",
+      "name": "Scorching Roses",
+      "mode": "exploration",
+      "description": "Dominic hurls a rose that transforms into flames, dealing Attack*100%/110%/120%/130%/140% damage and setting the target on fire which deals Attack*4%/6%/8%/10%/12% damage every 0.5s for 2s.",
+      "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500542.png"
+    },
+    {
+      "id": "500543",
+      "name": "Double Trouble",
+      "mode": "exploration",
+      "description": "When Dominic's Health drops to zero, he vanishes and reappears 5 seconds later with 10%/20%/30%/40%/50% Health. This effect can occur once per battle.",
+      "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500543.png"
+    },
+    {
+      "id": "500544",
+      "name": "Mystic Mechanism",
+      "mode": "expedition",
+      "description": "Increases damage dealt by all troops by 4%/8%/12%/16%/20%.",
+      "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500544.png"
+    },
+    {
+      "id": "500545",
+      "name": "Spiky Assault",
+      "mode": "expedition",
+      "description": "Lancers deal 12%/24%/36%/48%/60% more damage per attack. Poisoned targets take 5%/10%/15%/20%/25% more damage for 1 turn.",
+      "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500545.png"
+    },
+    {
+      "id": "500546",
+      "name": "Mirror Maze",
+      "mode": "expedition",
+      "description": "Reduces damage taken by Infantry and Marksmen by 3%/6%/9%/12%/15% and increases their damage dealt by the same amount.",
+      "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500546.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 5206,
+        "def": 5206,
+        "health": 52065
+      },
+      "expedition": {
+        "lethality": "447.5%",
+        "health": "447.5%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Exobox",
+      "power": 2603250,
+      "image": "../assets/heroes/ssr/s14/dominic/img/equipment_icon_1050054.png",
+      "perks": [
+        {
+          "id": "500547",
+          "name": "Illusion Mastery",
+          "level": null,
+          "description": "Increases Dominic's damage dealt by 25%.",
+          "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500547.png"
+        },
+        {
+          "id": "500548",
+          "name": "Grand Fantasy",
+          "level": null,
+          "description": "Increases Rally Troops' Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s14/dominic/img/hero_skill_icon_500548.png"
+        }
+      ]
+    }
+  }
+}

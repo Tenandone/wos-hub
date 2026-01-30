@@ -1,0 +1,105 @@
+{
+  "slug": "bradley",
+  "name": "Bradley",
+  "rarity": "SSR",
+  "season": 7,
+  "gen": 7,
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s7/bradley/img/bradley.png",
+  "story": "Bradley is a model warrior, capable veteran, and military strategist trained by one of the finest military academies in oldworld history. Despite what may have happened afterward, he is also one of the Eagles' finest warriors and will not tolerate anybody saying otherwise.\n\nA loyal soldier, Bradley earned his stripes primarily working artillery with his understanding of siege techniques, in this day and age, useful beyond measure. A calculating mind and occasional flashes of brilliance is the mainrason Bradley has retained his position as a member of Gina's mercenary company and, at one point, Captain Fawkner's rigth-hand man.\n\nThe only shadow over Bradley remains the unexplained disappearance of his entire battalion on expedition, in which he was the sole survivor somehow unable to recall the circumstances surrounding their loss. Bradley returned a changed man, withdrawn, unable to explain why large parts of his recollection were now missing. It is doubtful he would have remained in the company without the backing of thei new leader, Gina, by whose trust Bradley has mounted a slow but gradual recovey.\n\nBradley's skills in the mechanical operation of all types of cannons is complemented by excellent sharp-shooting skills, swordsmanship when the situation requires, as well as fairly decent close-quarters combat abilities. A respected strategist, Bradley has developed a reputation for surgical strikes and minimizing civilian casualties, often quoting that, \"Cannons do not win battles. Careful planning, timing, and hte courage to seize the moment do.\"\n\nBradley was born into a relatively well-known military family in the old Solaris Empire, resulting in his acceptance to the 'last class\" of the rapidity-dissolving Solaris Empire's prestigious Royal Academy. Truth be told, the Imperial facade was already beginning to cruumble before Bradley was handed his first uniform.\n\nBradley's regiment came increassing to represent what the collapse of the old Empire might mean for everyday survival in the freezing world. Bradley still held out hope their ragtag group could somehow help rebuild the Solaris Empire and its honorable traditions. Most accepted the new reality: discipline and honor were dead, and survival required a cruel hand. The latter sparked Bradley's transition to the mercenary life and confirmed his worst fears. The solaris Empire was gone and it would be rebuilt.\n\nOther than Captain Fawkner, just disappear? It was a relatively unexplored valley and site of many strange sightings. But why did only Bradley survive? Why can no one account for it?\n\nBradley could have been cast out on suspicion of treachery were is not for Commander Gina's abiding trust in the cursed man. Bradley has since begun a kind of regular pilgrimage to the same valley, seeking again and again some trace of Fawkner, his lost friends, or anything that might jog his memories. So far he has turned up nothing, yet still holds out hope.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 8656,
+      "defense": 7126,
+      "health": 53446
+    },
+    "expedition": {
+      "attack_percent": "650.52%",
+      "defense_percent": "650.52%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel"
+  ],
+  "skills": [
+    {
+      "id": "500331",
+      "name": "Destructor",
+      "mode": "exploration",
+      "description": "Bradley primes his artillery with an extremely potent shell, dealing Attack 300%/330%/360%/390%/420% Area of Effect Damage.",
+      "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500331.png"
+    },
+    {
+      "id": "500332",
+      "name": "Incendiary Shell",
+      "mode": "exploration",
+      "description": "Bradley fires a special incendiary shell, dealing Attack 60%/66%/72%/78%/84% Area of Effect Damage. The flaming crater in its wake also deals Attack 17%/19%/21%/23%/25% damage to enemies every 0.5s for 2s.",
+      "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500332.png"
+    },
+    {
+      "id": "500333",
+      "name": "Audacious",
+      "mode": "exploration",
+      "description": "The prospect of death only energizes a seasoned warrior like Bradley, increasing his attack by 10%/14%/18%/22%/26%.",
+      "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500333.png"
+    },
+    {
+      "id": "500334",
+      "name": "Veteran's Might",
+      "mode": "expedition",
+      "description": "Bradley's years of combat experience enables him to destroy enemies efficiently, increasing Attack by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500334.png"
+    },
+    {
+      "id": "500335",
+      "name": "Power Shot",
+      "mode": "expedition",
+      "description": "Bradley use his expertise in suppresive artillery against the ennemy vanguard, increasing Damage Dealt to Lancer by 6%/12%/18%/24%/30%, and to infantry by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500335.png"
+    },
+    {
+      "id": "500336",
+      "name": "Tactical Assistance",
+      "mode": "expedition",
+      "description": "Bradley will press every advantage against a beleaguered ennemy, increasing Damage Dealt by 6%/12%/18%/24%/30% for all troops for 2 turns every 4 turns.",
+      "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500336.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 1752,
+        "def": 1444,
+        "health": 10833
+      },
+      "expedition": {
+        "lethality": "160.50%",
+        "health": "160.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Thunder Cannon",
+      "power": 722250,
+      "image": "../assets/heroes/ssr/s7/bradley/img/equipment_icon_1050033.png",
+      "perks": [
+        {
+          "id": "500337",
+          "name": "Onslaught",
+          "level": 5,
+          "description": "Shock and awe tactics can also boost morale. The \"destructor\" further increases Attack Speed by 14% for Heroes and Escorts for 5s.",
+          "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500337.png"
+        },
+        {
+          "id": "500338",
+          "name": "Siege Insight",
+          "level": 5,
+          "description": "Bradley knows exactly where to place defenses as a sieges expert, increasing Defender Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s7/bradley/img/hero_skill_icon_500338.png"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,313 @@
+<!-- /data/tips/items/about-save-money.html (Single HTML: EN + KO + JA, auto-show by site language) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Save Money, Save Time</title>
+
+  <style>
+    :root{
+      --fg:#0f172a;
+      --muted:rgba(15,23,42,.68);
+      --bd:rgba(15,23,42,.12);
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --soft:#f8fafc;
+      --pri:#2563eb;
+      --shadow:0 10px 28px rgba(2,6,23,.06);
+      --good:#16a34a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+    }
+
+    .tip-page a{color:inherit}
+    .tip-wrap{
+      max-width:960px;
+      margin:0 auto;
+      padding:22px clamp(16px,4vw,28px) 72px;
+      text-align:center; /* ✅ readability: centered */
+    }
+
+    .tip-hero{
+      border:1px solid var(--bd);
+      border-radius:18px;
+      background:linear-gradient(180deg,var(--soft),#fff);
+      box-shadow:var(--shadow);
+      padding:18px 18px;
+    }
+
+    .tip-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:900;
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--bd);
+      background:#fff;
+      color:color-mix(in srgb, var(--pri) 78%, var(--fg));
+      margin-bottom:10px;
+    }
+
+    .tip-title{
+      margin:0;
+      font-size:26px;
+      letter-spacing:-.3px;
+      font-weight:1000;
+      line-height:1.2;
+    }
+    .tip-sub{
+      margin:10px auto 0;
+      max-width:54ch;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    .tip-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:12px;
+      margin-top:14px;
+      text-align:left; /* cards: left for scanning */
+    }
+    @media (max-width:840px){ .tip-grid{grid-template-columns:1fr} }
+
+    .tip-card{
+      border:1px solid var(--bd);
+      border-radius:16px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      padding:14px 14px;
+    }
+    .tip-h3{
+      margin:0 0 8px;
+      font-size:14px;
+      font-weight:1000;
+      letter-spacing:-.1px;
+    }
+    .tip-p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .tip-cta{
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--bd);
+      background:#fff;
+      text-decoration:none;
+      font-weight:900;
+      font-size:13px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .btn.primary{
+      background:var(--pri);
+      border-color:color-mix(in srgb, var(--pri) 70%, var(--bd));
+      color:#fff;
+    }
+    .btn.primary:hover{filter:brightness(.95)}
+    .btn:hover{background:color-mix(in srgb, var(--soft) 55%, #fff)}
+
+    .tip-foot{
+      margin-top:14px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.7;
+      max-width:70ch;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:center;
+    }
+
+    /* language blocks */
+    [data-lang]{display:none}
+    [data-lang].is-active{display:block}
+
+    /* guard media blow-up */
+    .tip-page img,.tip-page svg{max-width:100%;height:auto}
+  </style>
+</head>
+
+<body class="tip-page">
+  <main class="tip-wrap">
+
+    <!-- EN -->
+    <section data-lang="en">
+      <div class="tip-hero">
+        <div class="tip-kicker">WosHub · Spending Guide</div>
+        <h1 class="tip-title">Save money, save time.</h1>
+        <p class="tip-sub">
+          You don’t need perfect info to spend smarter — we focus on the biggest savings first.
+        </p>
+
+        <div class="tip-grid">
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ Practical first</h3>
+            <p class="tip-p">We publish tables that reduce waste immediately, even if the dataset isn’t “complete” yet.</p>
+          </article>
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ Biggest savings</h3>
+            <p class="tip-p">We prioritize the purchases players most commonly regret, so you avoid costly mistakes.</p>
+          </article>
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ Small wins add up</h3>
+            <p class="tip-p">Tiny optimizations compound over weeks — fewer bad buys, faster progress.</p>
+          </article>
+        </div>
+
+        <div class="tip-cta">
+          <a class="btn primary" href="#/tips" data-link>Browse Tips</a>
+          <a class="btn" href="#/" data-link>Back to Home</a>
+        </div>
+
+        <div class="tip-foot">
+          WosHub is a fan-made project. We keep improving coverage over time — but you can start saving from day one.
+        </div>
+      </div>
+    </section>
+
+    <!-- KO -->
+    <section data-lang="ko">
+      <div class="tip-hero">
+        <div class="tip-kicker">WosHub · 과금 가이드</div>
+        <h1 class="tip-title">돈도 아끼고, 시간도 아끼자.</h1>
+        <p class="tip-sub">
+          완벽한 정보가 아니어도 합리적으로 과금할 수 있어요 — 먼저 “큰 낭비”부터 막습니다.
+        </p>
+
+        <div class="tip-grid">
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ 실전 우선</h3>
+            <p class="tip-p">데이터가 100% 완성되지 않아도, 당장 낭비를 줄여주는 표부터 제공합니다.</p>
+          </article>
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ 큰 손해 방지</h3>
+            <p class="tip-p">유저들이 가장 후회하는 구매부터 정리해서, 비싼 실수를 피하게 도와요.</p>
+          </article>
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ 작은 최적화 누적</h3>
+            <p class="tip-p">작은 차이가 몇 주 후 큰 격차가 됩니다 — 덜 사고 더 빠르게 성장하세요.</p>
+          </article>
+        </div>
+
+        <div class="tip-cta">
+          <a class="btn primary" href="#/tips" data-link>팁 보러가기</a>
+          <a class="btn" href="#/" data-link>홈으로</a>
+        </div>
+
+        <div class="tip-foot">
+          WosHub는 팬메이드 프로젝트입니다. 커버리지는 계속 늘리되, 절약은 오늘부터 시작할 수 있어요.
+        </div>
+      </div>
+    </section>
+
+    <!-- JA -->
+    <section data-lang="ja">
+      <div class="tip-hero">
+        <div class="tip-kicker">WosHub · 課金ガイド</div>
+        <h1 class="tip-title">お金も、時間も、節約。</h1>
+        <p class="tip-sub">
+          完璧な情報がなくても賢く課金できます — まずは「ムダが大きい所」から減らします。
+        </p>
+
+        <div class="tip-grid">
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ 実用優先</h3>
+            <p class="tip-p">データが未完成でも、今すぐムダを減らせる表から公開します。</p>
+          </article>
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ 大きな損を防ぐ</h3>
+            <p class="tip-p">後悔しやすい購入を先に整理し、高額なミスを避けられるようにします。</p>
+          </article>
+          <article class="tip-card">
+            <h3 class="tip-h3">✅ 小さな最適化が効く</h3>
+            <p class="tip-p">小さな差が数週間で大きな差に。ムダを減らして成長を早めましょう。</p>
+          </article>
+        </div>
+
+        <div class="tip-cta">
+          <a class="btn primary" href="#/tips" data-link>Tipsを見る</a>
+          <a class="btn" href="#/" data-link>ホームへ</a>
+        </div>
+
+        <div class="tip-foot">
+          WosHubはファンメイドです。カバー範囲は拡張し続けますが、節約は今日から始められます。
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      function pickLang(v) {
+        v = String(v || "").toLowerCase();
+        if (v === "ko" || v === "ja" || v === "en") return v;
+        if (v.startsWith("ko")) return "ko";
+        if (v.startsWith("ja")) return "ja";
+        if (v.startsWith("en")) return "en";
+        return "en";
+      }
+
+      function getSiteLang() {
+        try {
+          if (window.WOS_I18N && typeof window.WOS_I18N.getLang === "function") {
+            return pickLang(window.WOS_I18N.getLang());
+          }
+        } catch (_) {}
+        try {
+          var htmlLang = document.documentElement.getAttribute("lang");
+          if (htmlLang) return pickLang(htmlLang);
+        } catch (_) {}
+        try {
+          var ls = localStorage.getItem("lang") || localStorage.getItem("locale") || "";
+          if (ls) return pickLang(ls);
+        } catch (_) {}
+        try {
+          return pickLang((navigator.language || navigator.userLanguage || "en"));
+        } catch (_) {
+          return "en";
+        }
+      }
+
+      function applyLang(lang) {
+        var blocks = document.querySelectorAll("[data-lang]");
+        blocks.forEach(function (el) {
+          el.classList.toggle("is-active", el.getAttribute("data-lang") === lang);
+        });
+        document.documentElement.setAttribute("lang", lang);
+      }
+
+      applyLang(getSiteLang());
+
+      window.addEventListener("wos:langchange", function () {
+        applyLang(getSiteLang());
+      });
+    })();
+  </script>
+</body>
+</html>

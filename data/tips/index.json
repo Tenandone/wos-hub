@@ -1,0 +1,128 @@
+{
+  "items": [
+    {
+      "id": "tip-custompackage",
+      "slug": "custompackage",
+      "title": { "en": "Custom Package", "ko": "커스텀 패키지", "ja": "カスタムパッケージ" },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "tip-gempackage",
+      "slug": "gempackage",
+      "title": { "en": "Gems", "ko": "보석", "ja": "ジェム" },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "tip-refinde",
+      "slug": "refinde",
+      "title": {
+        "en": "Fire Crystal Refining Efficiency Table",
+        "ko": "불수정 정제 효율표",
+        "ja": "火晶精錬効率表"
+      },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "tip-statustransfer",
+      "slug": "StatusTransfer",
+      "title": { "en": "Status Transfer", "ko": "상태 이전", "ja": "ステータス移行" },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "SvSPointsTable",
+      "slug": "SvSPointsTable",
+      "title": { "en": "SvS Points Table", "ko": "SvS 포인트 표", "ja": "SvSポイント表" },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "tip-Transfer",
+      "slug": "Transfer",
+      "title": {
+        "en": "Kingdom Transfer Guide: States, Schedule, Invites & Rules",
+        "ko": "왕국 이전 가이드: 상태·일정·초대·규칙",
+        "ja": "王国移転ガイド：州・日程・招待・ルール"
+      },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "tip-fortress-stronghold-rewards-rotation",
+      "slug": "fortress-stronghold-rewards-rotation",
+      "title": {
+        "en": "Fortress & Stronghold Rewards Rotation",
+        "ko": "요새 & 거점 보상 로테이션",
+        "ja": "要塞・拠点報酬ローテーション"
+      },
+      "summary": {
+        "en": "Weekly reward rotation table for Forts and Strongholds.",
+        "ko": "요새/거점 보상 주간 로테이션 표.",
+        "ja": "要塞・拠点の週次報酬ローテーション表。"
+      },
+      "tags": ["rewards", "rotation", "fortress", "stronghold"],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "WidgetPackage",
+      "slug": "WidgetPackage",
+      "title": { "en": "Widget", "ko": "위젯", "ja": "ウィジェット" },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "CustomWeaponPackage",
+      "slug": "CustomWeaponPackage",
+      "title": {
+        "en": "Custom Weapon Package",
+        "ko": "커스텀 무기 패키지",
+        "ja": "カスタム武器パッケージ"
+      },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": [],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": false, "pinOrder": 0, "excludeFromRandom": false }
+    },
+    {
+      "id": "PackageRotationSchedule",
+      "slug": "PackageRotationSchedule",
+      "title": {
+        "en": "Package Rotation Schedule",
+        "ko": "패키지 로테이션 일정",
+        "ja": "パッケージローテーション日程"
+      },
+      "summary": { "en": "", "ko": "", "ja": "" },
+      "tags": ["pinned"],
+      "date": "2026-01-21",
+      "status": "published",
+      "home": { "pin": true, "pinOrder": 1, "excludeFromRandom": true }
+    }
+  ]
+}

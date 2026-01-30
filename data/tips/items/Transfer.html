@@ -1,0 +1,350 @@
+<!-- /tips/transfer-basics.html  (Single HTML: EN + KO + JA, auto-show by site language) -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kingdom Transfer Basics</title>
+
+  <style>
+    :root{
+      --fg:#0f172a;
+      --muted:rgba(15,23,42,.68);
+      --bd:rgba(15,23,42,.12);
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --soft:#f8fafc;
+      --pri:#2563eb;
+      --shadow:0 10px 28px rgba(2,6,23,.06);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--fg);
+    }
+
+    .tip-page a{color:inherit}
+    .tip-wrap{
+      max-width:960px;
+      margin:0 auto;
+      padding:22px clamp(16px,4vw,28px) 70px;
+    }
+
+    .tip-header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+    .tip-title{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.2px;
+      font-weight:900;
+      line-height:1.25;
+    }
+    .tip-sub{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .tip-panel{
+      border:1px solid var(--bd);
+      border-radius:16px;
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      padding:16px 18px;
+    }
+
+    .tip-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width:720px){ .tip-grid{grid-template-columns:1fr;} }
+
+    .tip-card{
+      border:1px solid var(--bd);
+      border-radius:14px;
+      background:linear-gradient(180deg,var(--soft), #fff);
+      padding:14px;
+    }
+
+    .tip-h3{
+      margin:0 0 8px;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:-.1px;
+      color:color-mix(in srgb, var(--pri) 85%, var(--fg));
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .tip-list{
+      margin:0;
+      padding-left:18px;
+      color:var(--fg);
+      font-size:13px;
+      line-height:1.65;
+    }
+    .tip-list li{margin:8px 0}
+    .tip-list .sub{
+      margin-top:6px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.6;
+    }
+
+    /* language blocks */
+    [data-lang]{display:none}
+    [data-lang].is-active{display:block}
+
+    /* guard media blow-up */
+    .tip-page img,.tip-page svg{max-width:100%;height:auto}
+  </style>
+</head>
+
+<body class="tip-page">
+  <main class="tip-wrap">
+    <header class="tip-header">
+      <div>
+        <h1 class="tip-title" data-title="1">Kingdom Transfer Basics</h1>
+        <p class="tip-sub" data-subtitle="1">State types, schedule, and key terms (non-package info).</p>
+      </div>
+    </header>
+
+    <!-- EN -->
+    <section class="tip-panel" data-lang="en" data-page-title="Kingdom Transfer Basics" data-page-subtitle="State types, schedule, and key terms (non-package info).">
+      <div class="tip-grid">
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Kind of State</h3>
+          <ul class="tip-list">
+            <li>
+              <span style="color:#2563eb;font-weight:800;">General State</span>
+              <div class="sub">
+                Total: <strong>55</strong> · Special Transfer Invites: <strong>Max-3</strong> · Ordinary Transfer Invites: <strong>35</strong> · Freedom: <strong>20 (First come first served)</strong>
+              </div>
+            </li>
+            <li>
+              <span style="color:#ef4444;font-weight:800;">Special State</span>
+              <div class="sub">
+                Total: <strong>30</strong> · Special Transfer Invites: <strong>None</strong> · Ordinary Transfer Invites: <strong>20</strong> · Freedom: <strong>10 (First come first served)</strong>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Schedule</h3>
+          <ul class="tip-list">
+            <li><strong>1st</strong>: Power limit setting & advertisement</li>
+            <li><strong>2nd</strong>: Special / Ordinary Transfer Invites</li>
+            <li><strong>3rd</strong>: <u>UTC 00:00-</u> Freedom</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Terms</h3>
+          <ul class="tip-list">
+            <li>
+              Special: <strong>Not limited by the set power</strong>, <u>Add 1 chapter per month</u>, <strong>Max-3</strong>
+            </li>
+            <li>Ordinary: <strong>Within the set power</strong></li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 Other</h3>
+          <ul class="tip-list">
+            <li>Uses item: <strong>Transfer Pass</strong></li>
+            <li>Disbanding Troops: Available from Wednesday (Profile → Troop → Soldier → Dismiss)</li>
+            <li>Includes power of soldiers in Enlistment Office & Infirmary</li>
+            <li>If you lose a server battle and there is no Supreme President, a former President can invite an opponent</li>
+            <li><u>Special invite</u>: Days 4–7 · <u>General invite</u>: Days 4 / 5</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- KO -->
+    <section class="tip-panel" data-lang="ko" data-page-title="왕국 이전 기본 정리" data-page-subtitle="서버 분류·일정·용어(패키지 제외)만 간단히 정리.">
+      <div class="tip-grid">
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 서버 분류</h3>
+          <ul class="tip-list">
+            <li>
+              <span style="color:#2563eb;font-weight:800;">일반 서버</span>
+              <div class="sub">
+                총 <strong>55</strong> · 스페셜 초대: <strong>최대 -3</strong> · 일반 초대: <strong>35</strong> · 자유 이전: <strong>20 (선착순)</strong>
+              </div>
+            </li>
+            <li>
+              <span style="color:#ef4444;font-weight:800;">특수 서버</span>
+              <div class="sub">
+                총 <strong>30</strong> · 스페셜 초대: <strong>없음</strong> · 일반 초대: <strong>20</strong> · 자유 이전: <strong>10 (선착순)</strong>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 일정</h3>
+          <ul class="tip-list">
+            <li><strong>1단계</strong>: 전투력 제한 설정 & 홍보</li>
+            <li><strong>2단계</strong>: 스페셜 / 일반 이전 초대장</li>
+            <li><strong>3단계</strong>: <u>UTC 00:00-</u> 자유 이전</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 용어</h3>
+          <ul class="tip-list">
+            <li>스페셜: <strong>설정 전투력 제한과 무관</strong> · <u>매월 챕터 1개 추가</u> · <strong>최대 -3</strong></li>
+            <li>일반: <strong>설정 전투력 제한 내</strong></li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 그 외</h3>
+          <ul class="tip-list">
+            <li>사용 아이템: <strong>이전 패스(Transfer Pass)</strong></li>
+            <li>병력 해산: 수요일부터 가능 (프로필 → 부대 → 병사 → 해산)</li>
+            <li>징집소/의무실에 있는 병력 전투력도 포함</li>
+            <li>서버전 패배 후 최고 대통령이 없으면, 전(前) 대통령이 상대를 초대할 수 있음</li>
+            <li><u>스페셜 초대</u>: 4~7일차 · <u>일반 초대</u>: 4일차 / 5일차</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- JA -->
+    <section class="tip-panel" data-lang="ja" data-page-title="王国移転 基本まとめ" data-page-subtitle="州/サーバー分類・日程・用語（パッケージ除外）のみ。">
+      <div class="tip-grid">
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 州（サーバー）の種類</h3>
+          <ul class="tip-list">
+            <li>
+              <span style="color:#2563eb;font-weight:800;">一般州</span>
+              <div class="sub">
+                合計: <strong>55</strong> · 特別招待: <strong>最大 -3</strong> · 通常招待: <strong>35</strong> · 自由移転: <strong>20（先着順）</strong>
+              </div>
+            </li>
+            <li>
+              <span style="color:#ef4444;font-weight:800;">特別州</span>
+              <div class="sub">
+                合計: <strong>30</strong> · 特別招待: <strong>なし</strong> · 通常招待: <strong>20</strong> · 自由移転: <strong>10（先着順）</strong>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 日程</h3>
+          <ul class="tip-list">
+            <li><strong>第1段階</strong>: 戦力上限の設定 & 告知</li>
+            <li><strong>第2段階</strong>: 特別 / 通常 移転招待</li>
+            <li><strong>第3段階</strong>: <u>UTC 00:00-</u> 自由移転</li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 用語</h3>
+          <ul class="tip-list">
+            <li>特別: <strong>設定戦力の制限なし</strong> · <u>毎月チャプター+1</u> · <strong>最大 -3</strong></li>
+            <li>通常: <strong>設定戦力の範囲内</strong></li>
+          </ul>
+        </article>
+
+        <article class="tip-card">
+          <h3 class="tip-h3">🔹 その他</h3>
+          <ul class="tip-list">
+            <li>使用アイテム: <strong>移転パス（Transfer Pass）</strong></li>
+            <li>部隊解散: 水曜から可能（プロフィール → 部隊 → 兵士 → 解散）</li>
+            <li>徴兵所・治療所（病院）にいる兵士の戦力も含む</li>
+            <li>サーバー戦に負けて最高大統領がいない場合、元大統領が相手を招待できる</li>
+            <li><u>特別招待</u>: 4〜7日目 · <u>通常招待</u>: 4日目 / 5日目</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      function pickLang(v) {
+        v = String(v || "").toLowerCase();
+        if (v === "ko" || v === "ja" || v === "en") return v;
+        if (v.startsWith("ko")) return "ko";
+        if (v.startsWith("ja")) return "ja";
+        if (v.startsWith("en")) return "en";
+        return "en";
+      }
+
+      function getSiteLang() {
+        try {
+          if (window.WOS_I18N && typeof window.WOS_I18N.getLang === "function") {
+            return pickLang(window.WOS_I18N.getLang());
+          }
+        } catch (_) {}
+
+        try {
+          var htmlLang = document.documentElement.getAttribute("lang");
+          if (htmlLang) return pickLang(htmlLang);
+        } catch (_) {}
+
+        try {
+          var ls = localStorage.getItem("lang") || localStorage.getItem("locale") || "";
+          if (ls) return pickLang(ls);
+        } catch (_) {}
+
+        try {
+          return pickLang((navigator.language || navigator.userLanguage || "en"));
+        } catch (_) {
+          return "en";
+        }
+      }
+
+      function applyLang(lang) {
+        var blocks = document.querySelectorAll("[data-lang]");
+        blocks.forEach(function (el) {
+          el.classList.toggle("is-active", el.getAttribute("data-lang") === lang);
+        });
+
+        // Keep html lang in sync
+        document.documentElement.setAttribute("lang", lang);
+
+        // Also swap visible H1/subtitle + document.title for SPA/detail readability
+        var active = document.querySelector('[data-lang].is-active');
+        if (active) {
+          var pageTitle = active.getAttribute("data-page-title") || "";
+          var pageSub = active.getAttribute("data-page-subtitle") || "";
+
+          var h1 = document.querySelector("[data-title='1']");
+          var sub = document.querySelector("[data-subtitle='1']");
+
+          if (h1 && pageTitle) h1.textContent = pageTitle;
+          if (sub && pageSub) sub.textContent = pageSub;
+          if (pageTitle) document.title = pageTitle;
+        }
+      }
+
+      applyLang(getSiteLang());
+
+      window.addEventListener("wos:langchange", function () {
+        applyLang(getSiteLang());
+      });
+    })();
+  </script>
+</body>
+</html>

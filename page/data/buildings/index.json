@@ -1,0 +1,14 @@
+{
+  "items": [
+    { "slug": "furnace", "title": "Furnace", "desc": "The Furnace is your town HQ and the first construct you open." },
+    { "slug": "embassy", "title": "Embassy", "desc": "A place for diplomacy and trade with other kingdoms." },
+    { "slug": "researchcenter", "title": "Research Center", "desc": "A hub for scientific advancements." },
+    { "slug": "commandcenter", "title": "Command Center", "desc": "Your central command post for all military operations." },
+    { "slug": "infirmary", "title": "Infirmary", "desc": "A place to heal your injured survivors." },
+    { "slug": "infantrycamp", "title": "Infantry Camp", "desc": "Train infantry units for your defense." },
+    { "slug": "lancercamp", "title": "Lancer Camp", "desc": "Train lancer units for your defense." },
+    { "slug": "marksmancamp", "title": "Marksman Camp", "desc": "Train marksman units for your defense." },
+    { "slug": "waracademy", "title": "War Academy", "desc": "Train advanced units and unlock military strategies." },
+    { "slug": "crystallalaboratory", "title": "Crystal Laboratory", "desc": "Research new technologies using precious crystals." }
+  ]
+}

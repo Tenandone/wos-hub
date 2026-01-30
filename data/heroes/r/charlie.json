@@ -1,0 +1,56 @@
+{
+  "slug": "charlie",
+  "name": "Charlie",
+  "rarity": "R",
+  "class": "Lancer",
+  "subClass": "Growth",
+  "image": "/assets/heroes/r/charlie/img/charlie.png",
+  "storyHtml": "<p>\"What did you say? Speak up!\" The townsfolk have gotten used to the gruff male voice of Charlie.</p><p>The loud and rough Charlie has had a long career as an explosives demolitionist. A lot of people associate Charlie with his dangerous job and keep a distance from him.</p><p>However, just talk to Charlie and you will know this man has a heart of gold. Moreover, his constant yelling has nothing to do with an angry attitude. It's a side effect of years of explosives on Charlie's ear drums.</p><p>Charlie's explosives knowledge is invaluable for the difficult coal mining process. Despite his scruffy appearance, he is extremely attentive to detail. This helped him to stay safe in a risky line of work.</p><p>Charlie prefers to stay behind the battlefield wherever possible but is certainly not scared of a fight. Enemies will quickly discover the power of chemistry over swords. Not only is Charlie an expert on a wide variety of explosives and grenades, but his strong arms provide decent throw range. Charlie has not won the battlefield nickname \"the grenadier\" for nothing.</p><p>There are two guaranteed ways to provoke Charlie: the first is to violate safety procedures during the coal mining process. The second is to attempt to plunder fellow workers' hard-won resources. Crazy Joe and his bandits have learned that lesson the hard way. Nothing has ever sent Joe's bandits into a full retreat as quickly as Charlie's explosions.</p><p>Joe has not taken Charlie's explosive retaliation to heart. In fact, Joe has become quite interested in Charlie's potential as a fellow outlaw. He often dreams about what he could do with someone like Charlie in his group. Fortunately, Charlie does not know, nor does he care about Joe's interest in him.</p>",
+  "descriptionHtml": null,
+  "sources": [
+    "Exploration",
+    "Lighthouse Intel",
+    "Hero Recruitment"
+  ],
+  "stats": {
+    "exploration": {
+      "attack": 1442,
+      "defense": 2220,
+      "health": 14430
+    },
+    "expedition": {
+      "attack_percent": "90.07%",
+      "defense_percent": "90.07%"
+    }
+  },
+  "skills": [
+    {
+      "id": "hero_skill_icon_500021",
+      "name": "Shrapnel Load",
+      "mode": "exploration",
+      "description": "Charlie throws out a homemade explosive, dealing Attack 140%/154%/168%/182%/196% Area of Effect Damage to the target and its nearby enemies.",
+      "icon": "/assets/heroes/r/charlie/img/hero_skill_icon_500021.png"
+    },
+    {
+      "id": "hero_skill_icon_500022",
+      "name": "Grenadier",
+      "mode": "exploration",
+      "description": "Charlie's grenades have a 10%/15%/15%/20%/20% chance of stunning targets for 0.5/0.5/1/1/1.5s.",
+      "icon": "/assets/heroes/r/charlie/img/hero_skill_icon_500022.png"
+    },
+    {
+      "id": "hero_skill_icon_500024",
+      "name": "Demolitions Expert",
+      "mode": "expedition",
+      "description": "Charlie's precise demolition experience has raised City Coal Mine Output by 5%/10%/15%/20%/25%.",
+      "icon": "/assets/heroes/r/charlie/img/hero_skill_icon_500024.png"
+    },
+    {
+      "id": "hero_skill_icon_500025",
+      "name": "Coal Extraction",
+      "mode": "expedition",
+      "description": "Charlie is an old hand at coal mining. +5%/10%/15%/20%/25% Coal Gathering Speed on the map.",
+      "icon": "/assets/heroes/r/charlie/img/hero_skill_icon_500025.png"
+    }
+  ]
+}

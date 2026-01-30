@@ -1,0 +1,1610 @@
+{
+  "slug": "furnace",
+  "meta": {
+    "title": "Furnace - Whiteout Survival Wiki",
+    "description": "Just a big, and probably dangerous, bonfire at the beginning. This is your town HQ and the first construct you open. Its level determines both the max level you can upgrade other buildings to along with which buildings you can open up and when you open them up. Upgrading it will increase the amount of heat it produces and also increases your power.\nThe Furnace has a secondary function that is equally as important: keeping your Survivors warm during the day, night, and during snowstorms. This helps prevent your Survivors from becoming sick. When sick, your Survivors will not be able to work until they are well again.",
+    "truegold": {
+      "text": "",
+      "bullets": []
+    }
+  },
+
+  "assets": {
+  "mainImage": "/assets/buildings/furnace/firecrystal_img/furnace.png",
+  "resourceIcons": {
+    "food": "/assets/buildings/furnace/firecrystal_img/item_icon_10001_1.png",
+    "wood": "/assets/buildings/furnace/firecrystal_img/item_icon_103.png",
+    "coal": "/assets/buildings/furnace/firecrystal_img/item_icon_104.png",
+    "iron": "/assets/buildings/furnace/firecrystal_img/item_icon_105.png",
+    "fireCrystal": "/assets/buildings/furnace/firecrystal_img/item_icon_100081.png",
+
+    "res_100011": "/assets/buildings/furnace/firecrystal_img/item_icon_10001_1.png",
+    "res_103": "/assets/buildings/furnace/firecrystal_img/item_icon_103.png",
+    "res_104": "/assets/buildings/furnace/firecrystal_img/item_icon_104.png",
+    "res_105": "/assets/buildings/furnace/firecrystal_img/item_icon_105.png",
+    "res_100081": "/assets/buildings/furnace/firecrystal_img/item_icon_100081.png",
+    "refineStone": "/assets/buildings/furnace/firecrystal_img/item_icon_100082.png",
+"res_100082": "/assets/buildings/furnace/firecrystal_img/item_icon_100082.png"
+
+  }
+},
+
+  "base": {
+    "rows": [
+      {
+        "level": "1",
+        "levelInfo": {
+          "type": "base",
+          "n": 1,
+          "sub": 0,
+          "key": "1"
+        },
+        "prerequisites": "",
+        "costs": {},
+        "time": {
+          "raw": "-",
+          "seconds": null
+        },
+        "power": 2000
+      },
+      {
+        "level": "2",
+        "levelInfo": {
+          "type": "base",
+          "n": 2,
+          "sub": 0,
+          "key": "2"
+        },
+        "prerequisites": "Sawmill Lv. 1",
+        "costs": {
+          "res_103": 180
+        },
+        "time": {
+          "raw": "00:00:06",
+          "seconds": 6
+        },
+        "power": 3800
+      },
+      {
+        "level": "3",
+        "levelInfo": {
+          "type": "base",
+          "n": 3,
+          "sub": 0,
+          "key": "3"
+        },
+        "prerequisites": "Shelter 1 Lv. 2",
+        "costs": {
+          "res_103": 805
+        },
+        "time": {
+          "raw": "00:01:00",
+          "seconds": 60
+        },
+        "power": 6500
+      },
+      {
+        "level": "4",
+        "levelInfo": {
+          "type": "base",
+          "n": 4,
+          "sub": 0,
+          "key": "4"
+        },
+        "prerequisites": "Coal Mine Lv. 3",
+        "costs": {
+          "res_103": 1800,
+          "res_104": 360
+        },
+        "time": {
+          "raw": "00:03:00",
+          "seconds": 180
+        },
+        "power": 10100
+      },
+      {
+        "level": "5",
+        "levelInfo": {
+          "type": "base",
+          "n": 5,
+          "sub": 0,
+          "key": "5"
+        },
+        "prerequisites": "Hero Hall\nShelter 3 Lv. 3",
+        "costs": {
+          "res_103": 7600,
+          "res_104": 1500
+        },
+        "time": {
+          "raw": "00:10:00",
+          "seconds": 600
+        },
+        "power": 15500
+      },
+      {
+        "level": "6",
+        "levelInfo": {
+          "type": "base",
+          "n": 6,
+          "sub": 0,
+          "key": "6"
+        },
+        "prerequisites": "Iron Mine Lvl. 5",
+        "costs": {
+          "res_103": 19000,
+          "res_104": 3800,
+          "res_105": 960
+        },
+        "time": {
+          "raw": "00:30:00",
+          "seconds": 1800
+        },
+        "power": 23600
+      },
+      {
+        "level": "7",
+        "levelInfo": {
+          "type": "base",
+          "n": 7,
+          "sub": 0,
+          "key": "7"
+        },
+        "prerequisites": "Hunter's Hut Lvl. 6",
+        "costs": {
+          "res_103": 69000,
+          "res_104": 13000,
+          "res_105": 3400
+        },
+        "time": {
+          "raw": "01:00:00",
+          "seconds": 3600
+        },
+        "power": 35300
+      },
+      {
+        "level": "8",
+        "levelInfo": {
+          "type": "base",
+          "n": 8,
+          "sub": 0,
+          "key": "8"
+        },
+        "prerequisites": "Infantry Camp Lvl. 7",
+        "costs": {
+          "res_103": 120000,
+          "res_104": 25000,
+          "res_105": 6300
+        },
+        "time": {
+          "raw": "02:30:00",
+          "seconds": 9000
+        },
+        "power": 47000
+      },
+      {
+        "level": "9",
+        "levelInfo": {
+          "type": "base",
+          "n": 9,
+          "sub": 0,
+          "key": "9"
+        },
+        "prerequisites": "Embassy Lvl. 8\nInfirmary Lvl. 1",
+        "costs": {
+          "res_103": 260000,
+          "res_104": 52000,
+          "res_105": 13000
+        },
+        "time": {
+          "raw": "04:30:00",
+          "seconds": 16200
+        },
+        "power": 58700
+      },
+      {
+        "level": "10",
+        "levelInfo": {
+          "type": "base",
+          "n": 10,
+          "sub": 0,
+          "key": "10"
+        },
+        "prerequisites": "Marksman Camp Lvl. 9\nResearch Center",
+        "costs": {
+          "res_103": 460000,
+          "res_104": 92000,
+          "res_105": 23000
+        },
+        "time": {
+          "raw": "06:00:00",
+          "seconds": 21600
+        },
+        "power": 75700
+      },
+      {
+        "level": "11",
+        "levelInfo": {
+          "type": "base",
+          "n": 11,
+          "sub": 0,
+          "key": "11"
+        },
+        "prerequisites": "Embassy Lv. 10\nLancer Camp Lv. 10",
+        "costs": {
+          "res_100011": 1300000,
+          "res_103": 1300000,
+          "res_104": 260000,
+          "res_105": 65000
+        },
+        "time": {
+          "raw": "07:30:00",
+          "seconds": 27000
+        },
+        "power": 92700
+      },
+      {
+        "level": "12",
+        "levelInfo": {
+          "type": "base",
+          "n": 12,
+          "sub": 0,
+          "key": "12"
+        },
+        "prerequisites": "Embassy Lv. 11\nCommand Centre Lv. 1",
+        "costs": {
+          "res_100011": 1600000,
+          "res_103": 1600000,
+          "res_104": 330000,
+          "res_105": 84000
+        },
+        "time": {
+          "raw": "09:00:00",
+          "seconds": 32400
+        },
+        "power": 109700
+      },
+      {
+        "level": "13",
+        "levelInfo": {
+          "type": "base",
+          "n": 13,
+          "sub": 0,
+          "key": "13"
+        },
+        "prerequisites": "Embassy Lv. 12\nInfantry Camp Lv. 12",
+        "costs": {
+          "res_100011": 2300000,
+          "res_103": 2300000,
+          "res_104": 470000,
+          "res_105": 110000
+        },
+        "time": {
+          "raw": "11:00:00",
+          "seconds": 39600
+        },
+        "power": 138400
+      },
+      {
+        "level": "14",
+        "levelInfo": {
+          "type": "base",
+          "n": 14,
+          "sub": 0,
+          "key": "14"
+        },
+        "prerequisites": "Embassy Lv. 13\nMarksman Camp Lv. 13",
+        "costs": {
+          "res_100011": 3100000,
+          "res_103": 3100000,
+          "res_104": 630000,
+          "res_105": 150000
+        },
+        "time": {
+          "raw": "14:00:00",
+          "seconds": 50400
+        },
+        "power": 167100
+      },
+      {
+        "level": "15",
+        "levelInfo": {
+          "type": "base",
+          "n": 15,
+          "sub": 0,
+          "key": "15"
+        },
+        "prerequisites": "Embassy Lv. 14\nLancer Camp Lv. 14",
+        "costs": {
+          "res_100011": 4600000,
+          "res_103": 4600000,
+          "res_104": 930000,
+          "res_105": 230000
+        },
+        "time": {
+          "raw": "18:00:00",
+          "seconds": 64800
+        },
+        "power": 195800
+      },
+      {
+        "level": "16",
+        "levelInfo": {
+          "type": "base",
+          "n": 16,
+          "sub": 0,
+          "key": "16"
+        },
+        "prerequisites": "Embassy Lv. 15\nResearch Center Lv. 15",
+        "costs": {
+          "res_100011": 5900000,
+          "res_103": 5900000,
+          "res_104": 1100000,
+          "res_105": 290000
+        },
+        "time": {
+          "raw": "1d 06:28:00",
+          "seconds": 109680
+        },
+        "power": 236200
+      },
+      {
+        "level": "17",
+        "levelInfo": {
+          "type": "base",
+          "n": 17,
+          "sub": 0,
+          "key": "17"
+        },
+        "prerequisites": "Embassy Lv. 16\nInfantry Camp Lv. 16",
+        "costs": {
+          "res_100011": 9300000,
+          "res_103": 9300000,
+          "res_104": 1800000,
+          "res_105": 460000
+        },
+        "time": {
+          "raw": "1d 12:34:00",
+          "seconds": 131640
+        },
+        "power": 276600
+      },
+      {
+        "level": "18",
+        "levelInfo": {
+          "type": "base",
+          "n": 18,
+          "sub": 0,
+          "key": "18"
+        },
+        "prerequisites": "Embassy Lv. 17\nMarksman Camp Lv. 17",
+        "costs": {
+          "res_100011": 12000000,
+          "res_103": 12000000,
+          "res_104": 2500000,
+          "res_105": 620000
+        },
+        "time": {
+          "raw": "1d 19:53:00",
+          "seconds": 157980
+        },
+        "power": 317000
+      },
+      {
+        "level": "19",
+        "levelInfo": {
+          "type": "base",
+          "n": 19,
+          "sub": 0,
+          "key": "19"
+        },
+        "prerequisites": "Embassy Lv. 18\nLancer Camp Lv. 18",
+        "costs": {
+          "res_100011": 15000000,
+          "res_103": 15000000,
+          "res_104": 3100000,
+          "res_105": 780000
+        },
+        "time": {
+          "raw": "2d 17:50:00",
+          "seconds": 237000
+        },
+        "power": 374400
+      },
+      {
+        "level": "20",
+        "levelInfo": {
+          "type": "base",
+          "n": 20,
+          "sub": 0,
+          "key": "20"
+        },
+        "prerequisites": "Embassy Lv. 19,\nResearch Center Lv. 19",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4300000,
+          "res_105": 1000000
+        },
+        "time": {
+          "raw": "3d 10:18:00",
+          "seconds": 296280
+        },
+        "power": 431800
+      },
+      {
+        "level": "21",
+        "levelInfo": {
+          "type": "base",
+          "n": 21,
+          "sub": 0,
+          "key": "21"
+        },
+        "prerequisites": "Embassy Lv. 20\nInfantry Camp Lv. 20",
+        "costs": {
+          "res_100011": 27000000,
+          "res_103": 27000000,
+          "res_104": 5400000,
+          "res_105": 1300000
+        },
+        "time": {
+          "raw": "4d 10:59:00",
+          "seconds": 385140
+        },
+        "power": 489200
+      },
+      {
+        "level": "22",
+        "levelInfo": {
+          "type": "base",
+          "n": 22,
+          "sub": 0,
+          "key": "22"
+        },
+        "prerequisites": "Embassy Lv. 21\nMarksman Camp Lv. 21",
+        "costs": {
+          "res_100011": 36000000,
+          "res_103": 36000000,
+          "res_104": 7200000,
+          "res_105": 1800000
+        },
+        "time": {
+          "raw": "6d 16:29:00",
+          "seconds": 577740
+        },
+        "power": 575300
+      },
+      {
+        "level": "23",
+        "levelInfo": {
+          "type": "base",
+          "n": 23,
+          "sub": 0,
+          "key": "23"
+        },
+        "prerequisites": "Embassy Lv. 22\nLancer Camp Lv. 22",
+        "costs": {
+          "res_100011": 44000000,
+          "res_103": 44000000,
+          "res_104": 8900000,
+          "res_105": 2200000
+        },
+        "time": {
+          "raw": "9d 08:40:00",
+          "seconds": 808800
+        },
+        "power": 661400
+      },
+      {
+        "level": "24",
+        "levelInfo": {
+          "type": "base",
+          "n": 24,
+          "sub": 0,
+          "key": "24"
+        },
+        "prerequisites": "Embassy Lv. 23\nResearch Center Lv. 23",
+        "costs": {
+          "res_100011": 60000000,
+          "res_103": 60000000,
+          "res_104": 12000000,
+          "res_105": 3000000
+        },
+        "time": {
+          "raw": "13d 02:33:00",
+          "seconds": 1132380
+        },
+        "power": 747500
+      },
+      {
+        "level": "25",
+        "levelInfo": {
+          "type": "base",
+          "n": 25,
+          "sub": 0,
+          "key": "25"
+        },
+        "prerequisites": "Embassy Lv. 24\nInfantry Camp Lv. 24",
+        "costs": {
+          "res_100011": 81000000,
+          "res_103": 81000000,
+          "res_104": 16000000,
+          "res_105": 4000000
+        },
+        "time": {
+          "raw": "18d 08:22:00",
+          "seconds": 1585320
+        },
+        "power": 833600
+      },
+      {
+        "level": "26",
+        "levelInfo": {
+          "type": "base",
+          "n": 26,
+          "sub": 0,
+          "key": "26"
+        },
+        "prerequisites": "Embassy Lv. 25\nMarksman Camp Lv. 25",
+        "costs": {
+          "res_100011": 100000000,
+          "res_103": 100000000,
+          "res_104": 21000000,
+          "res_105": 5200000
+        },
+        "time": {
+          "raw": "21d 02:26:00",
+          "seconds": 1823160
+        },
+        "power": 960100
+      },
+      {
+        "level": "27",
+        "levelInfo": {
+          "type": "base",
+          "n": 27,
+          "sub": 0,
+          "key": "27"
+        },
+        "prerequisites": "Embassy Lv. 26\nLancer Camp Lv. 26",
+        "costs": {
+          "res_100011": 140000000,
+          "res_103": 140000000,
+          "res_104": 24000000,
+          "res_105": 7400000
+        },
+        "time": {
+          "raw": "25d 07:43:00",
+          "seconds": 2187780
+        },
+        "power": 1086600
+      },
+      {
+        "level": "28",
+        "levelInfo": {
+          "type": "base",
+          "n": 28,
+          "sub": 0,
+          "key": "28"
+        },
+        "prerequisites": "Embassy Lv. 27\nResearch Center Lv. 27",
+        "costs": {
+          "res_100011": 190000000,
+          "res_103": 190000000,
+          "res_104": 39000000,
+          "res_105": 9900000
+        },
+        "time": {
+          "raw": "29d 02:52:00",
+          "seconds": 2515920
+        },
+        "power": 1213100
+      },
+      {
+        "level": "29",
+        "levelInfo": {
+          "type": "base",
+          "n": 29,
+          "sub": 0,
+          "key": "29"
+        },
+        "prerequisites": "Embassy Lv. 28\nInfantry Camp Lv. 28",
+        "costs": {
+          "res_100011": 240000000,
+          "res_103": 240000000,
+          "res_104": 49000000,
+          "res_105": 12000000
+        },
+        "time": {
+          "raw": "33d 11:42:00",
+          "seconds": 2893320
+        },
+        "power": 1339600
+      },
+      {
+        "level": "30",
+        "levelInfo": {
+          "type": "base",
+          "n": 30,
+          "sub": 0,
+          "key": "30"
+        },
+        "prerequisites": "Embassy Lv. 29\nMarksman Camp Lv. 29",
+        "costs": {
+          "res_100011": 300000000,
+          "res_103": 300000000,
+          "res_104": 60000000,
+          "res_105": 15000000
+        },
+        "time": {
+          "raw": "40d 04:27:00",
+          "seconds": 3472020
+        },
+        "power": 1523500
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystal": {
+    "rows": [
+      {
+        "level": "30-1",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 1,
+          "key": "30-1"
+        },
+        "prerequisites": "Embassy Lv. 30\nResearch Center Lv. 30",
+        "costs": {
+          "res_100011": 67000000,
+          "res_103": 67000000,
+          "res_104": 13000000,
+          "res_105": 3300000,
+          "res_100081": 132
+        },
+        "time": {
+          "raw": "7d 00:00:00",
+          "seconds": 604800
+        },
+        "power": null
+      },
+      {
+        "level": "30-2",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 2,
+          "key": "30-2"
+        },
+        "prerequisites": "Embassy Lv. 30\nResearch Center Lv. 30",
+        "costs": {
+          "res_100011": 67000000,
+          "res_103": 67000000,
+          "res_104": 13000000,
+          "res_105": 3300000,
+          "res_100081": 132
+        },
+        "time": {
+          "raw": "7d 00:00:00",
+          "seconds": 604800
+        },
+        "power": null
+      },
+      {
+        "level": "30-3",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 3,
+          "key": "30-3"
+        },
+        "prerequisites": "Embassy Lv. 30\nResearch Center Lv. 30",
+        "costs": {
+          "res_100011": 67000000,
+          "res_103": 67000000,
+          "res_104": 13000000,
+          "res_105": 3300000,
+          "res_100081": 132
+        },
+        "time": {
+          "raw": "7d 00:00:00",
+          "seconds": 604800
+        },
+        "power": null
+      },
+      {
+        "level": "30-4",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 4,
+          "key": "30-4"
+        },
+        "prerequisites": "Embassy Lv. 30\nResearch Center Lv. 30",
+        "costs": {
+          "res_100011": 67000000,
+          "res_103": 67000000,
+          "res_104": 13000000,
+          "res_105": 3300000,
+          "res_100081": 132
+        },
+        "time": {
+          "raw": "7d 00:00:00",
+          "seconds": 604800
+        },
+        "power": null
+      },
+      {
+        "level": "FC 1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 0,
+          "key": "FC1"
+        },
+        "prerequisites": "Embassy Lv. 30\nResearch Center Lv. 30",
+        "costs": {
+          "res_100011": 67000000,
+          "res_103": 67000000,
+          "res_104": 13000000,
+          "res_105": 3300000,
+          "res_100081": 132
+        },
+        "time": {
+          "raw": "7d 00:00:00",
+          "seconds": 604800
+        },
+        "power": 1810500
+      },
+      {
+        "level": "FC1-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 1,
+          "key": "FC1-1"
+        },
+        "prerequisites": "Embassy FC 1\nLancer Camp FC-1",
+        "costs": {
+          "res_100011": 72000000,
+          "res_103": 72000000,
+          "res_104": 14000000,
+          "res_105": 3600000,
+          "res_100081": 158
+        },
+        "time": {
+          "raw": "9d 00:00:00",
+          "seconds": 777600
+        },
+        "power": null
+      },
+      {
+        "level": "FC1-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 2,
+          "key": "FC1-2"
+        },
+        "prerequisites": "Embassy FC 1\nLancer Camp FC-1",
+        "costs": {
+          "res_100011": 72000000,
+          "res_103": 72000000,
+          "res_104": 14000000,
+          "res_105": 3600000,
+          "res_100081": 158
+        },
+        "time": {
+          "raw": "9d 00:00:00",
+          "seconds": 777600
+        },
+        "power": null
+      },
+      {
+        "level": "FC1-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 3,
+          "key": "FC1-3"
+        },
+        "prerequisites": "Embassy FC 1\nLancer Camp FC-1",
+        "costs": {
+          "res_100011": 72000000,
+          "res_103": 72000000,
+          "res_104": 14000000,
+          "res_105": 3600000,
+          "res_100081": 158
+        },
+        "time": {
+          "raw": "9d 00:00:00",
+          "seconds": 777600
+        },
+        "power": null
+      },
+      {
+        "level": "FC1-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 4,
+          "key": "FC1-4"
+        },
+        "prerequisites": "Embassy FC 1\nLancer Camp FC-1",
+        "costs": {
+          "res_100011": 72000000,
+          "res_103": 72000000,
+          "res_104": 14000000,
+          "res_105": 3600000,
+          "res_100081": 158
+        },
+        "time": {
+          "raw": "9d 00:00:00",
+          "seconds": 777600
+        },
+        "power": null
+      },
+      {
+        "level": "FC 2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 0,
+          "key": "FC2"
+        },
+        "prerequisites": "Embassy FC 1\nLancer Camp FC-1",
+        "costs": {
+          "res_100011": 72000000,
+          "res_103": 72000000,
+          "res_104": 14000000,
+          "res_105": 3600000,
+          "res_100081": 158
+        },
+        "time": {
+          "raw": "9d 00:00:00",
+          "seconds": 777600
+        },
+        "power": 2097500
+      },
+      {
+        "level": "FC2-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 1,
+          "key": "FC2-1"
+        },
+        "prerequisites": "Embassy FC 2\nInfantry Camp FC-2",
+        "costs": {
+          "res_100011": 79000000,
+          "res_103": 79000000,
+          "res_104": 15000000,
+          "res_105": 3900000,
+          "res_100081": 238
+        },
+        "time": {
+          "raw": "11d 00:00:00",
+          "seconds": 950400
+        },
+        "power": null
+      },
+      {
+        "level": "FC2-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 2,
+          "key": "FC2-2"
+        },
+        "prerequisites": "Embassy FC 2\nInfantry Camp FC-2",
+        "costs": {
+          "res_100011": 79000000,
+          "res_103": 79000000,
+          "res_104": 15000000,
+          "res_105": 3900000,
+          "res_100081": 238
+        },
+        "time": {
+          "raw": "11d 00:00:00",
+          "seconds": 950400
+        },
+        "power": null
+      },
+      {
+        "level": "FC2-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 3,
+          "key": "FC2-3"
+        },
+        "prerequisites": "Embassy FC 2\nInfantry Camp FC-2",
+        "costs": {
+          "res_100011": 79000000,
+          "res_103": 79000000,
+          "res_104": 15000000,
+          "res_105": 3900000,
+          "res_100081": 238
+        },
+        "time": {
+          "raw": "11d 00:00:00",
+          "seconds": 950400
+        },
+        "power": null
+      },
+      {
+        "level": "FC2-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 4,
+          "key": "FC2-4"
+        },
+        "prerequisites": "Embassy FC 2\nInfantry Camp FC-2",
+        "costs": {
+          "res_100011": 79000000,
+          "res_103": 79000000,
+          "res_104": 15000000,
+          "res_105": 3900000,
+          "res_100081": 238
+        },
+        "time": {
+          "raw": "11d 00:00:00",
+          "seconds": 950400
+        },
+        "power": null
+      },
+      {
+        "level": "FC 3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 0,
+          "key": "FC3"
+        },
+        "prerequisites": "Embassy FC 2\nInfantry Camp FC-2",
+        "costs": {
+          "res_100011": 79000000,
+          "res_103": 79000000,
+          "res_104": 15000000,
+          "res_105": 3900000,
+          "res_100081": 238
+        },
+        "time": {
+          "raw": "11d 00:00:00",
+          "seconds": 950400
+        },
+        "power": 2384500
+      },
+      {
+        "level": "FC 3-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 1,
+          "key": "FC3-1"
+        },
+        "prerequisites": "Embassy FC 3\nMarksman Camp FC 3",
+        "costs": {
+          "res_100011": 82000000,
+          "res_103": 82000000,
+          "res_104": 16000000,
+          "res_105": 4100000,
+          "res_100081": 280
+        },
+        "time": {
+          "raw": "12d 00:00:00",
+          "seconds": 1036800
+        },
+        "power": null
+      },
+      {
+        "level": "FC 3-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 2,
+          "key": "FC3-2"
+        },
+        "prerequisites": "Embassy FC 3\nMarksman Camp FC 3",
+        "costs": {
+          "res_100011": 82000000,
+          "res_103": 82000000,
+          "res_104": 16000000,
+          "res_105": 4100000,
+          "res_100081": 280
+        },
+        "time": {
+          "raw": "12d 00:00:00",
+          "seconds": 1036800
+        },
+        "power": null
+      },
+      {
+        "level": "FC 3-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 3,
+          "key": "FC3-3"
+        },
+        "prerequisites": "Embassy FC 3\nMarksman Camp FC 3",
+        "costs": {
+          "res_100011": 82000000,
+          "res_103": 82000000,
+          "res_104": 16000000,
+          "res_105": 4100000,
+          "res_100081": 280
+        },
+        "time": {
+          "raw": "12d 00:00:00",
+          "seconds": 1036800
+        },
+        "power": null
+      },
+      {
+        "level": "FC 3-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 4,
+          "key": "FC3-4"
+        },
+        "prerequisites": "Embassy FC 3\nMarksman Camp FC 3",
+        "costs": {
+          "res_100011": 82000000,
+          "res_103": 82000000,
+          "res_104": 16000000,
+          "res_105": 4100000,
+          "res_100081": 280
+        },
+        "time": {
+          "raw": "12d 00:00:00",
+          "seconds": 1036800
+        },
+        "power": null
+      },
+      {
+        "level": "FC 4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 0,
+          "key": "FC4"
+        },
+        "prerequisites": "Embassy FC 3\nMarksman Camp FC 3",
+        "costs": {
+          "res_100011": 82000000,
+          "res_103": 82000000,
+          "res_104": 16000000,
+          "res_105": 4100000,
+          "res_100081": 280
+        },
+        "time": {
+          "raw": "12d 00:00:00",
+          "seconds": 1036800
+        },
+        "power": 2700500
+      },
+      {
+        "level": "FC 4-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 1,
+          "key": "FC4-1"
+        },
+        "prerequisites": "Embassy FC 4\nLancer Camp FC 4",
+        "costs": {
+          "res_100011": 84000000,
+          "res_103": 84000000,
+          "res_104": 16000000,
+          "res_105": 4200000,
+          "res_100081": 335
+        },
+        "time": {
+          "raw": "14d 00:00:00",
+          "seconds": 1209600
+        },
+        "power": null
+      },
+      {
+        "level": "FC 4-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 2,
+          "key": "FC4-2"
+        },
+        "prerequisites": "Embassy FC 4\nLancer Camp FC 4",
+        "costs": {
+          "res_100011": 84000000,
+          "res_103": 84000000,
+          "res_104": 16000000,
+          "res_105": 4200000,
+          "res_100081": 335
+        },
+        "time": {
+          "raw": "14d 00:00:00",
+          "seconds": 1209600
+        },
+        "power": null
+      },
+      {
+        "level": "FC 4-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 3,
+          "key": "FC4-3"
+        },
+        "prerequisites": "Embassy FC 4\nLancer Camp FC 4",
+        "costs": {
+          "res_100011": 84000000,
+          "res_103": 84000000,
+          "res_104": 16000000,
+          "res_105": 4200000,
+          "res_100081": 335
+        },
+        "time": {
+          "raw": "14d 00:00:00",
+          "seconds": 1209600
+        },
+        "power": null
+      },
+      {
+        "level": "FC 4-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 4,
+          "key": "FC4-4"
+        },
+        "prerequisites": "Embassy FC 4\nLancer Camp FC 4",
+        "costs": {
+          "res_100011": 84000000,
+          "res_103": 84000000,
+          "res_104": 16000000,
+          "res_105": 4200000,
+          "res_100081": 335
+        },
+        "time": {
+          "raw": "14d 00:00:00",
+          "seconds": 1209600
+        },
+        "power": null
+      },
+      {
+        "level": "FC 5",
+        "levelInfo": {
+          "type": "fc",
+          "n": 5,
+          "sub": 0,
+          "key": "FC5"
+        },
+        "prerequisites": "Embassy FC 4\nLancer Camp FC 4",
+        "costs": {
+          "res_100011": 84000000,
+          "res_103": 84000000,
+          "res_104": 16000000,
+          "res_105": 4200000,
+          "res_100081": 335
+        },
+        "time": {
+          "raw": "14d 00:00:00",
+          "seconds": 1209600
+        },
+        "power": 3016500
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_100081",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+ 
+  "firecrystalPlus": {
+    "rows": [
+      {
+        "level": "FC 5-1",
+        "levelInfo": { "type": "fc", "n": 5, "sub": 1, "key": "FC5-1" },
+        "prerequisites": "Embassy FC 5\nInfantry Camp FC 5",
+        "costs": {
+          "res_100011": 96000000,
+          "res_103": 96000000,
+          "res_104": 19000000,
+          "res_105": 4800000,
+          "res_100081": 200,
+          "res_100082": 10
+        },
+        "time": { "raw": "15d 00:00:00", "seconds": 1296000 },
+        "power": 3084100
+      },
+      {
+        "level": "FC 5-2",
+        "levelInfo": { "type": "fc", "n": 5, "sub": 2, "key": "FC5-2" },
+        "prerequisites": "Embassy FC 5\nInfantry Camp FC 5",
+        "costs": {
+          "res_100011": 96000000,
+          "res_103": 96000000,
+          "res_104": 19000000,
+          "res_105": 4800000,
+          "res_100081": 200,
+          "res_100082": 10
+        },
+        "time": { "raw": "15d 00:00:00", "seconds": 1296000 },
+        "power": 3151700
+      },
+      {
+        "level": "FC 5-3",
+        "levelInfo": { "type": "fc", "n": 5, "sub": 3, "key": "FC5-3" },
+        "prerequisites": "Embassy FC 5\nInfantry Camp FC 5",
+        "costs": {
+          "res_100011": 96000000,
+          "res_103": 96000000,
+          "res_104": 19000000,
+          "res_105": 4800000,
+          "res_100081": 200,
+          "res_100082": 10
+        },
+        "time": { "raw": "15d 00:00:00", "seconds": 1296000 },
+        "power": 3219300
+      },
+      {
+        "level": "FC 5-4",
+        "levelInfo": { "type": "fc", "n": 5, "sub": 4, "key": "FC5-4" },
+        "prerequisites": "Embassy FC 5\nInfantry Camp FC 5",
+        "costs": {
+          "res_100011": 96000000,
+          "res_103": 96000000,
+          "res_104": 19000000,
+          "res_105": 4800000,
+          "res_100081": 200,
+          "res_100082": 10
+        },
+        "time": { "raw": "15d 00:00:00", "seconds": 1296000 },
+        "power": 3286900
+      },
+
+      {
+        "level": "FC 6",
+        "levelInfo": { "type": "fc", "n": 6, "sub": 0, "key": "FC6" },
+        "prerequisites": "Embassy FC 5\nInfantry Camp FC 5",
+        "costs": {
+          "res_100011": 96000000,
+          "res_103": 96000000,
+          "res_104": 19000000,
+          "res_105": 4800000,
+          "res_100081": 100,
+          "res_100082": 20
+        },
+        "time": { "raw": "15d 00:00:00", "seconds": 1296000 },
+        "power": 3354500
+      },
+      {
+        "level": "FC 6-1",
+        "levelInfo": { "type": "fc", "n": 6, "sub": 1, "key": "FC6-1" },
+        "prerequisites": "Embassy FC 6\nMarksman Camp FC 6",
+        "costs": {
+          "res_100011": 100000000,
+          "res_103": 100000000,
+          "res_104": 21000000,
+          "res_105": 5400000,
+          "res_100081": 240,
+          "res_100082": 15
+        },
+        "time": { "raw": "18d 00:00:00", "seconds": 1555200 },
+        "power": 3422100
+      },
+      {
+        "level": "FC 6-2",
+        "levelInfo": { "type": "fc", "n": 6, "sub": 2, "key": "FC6-2" },
+        "prerequisites": "Embassy FC 6\nMarksman Camp FC 6",
+        "costs": {
+          "res_100011": 100000000,
+          "res_103": 100000000,
+          "res_104": 21000000,
+          "res_105": 5400000,
+          "res_100081": 240,
+          "res_100082": 15
+        },
+        "time": { "raw": "18d 00:00:00", "seconds": 1555200 },
+        "power": 3489700
+      },
+      {
+        "level": "FC 6-3",
+        "levelInfo": { "type": "fc", "n": 6, "sub": 3, "key": "FC6-3" },
+        "prerequisites": "Embassy FC 6\nMarksman Camp FC 6",
+        "costs": {
+          "res_100011": 100000000,
+          "res_103": 100000000,
+          "res_104": 21000000,
+          "res_105": 5400000,
+          "res_100081": 240,
+          "res_100082": 15
+        },
+        "time": { "raw": "18d 00:00:00", "seconds": 1555200 },
+        "power": 3557300
+      },
+      {
+        "level": "FC 6-4",
+        "levelInfo": { "type": "fc", "n": 6, "sub": 4, "key": "FC6-4" },
+        "prerequisites": "Embassy FC 6\nMarksman Camp FC 6",
+        "costs": {
+          "res_100011": 100000000,
+          "res_103": 100000000,
+          "res_104": 21000000,
+          "res_105": 5400000,
+          "res_100081": 240,
+          "res_100082": 15
+        },
+        "time": { "raw": "18d 00:00:00", "seconds": 1555200 },
+        "power": 3624900
+      },
+
+      {
+        "level": "FC 7",
+        "levelInfo": { "type": "fc", "n": 7, "sub": 0, "key": "FC7" },
+        "prerequisites": "Embassy FC 6\nMarksman Camp FC 6",
+        "costs": {
+          "res_100011": 100000000,
+          "res_103": 100000000,
+          "res_104": 21000000,
+          "res_105": 5400000,
+          "res_100081": 120,
+          "res_100082": 30
+        },
+        "time": { "raw": "18d 00:00:00", "seconds": 1555200 },
+        "power": 3692500
+      },
+      {
+        "level": "FC 7-1",
+        "levelInfo": { "type": "fc", "n": 7, "sub": 1, "key": "FC7-1" },
+        "prerequisites": "Embassy FC 7\nLancer Camp FC 7",
+        "costs": {
+          "res_100011": 130000000,
+          "res_103": 130000000,
+          "res_104": 26000000,
+          "res_105": 6600000,
+          "res_100081": 240,
+          "res_100082": 20
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 3760100
+      },
+      {
+        "level": "FC 7-2",
+        "levelInfo": { "type": "fc", "n": 7, "sub": 2, "key": "FC7-2" },
+        "prerequisites": "Embassy FC 7\nLancer Camp FC 7",
+        "costs": {
+          "res_100011": 130000000,
+          "res_103": 130000000,
+          "res_104": 26000000,
+          "res_105": 6600000,
+          "res_100081": 240,
+          "res_100082": 20
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 3827700
+      },
+      {
+        "level": "FC 7-3",
+        "levelInfo": { "type": "fc", "n": 7, "sub": 3, "key": "FC7-3" },
+        "prerequisites": "Embassy FC 7\nLancer Camp FC 7",
+        "costs": {
+          "res_100011": 130000000,
+          "res_103": 130000000,
+          "res_104": 26000000,
+          "res_105": 6600000,
+          "res_100081": 240,
+          "res_100082": 20
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 3895300
+      },
+      {
+        "level": "FC 7-4",
+        "levelInfo": { "type": "fc", "n": 7, "sub": 4, "key": "FC7-4" },
+        "prerequisites": "Embassy FC 7\nLancer Camp FC 7",
+        "costs": {
+          "res_100011": 130000000,
+          "res_103": 130000000,
+          "res_104": 26000000,
+          "res_105": 6600000,
+          "res_100081": 240,
+          "res_100082": 20
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 3962900
+      },
+
+      {
+        "level": "FC 8",
+        "levelInfo": { "type": "fc", "n": 8, "sub": 0, "key": "FC8" },
+        "prerequisites": "Embassy FC 7\nLancer Camp FC 7",
+        "costs": {
+          "res_100011": 130000000,
+          "res_103": 130000000,
+          "res_104": 26000000,
+          "res_105": 6600000,
+          "res_100081": 120,
+          "res_100082": 40
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 4030500
+      },
+      {
+        "level": "FC 8-1",
+        "levelInfo": { "type": "fc", "n": 8, "sub": 1, "key": "FC8-1" },
+        "prerequisites": "Embassy FC 8\nInfantry Camp FC 8",
+        "costs": {
+          "res_100011": 140000000,
+          "res_103": 140000000,
+          "res_104": 29000000,
+          "res_105": 7200000,
+          "res_100081": 280,
+          "res_100082": 30
+        },
+        "time": { "raw": "13d 00:00:00", "seconds": 1123200 },
+        "power": 4102900
+      },
+      {
+        "level": "FC 8-2",
+        "levelInfo": { "type": "fc", "n": 8, "sub": 2, "key": "FC8-2" },
+        "prerequisites": "Embassy FC 8\nInfantry Camp FC 8",
+        "costs": {
+          "res_100011": 140000000,
+          "res_103": 140000000,
+          "res_104": 29000000,
+          "res_105": 7200000,
+          "res_100081": 280,
+          "res_100082": 30
+        },
+        "time": { "raw": "13d 00:00:00", "seconds": 1123200 },
+        "power": 4175300
+      },
+      {
+        "level": "FC 8-3",
+        "levelInfo": { "type": "fc", "n": 8, "sub": 3, "key": "FC8-3" },
+        "prerequisites": "Embassy FC 8\nInfantry Camp FC 8",
+        "costs": {
+          "res_100011": 140000000,
+          "res_103": 140000000,
+          "res_104": 29000000,
+          "res_105": 7200000,
+          "res_100081": 280,
+          "res_100082": 30
+        },
+        "time": { "raw": "13d 00:00:00", "seconds": 1123200 },
+        "power": 4247700
+      },
+      {
+        "level": "FC 8-4",
+        "levelInfo": { "type": "fc", "n": 8, "sub": 4, "key": "FC8-4" },
+        "prerequisites": "Embassy FC 8\nInfantry Camp FC 8",
+        "costs": {
+          "res_100011": 140000000,
+          "res_103": 140000000,
+          "res_104": 29000000,
+          "res_105": 7200000,
+          "res_100081": 280,
+          "res_100082": 30
+        },
+        "time": { "raw": "13d 00:00:00", "seconds": 1123200 },
+        "power": 4320100
+      },
+
+      {
+        "level": "FC 9",
+        "levelInfo": { "type": "fc", "n": 9, "sub": 0, "key": "FC9" },
+        "prerequisites": "Embassy FC 8\nInfantry Camp FC 8",
+        "costs": {
+          "res_100011": 140000000,
+          "res_103": 140000000,
+          "res_104": 29000000,
+          "res_105": 7200000,
+          "res_100081": 140,
+          "res_100082": 60
+        },
+        "time": { "raw": "13d 00:00:00", "seconds": 1123200 },
+        "power": 4392500
+      },
+      {
+        "level": "FC 9-1",
+        "levelInfo": { "type": "fc", "n": 9, "sub": 1, "key": "FC9-1" },
+        "prerequisites": "Embassy FC 9\nMarksman Camp FC 9",
+        "costs": {
+          "res_100011": 160000000,
+          "res_103": 160000000,
+          "res_104": 33000000,
+          "res_105": 8400000,
+          "res_100081": 350,
+          "res_100082": 70
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 4464900
+      },
+      {
+        "level": "FC 9-2",
+        "levelInfo": { "type": "fc", "n": 9, "sub": 2, "key": "FC9-2" },
+        "prerequisites": "Embassy FC 9\nMarksman Camp FC 9",
+        "costs": {
+          "res_100011": 160000000,
+          "res_103": 160000000,
+          "res_104": 33000000,
+          "res_105": 8400000,
+          "res_100081": 350,
+          "res_100082": 70
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 4537300
+      },
+      {
+        "level": "FC 9-3",
+        "levelInfo": { "type": "fc", "n": 9, "sub": 3, "key": "FC9-3" },
+        "prerequisites": "Embassy FC 9\nMarksman Camp FC 9",
+        "costs": {
+          "res_100011": 160000000,
+          "res_103": 160000000,
+          "res_104": 33000000,
+          "res_105": 8400000,
+          "res_100081": 350,
+          "res_100082": 70
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 4609700
+      },
+      {
+        "level": "FC 9-4",
+        "levelInfo": { "type": "fc", "n": 9, "sub": 4, "key": "FC9-4" },
+        "prerequisites": "Embassy FC 9\nMarksman Camp FC 9",
+        "costs": {
+          "res_100011": 160000000,
+          "res_103": 160000000,
+          "res_104": 33000000,
+          "res_105": 8400000,
+          "res_100081": 350,
+          "res_100082": 70
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 4682100
+      },
+
+      {
+        "level": "FC 10",
+        "levelInfo": { "type": "fc", "n": 10, "sub": 0, "key": "FC10" },
+        "prerequisites": "Embassy FC 9\nMarksman Camp FC 9",
+        "costs": {
+          "res_100011": 160000000,
+          "res_103": 160000000,
+          "res_104": 33000000,
+          "res_105": 8400000,
+          "res_100081": 175,
+          "res_100082": 140
+        },
+        "time": { "raw": "20d 00:00:00", "seconds": 1728000 },
+        "power": 4754500
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_100081",
+      "res_100082",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+   "firecrystalUnknown": {
+    "rows": [],
+    "costColumns": []
+  }
+}

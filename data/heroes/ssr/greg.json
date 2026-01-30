@@ -1,0 +1,106 @@
+{
+  "slug": "greg",
+  "name": "Greg",
+  "rarity": "SSR",
+  "season": 3,
+  "class": "Marksman",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s3/greg/img/greg.png",
+  "story": "From Greg’s perspective, the frozen world is like a forest full of perils. Only the harshest environment can dehumanize one and bring out one’s evil side the best. “That’s why we need order,” he said.\n\nGreg tries to restore the order of the world with rationality and regulations, and he is devoted to maintaining the dignity of the law. As a judge, he is impartial and dedicated to his job, but he is often sabotaged by others because of that. More than once his life has been put on the line, but he never wavers. On the contrary, he became more determined than ever after going through many life-and-death situations.\n\nThis is his warning for the lawless: One day, you will all be sanctioned by the Edict. Although the Solaris has fallen, Grey still defends the old law as usual.\n\nHe understands that some of the old regulations are outdated, considering that the Edict protects the rights of the long-gone aristocrats. Nevertheless, there are no better options at the moment. Perhaps, Greg will accept the suggestion of the Dawn Alliance one day and help them put together a new Edict.\n\nGreg's ideology is very different from the vigilante Flint. Greg believes the desire for vengeance is no reason to bypass trials and proper judicial proceedings. Flint, on the other hand, would rather just burn Phaethon and all the despicable marauders to the ground. Although Flint is on Greg’s list of wanted suspects, Greg has never laid a hand on Flint even when coming face-to-face with him.\n\nSergey's story is the only thing that made Greg question his own commitment to strict jurisprudence. Did Sergey really deserve a death sentence for disobeying his superiors in an attempt to protect a City? Greg admitted, \"If I was the judge that day, I do not know whether I should pass the sentence.\"",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 4045,
+      "defense": 3330,
+      "health": 24974
+    },
+    "expedition": {
+      "attack_percent": "290.23%",
+      "defense_percent": "290.23%"
+    }
+  },
+  "sources": [
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals"
+  ],
+  "skills": [
+    {
+      "id": "500201",
+      "name": "Righteous Wind",
+      "mode": "exploration",
+      "description": "Summons a cage from the sky, dealing Attack*160%/176%/192%/208%/224% damage to enemies within range and stunning them for 2s.",
+      "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500201.png"
+    },
+    {
+      "id": "500202",
+      "name": "Poetic Justice",
+      "mode": "exploration",
+      "description": "Puts an enemy target on trial and imposes punishment or gives commendation. Punishment will deal damage equal to Greg's Attack*220%/240%/260%/280%/300% to the target whereas commendation will restore Health equal to Greg's Attack*50% for the target.",
+      "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500202.png"
+    },
+    {
+      "id": "500203",
+      "name": "Fair Judgment",
+      "mode": "exploration",
+      "description": "Let the enemies be severely punished for the crimes they have committed, increasing their damage taken by 10%/15%/20%/25%/30% for 3s.",
+      "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500203.png"
+    },
+    {
+      "id": "500204",
+      "name": "Sword of Justice",
+      "mode": "expedition",
+      "description": "Greg transforms our troops into a relentless sword of justice, granting a 20% chance of increasing damage dealt by 8%/16%/24%/32%/40% for all troops for 3 turns.",
+      "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500204.png"
+    },
+    {
+      "id": "500205",
+      "name": "Deterrence of Law",
+      "mode": "expedition",
+      "description": "Greg uses the authority of the law to intimidate enemies, granting all troops' attack a 20% chance of reducing damage dealt by 10%/20%/30%/40%/50% for all enemy troops for 2 turns.",
+      "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500205.png"
+    },
+    {
+      "id": "500206",
+      "name": "Law and Order",
+      "mode": "expedition",
+      "description": "Greg's faith in law and order uplifts everyone, increasing Health by 5%/10%/15%/20%/25% for all troops.",
+      "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500206.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 764,
+        "def": 630,
+        "health": 4725
+      },
+      "expedition": {
+        "lethality": "70%",
+        "health": "70%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "State Edict",
+      "power": 315000,
+      "image": "../assets/heroes/ssr/s3/greg/img/equipment_icon_1050020.png",
+      "perks": [
+        {
+          "id": "500207",
+          "name": "Courtroom Order",
+          "level": 5,
+          "description": "Greg silences and prevents the from using skills for 5s (skills already cast are not affected), and dealing Attack*300% damage to them.",
+          "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500207.png"
+        },
+        {
+          "id": "500208",
+          "name": "Trumpet of Justice",
+          "level": 5,
+          "description": "Greg mobilizes the army under the banner of justice and belief, increasing Rally Troop Health by 15%.",
+          "icon": "../assets/heroes/ssr/s3/greg/img/hero_skill_icon_500208.png"
+        }
+      ]
+    }
+  }
+}

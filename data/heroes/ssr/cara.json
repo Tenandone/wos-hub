@@ -1,0 +1,106 @@
+{
+  "slug": "cara",
+  "name": "Cara",
+  "rarity": "SSR",
+  "gen": 14,
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s14/cara/img/cara.png",
+  "story": "With Cara of the Oestermore Postal Service, the mail always gets through.\nThe red-headed wonder girl can be seen flying over and between the towns of Ostermore at different times of the day or night courtesy of her steam-powered air-broom, delivering letters and much-needed smiles to survivors anxiously awaiting the mail. Children may chase her down the street and ask her to perform a magic trick, but the only real witchery here is the magic of great charm and talent.\n\nIn these strange times, the best postal workers come with considerable firepower. Life for even the privileged City-dweller isn't easy. Bandits and wild predators are always on the prowl, and many a time has Cara had to intervene directly or with a broom-based diversion while reinforcements arrive.\n\nCara always finds time in her busy delivery schedule to pursue the twin interests of baking and sleuth of Oestermore's urban legends. The more her friends urge Cara to drop an issue, the more she insists on pursuing it.\n\nCara was hailed as a hero upon her return, which went some way to relieving her self-imposed feelings of inadequacy.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 31203,
+      "defense": 25684,
+      "health": 192640
+    },
+    "expedition": {
+      "attack_percent": "1791.43%",
+      "defense_percent": "1791.43%"
+    }
+  },
+  "sources": [
+    "Hall of Heroes",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500551",
+      "name": "Arcane Blast",
+      "mode": "exploration",
+      "description": "Cara launches a powerful cannon at enemies, dealing Attack*200%/220%/240%/260%/280% Area damage.",
+      "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500551.png"
+    },
+    {
+      "id": "500552",
+      "name": "Gloomy Mist",
+      "mode": "exploration",
+      "description": "Cara fires a Steamy Whammy, releasing a mist-like gas that reduces enemy accuracy and deals continuous damage.",
+      "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500552.png"
+    },
+    {
+      "id": "500553",
+      "name": "Heartfelt Friendship",
+      "mode": "exploration",
+      "description": "Each time an ally Hero is knocked down, Cara increases her Attack until the end of the battle.",
+      "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500553.png"
+    },
+    {
+      "id": "500554",
+      "name": "Smoky Encounter",
+      "mode": "expedition",
+      "description": "Cara drops smoke grenades, reducing enemy Lethality.",
+      "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500554.png"
+    },
+    {
+      "id": "500555",
+      "name": "Mech Pet",
+      "mode": "expedition",
+      "description": "Increases normal attack damage for all troops.",
+      "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500555.png"
+    },
+    {
+      "id": "500556",
+      "name": "Witch's Wrath",
+      "mode": "expedition",
+      "description": "Marksmen deal extra damage to Lancers and Marksmen.",
+      "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500556.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 6317,
+        "def": 5206,
+        "health": 39048
+      },
+      "expedition": {
+        "lethality": "447.5%",
+        "health": "447.5%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Velocomet",
+      "power": 2603250,
+      "image": "../assets/heroes/ssr/s14/cara/img/equipment_icon_1050055.png",
+      "perks": [
+        {
+          "id": "500557",
+          "name": "Techno Power",
+          "level": null,
+          "description": "Increases duration of Gloomy Mist and normal attack damage.",
+          "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500557.png"
+        },
+        {
+          "id": "500558",
+          "name": "Shrouded Haven",
+          "level": null,
+          "description": "Increases Defender Troops' Lethality.",
+          "icon": "../assets/heroes/ssr/s14/cara/img/hero_skill_icon_500558.png"
+        }
+      ]
+    }
+  }
+}

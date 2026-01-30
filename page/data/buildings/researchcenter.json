@@ -1,0 +1,644 @@
+{
+  "slug": "researchcenter",
+  "meta": {
+    "title": "Research Center - Whiteout Survival Wiki",
+    "description": "As the name implies, this is where you will be researching new technologies to help strengthen and boost a number of facets in your town.\nThere are three tabs in the Research Center: Growth, Economy, and Battle.",
+    "truegold": {
+      "text": "",
+      "bullets": []
+    }
+  },
+  "base": {
+    "rows": [
+      {
+        "level": "1",
+        "levelInfo": {
+          "type": "base",
+          "n": 1,
+          "sub": 0,
+          "key": "1"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 105
+        },
+        "time": {
+          "raw": "00:00:02",
+          "seconds": 2
+        },
+        "power": 440
+      },
+      {
+        "level": "2",
+        "levelInfo": {
+          "type": "base",
+          "n": 2,
+          "sub": 0,
+          "key": "2"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 160
+        },
+        "time": {
+          "raw": "00:00:09",
+          "seconds": 9
+        },
+        "power": 836
+      },
+      {
+        "level": "3",
+        "levelInfo": {
+          "type": "base",
+          "n": 3,
+          "sub": 0,
+          "key": "3"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 725
+        },
+        "time": {
+          "raw": "00:00:45",
+          "seconds": 45
+        },
+        "power": 1430
+      },
+      {
+        "level": "4",
+        "levelInfo": {
+          "type": "base",
+          "n": 4,
+          "sub": 0,
+          "key": "4"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 1600,
+          "res_104": 320
+        },
+        "time": {
+          "raw": "00:02:15",
+          "seconds": 135
+        },
+        "power": 2222
+      },
+      {
+        "level": "5",
+        "levelInfo": {
+          "type": "base",
+          "n": 5,
+          "sub": 0,
+          "key": "5"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 6800,
+          "res_104": 1300
+        },
+        "time": {
+          "raw": "00:04:30",
+          "seconds": 270
+        },
+        "power": 3410
+      },
+      {
+        "level": "6",
+        "levelInfo": {
+          "type": "base",
+          "n": 6,
+          "sub": 0,
+          "key": "6"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 17000,
+          "res_104": 3400,
+          "res_105": 860
+        },
+        "time": {
+          "raw": "00:09:00",
+          "seconds": 540
+        },
+        "power": 5192
+      },
+      {
+        "level": "7",
+        "levelInfo": {
+          "type": "base",
+          "n": 7,
+          "sub": 0,
+          "key": "7"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 62000,
+          "res_104": 12000,
+          "res_105": 3100
+        },
+        "time": {
+          "raw": "00:18:00",
+          "seconds": 1080
+        },
+        "power": 7766
+      },
+      {
+        "level": "8",
+        "levelInfo": {
+          "type": "base",
+          "n": 8,
+          "sub": 0,
+          "key": "8"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 110000,
+          "res_104": 22000,
+          "res_105": 5600
+        },
+        "time": {
+          "raw": "00:27:00",
+          "seconds": 1620
+        },
+        "power": 10340
+      },
+      {
+        "level": "9",
+        "levelInfo": {
+          "type": "base",
+          "n": 9,
+          "sub": 0,
+          "key": "9"
+        },
+        "prerequisites": "Furnace Lv. 9",
+        "costs": {
+          "res_103": 230000,
+          "res_104": 47000,
+          "res_105": 11000
+        },
+        "time": {
+          "raw": "00:40:30",
+          "seconds": 2430
+        },
+        "power": 12914
+      },
+      {
+        "level": "10",
+        "levelInfo": {
+          "type": "base",
+          "n": 10,
+          "sub": 0,
+          "key": "10"
+        },
+        "prerequisites": "Furnace Lv. 10",
+        "costs": {
+          "res_103": 410000,
+          "res_104": 82000,
+          "res_105": 20000
+        },
+        "time": {
+          "raw": "00:54:00",
+          "seconds": 3240
+        },
+        "power": 16654
+      },
+      {
+        "level": "11",
+        "levelInfo": {
+          "type": "base",
+          "n": 11,
+          "sub": 0,
+          "key": "11"
+        },
+        "prerequisites": "Furnace Lv. 11",
+        "costs": {
+          "res_100011": 520000,
+          "res_103": 520000,
+          "res_104": 100000,
+          "res_105": 26000
+        },
+        "time": {
+          "raw": "01:07:30",
+          "seconds": 4050
+        },
+        "power": 20394
+      },
+      {
+        "level": "12",
+        "levelInfo": {
+          "type": "base",
+          "n": 12,
+          "sub": 0,
+          "key": "12"
+        },
+        "prerequisites": "Furnace Lv. 12",
+        "costs": {
+          "res_100011": 670000,
+          "res_104": 130000,
+          "res_105": 33000
+        },
+        "time": {
+          "raw": "01:21:00",
+          "seconds": 4860
+        },
+        "power": 24134
+      },
+      {
+        "level": "13",
+        "levelInfo": {
+          "type": "base",
+          "n": 13,
+          "sub": 0,
+          "key": "13"
+        },
+        "prerequisites": "Furnace Lv. 13",
+        "costs": {
+          "res_100011": 950000,
+          "res_103": 950000,
+          "res_104": 190000,
+          "res_105": 47000
+        },
+        "time": {
+          "raw": "01:39:00",
+          "seconds": 5940
+        },
+        "power": 30448
+      },
+      {
+        "level": "14",
+        "levelInfo": {
+          "type": "base",
+          "n": 14,
+          "sub": 0,
+          "key": "14"
+        },
+        "prerequisites": "Furnace Lv. 14",
+        "costs": {
+          "res_100011": 1200000,
+          "res_103": 1200000,
+          "res_104": 250000,
+          "res_105": 63000
+        },
+        "time": {
+          "raw": "02:06:00",
+          "seconds": 7560
+        },
+        "power": 36762
+      },
+      {
+        "level": "15",
+        "levelInfo": {
+          "type": "base",
+          "n": 15,
+          "sub": 0,
+          "key": "15"
+        },
+        "prerequisites": "Furnace Lv. 15",
+        "costs": {
+          "res_100011": 1800000,
+          "res_103": 1800000,
+          "res_104": 370000,
+          "res_105": 93000
+        },
+        "time": {
+          "raw": "02:42:00",
+          "seconds": 9720
+        },
+        "power": 43076
+      },
+      {
+        "level": "16",
+        "levelInfo": {
+          "type": "base",
+          "n": 16,
+          "sub": 0,
+          "key": "16"
+        },
+        "prerequisites": "Furnace Lv.  16",
+        "costs": {
+          "res_100011": 2300000,
+          "res_103": 2300000,
+          "res_104": 470000,
+          "res_105": 110000
+        },
+        "time": {
+          "raw": "04:34:00",
+          "seconds": 16440
+        },
+        "power": 51964
+      },
+      {
+        "level": "17",
+        "levelInfo": {
+          "type": "base",
+          "n": 17,
+          "sub": 0,
+          "key": "17"
+        },
+        "prerequisites": "Furnace Lv. 17",
+        "costs": {
+          "res_100011": 3700000,
+          "res_103": 3700000,
+          "res_104": 740000,
+          "res_105": 180000
+        },
+        "time": {
+          "raw": "05:29:00",
+          "seconds": 19740
+        },
+        "power": 60852
+      },
+      {
+        "level": "18",
+        "levelInfo": {
+          "type": "base",
+          "n": 18,
+          "sub": 0,
+          "key": "18"
+        },
+        "prerequisites": "Furnace Lv. 18",
+        "costs": {
+          "res_100011": 5000000,
+          "res_103": 5000000,
+          "res_104": 1000000,
+          "res_105": 250000
+        },
+        "time": {
+          "raw": "06:35:00",
+          "seconds": 23700
+        },
+        "power": 69740
+      },
+      {
+        "level": "19",
+        "levelInfo": {
+          "type": "base",
+          "n": 19,
+          "sub": 0,
+          "key": "19"
+        },
+        "prerequisites": "Furnace Lv. 19",
+        "costs": {
+          "res_100011": 6200000,
+          "res_103": 6200000,
+          "res_104": 1200000,
+          "res_105": 310000
+        },
+        "time": {
+          "raw": "09:52:30",
+          "seconds": 35550
+        },
+        "power": 82368
+      },
+      {
+        "level": "20",
+        "levelInfo": {
+          "type": "base",
+          "n": 20,
+          "sub": 0,
+          "key": "20"
+        },
+        "prerequisites": "Furnace Lv. 20",
+        "costs": {
+          "res_100011": 8600000,
+          "res_103": 8600000,
+          "res_104": 1700000,
+          "res_105": 430000
+        },
+        "time": {
+          "raw": "12:20:30",
+          "seconds": 44430
+        },
+        "power": 94996
+      },
+      {
+        "level": "21",
+        "levelInfo": {
+          "type": "base",
+          "n": 21,
+          "sub": 0,
+          "key": "21"
+        },
+        "prerequisites": "Furnace Lv. 21",
+        "costs": {
+          "res_100011": 10000000,
+          "res_103": 10000000,
+          "res_104": 2100000,
+          "res_105": 540000
+        },
+        "time": {
+          "raw": "16:02:30",
+          "seconds": 57750
+        },
+        "power": 107624
+      },
+      {
+        "level": "22",
+        "levelInfo": {
+          "type": "base",
+          "n": 22,
+          "sub": 0,
+          "key": "22"
+        },
+        "prerequisites": "Furnace Lv. 22",
+        "costs": {
+          "res_100011": 14000000,
+          "res_103": 14000000,
+          "res_104": 2800000,
+          "res_105": 720000
+        },
+        "time": {
+          "raw": "1d 00:04:00",
+          "seconds": 86640
+        },
+        "power": 126566
+      },
+      {
+        "level": "23",
+        "levelInfo": {
+          "type": "base",
+          "n": 23,
+          "sub": 0,
+          "key": "23"
+        },
+        "prerequisites": "Furnace Lv. 23",
+        "costs": {
+          "res_100011": 17000000,
+          "res_103": 17000000,
+          "res_104": 3500000,
+          "res_105": 890000
+        },
+        "time": {
+          "raw": "1d 09:42:00",
+          "seconds": 121320
+        },
+        "power": 145508
+      },
+      {
+        "level": "24",
+        "levelInfo": {
+          "type": "base",
+          "n": 24,
+          "sub": 0,
+          "key": "24"
+        },
+        "prerequisites": "Furnace Lv. 24",
+        "costs": {
+          "res_100011": 24000000,
+          "res_103": 24000000,
+          "res_104": 4800000,
+          "res_105": 1200000
+        },
+        "time": {
+          "raw": "1d 23:11:00",
+          "seconds": 169860
+        },
+        "power": 164450
+      },
+      {
+        "level": "25",
+        "levelInfo": {
+          "type": "base",
+          "n": 25,
+          "sub": 0,
+          "key": "25"
+        },
+        "prerequisites": "Furnace Lv. 25",
+        "costs": {
+          "res_100011": 32000000,
+          "res_103": 32000000,
+          "res_104": 6500000,
+          "res_105": 1600000
+        },
+        "time": {
+          "raw": "2d 18:03:00",
+          "seconds": 237780
+        },
+        "power": 183392
+      },
+      {
+        "level": "26",
+        "levelInfo": {
+          "type": "base",
+          "n": 26,
+          "sub": 0,
+          "key": "26"
+        },
+        "prerequisites": "Furnace Lv. 26",
+        "costs": {
+          "res_100011": 42000000,
+          "res_103": 42000000,
+          "res_104": 8400000,
+          "res_105": 2100000
+        },
+        "time": {
+          "raw": "3d 03:57:00",
+          "seconds": 273420
+        },
+        "power": 211222
+      },
+      {
+        "level": "27",
+        "levelInfo": {
+          "type": "base",
+          "n": 27,
+          "sub": 0,
+          "key": "27"
+        },
+        "prerequisites": "Furnace Lv. 27",
+        "costs": {
+          "res_100011": 59000000,
+          "res_103": 59000000,
+          "res_104": 11000000,
+          "res_105": 2900000
+        },
+        "time": {
+          "raw": "3d 19:09:00",
+          "seconds": 328140
+        },
+        "power": 239052
+      },
+      {
+        "level": "28",
+        "levelInfo": {
+          "type": "base",
+          "n": 28,
+          "sub": 0,
+          "key": "28"
+        },
+        "prerequisites": "Furnace Lv. 28",
+        "costs": {
+          "res_100011": 79000000,
+          "res_103": 79000000,
+          "res_104": 15000000,
+          "res_105": 3900000
+        },
+        "time": {
+          "raw": "4d 08:49:00",
+          "seconds": 377340
+        },
+        "power": 266882
+      },
+      {
+        "level": "29",
+        "levelInfo": {
+          "type": "base",
+          "n": 29,
+          "sub": 0,
+          "key": "29"
+        },
+        "prerequisites": "Furnace Lv. 29",
+        "costs": {
+          "res_100011": 98000000,
+          "res_103": 98000000,
+          "res_104": 19000000,
+          "res_105": 4900000
+        },
+        "time": {
+          "raw": "5d 00:33:00",
+          "seconds": 433980
+        },
+        "power": 294712
+      },
+      {
+        "level": "30",
+        "levelInfo": {
+          "type": "base",
+          "n": 30,
+          "sub": 0,
+          "key": "30"
+        },
+        "prerequisites": "Furnace Lv. 30",
+        "costs": {
+          "res_100011": 120000000,
+          "res_103": 120000000,
+          "res_104": 24000000,
+          "res_105": 6000000
+        },
+        "time": {
+          "raw": "6d 00:40:00",
+          "seconds": 520800
+        },
+        "power": 335170
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystal": {
+    "rows": [],
+    "costColumns": []
+  },
+  "firecrystalPlus": {
+    "rows": [],
+    "costColumns": []
+  },
+  "firecrystalUnknown": {
+    "rows": [],
+    "costColumns": []
+  }
+}

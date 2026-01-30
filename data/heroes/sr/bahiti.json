@@ -1,0 +1,63 @@
+{
+  "slug": "bahiti",
+  "name": "Bahiti",
+  "rarity": "SR",
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "/assets/heroes/sr/bahiti/img/bahiti.png",
+  "stats": {
+    "exploration": {
+      "attack": 2157,
+      "defense": 2220,
+      "health": 13320
+    },
+    "expedition": {
+      "attack_percent": "140.11%",
+      "defense_percent": "140.11%"
+    }
+  },
+  "sources": [
+    "Lighthouse Intel",
+    "Hero Recruitment",
+    "Hero's Mission"
+  ],
+  "skills": [
+    {
+      "id": "hero_skill_icon_500061",
+      "name": "Precise Shot",
+      "mode": "exploration",
+      "description": "Bahiti targets enemy weak points with devastating precision, dealing Attack*400%/440%/480%/520%/560% damage.",
+      "icon": "/assets/heroes/sr/bahiti/img/hero_skill_icon_500061.png"
+    },
+    {
+      "id": "hero_skill_icon_500062",
+      "name": "Quick Shot",
+      "mode": "exploration",
+      "description": "Bahiti gains +10%/15%/20%/25%/30% Attack Speed as he is very experienced in wilderness survival.",
+      "icon": "/assets/heroes/sr/bahiti/img/hero_skill_icon_500062.png"
+    },
+    {
+      "id": "hero_skill_icon_500063",
+      "name": "Pathfinder Vision",
+      "mode": "exploration",
+      "description": "Bahiti deals 10%/15%/20%/25%/30% extra damage.",
+      "icon": "/assets/heroes/sr/bahiti/img/hero_skill_icon_500063.png"
+    },
+    {
+      "id": "hero_skill_icon_500064",
+      "name": "Sixth Sense",
+      "mode": "expedition",
+      "description": "Bahiti's senses for dangers ahead, reducing damage taken by 4%/8%/12%/16%/20% for all troops.",
+      "icon": "/assets/heroes/sr/bahiti/img/hero_skill_icon_500064.png"
+    },
+    {
+      "id": "hero_skill_icon_500065",
+      "name": "Fluorescence",
+      "mode": "expedition",
+      "description": "Bahiti's battlefield instinct grants all troops' attack a 50% chance of increasing damage dealt by 10%/20%/30%/40%/50%.",
+      "icon": "/assets/heroes/sr/bahiti/img/hero_skill_icon_500065.png"
+    }
+  ],
+  "storyHtml": "<p>Bahiti and his mammoth-drawn carriage has become one of the most famous symbols of the Dawn Alliance. He travels over ice and snow, from City to City, and encourages struggling survivors to establish shelters of their own. His arrival often means essential medicines, supplies, and a message of hope from the Dawn Alliance.</p><p>Bahiti spent much of his life in the inhospitable wasteland and makes the perfect candidate for an emissary. Fighting against Phaethon helped him to hone his marksmanship and leadership.</p><p>Bahiti has met plenty of capable fellow survivors on his job. Explorer Cloris and soldier Sergey are two of his dependable teammates. Even the most powerful bandits are wary of picking a fight with such a popular figure.</p><p>Earlier members of the Dawn Alliance found Bahiti as a defenseless child in an abandoned shelter. They raised Bahiti and taught him all about hope and justice. When Bahiti grew up, he became Dawn Alliance’s most loyal follower and the representative of its ideals.</p><p>His mentor at the Dawn Alliance came up with a theory: What if our planet itself was responsible for deviating from its orbitary plane and causing the Great Chill? In other words, could the planet be a living entity? If so, then surely there must be a way to communicate... and return it closer to the sun.</p><p>Bahiti's mentor has long passed, and none of his theories were ever confirmed. Still, Bahiti searches for a way to start conversing with the planet.</p>",
+  "description": null
+}

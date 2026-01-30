@@ -1,0 +1,110 @@
+{
+  "slug": "viveca",
+  "name": "Viveca",
+  "rarity": "SSR",
+  "gen": 15,
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s15/viveca/img/viveca.png",
+  "story": "Commander of the Night's Guard, Viveca is a cold and stern leader who just so happens to also be a marksman with perfect accuracy. Her lifelong mission is to contain the disaster triggered by the Blood Moon plague, to confine it within the mist-shrouded domain of the Abandoned City—a place she once called home—and she will stop at nothing to achieve her mission.\nFacing the mutated beings that emerge from the mist, most would be petrified, as those enemies defy all understanding. Viveca, on the other hand, faces them without the slightest flinch, as she knows their weaknesses. Under her fearless leadership, members of the Night's Guard have also found the courage to face the darkness head-on.\n\nViveca is usually cold, quiet, and aloof. She keeps most people at arm's length, and her only companion besides Freya, Dr. Philly, and a few Night's Guard officers is her pet raven, Veilwing. Her personality seems innate, as if she were simply born without emotions, but Freya knows the truth: Viveca has experienced too much trauma to let her heart remain open and vulnerable.\n\nIf Viveca is usually cold, then on the battlefield, she's utterly frigid and ruthless. When the Blood Moon Plague broke out in the Abandoned City, she had to slaughter her very own friends because they'd mutated into inhuman horrors. Even today, she does not hesitate to pull the trigger when faced with allies who've been infected.\n\nThe survivors of the Abandoned City established a new settlement right outside the mist: New Metiya. A mysterious stranger later claimed the plague was not a curse, but an opportunity for transformation—an idea that has deeply unsettled Viveca after witnessing signs of intelligence within the infected.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 37433,
+      "defense": 30812,
+      "health": 231102
+    },
+    "expedition": {
+      "attack_percent": "1961.56%",
+      "defense_percent": "1961.56%"
+    }
+  },
+  "sources": [
+    "Hall of Chiefs",
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Hero Rally",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500581",
+      "name": "Evernight Finale",
+      "mode": "exploration",
+      "description": "Deals Attack*200%/220%/240%/260%/280% damage to a single target and inflicts Bleed, causing Attack*7%/9%/11%/13%/15% damage every 0.5s for 2s.",
+      "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500581.png"
+    },
+    {
+      "id": "500582",
+      "name": "Dark Scion",
+      "mode": "exploration",
+      "description": "Summons a raven to mark a target for 6/7/8/9/10s, during which they take 5%/10%/15%/20%/25% more damage and are locked targets.",
+      "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500582.png"
+    },
+    {
+      "id": "500583",
+      "name": "Frigid Dirge",
+      "mode": "exploration",
+      "description": "For each enemy hero defeated, Viveca's Attack increases by 3%/6%/9%/12%/15% for the rest of the battle.",
+      "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500583.png"
+    },
+    {
+      "id": "500584",
+      "name": "Nightfall Legion",
+      "mode": "expedition",
+      "description": "Increases the Attack of all allied troops by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500584.png"
+    },
+    {
+      "id": "500585",
+      "name": "Shadow World",
+      "mode": "expedition",
+      "description": "Marksmen attacks have a 20% chance to deal 20%/40%/60%/80%/100% extra damage to all enemy troops.",
+      "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500585.png"
+    },
+    {
+      "id": "500586",
+      "name": "Children of the Mist",
+      "mode": "expedition",
+      "description": "Reduces damage taken by Infantry by 2%/4%/6%/8%/10% and increases Marksmen damage by the same amount.",
+      "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500586.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 7578,
+        "def": 6246,
+        "health": 46845
+      },
+      "expedition": {
+        "lethality": "490.00%",
+        "health": "490.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Dark Star",
+      "power": 3123000,
+      "image": "../assets/heroes/ssr/s15/viveca/img/equipment_icon_1050058.png",
+      "perks": [
+        {
+          "id": "500587",
+          "name": "Blood Hunt",
+          "level": null,
+          "description": "Increases Viveca's damage dealt by 25%.",
+          "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500587.png"
+        },
+        {
+          "id": "500588",
+          "name": "Song of Dawn",
+          "level": null,
+          "description": "Increases the Lethality of rallied troops by 15%.",
+          "icon": "../assets/heroes/ssr/s15/viveca/img/hero_skill_icon_500588.png"
+        }
+      ]
+    }
+  }
+}

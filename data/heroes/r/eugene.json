@@ -1,0 +1,56 @@
+{
+  "slug": "eugene",
+  "name": "Eugene",
+  "rarity": "R",
+  "class": "Infantry",
+  "subClass": "Growth",
+  "image": "/assets/heroes/r/eugene/img/eugene.png",
+  "storyHtml": "<p>Wood is a crucial material for building Cities, but its acquisition is an extremely laborious and time-intensive process. Most lumberjacks do not pick up their axe and head into the forest by choice. Eugene does. He truly enjoys harvesting the forest's bounty.</p><p>Eugene is extremely passionate about his work. He's happy to accept demanding tasks and gets rather restless when he is not physically exhausted from work. Rumor has it that Eugene's strange temperament may have much to do with his equally strange past. Eugene approaches combat with the same zest, his large axe is a terror to any foes in his way.</p><p>A man like Eugene, who works hard and conducts himself well, is always welcomed in any City. He certainly does love his liquor - but only in his free time. Only the blacksmith has an issue with Eugene - his axes have to be replaced rather frequently.</p><p>Eugene is stubborn in his choice of tools and has zero interest in trying out more convenient alternatives like the new steam-powered chainsaws. Eugene's first choice would always be those crafted by his drinking buddy Smith, as his axes are the sturdiest and easiest to handle.</p><p>A major accident several years ago left Eugene with a strange vision: he began seeing \"evil spirits\" everywhere. The constant sense of anxiety eventually drove him over the edge. He fought the demonic vision, only to later discover he had attacked none other than the Chief of the City. He was cast out into the frozen tundra and was luckily saved by a passing caravan.</p><p>Dr. Philly surmised that Eugene's excessive exposure to an unstable fire crystal had altered his memory and senses. It had also made him incredibly strong and short-tempered. Although Philly could not find a cure, there was a temporary solution: exhausting manual labor prevented the visions.</p><p>Logging has since become his answer to the \"evil spirits\" problem until a more permanent cure can be found. Alternatively, if Eugene runs out of wood to chop, chopping down enemies will do just fine.</p>",
+  "descriptionHtml": null,
+  "sources": [
+    "Exploration",
+    "Lighthouse Intel",
+    "Hero Recruitment"
+  ],
+  "stats": {
+    "exploration": {
+      "attack": 1106,
+      "defense": 2220,
+      "health": 21644
+    },
+    "expedition": {
+      "attack_percent": "90.07%",
+      "defense_percent": "90.07%"
+    }
+  },
+  "skills": [
+    {
+      "id": "hero_skill_icon_500001",
+      "name": "Axe Whirl",
+      "mode": "exploration",
+      "description": "Eugene's axe pirouette deals damage of Attack *80%/88%/96%/104%/110% per 0.5s to nearby enemies for 3s.",
+      "icon": "/assets/heroes/r/eugene/img/hero_skill_icon_500001.png"
+    },
+    {
+      "id": "hero_skill_icon_500002",
+      "name": "Razor Sharp",
+      "mode": "exploration",
+      "description": "Eugene's sharpened axe deals 10%/15%/20%/25%/30% more damage per second.",
+      "icon": "/assets/heroes/r/eugene/img/hero_skill_icon_500002.png"
+    },
+    {
+      "id": "hero_skill_icon_500004",
+      "name": "Woodland Inheritor",
+      "mode": "expedition",
+      "description": "Eugene's consummate knowledge of timber processing has raised City Sawmill Output by 5%/10%/15%/20%/25%.",
+      "icon": "/assets/heroes/r/eugene/img/hero_skill_icon_500004.png"
+    },
+    {
+      "id": "hero_skill_icon_500005",
+      "name": "Master Woodcutter",
+      "mode": "expedition",
+      "description": "Eugene is always focused on achieving the perfect logging technique. +5%/10%/15%/20%/25% Wood Gathering Speed on the map.",
+      "icon": "/assets/heroes/r/eugene/img/hero_skill_icon_500005.png"
+    }
+  ]
+}

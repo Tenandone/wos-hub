@@ -1,0 +1,110 @@
+{
+  "slug": "gregory",
+  "name": "Gregory",
+  "rarity": "SSR",
+  "season": 10,
+  "gen": 10,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s10/gregory/img/gregory.png",
+  "story": "\"For the glory of the empire! For old Solaris!\" Gregory's impassioned battle cry has never wavered even if today the Solaris Empire is but a distant memory.\nThe Empire's reign ended the day Sunfire Castle fell to an army of bandits. The tundra had spoken. Everybody was on their own, including Gregory's soldiers, who, like many other Solaris ex-military, were forced into the mercenary life to make ends meet. Yet, in his heart of hearts, Gregory has never stopped pining for a return to the Empire's glory days where the Solaris banner can once again fly high atop Sunfire Castle.\nThe men under Gregory are less optimistic, but certainly don't mind the bread and creature comforts that come with Gregory's competent leadership. He remains a popular commander, then as now.\n\nAs a swordsman on horseback Gregory is perhaps unequalled; as a tactician and oldworld infantry specialist willing to strike hard and fast he may be the best. It was no accident Gregory found himself at the head of the old empire's last Dawnguard squad, and it is largely thanks to their sacrificial, loyal efforts that the young Empress was saved.\nTheir escape from Sunfire Castle brought its own complexities: what was the role of the Empress in this new world? And, more importantly, how would they cope without a household retinue of servants, squires, and maids?\n\nContrary to Gregory's appearance, he is not a rough man by any means. Those who know him well will testify of a soft underside to his stern face and tenderness particularly toward the young empress.\nAs a matter of principle, Gregory still considers the empress to hold a kind of royal authority—to whom he will often act as an uncle, advisor, butler or bodyguard when danger calls. Gregory is also keen to preserve the old ways of the Solaris Empire by insisting, for example, on courtly decorum and regal outfits for Her Majesty and entourage no matter how impossible the Empire's restoration may seem.\n\nThe day Sunfire Castle fell is forever burned into Gregory's memory: the day he lost everything but a newfound purpose.\nGregory received his orders from the dying Captain of the Guard: the young empress was still alive! But to reach safety his men would have to thread a needle of life through absolute chaos, confusion, looting, and bloodshed. It was an almost impossible task and yet at the end Gregory led the empress safety out of the city with blood pouring from several arrow wounds in his armor. As his men planned to take the empress somewhere safe he then, as he gazed upon her terrified eyes, found the strength from within to pick himself up and press on. Thereafter his fate would be bound to that of the heir-apparent, and he would be her most loyal protector.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 9484,
+      "defense": 12364,
+      "health": 185480
+    },
+    "expedition": {
+      "attack_percent": "1110.88%",
+      "defense_percent": "1110.88%"
+    }
+  },
+  "sources": [
+    "Hall of Chiefs",
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Hero Rally",
+    "Mythic General Hero Shard"
+  ],
+  "skills": [
+    {
+      "id": "500411",
+      "name": "Sword of the Mountain",
+      "mode": "exploration",
+      "description": "Gregory readies himself for a furious strike, dealing Attack*100%/110%/120%/130%/140% Area of Effect damage while knocking back and stunning nearby enemies for 1s.",
+      "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500411.png"
+    },
+    {
+      "id": "500412",
+      "name": "Parryshield",
+      "mode": "exploration",
+      "description": "Gregory weaves his greatsword into a defensive posture, granting 10%/20%/30%/40%/50% chance of reducing damage taken by half.",
+      "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500412.png"
+    },
+    {
+      "id": "500413",
+      "name": "Sacrificial Will",
+      "mode": "exploration",
+      "description": "Even if Gregory falls, his example lives on, increasing all friendly troops' Attack by 8%/12%/16%/20%/24% for 5 seconds after Gregory's defeat.",
+      "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500413.png"
+    },
+    {
+      "id": "500414",
+      "name": "Legion of the Sun",
+      "mode": "expedition",
+      "description": "Gregory nurtures latent talents his troops did not realize they had, increasing Attack by 3%/6%/9%/12%/15% and Defense by 2%/4%/6%/8%/10% for all troops.",
+      "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500414.png"
+    },
+    {
+      "id": "500415",
+      "name": "Charged Assault",
+      "mode": "expedition",
+      "description": "Gregory inspires everyone with his valor and enthusiasm, granting all troop's normal attacks a 5%/10%/15%/20%/25% chance of dealing critical damage.",
+      "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500415.png"
+    },
+    {
+      "id": "500416",
+      "name": "Unbroken",
+      "mode": "expedition",
+      "description": "Gregory forms unbroken defensive lines, reducing Infantry’s Damage Taken by 4%/8%/12%/16%/20%.",
+      "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500416.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 1921,
+        "def": 2506,
+        "health": 37597
+      },
+      "expedition": {
+        "lethality": "277.50%",
+        "health": "277.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Solarsword",
+      "power": 1253250,
+      "image": "../assets/heroes/ssr/s10/gregory/img/equipment_icon_1050041.png",
+      "perks": [
+        {
+          "id": "500417",
+          "name": "Indomitable Armor",
+          "level": 5,
+          "description": "Gregory's plate armor protects him, increasing his defense by 50%. Meanwhile, his armor of indomitable will shields him from stuns, paralysis, and other interrupting effects.",
+          "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500417.png"
+        },
+        {
+          "id": "500418",
+          "name": "Day of the Guard",
+          "level": 5,
+          "description": "Courage and the will to victory will always surpass mercenary greed. Gregory's leadership increases Defender Troops' Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s10/gregory/img/hero_skill_icon_500418.png"
+        }
+      ]
+    }
+  }
+}

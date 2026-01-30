@@ -1,0 +1,74 @@
+{
+  "tools.common.back": "戻る",
+  "tools.common.none": "なし",
+
+  "tools.building_calc.breadcrumb": "ツール · 建物計算機",
+  "tools.building_calc.title": "建物計算機",
+
+  "tools.building_calc.howto.title": "使い方",
+  "tools.building_calc.howto.step1": "建物を選択し、現在レベルと目標レベルを選んでください。",
+  "tools.building_calc.howto.step2": "アカウントのバフに合わせて入力してください。",
+  "tools.building_calc.howto.step3": "数値を入力すると結果がすぐに更新されます。",
+  "tools.building_calc.howto.step4": "総合結果で全体のコスト/時間/SVSを確認し、詳細(レベル別)で段階ごとの必要量を確認してください。",
+  "tools.building_calc.howto.tip": "ヒント: より正確にするため、アカウントのバフ値をそのまま入力してください。",
+
+  "tools.building_calc.error.title": "エラー",
+
+  "tools.building_calc.controls.building": "建物",
+  "tools.building_calc.controls.current": "現在レベル",
+  "tools.building_calc.controls.target": "目標レベル",
+  "tools.building_calc.controls.build_speed": "建設速度(%)",
+  "tools.building_calc.controls.pet": "ペットバフ(ハイエナ)",
+  "tools.building_calc.controls.agenes": "アゲネスバフ(固定時間・1回)",
+  "tools.building_calc.controls.valeria": "ヴァレリアバフ(SVS +%)",
+
+  "tools.building_calc.controls.vp_label": "バフ選択(VP)",
+  "tools.building_calc.controls.vp10": "VP +10%",
+  "tools.building_calc.controls.vp15": "VP +15%",
+
+  "tools.building_calc.controls.server_chief_label": "バフ選択(サーバー / チーフ)",
+  "tools.building_calc.controls.server_buff": "サーバーバフ(+10%)",
+  "tools.building_calc.controls.chief_order": "チーフ命令(時間 -20%)",
+
+  "tools.building_calc.total.title": "総合結果",
+  "tools.building_calc.total.fireCrystal": "火晶",
+  "tools.building_calc.total.refined": "精製石",
+  "tools.building_calc.total.food": "食料",
+  "tools.building_calc.total.wood": "木材",
+  "tools.building_calc.total.coal": "石炭",
+  "tools.building_calc.total.iron": "鉄鉱",
+  "tools.building_calc.total.time": "推定時間",
+  "tools.building_calc.total.svs": "SVS",
+
+  "tools.building_calc.summary.title": "概要",
+  "tools.building_calc.summary.loading": "建物データを読み込み中...",
+
+  "tools.building_calc.detail.title": "詳細(レベル別)",
+  "tools.building_calc.detail.subtitle": "目標レベルまでの表を表示します。",
+  "tools.building_calc.detail.placeholder": "建物 / 現在 / 目標を選択してください。",
+  "tools.building_calc.msg.invalid_range": "目標レベルは現在レベルより高くする必要があります。",
+  "tools.building_calc.msg.no_rows": "表示する項目がありません。",
+
+  "tools.building_calc.table.building": "建物",
+  "tools.building_calc.table.current": "現在",
+  "tools.building_calc.table.target": "目標",
+  "tools.building_calc.table.fc": "FC",
+  "tools.building_calc.table.refined": "精製石",
+  "tools.building_calc.table.food": "食料",
+  "tools.building_calc.table.wood": "木材",
+  "tools.building_calc.table.coal": "石炭",
+  "tools.building_calc.table.iron": "鉄鉱",
+  "tools.building_calc.table.est_time": "推定時間",
+  "tools.building_calc.table.svs": "SVS",
+  "tools.building_calc.table.step_level": "段階レベル",
+  "tools.building_calc.detail.base_time": "基本時間",
+
+  "building.furnace": "溶鉱炉",
+  "building.embassy": "大使館",
+  "building.commandcenter": "司令部",
+  "building.infirmary": "治療所",
+  "building.infantrycamp": "歩兵訓練所",
+  "building.lancercamp": "槍兵訓練所",
+  "building.marksmancamp": "弓兵訓練所",
+  "building.waracademy": "戦争学院"
+}

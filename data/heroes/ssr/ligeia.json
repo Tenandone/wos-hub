@@ -1,0 +1,111 @@
+{
+  "slug": "ligeia",
+  "name": "Ligeia",
+  "rarity": "SSR",
+  "season": 12,
+  "gen": 12,
+  "class": "Marksmen",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s12/ligeia/img/ligeia.png",
+  "story": "Ligeia is a lady of many talents, an excellent singer whose melodious songs are well-known across the Tundra. There are great chiefs who consider it an honor to have heard Ligeia perform. But there is still much more to Ligeia than meets the eye.\n\nLigeia seems to wield a strange power over Tundra society. Why do nobles bow to her every whim? Why do some chiefs whisper her name in fear? Some say she is a master manipulator who hypnotizes with her voice or weaves an invisible web of dark magic. If Ligeia has ever responded to such rumors, it is only with laughter or a declaration that undoubtedly some fans are indeed \"captivated\" by her heavenly voice.\n\nThe most commonly accepted story of Ligeia's singing skills, charm, sophistication, and breadth of knowledge is that she is an exiled noble from the last days of the Solaris Empire. Those doubtful (particularly noblemen's wives wary of her menacing presence) have occasionally dispatched investigators to uncover the layers of Ligeia's past. Strangely, none have ever returned compromising information and several have gone missing.\n\nLigeia does not hypnotize. She does not need to. Her actual skills are far more menacing.\n\nLigeia was second to none in her mastery of mechanical robotics during the last days of the Empire. Not all of the Empire's spider-mechs, which were mainly used to spy on nobles and obtain compromising information, were destroyed. It is Ligeia's ability to observe, blackmail, and emotionally manipulate that has granted what she desires more than anything else in the world: a life of ease and luxury. Of course, spider-mechs can be deployed in times of physical danger also.\n\nLigeia hides her past well. Nobody can know she was once a spymaster of the Solaris Empire.\n\nLigeia once had the unenviable role of watching the emperor's inner circle—acting as judge, jury, and executioner in the case of suspected dissidents (poison or spider bomb execution was preferred). Ligeia's unique skills helped her to navigate the collapse of the Empire better than most. Freedom and fortune became a simple matter of tracking down and assuming the identity of a noblewoman of similar appearance following the collapse.\n\nLigeia's new noble identity both allowed her to avoid enemies from the old regime and theoretically gave access to a large fortune. This facade has to be carefully managed, but leaves plenty of room for Ligeia to enjoy a better life than the Empire provided. That is the ultimate goal of all the blackmail, manipulation, and lying: not political gain.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 21656,
+      "defense": 17826,
+      "health": 133698
+    },
+    "expedition": {
+      "attack_percent": "1451.16%",
+      "defense_percent": "1451.16%"
+    }
+  },
+  "sources": [
+    "Hall of Chiefs",
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Hero Rally",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500491",
+      "name": "Acid Reflex",
+      "mode": "exploration",
+      "description": "Ligeia summons 3 acid-lobbing Mech-spiders against an enemy, dealing Attack*70%/77%/84%/91%/98% area damage and reducing Enemy's Attack by 5%/10%/15%/20%/25% for 2 seconds.",
+      "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500491.png"
+    },
+    {
+      "id": "500492",
+      "name": "Spider Madam",
+      "mode": "exploration",
+      "description": "Ligeia deploys steelweb against an enemy with the damage of Attack*50%/55%/60%/65%/70% and a 20%/40%/60%/80%/100% chance to trigger a \"Resonance\" trap for 5 seconds. Resonance reapportions damage against Ligeia to the target.",
+      "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500492.png"
+    },
+    {
+      "id": "500493",
+      "name": "Mechanical Teeth",
+      "mode": "exploration",
+      "description": "Ligeia activates Queen Protection Mode to deflect a negative status effect at a cost of 1 Guard Spider, but gaining a 10-second 8%/12%/16%/20%/24% Attack boost. Ligeia can deploy up to 3 active Guard Spiders at a rate of 1 every 10 seconds.",
+      "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500493.png"
+    },
+    {
+      "id": "500494",
+      "name": "Nerf Poison",
+      "mode": "expedition",
+      "description": "Ligeia unleashes a swarm of biting Mech-spiders against well-armored foes, reducing all enemy Defense by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500494.png"
+    },
+    {
+      "id": "500495",
+      "name": "Corrosion",
+      "mode": "expedition",
+      "description": "Ligeia adds Mech-spiders to Marksmen's fire, dealing 20%/40%/60%/80%/100% extra damage every 2 attacks; spider acid dissolves enemy armor, amplifying target damage received by 5%/10%/15%/20%/25% for 1 turn.",
+      "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500495.png"
+    },
+    {
+      "id": "500496",
+      "name": "Toxic Tip",
+      "mode": "expedition",
+      "description": "Ligeia dips Marksmen arrowheads in spider toxin, increasing Marksmen's damage by 20%/40%/60%/80%/100% against the target every 2 attacks while reducing the target's damage dealt by 4%/8%/12%/16%/20% for 1 turn.",
+      "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500496.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 4384,
+        "def": 3613,
+        "health": 27101
+      },
+      "expedition": {
+        "lethality": "362.50%",
+        "health": "362.50%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Fateweaver",
+      "power": 1806750,
+      "image": "../assets/heroes/ssr/s12/ligeia/img/equipment_icon_1050049.png",
+      "perks": [
+        {
+          "id": "500497",
+          "name": "Spider Queen",
+          "level": 5,
+          "description": "Ligeia's mech mastery is a sight to behold, allowing her to deploy 2 Guard Spider at the start of battle with a 100% chance Spider Madam of striking 1 extra target.",
+          "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500497.png"
+        },
+        {
+          "id": "500498",
+          "name": "Trap Nest",
+          "level": 5,
+          "description": "Ligeia knows traps, particularly when she has time to prepare them herself, increasing Defender Troops' Lethality by 15%.",
+          "icon": "../assets/heroes/ssr/s12/ligeia/img/hero_skill_icon_500498.png"
+        }
+      ]
+    }
+  }
+}

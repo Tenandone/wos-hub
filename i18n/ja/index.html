@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WOS HUB – 화이트아웃 서바이벌 도구 & 데이터</title>
+
+  <meta name="description" content="화이트아웃 서바이벌 플레이어를 위한 도구, 계산기, 영웅/건물 데이터 허브." />
+  <meta name="keywords" content="Whiteout Survival, WOS, 계산기, 영웅 데이터, 건물 데이터, 도구, 공략" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="/ko/" />
+  <link rel="alternate" href="/en/" hreflang="en" />
+  <link rel="alternate" href="/ko/" hreflang="ko" />
+  <link rel="alternate" href="/ja/" hreflang="ja" />
+  <link rel="alternate" href="/en/" hreflang="x-default" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="WOS HUB – 화이트아웃 서바이벌 도구 & 데이터" />
+  <meta property="og:description" content="화이트아웃 서바이벌 플레이어를 위한 도구/계산기/데이터 허브." />
+  <meta property="og:site_name" content="WOS HUB" />
+
+  <link rel="stylesheet" href="./css/app.css" />
+</head>
+
+<body>
+  <header class="wos-topbar">
+    <button class="wos-iconbtn" id="menuBtn" type="button" aria-label="메뉴 열기" aria-controls="drawer" aria-expanded="false">☰</button>
+    <a class="wos-brand" href="#/" data-i18n="app.brand">WosHub</a>
+
+    <div class="wos-desktop-only" style="display:flex; gap:8px; align-items:center;">
+      <a class="wos-iconbtn" data-lang-link="en" href="/en/" title="English" aria-label="English">🇺🇸</a>
+      <a class="wos-iconbtn" data-lang-link="ko" href="/ko/" title="Korean" aria-label="Korean">🇰🇷</a>
+      <a class="wos-iconbtn" data-lang-link="ja" href="/ja/" title="Japanese" aria-label="Japanese">🇯🇵</a>
+    </div>
+  </header>
+
+  <div class="wos-drawer-backdrop" id="drawerBackdrop" hidden></div>
+
+  <nav class="wos-drawer" id="drawer" aria-label="사이트 메뉴" aria-hidden="true">
+    <div class="wos-drawer-head">
+      <div class="wos-drawer-title" data-i18n="ui.menu">메뉴</div>
+      <button class="wos-iconbtn" id="drawerClose" type="button" aria-label="메뉴 닫기">✕</button>
+    </div>
+
+    <div style="display:flex; gap:8px; padding: 10px; margin-top: 6px;">
+      <a class="wos-drawer-link" data-lang-link="en" href="/en/" style="margin:0; flex:1; text-align:center;">🇺🇸 EN</a>
+      <a class="wos-drawer-link" data-lang-link="ko" href="/ko/" style="margin:0; flex:1; text-align:center;">🇰🇷 KO</a>
+      <a class="wos-drawer-link" data-lang-link="ja" href="/ja/" style="margin:0; flex:1; text-align:center;">🇯🇵 JA</a>
+    </div>
+
+    <a class="wos-drawer-link" data-nav href="#/" data-i18n="nav.home">홈</a>
+    <a class="wos-drawer-link" data-nav href="#/buildings" data-i18n="nav.buildings">건물</a>
+    <a class="wos-drawer-link" data-nav href="#/heroes" data-i18n="nav.heroes">영웅</a>
+    <a class="wos-drawer-link" data-nav href="#/coupons" data-i18n="nav.coupons">쿠폰</a>
+    <a class="wos-drawer-link" data-nav href="#/tools/building-calculator" data-i18n="nav.calculator">계산기</a>
+    <a class="wos-drawer-link" data-nav href="#/tips" data-i18n="nav.tips">팁</a>
+  </nav>
+
+  <main id="app" class="wos-app"></main>
+
+  <footer class="site-footer">
+    <a href="/about.html" data-i18n="footer.about">소개</a>
+  </footer>
+
+  <script defer src="./js/i18n.js"></script>
+  <script defer src="./js/buildings.js"></script>
+  <script defer src="./js/heroes.js"></script>
+  <script defer src="./js/calculator.js"></script>
+  <script defer src="./js/building-calculator.js"></script>
+  <script defer src="./js/tips.js"></script>
+  <script defer src="./js/app.js"></script>
+</body>
+</html>

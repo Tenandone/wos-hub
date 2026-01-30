@@ -1,0 +1,1324 @@
+{
+  "slug": "commandcenter",
+  "meta": {
+    "title": "Command Center - Whiteout Survival Wiki",
+    "description": "Another Alliance building. Upgrading this building increases the total amount of troops you can have in a Rally that you start and increases the amount of troops you can have in your marches. It also boosts your power.\nResearching the technology Regimental Expansion in the Battle tab of the Research increases Troop Capacity in your marches, too.",
+    "truegold": {
+      "text": "",
+      "bullets": []
+    }
+  },
+  "base": {
+    "rows": [
+      {
+        "level": "1",
+        "levelInfo": {
+          "type": "base",
+          "n": 1,
+          "sub": 0,
+          "key": "1"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 1",
+        "costs": {
+          "res_103": 80
+        },
+        "time": {
+          "raw": "00:00:02",
+          "seconds": 2
+        },
+        "power": 280
+      },
+      {
+        "level": "2",
+        "levelInfo": {
+          "type": "base",
+          "n": 2,
+          "sub": 0,
+          "key": "2"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 2",
+        "costs": {
+          "res_103": 125
+        },
+        "time": {
+          "raw": "00:00:08",
+          "seconds": 8
+        },
+        "power": 532
+      },
+      {
+        "level": "3",
+        "levelInfo": {
+          "type": "base",
+          "n": 3,
+          "sub": 0,
+          "key": "3"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 3",
+        "costs": {
+          "res_103": 565
+        },
+        "time": {
+          "raw": "00:00:35",
+          "seconds": 35
+        },
+        "power": 910
+      },
+      {
+        "level": "4",
+        "levelInfo": {
+          "type": "base",
+          "n": 4,
+          "sub": 0,
+          "key": "4"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 4",
+        "costs": {
+          "res_103": 1200,
+          "res_104": 250
+        },
+        "time": {
+          "raw": "00:01:45",
+          "seconds": 105
+        },
+        "power": 1414
+      },
+      {
+        "level": "5",
+        "levelInfo": {
+          "type": "base",
+          "n": 5,
+          "sub": 0,
+          "key": "5"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 5",
+        "costs": {
+          "res_103": 5300,
+          "res_104": 1000
+        },
+        "time": {
+          "raw": "00:03:35",
+          "seconds": 215
+        },
+        "power": 2170
+      },
+      {
+        "level": "6",
+        "levelInfo": {
+          "type": "base",
+          "n": 6,
+          "sub": 0,
+          "key": "6"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 6",
+        "costs": {
+          "res_103": 13000,
+          "res_104": 2600,
+          "res_105": 670
+        },
+        "time": {
+          "raw": "00:07:10",
+          "seconds": 430
+        },
+        "power": 3304
+      },
+      {
+        "level": "7",
+        "levelInfo": {
+          "type": "base",
+          "n": 7,
+          "sub": 0,
+          "key": "7"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 7",
+        "costs": {
+          "res_103": 48000,
+          "res_104": 9600,
+          "res_105": 2400
+        },
+        "time": {
+          "raw": "00:14:00",
+          "seconds": 840
+        },
+        "power": 4942
+      },
+      {
+        "level": "8",
+        "levelInfo": {
+          "type": "base",
+          "n": 8,
+          "sub": 0,
+          "key": "8"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 8",
+        "costs": {
+          "res_103": 88000,
+          "res_104": 17000,
+          "res_105": 4400
+        },
+        "time": {
+          "raw": "00:21:00",
+          "seconds": 1260
+        },
+        "power": 6580
+      },
+      {
+        "level": "9",
+        "levelInfo": {
+          "type": "base",
+          "n": 9,
+          "sub": 0,
+          "key": "9"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 9",
+        "costs": {
+          "res_103": 180000,
+          "res_104": 36000,
+          "res_105": 9100
+        },
+        "time": {
+          "raw": "00:32:00",
+          "seconds": 1920
+        },
+        "power": 8218
+      },
+      {
+        "level": "10",
+        "levelInfo": {
+          "type": "base",
+          "n": 10,
+          "sub": 0,
+          "key": "10"
+        },
+        "prerequisites": "Furnace Lv. 10\nEmbassy Lv. 10",
+        "costs": {
+          "res_103": 320000,
+          "res_104": 64000,
+          "res_105": 16000
+        },
+        "time": {
+          "raw": "00:43:00",
+          "seconds": 2580
+        },
+        "power": 10598
+      },
+      {
+        "level": "11",
+        "levelInfo": {
+          "type": "base",
+          "n": 11,
+          "sub": 0,
+          "key": "11"
+        },
+        "prerequisites": "Furnace Lv. 11\nEmbassy Lv. 11",
+        "costs": {
+          "res_100011": 390000,
+          "res_103": 390000,
+          "res_104": 79000,
+          "res_105": 19000
+        },
+        "time": {
+          "raw": "00:54:00",
+          "seconds": 3240
+        },
+        "power": 12978
+      },
+      {
+        "level": "12",
+        "levelInfo": {
+          "type": "base",
+          "n": 12,
+          "sub": 0,
+          "key": "12"
+        },
+        "prerequisites": "Furnace Lv. 12\nEmbassy Lv. 12",
+        "costs": {
+          "res_100011": 500000,
+          "res_103": 500000,
+          "res_104": 100000,
+          "res_105": 25000
+        },
+        "time": {
+          "raw": "01:04:30",
+          "seconds": 3870
+        },
+        "power": 15358
+      },
+      {
+        "level": "13",
+        "levelInfo": {
+          "type": "base",
+          "n": 13,
+          "sub": 0,
+          "key": "13"
+        },
+        "prerequisites": "Furnace Lv. 13\nEmbassy Lv. 13",
+        "costs": {
+          "res_100011": 710000,
+          "res_103": 710000,
+          "res_104": 140000,
+          "res_105": 35000
+        },
+        "time": {
+          "raw": "01:19:00",
+          "seconds": 4740
+        },
+        "power": 19376
+      },
+      {
+        "level": "14",
+        "levelInfo": {
+          "type": "base",
+          "n": 14,
+          "sub": 0,
+          "key": "14"
+        },
+        "prerequisites": "Furnace Lv. 14\nEmbassy Lv. 14",
+        "costs": {
+          "res_100011": 940000,
+          "res_103": 940000,
+          "res_104": 180000,
+          "res_105": 47000
+        },
+        "time": {
+          "raw": "01:40:30",
+          "seconds": 6030
+        },
+        "power": 23394
+      },
+      {
+        "level": "15",
+        "levelInfo": {
+          "type": "base",
+          "n": 15,
+          "sub": 0,
+          "key": "15"
+        },
+        "prerequisites": "Furnace Lv. 15\nEmbassy Lv. 15",
+        "costs": {
+          "res_100011": 1300000,
+          "res_103": 1300000,
+          "res_104": 270000,
+          "res_105": 69000
+        },
+        "time": {
+          "raw": "02:09:30",
+          "seconds": 7770
+        },
+        "power": 27412
+      },
+      {
+        "level": "16",
+        "levelInfo": {
+          "type": "base",
+          "n": 16,
+          "sub": 0,
+          "key": "16"
+        },
+        "prerequisites": "Furnace Lv.  16\nEmbassy Lv. 16",
+        "costs": {
+          "res_100011": 1700000,
+          "res_103": 1700000,
+          "res_104": 350000
+        },
+        "time": {
+          "raw": "03:39:00",
+          "seconds": 13140
+        },
+        "power": 33068
+      },
+      {
+        "level": "17",
+        "levelInfo": {
+          "type": "base",
+          "n": 17,
+          "sub": 0,
+          "key": "17"
+        },
+        "prerequisites": "Furnace Lv. 17\nEmbassy Lv. 17",
+        "costs": {
+          "res_100011": 2700000,
+          "res_103": 2700000,
+          "res_104": 550000,
+          "res_105": 130000
+        },
+        "time": {
+          "raw": "04:23:00",
+          "seconds": 15780
+        },
+        "power": 38724
+      },
+      {
+        "level": "18",
+        "levelInfo": {
+          "type": "base",
+          "n": 18,
+          "sub": 0,
+          "key": "18"
+        },
+        "prerequisites": "Furnace Lv. 18\nEmbassy Lv. 18",
+        "costs": {
+          "res_100011": 3700000,
+          "res_103": 3700000,
+          "res_104": 750000,
+          "res_105": 180000
+        },
+        "time": {
+          "raw": "05:16:00",
+          "seconds": 18960
+        },
+        "power": 44380
+      },
+      {
+        "level": "19",
+        "levelInfo": {
+          "type": "base",
+          "n": 19,
+          "sub": 0,
+          "key": "19"
+        },
+        "prerequisites": "Furnace Lv. 19\nEmbassy Lv. 19",
+        "costs": {
+          "res_100011": 4700000,
+          "res_103": 4700000,
+          "res_104": 940000,
+          "res_105": 230000
+        },
+        "time": {
+          "raw": "07:54:00",
+          "seconds": 28440
+        },
+        "power": 52416
+      },
+      {
+        "level": "20",
+        "levelInfo": {
+          "type": "base",
+          "n": 20,
+          "sub": 0,
+          "key": "20"
+        },
+        "prerequisites": "Furnace Lv. 20\nEmbassy Lv. 20",
+        "costs": {
+          "res_100011": 6400000,
+          "res_103": 6400000,
+          "res_104": 1200000,
+          "res_105": 320000
+        },
+        "time": {
+          "raw": "09:52:30",
+          "seconds": 35550
+        },
+        "power": 60452
+      },
+      {
+        "level": "21",
+        "levelInfo": {
+          "type": "base",
+          "n": 21,
+          "sub": 0,
+          "key": "21"
+        },
+        "prerequisites": "Furnace Lv. 21\nEmbassy Lv. 21",
+        "costs": {
+          "res_100011": 8100000,
+          "res_103": 8100000,
+          "res_104": 1600000,
+          "res_105": 400000
+        },
+        "time": {
+          "raw": "12:50:00",
+          "seconds": 46200
+        },
+        "power": 68488
+      },
+      {
+        "level": "22",
+        "levelInfo": {
+          "type": "base",
+          "n": 22,
+          "sub": 0,
+          "key": "22"
+        },
+        "prerequisites": "Furnace Lv. 22\nEmbassy Lv. 22",
+        "costs": {
+          "res_100011": 10000000,
+          "res_103": 10000000,
+          "res_104": 2100000,
+          "res_105": 540000
+        },
+        "time": {
+          "raw": "19:15:30",
+          "seconds": 69330
+        },
+        "power": 80542
+      },
+      {
+        "level": "23",
+        "levelInfo": {
+          "type": "base",
+          "n": 23,
+          "sub": 0,
+          "key": "23"
+        },
+        "prerequisites": "Furnace Lv. 23\nEmbassy Lv. 23",
+        "costs": {
+          "res_100011": 13000000,
+          "res_103": 13000000,
+          "res_104": 2600000,
+          "res_105": 670000
+        },
+        "time": {
+          "raw": "1d 02:57:00",
+          "seconds": 97020
+        },
+        "power": 92596
+      },
+      {
+        "level": "24",
+        "levelInfo": {
+          "type": "base",
+          "n": 24,
+          "sub": 0,
+          "key": "24"
+        },
+        "prerequisites": "Furnace Lv. 24\nEmbassy Lv. 24",
+        "costs": {
+          "res_100011": 18000000,
+          "res_103": 18000000,
+          "res_104": 3600000,
+          "res_105": 900000
+        },
+        "time": {
+          "raw": "1d 13:44:00",
+          "seconds": 135840
+        },
+        "power": 104650
+      },
+      {
+        "level": "25",
+        "levelInfo": {
+          "type": "base",
+          "n": 25,
+          "sub": 0,
+          "key": "25"
+        },
+        "prerequisites": "Furnace Lv. 25\nEmbassy Lv. 25",
+        "costs": {
+          "res_100011": 24000000,
+          "res_103": 24000000,
+          "res_104": 4900000,
+          "res_105": 1200000
+        },
+        "time": {
+          "raw": "2d 04:50:00",
+          "seconds": 190200
+        },
+        "power": 116704
+      },
+      {
+        "level": "26",
+        "levelInfo": {
+          "type": "base",
+          "n": 26,
+          "sub": 0,
+          "key": "26"
+        },
+        "prerequisites": "Furnace Lv. 26\nEmbassy Lv. 26",
+        "costs": {
+          "res_100011": 31000000,
+          "res_103": 31000000,
+          "res_105": 1500000
+        },
+        "time": {
+          "raw": "2d 12:46:00",
+          "seconds": 218760
+        },
+        "power": 134414
+      },
+      {
+        "level": "27",
+        "levelInfo": {
+          "type": "base",
+          "n": 27,
+          "sub": 0,
+          "key": "27"
+        },
+        "prerequisites": "Furnace Lv. 27\nEmbassy Lv. 27",
+        "costs": {
+          "res_100011": 44000000,
+          "res_103": 44000000,
+          "res_104": 8900000,
+          "res_105": 2200000
+        },
+        "time": {
+          "raw": "3d 00:55:00",
+          "seconds": 262500
+        },
+        "power": 152124
+      },
+      {
+        "level": "28",
+        "levelInfo": {
+          "type": "base",
+          "n": 28,
+          "sub": 0,
+          "key": "28"
+        },
+        "prerequisites": "Furnace Lv. 28\nEmbassy Lv. 28",
+        "costs": {
+          "res_100011": 59000000,
+          "res_103": 59000000,
+          "res_104": 11000000,
+          "res_105": 2900000
+        },
+        "time": {
+          "raw": "3d 11:51:00",
+          "seconds": 301860
+        },
+        "power": 169834
+      },
+      {
+        "level": "29",
+        "levelInfo": {
+          "type": "base",
+          "n": 29,
+          "sub": 0,
+          "key": "29"
+        },
+        "prerequisites": "Furnace Lv. 29\nEmbassy Lv. 29",
+        "costs": {
+          "res_100011": 73000000,
+          "res_103": 73000000,
+          "res_104": 18000000,
+          "res_105": 4500000
+        },
+        "time": {
+          "raw": "4d 00:26:00",
+          "seconds": 347160
+        },
+        "power": 187544
+      },
+      {
+        "level": "30",
+        "levelInfo": {
+          "type": "base",
+          "n": 30,
+          "sub": 0,
+          "key": "30"
+        },
+        "prerequisites": "Furnace Lv. 30\nEmbassy Lv. 30",
+        "costs": {
+          "res_100011": 90000000,
+          "res_103": 90000000,
+          "res_104": 18000000,
+          "res_105": 4500000
+        },
+        "time": {
+          "raw": "4d 19:44:00",
+          "seconds": 416640
+        },
+        "power": 213290
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystal": {
+    "rows": [
+      {
+        "level": "30-1",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 1,
+          "key": "30-1"
+        },
+        "prerequisites": "Embassy FC-1\nFurnace FC-1",
+        "costs": {
+          "res_100011": 20000000,
+          "res_103": 20000000,
+          "res_104": 4000000,
+          "res_105": 1000000,
+          "res_100081": 26
+        },
+        "time": {
+          "raw": "20:09:30",
+          "seconds": 72570
+        },
+        "power": 221326
+      },
+      {
+        "level": "30-2",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 2,
+          "key": "30-2"
+        },
+        "prerequisites": "Embassy FC-1\nFurnace FC-1",
+        "costs": {
+          "res_100011": 20000000,
+          "res_103": 20000000,
+          "res_104": 4000000,
+          "res_105": 1000000,
+          "res_100081": 26
+        },
+        "time": {
+          "raw": "20:09:30",
+          "seconds": 72570
+        },
+        "power": 229362
+      },
+      {
+        "level": "30-3",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 3,
+          "key": "30-3"
+        },
+        "prerequisites": "Embassy FC-1\nFurnace FC-1",
+        "costs": {
+          "res_100011": 20000000,
+          "res_103": 20000000,
+          "res_104": 4000000,
+          "res_105": 1000000,
+          "res_100081": 26
+        },
+        "time": {
+          "raw": "20:09:30",
+          "seconds": 72570
+        },
+        "power": 237398
+      },
+      {
+        "level": "30-4",
+        "levelInfo": {
+          "type": "baseExt",
+          "n": 30,
+          "sub": 4,
+          "key": "30-4"
+        },
+        "prerequisites": "Embassy FC-1\nFurnace FC-1",
+        "costs": {
+          "res_100011": 20000000,
+          "res_103": 20000000,
+          "res_104": 4000000,
+          "res_105": 1000000,
+          "res_100081": 26
+        },
+        "time": {
+          "raw": "20:09:30",
+          "seconds": 72570
+        },
+        "power": 245434
+      },
+      {
+        "level": "FC 1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 0,
+          "key": "FC1"
+        },
+        "prerequisites": "Embassy FC-1\nFurnace FC-1",
+        "costs": {
+          "res_100011": 20000000,
+          "res_103": 20000000,
+          "res_104": 4000000,
+          "res_105": 1000000,
+          "res_100081": 26
+        },
+        "time": {
+          "raw": "20:09:30",
+          "seconds": 72570
+        },
+        "power": 253470
+      },
+      {
+        "level": "FC1-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 1,
+          "key": "FC1-1"
+        },
+        "prerequisites": "Embassy FC-2\nFurnace FC-2",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4300000,
+          "res_105": 1000000,
+          "res_100081": 31
+        },
+        "time": {
+          "raw": "1d 01:55:00",
+          "seconds": 93300
+        },
+        "power": 261506
+      },
+      {
+        "level": "FC1-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 2,
+          "key": "FC1-2"
+        },
+        "prerequisites": "Embassy FC-2\nFurnace FC-2",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4300000,
+          "res_105": 1000000,
+          "res_100081": 31
+        },
+        "time": {
+          "raw": "1d 01:55:00",
+          "seconds": 93300
+        },
+        "power": 269542
+      },
+      {
+        "level": "FC1-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 3,
+          "key": "FC1-3"
+        },
+        "prerequisites": "Embassy FC-2\nFurnace FC-2",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4300000,
+          "res_105": 1000000,
+          "res_100081": 31
+        },
+        "time": {
+          "raw": "1d 01:55:00",
+          "seconds": 93300
+        },
+        "power": 277578
+      },
+      {
+        "level": "FC1-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 1,
+          "sub": 4,
+          "key": "FC1-4"
+        },
+        "prerequisites": "Embassy FC-2\nFurnace FC-2",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4300000,
+          "res_105": 1000000,
+          "res_100081": 31
+        },
+        "time": {
+          "raw": "1d 01:55:00",
+          "seconds": 93300
+        },
+        "power": 285614
+      },
+      {
+        "level": "FC 2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 0,
+          "key": "FC2"
+        },
+        "prerequisites": "Embassy FC-2\nFurnace FC-2",
+        "costs": {
+          "res_100011": 21000000,
+          "res_103": 21000000,
+          "res_104": 4300000,
+          "res_105": 1000000,
+          "res_100081": 31
+        },
+        "time": {
+          "raw": "1d 01:55:00",
+          "seconds": 93300
+        },
+        "power": 293650
+      },
+      {
+        "level": "FC2-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 1,
+          "key": "FC2-1"
+        },
+        "prerequisites": "Embassy FC-3\nFurnace FC-3",
+        "costs": {
+          "res_100011": 23000000,
+          "res_103": 23000000,
+          "res_104": 4700000,
+          "res_105": 1100000,
+          "res_100081": 47
+        },
+        "time": {
+          "raw": "1d 07:40:00",
+          "seconds": 114000
+        },
+        "power": 301686
+      },
+      {
+        "level": "FC2-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 2,
+          "key": "FC2-2"
+        },
+        "prerequisites": "Embassy FC-3\nFurnace FC-3",
+        "costs": {
+          "res_100011": 23000000,
+          "res_103": 23000000,
+          "res_104": 4700000,
+          "res_105": 1100000,
+          "res_100081": 47
+        },
+        "time": {
+          "raw": "1d 07:40:00",
+          "seconds": 114000
+        },
+        "power": 309722
+      },
+      {
+        "level": "FC2-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 3,
+          "key": "FC2-3"
+        },
+        "prerequisites": "Embassy FC-3\nFurnace FC-3",
+        "costs": {
+          "res_100011": 23000000,
+          "res_103": 23000000,
+          "res_104": 4700000,
+          "res_105": 1100000,
+          "res_100081": 47
+        },
+        "time": {
+          "raw": "1d 07:40:00",
+          "seconds": 114000
+        },
+        "power": 317758
+      },
+      {
+        "level": "FC2-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 2,
+          "sub": 4,
+          "key": "FC2-4"
+        },
+        "prerequisites": "Embassy FC-3\nFurnace FC-3",
+        "costs": {
+          "res_100011": 23000000,
+          "res_103": 23000000,
+          "res_104": 4700000,
+          "res_105": 1100000,
+          "res_100081": 47
+        },
+        "time": {
+          "raw": "1d 07:40:00",
+          "seconds": 114000
+        },
+        "power": 325794
+      },
+      {
+        "level": "FC 3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 0,
+          "key": "FC3"
+        },
+        "prerequisites": "Embassy FC-3\nFurnace FC-3",
+        "costs": {
+          "res_100011": 23000000,
+          "res_103": 23000000,
+          "res_104": 4700000,
+          "res_105": 1100000,
+          "res_100081": 47
+        },
+        "time": {
+          "raw": "1d 07:40:00",
+          "seconds": 114000
+        },
+        "power": 333830
+      },
+      {
+        "level": "FC 3-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 1,
+          "key": "FC3-1"
+        },
+        "prerequisites": "Embassy FC-4\nFurnace FC-4",
+        "costs": {
+          "res_100011": 24000000,
+          "res_103": 24000000,
+          "res_104": 4900000,
+          "res_105": 1200000,
+          "res_100081": 56
+        },
+        "time": {
+          "raw": "1d 10:33:00",
+          "seconds": 124380
+        },
+        "power": 342678
+      },
+      {
+        "level": "FC 3-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 2,
+          "key": "FC3-2"
+        },
+        "prerequisites": "Embassy FC-4\nFurnace FC-3",
+        "costs": {
+          "res_100011": 24000000,
+          "res_103": 24000000,
+          "res_104": 4900000,
+          "res_105": 1200000,
+          "res_100081": 56
+        },
+        "time": {
+          "raw": "1d 10:33:00",
+          "seconds": 124380
+        },
+        "power": 351526
+      },
+      {
+        "level": "FC 3-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 3,
+          "key": "FC3-3"
+        },
+        "prerequisites": "Embassy FC-4\nFurnace FC-3",
+        "costs": {
+          "res_100011": 24000000,
+          "res_103": 24000000,
+          "res_104": 4900000,
+          "res_105": 1200000,
+          "res_100081": 56
+        },
+        "time": {
+          "raw": "1d 10:33:00",
+          "seconds": 124380
+        },
+        "power": 360374
+      },
+      {
+        "level": "FC 3-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 3,
+          "sub": 4,
+          "key": "FC3-4"
+        },
+        "prerequisites": "Embassy FC-4\nFurnace FC-3",
+        "costs": {
+          "res_100011": 24000000,
+          "res_103": 24000000,
+          "res_104": 4900000,
+          "res_105": 1200000,
+          "res_100081": 56
+        },
+        "time": {
+          "raw": "1d 10:33:00",
+          "seconds": 124380
+        },
+        "power": 369222
+      },
+      {
+        "level": "FC 4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 0,
+          "key": "FC4"
+        },
+        "prerequisites": "Embassy FC-4\nFurnace FC-3",
+        "costs": {
+          "res_100011": 24000000,
+          "res_103": 24000000,
+          "res_104": 4900000,
+          "res_105": 1200000,
+          "res_100081": 56
+        },
+        "time": {
+          "raw": "1d 10:33:00",
+          "seconds": 124380
+        },
+        "power": 378070
+      },
+      {
+        "level": "FC 4-1",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 1,
+          "key": "FC4-1"
+        },
+        "prerequisites": "Embassy FC Lv. 5\nFurnace FC Lv. 5",
+        "costs": {
+          "res_100011": 25000000,
+          "res_103": 25000000,
+          "res_104": 5000000,
+          "res_105": 1200000,
+          "res_100081": 67
+        },
+        "time": {
+          "raw": "1d 16:31:00",
+          "seconds": 145860
+        },
+        "power": 386918
+      },
+      {
+        "level": "FC 4-2",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 2,
+          "key": "FC4-2"
+        },
+        "prerequisites": "Embassy FC Lv. 5\nFurnace FC Lv. 5",
+        "costs": {
+          "res_100011": 25000000,
+          "res_103": 25000000,
+          "res_104": 5000000,
+          "res_105": 1200000,
+          "res_100081": 67
+        },
+        "time": {
+          "raw": "1d 16:31:00",
+          "seconds": 145860
+        },
+        "power": 395766
+      },
+      {
+        "level": "FC 4-3",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 3,
+          "key": "FC4-3"
+        },
+        "prerequisites": "Embassy FC Lv. 5\nFurnace FC Lv. 5",
+        "costs": {
+          "res_100011": 25000000,
+          "res_103": 25000000,
+          "res_104": 5000000,
+          "res_105": 1200000,
+          "res_100081": 67
+        },
+        "time": {
+          "raw": "1d 16:31:00",
+          "seconds": 145860
+        },
+        "power": 404614
+      },
+      {
+        "level": "FC 4-4",
+        "levelInfo": {
+          "type": "fc",
+          "n": 4,
+          "sub": 4,
+          "key": "FC4-4"
+        },
+        "prerequisites": "Embassy FC Lv. 5\nFurnace FC Lv. 5",
+        "costs": {
+          "res_100011": 25000000,
+          "res_103": 25000000,
+          "res_104": 5000000,
+          "res_105": 1200000,
+          "res_100081": 67
+        },
+        "time": {
+          "raw": "1d 16:31:00",
+          "seconds": 145860
+        },
+        "power": 413462
+      },
+      {
+        "level": "FC 5",
+        "levelInfo": {
+          "type": "fc",
+          "n": 5,
+          "sub": 0,
+          "key": "FC5"
+        },
+        "prerequisites": "Embassy FC Lv. 5\nFurnace FC Lv. 5",
+        "costs": {
+          "res_100011": 25000000,
+          "res_103": 25000000,
+          "res_104": 5000000,
+          "res_105": 1200000,
+          "res_100081": 67
+        },
+        "time": {
+          "raw": "1d 16:31:00",
+          "seconds": 145860
+        },
+        "power": 422310
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_100081",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystalPlus": {
+    "rows": [
+      {
+        "level": "FC 6",
+        "levelInfo": {
+          "type": "fc",
+          "n": 6,
+          "sub": 0,
+          "key": "FC6"
+        },
+        "prerequisites": "Embassy FC Lv. 6\nFurnace FC Lv. 6",
+        "costs": {
+          "res_100011": 29000000,
+          "res_103": 29000000,
+          "res_104": 5800000,
+          "res_105": 1400000,
+          "res_100081": 20,
+          "res_100082": 4
+        },
+        "time": {
+          "raw": "1d 19:12:00",
+          "seconds": 155520
+        },
+        "power": 470
+      },
+      {
+        "level": "FC 7",
+        "levelInfo": {
+          "type": "fc",
+          "n": 7,
+          "sub": 0,
+          "key": "FC7"
+        },
+        "prerequisites": "Embassy FC Lv. 7\nFurnace FC Lv. 7",
+        "costs": {
+          "res_100011": 32000000,
+          "res_103": 32000000,
+          "res_104": 6500000,
+          "res_105": 1500000,
+          "res_100081": 24,
+          "res_100082": 6
+        },
+        "time": {
+          "raw": "2d 03:50:00",
+          "seconds": 186600
+        },
+        "power": 517
+      },
+      {
+        "level": "FC 8",
+        "levelInfo": {
+          "type": "fc",
+          "n": 8,
+          "sub": 0,
+          "key": "FC8"
+        },
+        "prerequisites": "Embassy FC Lv. 8\nFurnace FC Lv. 8",
+        "costs": {
+          "res_100011": 39000000,
+          "res_103": 39000000,
+          "res_104": 7900000,
+          "res_105": 1900000,
+          "res_100081": 24,
+          "res_100082": 8
+        },
+        "time": {
+          "raw": "2d 09:36:00",
+          "seconds": 207360
+        },
+        "power": 564
+      },
+      {
+        "level": "FC 9",
+        "levelInfo": {
+          "type": "fc",
+          "n": 9,
+          "sub": 0,
+          "key": "FC9"
+        },
+        "prerequisites": "Embassy FC Lv. 9\nFurnace FC Lv. 9",
+        "costs": {
+          "res_100011": 43000000,
+          "res_103": 43000000,
+          "res_104": 8700000,
+          "res_105": 2100000,
+          "res_100081": 28,
+          "res_100082": 12
+        },
+        "time": {
+          "raw": "1d 13:26:00",
+          "seconds": 134760
+        },
+        "power": 574
+      },
+      {
+        "level": "FC 10",
+        "levelInfo": {
+          "type": "fc",
+          "n": 10,
+          "sub": 0,
+          "key": "FC10"
+        },
+        "prerequisites": "Embassy FC Lv. 10\nFurnace FC Lv. 10",
+        "costs": {
+          "res_102": 50000000,
+          "res_103": 50000000,
+          "res_104": 10000000,
+          "res_105": 2500000,
+          "res_100081": 35,
+          "res_100082": 28
+        },
+        "time": {
+          "raw": "2d 09:36:00",
+          "seconds": 207360
+        },
+        "power": 615
+      }
+    ],
+    "costColumns": [
+      "res_100011",
+      "res_100081",
+      "res_100082",
+      "res_102",
+      "res_103",
+      "res_104",
+      "res_105"
+    ]
+  },
+  "firecrystalUnknown": {
+    "rows": [],
+    "costColumns": []
+  }
+}

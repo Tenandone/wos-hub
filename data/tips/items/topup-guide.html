@@ -1,0 +1,445 @@
+<!-- data/tips/items/topup-guide.html  (Single HTML: EN + KO + JA, shown by site language) -->
+<style>
+  :root{
+    --fg:#0f172a;
+    --muted:rgba(15,23,42,.68);
+    --bd:rgba(15,23,42,.12);
+    --bg:#ffffff;
+    --panel:#ffffff;
+    --soft:#f8fafc;
+    --pri:#2563eb;
+    --shadow:0 10px 28px rgba(2,6,23,.06);
+  }
+
+  .tip-page{color:var(--fg); background:var(--bg);}
+  .tip-wrap{max-width:980px; margin:0 auto; padding:18px 16px 70px;}
+  .tip-hero{
+    border:1px solid var(--bd);
+    border-radius:18px;
+    background:linear-gradient(180deg,var(--soft), #fff);
+    box-shadow:var(--shadow);
+    padding:16px 18px;
+  }
+  .tip-title{margin:0; font-size:22px; letter-spacing:-.2px; font-weight:900; line-height:1.25;}
+  .tip-sub{margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.7;}
+
+  .tip-panel{
+    margin-top:12px;
+    border:1px solid var(--bd);
+    border-radius:16px;
+    background:var(--panel);
+    box-shadow:var(--shadow);
+    padding:16px 18px;
+  }
+
+  .tip-h2{margin:0 0 10px; font-size:16px; font-weight:900; letter-spacing:-.1px;}
+  .tip-h3{
+    margin:0 0 8px;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:-.1px;
+    color:color-mix(in srgb, var(--pri) 85%, var(--fg));
+    display:flex; align-items:center; gap:8px;
+  }
+
+  .tip-grid{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px;}
+  @media (max-width:760px){ .tip-grid{grid-template-columns:1fr;} }
+
+  .tip-card{
+    border:1px solid var(--bd);
+    border-radius:14px;
+    background:#fff;
+    padding:14px;
+  }
+
+  .tip-list{margin:0; padding-left:18px; font-size:13px; line-height:1.7;}
+  .tip-list li{margin:6px 0;}
+  .tip-muted{color:var(--muted); font-size:12px; line-height:1.7; margin-top:10px;}
+  .tip-kv{
+    display:grid; grid-template-columns: 180px 1fr;
+    gap:10px 14px; align-items:start;
+    font-size:13px; line-height:1.65;
+  }
+  @media (max-width:640px){ .tip-kv{grid-template-columns:1fr;} }
+  .tip-k{color:var(--muted); font-weight:900;}
+  .tip-v b{font-weight:900;}
+
+  .tip-steps{margin:0; padding-left:18px; font-size:13px; line-height:1.8;}
+  .tip-steps li{margin:8px 0;}
+
+  details.tip-details{
+    border:1px solid var(--bd);
+    border-radius:14px;
+    background:#fff;
+    padding:10px 12px;
+    margin-top:10px;
+  }
+  details.tip-details > summary{cursor:pointer; font-weight:900; color:var(--fg);}
+
+  /* language blocks */
+  [data-lang]{display:none;}
+  [data-lang].is-active{display:block;}
+
+  /* image placeholder */
+  .tip-figure{margin:10px 0 0;}
+  .tip-imgph{
+    border:1px dashed color-mix(in srgb, var(--bd) 75%, #0000);
+    border-radius:14px;
+    background:linear-gradient(180deg, #fff, var(--soft));
+    padding:14px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.6;
+  }
+
+  /* guard media blow-up */
+  .tip-page img,.tip-page svg{max-width:100%; height:auto;}
+</style>
+
+<div class="tip-page">
+  <div class="tip-wrap">
+
+    <!-- HERO -->
+    <section class="tip-hero">
+      <!-- EN -->
+      <div data-lang="en">
+        <h1 class="tip-title">Whiteout Survival Top-Up Guide (Self Top-Up)</h1>
+        <p class="tip-sub">
+          This page explains how Self Top-Up works and how you can redeem packs safely. (Some perks/rates may vary by region, event, or availability.)
+        </p>
+      </div>
+
+      <!-- KO -->
+      <div data-lang="ko">
+        <h1 class="tip-title">화이트아웃 서바이벌 충전 가이드 (셀프 충전)</h1>
+        <p class="tip-sub">
+          “어떻게 더 합리적으로 충전 가능한데?”를 한 번에 정리한 페이지예요. (혜택/비율/제공 여부는 지역·이벤트·상황에 따라 달라질 수 있어요.)
+        </p>
+      </div>
+
+      <!-- JA -->
+      <div data-lang="ja">
+        <h1 class="tip-title">Whiteout Survival チャージ手順（セルフトップアップ）</h1>
+        <p class="tip-sub">
+          セルフトップアップの仕組みと、パック交換までの流れをまとめました。（特典や比率は地域・イベント・提供状況で変動する場合があります）
+        </p>
+      </div>
+    </section>
+
+    <!-- WHY / BENEFITS -->
+    <section class="tip-panel">
+      <!-- EN -->
+      <div data-lang="en">
+        <h2 class="tip-h2">What you can get (quick summary)</h2>
+        <div class="tip-grid">
+          <div class="tip-card">
+            <h3 class="tip-h3">RootBar Redeem perks</h3>
+            <ul class="tip-list">
+              <li><b>Extra value:</b> up to <b>5%–8%</b> via redeem (rate may vary by event/region).</li>
+              <li><b>Free exchanges:</b> you may be able to redeem rewards equivalent to <b>$4.99–$49.99</b> using points/benefits (availability may vary).</li>
+            </ul>
+            <p class="tip-muted">Tip: Keep the link bookmarked so you don’t forget and end up topping up in-game out of habit.</p>
+          </div>
+
+          <div class="tip-card">
+            <h3 class="tip-h3">Realistic expectations</h3>
+            <ul class="tip-list">
+              <li>This is <b>optional</b>. It helps you save compared to in-game purchases, but it’s not required to play.</li>
+              <li>Some perks depend on <b>purchase history / VIP level / monthly offers</b>.</li>
+              <li>Always use official login (Google/Facebook) and avoid sharing passwords.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- KO -->
+      <div data-lang="ko">
+        <h2 class="tip-h2">한 줄 요약 (처음 온 사람용)</h2>
+        <div class="tip-grid">
+          <div class="tip-card">
+            <h3 class="tip-h3">RootBar 리딤 혜택</h3>
+            <ul class="tip-list">
+              <li><b>추가 혜택:</b> 리딤을 통해 <b>최대 5%~8%</b> 추가 이득(이벤트/지역/조건에 따라 변동).</li>
+              <li><b>무료 교환:</b> 포인트/혜택으로 <b>$4.99~$49.99</b> 구간 보상을 <b>교환(실질 무료)</b>할 수 있는 경우가 있음(제공 여부 변동).</li>
+            </ul>
+            <p class="tip-muted">팁: 링크를 즐겨찾기 해두면 “습관적으로 인게임 결제”하는 실수를 줄일 수 있어요.</p>
+          </div>
+
+          <div class="tip-card">
+            <h3 class="tip-h3">기대치 조절 (신뢰용)</h3>
+            <ul class="tip-list">
+              <li>이건 <b>선택 사항</b>이에요. 인게임보다 절약되는 경우가 많지만 필수는 아님.</li>
+              <li>일부 혜택은 <b>구매 실적 / VIP / 월간 프로모션</b>에 따라 달라질 수 있어요.</li>
+              <li>항상 <b>공식 로그인</b>만 사용하고 비밀번호 공유는 금지.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- JA -->
+      <div data-lang="ja">
+        <h2 class="tip-h2">まずは結論（初見向け）</h2>
+        <div class="tip-grid">
+          <div class="tip-card">
+            <h3 class="tip-h3">RootBar リディーム特典</h3>
+            <ul class="tip-list">
+              <li><b>追加メリット:</b> リディームで<b>最大5%～8%</b>相当の上乗せ（条件で変動）。</li>
+              <li><b>無料交換:</b> ポイント/特典で<b>$4.99～$49.99</b>相当を<b>交換（実質無料）</b>できる場合あり（提供状況で変動）。</li>
+            </ul>
+            <p class="tip-muted">コツ：リンクをブックマークして、ついゲーム内で課金してしまうのを防ぐ。</p>
+          </div>
+
+          <div class="tip-card">
+            <h3 class="tip-h3">期待値（信頼のため）</h3>
+            <ul class="tip-list">
+              <li>これは<b>任意</b>です。ゲーム内より節約できることが多いですが必須ではありません。</li>
+              <li>特典は<b>購入実績 / VIP / 月間オファー</b>で変わる場合があります。</li>
+              <li>必ず<b>公式ログイン</b>を使用し、パスワード共有はしないでください。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- A to Z TOP-UP GUIDE -->
+    <section class="tip-panel">
+      <!-- EN -->
+      <div data-lang="en">
+        <h2 class="tip-h2">A–Z: Self Top-Up (step-by-step)</h2>
+
+        <div class="tip-kv">
+          <div class="tip-k">Supported platform</div>
+          <div class="tip-v">Whiteout Survival (Mobile & PC)</div>
+
+          <div class="tip-k">Supported servers</div>
+          <div class="tip-v"><b>Global</b> servers</div>
+
+          <div class="tip-k">What you need</div>
+          <div class="tip-v">Log in to your game account → open in-game shop → redeem the pack you bought on the platform.</div>
+
+          <div class="tip-k">Result example</div>
+          <div class="tip-v">Buying a <b>$99.99 standard pack</b> gives the same value as the in-game <b>$99.99 pack</b>. You can exchange for any pack of the same price tier.</div>
+        </div>
+
+        <details class="tip-details" open>
+          <summary>Top-Up Procedure</summary>
+          <ol class="tip-steps">
+            <li>After purchasing a gift package, choose <b>Self Top-Up</b>.</li>
+            <li>Enter the game interface, log in, and open the <b>in-game shop</b>.</li>
+            <li>Check the pack information and redeem/claim the gift package.</li>
+            <li>Wait during redemption. <b>Do not close the page</b> or log in elsewhere while it’s processing.</li>
+            <li>When the top-up completes, you’ll receive a notification. Log in to confirm.</li>
+          </ol>
+          <p class="tip-muted">
+            Note: Apple ID top-up may not be supported in some cases. If your account is linked to Google/Facebook, use that login first for a smoother process.
+          </p>
+        </details>
+
+        <details class="tip-details">
+          <summary>Important Notes</summary>
+          <ul class="tip-list">
+            <li>Due to currency differences, bundle prices may display in <b>USD</b>. If you use another currency, switch the display currency to USD to compare tiers.</li>
+            <li>If you have issues with Self Top-Up, contact customer service with your account information.</li>
+          </ul>
+        </details>
+
+        <div class="tip-figure">
+          <div class="tip-imgph">
+            IMAGE PLACEHOLDER (optional)<br>
+            Example: “Redeem $99.99 pack in-game” screenshot goes here.<br>
+            Suggested path: <b>/assets/tips/topup/pack-9999.png</b>
+          </div>
+        </div>
+
+        <details class="tip-details">
+          <summary>About Whiteout Survival & Frost Stars (optional context)</summary>
+          <p class="tip-muted" style="margin:8px 0 0;">
+            Whiteout Survival is a survival strategy game set in a frozen apocalypse. Top-ups grant <b>Frost Stars</b>, a premium currency used for key resources, speedups, heroes, skins, and more.
+          </p>
+        </details>
+
+        <details class="tip-details">
+          <summary>About “All-in-One Packs” (optional context)</summary>
+          <p class="tip-muted" style="margin:8px 0 0;">
+            Event bundles often come in multiple price tiers. “All-in-One” summaries help estimate the total cost to unlock all rewards, and a standard pack tier can be exchanged for any in-game pack with the same value.
+          </p>
+        </details>
+      </div>
+
+      <!-- KO -->
+      <div data-lang="ko">
+        <h2 class="tip-h2">A–Z: 셀프 충전 가이드 (순서대로)</h2>
+
+        <div class="tip-kv">
+          <div class="tip-k">적용 플랫폼</div>
+          <div class="tip-v">화이트아웃 서바이벌 (모바일 & PC)</div>
+
+          <div class="tip-k">적용 서버</div>
+          <div class="tip-v"><b>글로벌 서버</b></div>
+
+          <div class="tip-k">충전을 위한 정보</div>
+          <div class="tip-v">셀프 충전으로 게임 계정 로그인 → 게임 내 상점에서 플랫폼에서 구매한 팩을 교환</div>
+
+          <div class="tip-k">충전 결과</div>
+          <div class="tip-v"><b>$99.99 스탠다드 팩</b>을 구매하면 게임 내 <b>$99.99 팩</b>과 동일한 가치입니다. 같은 가격대라면 원하는 팩으로 자유롭게 교환 가능.</div>
+        </div>
+
+        <details class="tip-details" open>
+          <summary>충전 절차</summary>
+          <ol class="tip-steps">
+            <li>선물 패키지 구매 후, <b>Self-TopUp(셀프 충전)</b> 방식을 선택합니다.</li>
+            <li>게임 인터페이스에 들어가 계정에 로그인 후 <b>게임 상점</b>으로 이동합니다.</li>
+            <li>구매/교환할 선물 패키지 정보를 확인하고 수령합니다. (종료 시 로그인 정보는 자동 삭제될 수 있음)</li>
+            <li>교환에는 대기 시간이 필요할 수 있습니다. 진행 중에는 <b>화면을 닫거나 다른 기기/위치에서 로그인하지 마세요.</b></li>
+            <li>완료 알림을 받으면 게임에 로그인해 잔액/수령 여부를 확인합니다.</li>
+          </ol>
+          <p class="tip-muted">
+            원활한 로그인을 위해 계정이 Google/Facebook에 연결되어 있으면 Google/Facebook 로그인을 우선 권장합니다.<br>
+            참고: 일부 환경에서는 Apple 계정 충전이 지원되지 않을 수 있습니다.
+          </p>
+        </details>
+
+        <details class="tip-details">
+          <summary>참고(중요)</summary>
+          <ul class="tip-list">
+            <li>통화 차이로 인해 번들 가격이 <b>USD</b>로 표시될 수 있습니다. USD가 아닌 통화를 사용하는 경우, 표시 통화를 USD로 전환해 가격대를 비교하세요.</li>
+            <li>셀프 충전에 문제가 있으면 계정 정보를 준비해 고객센터에 문의하세요.</li>
+          </ul>
+        </details>
+
+        <div class="tip-figure">
+          <div class="tip-imgph">
+            이미지 자리(선택)<br>
+            예: “게임 내 $99.99 팩 교환 화면” 스크린샷<br>
+            추천 경로: <b>/assets/tips/topup/pack-9999.png</b>
+          </div>
+        </div>
+
+        <details class="tip-details">
+          <summary>화이트아웃 서바이벌 / 프로스트 스타 소개 (맥락)</summary>
+          <p class="tip-muted" style="margin:8px 0 0;">
+            화이트아웃 서바이벌은 빙하 종말 테마의 생존 전략 게임입니다. 충전 시 게임 내 프리미엄 화폐인 <b>프로스트 스타</b>를 얻고,
+            자원/가속/영웅/스킨 등 다양한 아이템에 사용할 수 있습니다.
+          </p>
+        </details>
+
+        <details class="tip-details">
+          <summary>LootBar 올인원 팩(개요) (맥락)</summary>
+          <p class="tip-muted" style="margin:8px 0 0;">
+            이벤트 번들은 여러 가격 등급으로 제공되는 경우가 많고, 올인원 팩은 전체 보상 획득에 필요한 총 비용을 개요로 보여주는 형태입니다.
+            스탠다드 팩은 “같은 가치(같은 가격대)의 게임 내 팩”으로 교환 가능한 구조로 이해하면 됩니다.
+          </p>
+          <p class="tip-muted" style="margin:8px 0 0;">
+            p.s. “$9.99 스탠다드 팩”을 구매했다면 게임 내 어떤 $9.99 팩과도 동일한 가치로 교환 가능한 개념입니다.
+          </p>
+        </details>
+      </div>
+
+      <!-- JA -->
+      <div data-lang="ja">
+        <h2 class="tip-h2">A–Z：セルフトップアップ手順</h2>
+
+        <div class="tip-kv">
+          <div class="tip-k">対応プラットフォーム</div>
+          <div class="tip-v">Whiteout Survival（モバイル & PC）</div>
+
+          <div class="tip-k">対応サーバー</div>
+          <div class="tip-v"><b>グローバル</b>サーバー</div>
+
+          <div class="tip-k">必要なこと</div>
+          <div class="tip-v">セルフトップアップでゲームアカウントにログイン → ゲーム内ショップで購入済みパックを交換</div>
+
+          <div class="tip-k">結果の例</div>
+          <div class="tip-v"><b>$99.99</b>スタンダードパックはゲーム内の<b>$99.99</b>と同等価値。同価格帯のパックに交換可能です。</div>
+        </div>
+
+        <details class="tip-details" open>
+          <summary>チャージ手順</summary>
+          <ol class="tip-steps">
+            <li>ギフトパッケージ購入後、<b>Self Top-Up</b>を選択。</li>
+            <li>ゲーム画面に入り、ログインして<b>ゲーム内ショップ</b>へ。</li>
+            <li>交換したいパック情報を確認し、受け取ります。</li>
+            <li>交換には待ち時間が発生する場合があります。処理中は<b>画面を閉じたり他所でログインしない</b>でください。</li>
+            <li>完了通知後、ゲームにログインして反映を確認。</li>
+          </ol>
+          <p class="tip-muted">
+            可能ならGoogle/Facebook連携アカウントでのログインがスムーズです。<br>
+            ※環境によりApple IDチャージが非対応の場合があります。
+          </p>
+        </details>
+
+        <details class="tip-details">
+          <summary>注意点</summary>
+          <ul class="tip-list">
+            <li>通貨差により価格表示が<b>USD</b>になる場合があります。USD表示に切り替えて価格帯を比較してください。</li>
+            <li>問題がある場合は、アカウント情報を用意してサポートへ連絡。</li>
+          </ul>
+        </details>
+
+        <div class="tip-figure">
+          <div class="tip-imgph">
+            画像枠（任意）<br>
+            例：「ゲーム内 $99.99 パック交換」スクリーンショット<br>
+            推奨パス：<b>/assets/tips/topup/pack-9999.png</b>
+          </div>
+        </div>
+
+        <details class="tip-details">
+          <summary>Whiteout Survival / フロストスター（補足）</summary>
+          <p class="tip-muted" style="margin:8px 0 0;">
+            Whiteout Survivalは氷河終末をテーマにしたサバイバル戦略ゲーム。チャージで<b>フロストスター</b>を獲得し、
+            資源・スピードアップ・英雄・スキンなどに使えます。
+          </p>
+        </details>
+
+        <details class="tip-details">
+          <summary>All-in-One パック（補足）</summary>
+          <p class="tip-muted" style="margin:8px 0 0;">
+            イベントバンドルは価格帯が複数に分かれることがあります。All-in-Oneは必要総額の目安を見やすくまとめたもの。
+            スタンダードパックは同等価値（同価格帯）のゲーム内パックに交換できる考え方です。
+          </p>
+        </details>
+      </div>
+    </section>
+
+    <!-- OPTIONAL: HOW TO BUY ON LOOTBAR (kept short, SEO-friendly) -->
+    <section class="tip-panel">
+      <!-- EN -->
+      <div data-lang="en">
+        <h2 class="tip-h2">How to buy (website → self top-up)</h2>
+        <ol class="tip-steps">
+          <li>Go to the official site, choose language/currency, and log in.</li>
+          <li>Open the Whiteout Survival shop page in the Top-Up section.</li>
+          <li>Select the pack tier you want and proceed to payment.</li>
+          <li>After payment, choose <b>Self Top-Up</b> and follow the in-game exchange steps above.</li>
+        </ol>
+        <p class="tip-muted">Note: For convenience, this page shows pack tiers in <b>USD</b>.</p>
+      </div>
+
+      <!-- KO -->
+      <div data-lang="ko">
+        <h2 class="tip-h2">구매 흐름 (웹사이트 → 셀프 충전)</h2>
+        <ol class="tip-steps">
+          <li>공식 웹사이트 접속 후 언어/통화 설정 및 로그인</li>
+          <li>충전(Top-Up) 메뉴에서 화이트아웃 서바이벌 상점 페이지로 이동</li>
+          <li>원하는 팩 가격대를 선택하고 결제</li>
+          <li>결제 후 <b>Self-TopUp</b> 선택 → 위 “충전 절차”대로 게임 내에서 교환</li>
+        </ol>
+        <p class="tip-muted">편의상 이 페이지의 가격대 표기는 <b>USD 기준</b>으로 안내합니다.</p>
+      </div>
+
+      <!-- JA -->
+      <div data-lang="ja">
+        <h2 class="tip-h2">購入の流れ（サイト → セルフトップアップ）</h2>
+        <ol class="tip-steps">
+          <li>公式サイトで言語/通貨を選びログイン</li>
+          <li>Top-UpからWhiteout Survivalのショップへ</li>
+          <li>希望の価格帯パックを選んで決済</li>
+          <li>決済後<b>Self Top-Up</b>を選択し、上の手順でゲーム内交換</li>
+        </ol>
+        <p class="tip-muted">見やすさのため、このページは価格帯を<b>USD</b>基準で案内します。</p>
+      </div>
+    </section>
+
+  </div>
+</div>

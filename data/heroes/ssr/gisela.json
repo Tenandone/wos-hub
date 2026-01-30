@@ -1,0 +1,110 @@
+{
+  "slug": "gisela",
+  "name": "Gisela",
+  "rarity": "SSR",
+  "gen": 13,
+  "class": "Infantry",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s13/gisela/img/gisela.png",
+  "story": "The petite girl from Oestermore does not look like one of its foremost mechanical geniuses—youngest ever to be honored with the Craftsmaster title. Yet largely by the work of her hand has Oestermore been furnished with an array of newfangled weaponry: the so-called auto-turret, mech-guard, and pilotless flyer craft.\nFine as these inventions are, the finest yet may be Gisela's personal mini-shield—designed to do for the individual what great shields do for cities: protect Oestermorians from sword and musket fire. Trials are ongoing. The device is \"not entirely stable\".\n\nAll this is so much more impressive considering Gisela's small size and \"fountain of youth\" effect projected by her wrinkle-face. Gisela would much rather be taken seriously than dismissed for not looking like a typical gray-haired Craftmaster from Oestermore. The fastest way to offend Gisela is to talk down to her. And she is often offended.\nNecessity is the mother of invention and Gisela's need for more respect has led to the mech-arm. Want a few tons moved at short notice? Steel punched into shape? Overcome your fears and ask the scary-looking lady with the big shiny arms. Gisela is not a particularly violent person, far from it. Those who get to know her will recognize a truly gentle soul.\n\nTruthfully, there are plenty of reasons for Gisela to be happy about being underestimated: to be underestimated by an enemy is an incredible gift.\nBefore Gisela rose to Craftsmaster came the Bad Times. Phaethon's armies came like an avalanche. Oestermore's craftsmen, scientists, and engineers were placed into captivity. At the time, Gisela was glad not to be taken seriously by Phaethon's soldiers, was left to her own devices. With much of the city under lock and key, Phaethon had chosen not to dispose of the weapons piled near the city gates. Gisela immediately set to work under cover of night, building an army of turrets, distractions, and surprises to trigger at the right moment. Then with the Horn of Oestermore at her lips, Gisela struck, overwhelming camp guards and immediately arming the captives.\nPhaethon came prepared for a pitched battle, not guerrilla warfare in strange streets. Phaethon's force quickly collapsed and was driven out, leaving their precious equipment behind.\n\nToday Oestermore is a peaceful place, haunted not by Phaethon but whatever technical wizardry the crafters of tomorrow are cooking up—like the legend of \"Jumping Jack\" who has recently been terrifying and fascinating the City by leapfrogging towers in a single bound. Gisela's refusal to join in the investigation has also set tongues wagging.\nShe has her reasons. Fellow inventor Lloyd worked for years on a mechanical exo-suit to help his ailing father before finally turning to Gisela for help. The duo stitched the engineering marvel together with remarkably few issues. The largest was discovered by Lloyd as guinea pig: the exo-suit failed to respond to user inputs once it really got going, that is, jumping.\nLloyd miraculously survived uninjured once the suit lost power. News of the flying hunk of junk spread fast, sending Oestermore's rumor mill into overdrive. Gisela and Lloyd are very happy their secret is not yet out.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 16416,
+      "defense": 21400,
+      "health": 321012
+    },
+    "expedition": {
+      "attack_percent": "1621.29%",
+      "defense_percent": "1621.29%"
+    }
+  },
+  "sources": [
+    "Hall of Chiefs",
+    "King of Icefield",
+    "State of Power",
+    "Daily Deals",
+    "Hero Rally",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500501",
+      "name": "Superload",
+      "mode": "exploration",
+      "description": "Gisela overloads her mech-arms in Attack Mode for 5s, gaining 50 Energy and increasing Attack Speed by 20%/30%/40%/50%/60% and Defense by 50%/75%/100%/125%/150%.",
+      "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500501.png"
+    },
+    {
+      "id": "500502",
+      "name": "Steel Hammer",
+      "mode": "exploration",
+      "description": "Gisela smashes the target area with her mech-arms, dealing Attack*100%/110%/120%/130%/140% Area of Effect damage and gaining 25 Energy.",
+      "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500502.png"
+    },
+    {
+      "id": "500503",
+      "name": "Porta-Shield",
+      "mode": "exploration",
+      "description": "Gisela primes a mini-shield to activate on reaching 100 Energy with Attack*70%/100%/130%/160%/190% for 3s. Each Normal Attack gains her 3/6/9/12/15 Energy.",
+      "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500503.png"
+    },
+    {
+      "id": "500504",
+      "name": "Alloyed Defense",
+      "mode": "expedition",
+      "description": "Gisela's advanced tech increases Infantry Defense by 6%/12%/18%/24%/30%.",
+      "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500504.png"
+    },
+    {
+      "id": "500505",
+      "name": "Scavengeworks",
+      "mode": "expedition",
+      "description": "Infantry under Gisela's command have a 40% chance of increasing all Troops' Defense by 10%/20%/30%/40%/50% for 1 turn.",
+      "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500505.png"
+    },
+    {
+      "id": "500506",
+      "name": "Trial Shield",
+      "mode": "expedition",
+      "description": "Grants a 40% chance of reducing Damage Taken by 10%/20%/30%/40%/50% for all troops.",
+      "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500506.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 3325,
+        "def": 4338,
+        "health": 65070
+      },
+      "expedition": {
+        "lethality": "405.00%",
+        "health": "405.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Helacore",
+      "power": 2169000,
+      "image": "../assets/heroes/ssr/s13/gisela/img/equipment_icon_1050050.png",
+      "perks": [
+        {
+          "id": "500507",
+          "name": "Energy Efficiency",
+          "level": 5,
+          "description": "Grants an additional 15 Energy per Normal Attack and increases shield strength by Attack*190% on reaching 100 Energy.",
+          "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500507.png"
+        },
+        {
+          "id": "500508",
+          "name": "Auto-Target",
+          "level": 5,
+          "description": "Enhances Defender Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s13/gisela/img/hero_skill_icon_500508.png"
+        }
+      ]
+    }
+  }
+}

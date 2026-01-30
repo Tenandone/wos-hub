@@ -1,0 +1,106 @@
+{
+  "slug": "estrella",
+  "name": "Estrella",
+  "rarity": "SSR",
+  "gen": 15,
+  "class": "Lancer",
+  "subClass": "Combat",
+  "image": "../assets/heroes/ssr/s15/estrella/img/estrella.png",
+  "story": "As a child, Estrella often heard stories of the \"old world\" from the older folks in her town. In stark contrast to the endless snow-covered winter she knew, the world of the past had verdant forests and golden fields of wheat.\nThese tales prompted vivid dreams in which Estrella returned to that vibrant world to experience the blossoming of spring, the heat of summer, and the autumn harvest season—all sensations foreign to her frigid life in the real world. Estrella could never find the right words to express the beauty of her dreams, so she decided to paint them, hoping to share her spectacular visions with her entire town.\n\nEstrella's home was a mining town tucked away in the mountainside, rich with colorful minerals that she used as pigments for her paintings. Danger followed these riches, and when outlaws attacked her, Estrella discovered that her unstable mineral paints could burn or freeze enemies. She vowed to defend her homeland and continued refining her pigments. Estrella also cherishes her recurring dreams of a girl named Evelyn from the old world, believing the crystals beneath her town connect people across time and space.",
+  "description": null,
+  "stats": {
+    "exploration": {
+      "attack": 30812,
+      "defense": 30812,
+      "health": 308136
+    },
+    "expedition": {
+      "attack_percent": "1961.56%",
+      "defense_percent": "1961.56%"
+    }
+  },
+  "sources": [
+    "Lucky Wheel",
+    "Mythic General Hero Shard",
+    "Foundry Shop"
+  ],
+  "skills": [
+    {
+      "id": "500571",
+      "name": "Scorching Scarlet",
+      "mode": "exploration",
+      "description": "Splashes scorching scarlet paint, dealing Attack*200%/220%/240%/260%/280% AoE damage and reducing enemies' Attack by 5%/10%/15%/20%/25% for 2s.",
+      "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500571.png"
+    },
+    {
+      "id": "500572",
+      "name": "Molten Gold",
+      "mode": "exploration",
+      "description": "Splatters amber-yellow paint, dealing Attack*100%/110%/120%/130%/140% damage and inflicting Corrosion that deals Attack*2%/3%/4%/5%/6% damage every 0.5s for 4s.",
+      "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500572.png"
+    },
+    {
+      "id": "500573",
+      "name": "Midnight Blue",
+      "mode": "exploration",
+      "description": "Normal attacks reduce targets' Attack Speed by 10%/15%/20%/25%/30% for 2s.",
+      "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500573.png"
+    },
+    {
+      "id": "500574",
+      "name": "Corrosive Color",
+      "mode": "expedition",
+      "description": "Reduces the Defense of all enemy troops by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500574.png"
+    },
+    {
+      "id": "500575",
+      "name": "Dawn Canvas",
+      "mode": "expedition",
+      "description": "Increases all allied troops' Attack by 3%/6%/9%/12%/15% and Defense by 2%/4%/6%/8%/10%.",
+      "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500575.png"
+    },
+    {
+      "id": "500576",
+      "name": "Splendid Scene",
+      "mode": "expedition",
+      "description": "Reduces Infantry damage taken and increases Lancer damage dealt by 5%/10%/15%/20%/25%.",
+      "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500576.png"
+    }
+  ],
+  "talent": null,
+  "special": {
+    "stats": {
+      "exploration": {
+        "attack": 6246,
+        "def": 6246,
+        "health": 62460
+      },
+      "expedition": {
+        "lethality": "490.00%",
+        "health": "490.00%"
+      }
+    },
+    "exclusiveWeapon": {
+      "name": "Dreamscape Painting",
+      "power": 3123000,
+      "image": "../assets/heroes/ssr/s15/estrella/img/equipment_icon_1050057.png",
+      "perks": [
+        {
+          "id": "500577",
+          "name": "Color Burst",
+          "level": null,
+          "description": "Enemies stained with 2 colors at the same time take 30% more damage.",
+          "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500577.png"
+        },
+        {
+          "id": "500578",
+          "name": "Homeland Defense",
+          "level": null,
+          "description": "Increases Defender Troops' Attack by 15%.",
+          "icon": "../assets/heroes/ssr/s15/estrella/img/hero_skill_icon_500578.png"
+        }
+      ]
+    }
+  }
+}
