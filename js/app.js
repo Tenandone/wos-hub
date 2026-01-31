@@ -5,13 +5,13 @@
       /tools, /tools/building-calculator,
       /tips, /tips/xxx)
 
-   - ✅ GitHub Pages repo prefix supported for SPA NAV ONLY (pushState / href)
+   - ✅ GitHub Pages repo prefix 지원 (SPA NAV + RESOURCES)
+     * SPA 라우팅: withBase()
+     * 정적 리소스(/data,/assets,/i18n): withRes()
+
    - ✅ popstate 기반 뒤로/앞으로가기 지원
    - ✅ a[data-link] 유지 + (외부 모듈 링크 보호 위해) SPA 라우트에 한해 일반 <a>도 인터셉트
    - ✅ heroes.js / buildings.js / tips.js 등 외부 모듈 수정 없음
-   - ⚠️ 리소스 규칙 강제:
-       * fetch/img/json/assets에는 base(prefix) 절대 적용하지 않음
-       * 모든 리소스는 /data..., /assets..., /i18n... 절대경로로 가정
    ========================================================= */
 
 (() => {
@@ -20,7 +20,7 @@
   // =========================
   // 1) Config
   // =========================
-  // ✅ 고정 (자동 탐지 비활성화)
+  // ✅ 고정 (자동 탐지 비활성화) — 실제 값은 Boot에서 withRes()로 확정
   let DATA_BASE = "/data/buildings";        // buildings
   let DATA_BASE_HEROES = "/data/heroes";    // heroes
   const APP_SEL = "#app";
@@ -80,8 +80,9 @@
     return "";
   })();
 
-  // ✅ base(prefix)는 SPA 라우팅(href/pushState) 전용으로 제한
-  //    - /data, /assets, /i18n 리소스에는 절대 적용하지 않음
+  // =========================
+  // ✅ withBase(): SPA 라우팅 전용 (pushState / href)
+  // =========================
   function withBase(url) {
     const u = String(url ?? "");
     if (!u) return u;
@@ -100,15 +101,6 @@
     // normalize path-ish strings
     const norm = u.startsWith("/") ? u : ("/" + u.replace(/^\.?\//, ""));
 
-    // ✅ resources: NEVER prefix with repo base
-    if (
-      norm === "/data" || norm.startsWith("/data/") ||
-      norm === "/assets" || norm.startsWith("/assets/") ||
-      norm === "/i18n" || norm.startsWith("/i18n/")
-    ) {
-      return norm;
-    }
-
     // already prefixed
     if (WOS_BASE && norm.startsWith(WOS_BASE + "/")) return norm;
 
@@ -116,9 +108,39 @@
     return (WOS_BASE || "") + norm;
   }
 
+  // =========================
+  // ✅ withRes(): 정적 리소스(/data,/assets,/i18n) 전용
+  //   - GitHub Pages repo prefix에서도 리소스가 깨지지 않게 WOS_BASE를 붙임
+  // =========================
+  function withRes(url) {
+    const u = String(url ?? "");
+    if (!u) return u;
+
+    // keep absolute urls / data urls
+    if (
+      /^(https?:)?\/\//i.test(u) ||
+      u.startsWith("data:") ||
+      u.startsWith("blob:") ||
+      u.startsWith("mailto:") ||
+      u.startsWith("tel:")
+    ) {
+      return u;
+    }
+
+    // normalize
+    const norm = u.startsWith("/") ? u : ("/" + u.replace(/^\.?\//, ""));
+
+    // already prefixed
+    if (WOS_BASE && norm.startsWith(WOS_BASE + "/")) return norm;
+
+    // prefix always (WOS_BASE==""이면 그대로 "/..." 유지)
+    return (WOS_BASE || "") + norm;
+  }
+
   // expose for other modules
   window.WOS_BASE = WOS_BASE;
-  window.WOS_URL = withBase;
+  window.WOS_URL = withBase;   // SPA NAV
+  window.WOS_RES = withRes;    // RESOURCES
 
   // =========================
   // 2) Utils
@@ -159,9 +181,9 @@
     return withBase(p);
   }
 
-  // ✅ i18n basePath (resource path => NO base prefix)
+  // ✅ i18n basePath (resource path => withRes)
   function detectI18nBasePath() {
-    return "/i18n";
+    return withRes("/i18n");
   }
 
   // i18n helper: safe translate (works even if i18n not loaded yet)
@@ -216,7 +238,7 @@
     return "";
   }
 
-  // ✅ fetch URL은 항상 절대경로로 정규화 (base(prefix) 적용 금지)
+  // ✅ fetch URL은 "리소스 기준 절대"로 정규화 (repo prefix 포함)
   function toAbsResourceUrl(raw) {
     const s = String(raw ?? "");
     if (!s) return s;
@@ -231,12 +253,12 @@
       return s;
     }
 
-    // force absolute-from-origin
-    if (s.startsWith("/")) return s;
-    return "/" + s.replace(/^\.?\//, "");
+    // force absolute path, then prefix repo base
+    if (s.startsWith("/")) return withRes(s);
+    return withRes("/" + s.replace(/^\.?\//, ""));
   }
 
-  // Try multiple URLs, return parsed JSON (NO base prefix)
+  // Try multiple URLs, return parsed JSON
   async function fetchJSONTry(urls) {
     let lastErr = null;
     for (const raw of urls) {
@@ -252,7 +274,7 @@
     throw lastErr;
   }
 
-  // Try multiple URLs, return { data, usedUrl, attempted } (NO base prefix)
+  // Try multiple URLs, return { data, usedUrl, attempted }
   async function fetchJSONTryWithAttempts(urls) {
     const attempted = [];
     let lastErr = null;
@@ -373,13 +395,13 @@
     return list.slice(0, Math.min(count, list.length));
   }
 
-  // ✅ 자동 탐지 로직 비활성화 (고정값 반환)
+  // ✅ 자동 탐지 로직 비활성화 (고정값 반환) — repo prefix 포함
   async function detectDataBaseBuildings() {
-    return "/data/buildings";
+    return withRes("/data/buildings");
   }
 
   async function detectDataBaseHeroes() {
-    return "/data/heroes";
+    return withRes("/data/heroes");
   }
 
   // =========================
@@ -896,7 +918,7 @@
   }
 
   // =========================
-  // 6) Home data (latest uploads) — fixed path (NO env guessing)
+  // 6) Home data (latest uploads)
   // =========================
   async function loadLatestUploads() {
     const candidates = ["/data/home/latest.json"];
@@ -915,8 +937,6 @@
     const date = fmtDateLike(it?.date ?? it?.time ?? it?.updatedAt ?? it?.createdAt ?? "");
     let href = it?.href ?? it?.url ?? it?.link ?? it?.path ?? "";
 
-    // ✅ 스마트 추론 제거: kind/slug로 링크 생성하지 않음
-    // href가 SPA 경로로 해석되면 routeHref로 정규화, 아니면 홈으로
     const ap = href ? (toAppPathFromHref(href) || (href.startsWith("/") ? href : "")) : "";
     if (ap && isSpaPath(ap)) href = routeHref(ap);
     else href = routeHref("/");
@@ -925,7 +945,7 @@
   }
 
   // =========================
-  // 6.3) Tips data (home preview only) — fixed path (NO env guessing)
+  // 6.3) Tips data (home preview only)
   // =========================
   async function loadTipsIndex() {
     const candidates = ["/data/tips/index.json"];
@@ -943,7 +963,7 @@
   }
 
   // =========================
-  // 7) Routing (router() branches unchanged)
+  // 7) Routing
   // =========================
   async function router() {
     const path = getPath();
@@ -1017,7 +1037,7 @@
             <div class="wos-tiles">
               <a class="wos-tile wos-tile--img" href="${routeHref("/buildings")}" data-link>
                 <div class="wos-iconbox">
-                  <img src="${esc(withBase("/assets/buildings/furnace/firecrystal_img/furnace.png"))}" alt="Buildings" loading="lazy">
+                  <img src="${esc(withRes("/assets/buildings/furnace/firecrystal_img/furnace.png"))}" alt="Buildings" loading="lazy">
                 </div>
                 <div style="min-width:0;">
                   <div class="wos-tile-title" data-i18n="nav.buildings">${esc(t("nav.buildings") || "Buildings")}</div>
@@ -1026,7 +1046,7 @@
 
               <a class="wos-tile wos-tile--img" href="${routeHref("/heroes")}" data-link>
                 <div class="wos-iconbox">
-                  <img src="${esc(withBase("/assets/heroes/ssr/s1/jeronimo/img/jeronimo.png"))}" alt="Heroes" loading="lazy">
+                  <img src="${esc(withRes("/assets/heroes/ssr/s1/jeronimo/img/jeronimo.png"))}" alt="Heroes" loading="lazy">
                 </div>
                 <div style="min-width:0;">
                   <div class="wos-tile-title" data-i18n="nav.heroes">${esc(t("nav.heroes") || "Heroes")}</div>
@@ -1035,7 +1055,7 @@
 
               <a class="wos-tile wos-tile--img" href="${routeHref("/tools/building-calculator")}" data-link>
                 <div class="wos-iconbox">
-                  <img src="${esc(withBase("/assets/heroes/ssr/s1/zinman/img/zinman.png"))}" alt="Calculator" loading="lazy">
+                  <img src="${esc(withRes("/assets/heroes/ssr/s1/zinman/img/zinman.png"))}" alt="Calculator" loading="lazy">
                 </div>
                 <div style="min-width:0;">
                   <div class="wos-tile-title" data-i18n="nav.calculator">${esc(t("nav.calculator") || "Calculator")}</div>
@@ -1365,8 +1385,6 @@
     const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
     if (!view) return;
 
-    // ✅ DATA_BASE_HEROES is fixed already
-
     if (window.WOS_HEROES && typeof window.WOS_HEROES.renderList === "function") {
       try {
         const ret = await window.WOS_HEROES.renderList(view, {
@@ -1416,6 +1434,8 @@
         ${combined.map((h) => {
           const slug2 = String(h.slug ?? "");
           const rawTitle = h.title ?? h.name ?? slug2;
+
+          // ✅ FIXED: 문법오류 원인(\` ... \`) 제거 — 정상 템플릿리터럴 사용
           const title = tOpt(`heroes.${slug2}.namename`, rawTitle) || tOpt(`heroes.${slug2}.name`, rawTitle);
 
           const portrait = h.portrait ?? h.portraitSrc ?? h.image ?? "";
@@ -1430,7 +1450,7 @@
                href="${routeHref("/heroes/" + hrefSlug)}"
                style="flex-direction:column; align-items:stretch;">
               ${portrait
-                ? `<img src="${esc(withBase(portrait))}" alt="${esc(title)}"
+                ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(title)}"
                         style="width:100%;height:auto;border-radius:12px; border:1px solid var(--w-border);"
                         loading="lazy">`
                 : ""}
@@ -1575,7 +1595,7 @@
               return `
                 <div class="wos-panel" style="padding:12px;">
                   <div style="display:flex; gap:10px; align-items:center;">
-                    ${icon ? `<img src="${esc(withBase(icon))}" alt="${esc(st)}" style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">` : ""}
+                    ${icon ? `<img src="${esc(toAbsResourceUrl(icon))}" alt="${esc(st)}" style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">` : ""}
                     <div style="font-weight:900;">${esc(st)}</div>
                   </div>
                   ${sHtml ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${sHtml}</div>` : (sTxt ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${nl2br(sTxt)}</div>` : "")}
@@ -1595,7 +1615,7 @@
     view.innerHTML = `
       <div class="wos-panel">
         <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-          ${portrait ? `<img src="${esc(withBase(portrait))}" alt="${esc(title)}" style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">` : ""}
+          ${portrait ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(title)}" style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">` : ""}
           <div style="flex:1; min-width:260px;">
             <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">${esc(title)}</h2>
             <div class="wos-muted" style="font-size:13px;">
@@ -1659,6 +1679,7 @@
       go,
       router,
       withBase,
+      withRes,
       routeHref,
       waitForGlobal,
       i18n: () => window.WOS_I18N,
