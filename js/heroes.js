@@ -19,8 +19,17 @@
  *      - uses ctx.routeHref(...) for href (NO HASH)
  *      - uses data-link attr for app.js interception
  *      - back button uses ctx.go("/heroes")
- *  - Public API:
- *      window.WOS_HEROES = { renderList(rootEl, ctx), renderDetail(rootEl, slug, ctx) }
+ *  - Detail sections supported (matches your JSON):
+ *      - story / description
+ *      - stats.exploration (attack/defense/health)
+ *      - stats.expedition (attack_percent/defense_percent etc)
+ *      - sources (array)
+ *      - skills[] (mode: exploration|expedition)
+ *      - special.stats (exploration / expedition)
+ *      - special.exclusiveWeapon (name/power/image/perks[])
+ *
+ * Public API:
+ *   window.WOS_HEROES = { renderList(rootEl, ctx), renderDetail(rootEl, slug, ctx) }
  *
  * i18n:
  *  - ctx.t 우선, 없으면 window.WOS_I18N.t fallback
@@ -84,6 +93,18 @@
     });
   }
 
+  function isObj(v) {
+    return v && typeof v === "object" && !Array.isArray(v);
+  }
+
+  function fmtNum(v) {
+    if (v === null || v === undefined) return "";
+    var n = Number(v);
+    if (!isFinite(n)) return String(v);
+    // 천단위 콤마
+    try { return n.toLocaleString(); } catch (_) { return String(n); }
+  }
+
   // =========================
   // i18n
   // =========================
@@ -125,7 +146,30 @@
   // GitHub Pages-safe URL resolver
   //  - Always resolve relative to document.baseURI (repo-safe)
   //  - If ctx.withBase exists, trust it
+  //  - Fix "../assets/..." style paths -> "assets/..."
   // =========================
+  function normalizeAssetPath(p) {
+    var s = safeText(p).trim();
+    if (!s) return s;
+
+    // 절대 URL은 그대로
+    if (/^(https?:)?\/\//i.test(s)) return s;
+
+    // "../assets/..." or "../../assets/..." => "assets/..."
+    if (s.indexOf("../") === 0 && s.indexOf("assets/") !== -1) {
+      s = s.replace(/^(\.\.\/)+/g, "");
+    }
+
+    // "./assets/..." => "assets/..."
+    if (s.indexOf("./assets/") === 0) {
+      s = s.replace(/^\.\//, "");
+    }
+
+    // "/assets/..." stays
+    // "assets/..." stays
+    return s;
+  }
+
   function resolveUrlLocationRelative(path) {
     var p = String(path || "");
     if (!p) return p;
@@ -152,15 +196,18 @@
 
   function resolveImg(ctx, src) {
     if (!src) return src;
-    // ✅ IMG is a RESOURCE -> prefer WOS_RES if available (repo prefix safe)
-    if (typeof window.WOS_RES === "function") return window.WOS_RES(src);
-    // fallback: withBase if user provided (still ok in your split build)
-    if (ctx && typeof ctx.withBase === "function") return ctx.withBase(src);
-    return resolveUrlLocationRelative(src);
+    var fixed = normalizeAssetPath(src);
+
+    // ✅ IMG/ASSET: prefer WOS_RES if available (repo prefix safe)
+    if (typeof window.WOS_RES === "function") return window.WOS_RES(fixed);
+
+    // fallback: withBase if provided
+    if (ctx && typeof ctx.withBase === "function") return ctx.withBase(fixed);
+
+    return resolveUrlLocationRelative(fixed);
   }
 
   function resolveFetchUrl(ctx, path) {
-    // fetch MUST be location-based relative (repo-safe)
     if (ctx && typeof ctx.withBase === "function") {
       var r = ctx.withBase(path);
       if (r) return r;
@@ -169,7 +216,7 @@
   }
 
   // =========================
-  // Layout helpers (fixed columns)
+  // Layout helpers
   // =========================
   function centerStyle(maxWidth) {
     var mw = maxWidth || 1100;
@@ -211,6 +258,15 @@
     ]);
     if (id) section.id = id;
     return section;
+  }
+
+  function panelSection(title, contentNodes) {
+    var kids = Array.isArray(contentNodes) ? contentNodes : [contentNodes];
+    return el("section", { class: "section panel", style: "margin-top:14px;" }, [
+      el("div", { class: "panel-inner", style: "text-align:center;" }, [
+        title ? el("h2", { style: "margin:0 0 12px;text-align:center;" }, title) : null
+      ].concat(kids).filter(Boolean))
+    ]);
   }
 
   // =========================
@@ -295,7 +351,30 @@
   }
 
   // =========================
-  // Card + header helpers
+  // Text rendering
+  // =========================
+  function isProbablyHtml(s) {
+    var t = safeText(s);
+    return /<\/?[a-z][\s\S]*>/i.test(t);
+  }
+
+  function renderProseNode(content) {
+    if (!content) return null;
+
+    if (typeof content === "string" && isProbablyHtml(content)) {
+      return el("div", { class: "prose", html: String(content), style: "line-height:1.75;text-align:center;" });
+    }
+
+    var text = safeText(content);
+    return el("div", {
+      class: "prose",
+      html: escapeHtml(text),
+      style: "white-space:pre-wrap;line-height:1.75;text-align:center;"
+    });
+  }
+
+  // =========================
+  // Header helpers
   // =========================
   function resolveHeroTitleFromSlug(slug, _t) {
     var fallback = slug || "Hero";
@@ -303,11 +382,54 @@
     return tFirst(_t, ["heroes." + slug + ".name", "hero." + slug + ".name"], fallback);
   }
 
+  function renderHeroHeaderFromIndex(indexItem, heroJson, _t, ctx) {
+    var slug = indexItem ? indexItem.slug : (heroJson && heroJson.slug) || "";
+    var title = resolveHeroTitleFromSlug(slug, _t);
+
+    // detail image: prefer index image
+    var img = (indexItem && indexItem.image) ? indexItem.image : (heroJson && heroJson.image) ? heroJson.image : null;
+    var imgSrc = img ? resolveImg(ctx, img) : null;
+
+    var shortKeyA = "heroes." + slug + ".short";
+    var shortKeyB = "hero." + slug + ".short";
+    var shortI18n = tFirst(_t, [shortKeyA, shortKeyB], "");
+    var shortFallback = (heroJson && (heroJson.shortDescription || heroJson.description)) || "";
+    var shortDesc = shortI18n || shortFallback;
+
+    var shortNode = shortDesc
+      ? el("p", {
+          class: "muted small hero-shortdesc",
+          style: "text-align:center;max-width:820px;margin:10px auto 0;line-height:1.6;"
+        }, safeText(shortDesc))
+      : null;
+
+    return el("header", { class: "hero-header hero-header-card panel" }, [
+      el("div", { class: "panel-inner", style: "text-align:center;" }, [
+        imgSrc
+          ? el("div", { class: "hero-portrait-wrap", style: "display:flex;justify-content:center;margin:6px 0 10px;" }, [
+              el("img", {
+                class: "hero-portrait",
+                src: imgSrc,
+                alt: safeText(title),
+                loading: "lazy",
+                style: "display:block;margin:0 auto;border-radius:18px;max-height:340px;object-fit:contain;"
+              })
+            ])
+          : null,
+        el("h1", { class: "hero-name", style: "margin:8px 0 0;text-align:center;" }, safeText(title)),
+        shortNode
+      ].filter(Boolean))
+    ]);
+  }
+
+  // =========================
+  // List card
+  // =========================
   function cardForHeroIndex(item, _t, ctx) {
     var slug = item.slug;
     var title = resolveHeroTitleFromSlug(slug, _t);
 
-    // ✅ History Router (NO HASH): routeHref + data-link
+    // History Router (NO HASH)
     var href = (ctx && typeof ctx.routeHref === "function")
       ? ctx.routeHref("/heroes/" + encodeURIComponent(String(slug)))
       : "/heroes/" + encodeURIComponent(String(slug));
@@ -346,69 +468,92 @@
     ]);
   }
 
-  function renderHeroHeaderFromIndex(indexItem, heroJson, _t, ctx) {
-    var slug = indexItem ? indexItem.slug : (heroJson && heroJson.slug) || "";
-    var title = resolveHeroTitleFromSlug(slug, _t);
-
-    // detail image rule:
-    //  - prefer index.json.image
-    //  - fallback to hero.json.image if needed
-    var img = (indexItem && indexItem.image) ? indexItem.image : (heroJson && heroJson.image) ? heroJson.image : null;
-    var imgSrc = img ? resolveImg(ctx, img) : null;
-
-    var shortKeyA = "heroes." + slug + ".short";
-    var shortKeyB = "hero." + slug + ".short";
-    var shortI18n = tFirst(_t, [shortKeyA, shortKeyB], "");
-    var shortFallback = (heroJson && (heroJson.shortDescription || heroJson.description)) || "";
-    var shortDesc = shortI18n || shortFallback;
-
-    var shortNode = shortDesc
-      ? el("p", {
-          class: "muted small hero-shortdesc",
-          style: "text-align:center;max-width:820px;margin:10px auto 0;line-height:1.6;"
-        }, safeText(shortDesc))
-      : null;
-
-    return el("header", { class: "hero-header hero-header-card panel" }, [
-      el("div", { class: "panel-inner", style: "text-align:center;" }, [
-        imgSrc
-          ? el("div", { class: "hero-portrait-wrap", style: "display:flex;justify-content:center;margin:6px 0 10px;" }, [
-              el("img", {
-                class: "hero-portrait",
-                src: imgSrc,
-                alt: safeText(title),
-                loading: "lazy",
-                style: "display:block;margin:0 auto;border-radius:18px;max-height:340px;object-fit:contain;"
-              })
-            ])
-          : null,
-        el("h1", { class: "hero-name", style: "margin:8px 0 0;text-align:center;" }, safeText(title)),
-        shortNode
-      ].filter(Boolean))
-    ]);
-  }
-
   // =========================
-  // Story/Description (keep simple)
+  // Detail sections (YOUR JSON)
   // =========================
-  function isProbablyHtml(s) {
-    var t = safeText(s);
-    return /<\/?[a-z][\s\S]*>/i.test(t);
-  }
+  function renderQuickInfo(hero, _t) {
+    if (!hero) return null;
 
-  function renderProseNode(content) {
-    if (!content) return null;
+    var rarity = safeText(hero.rarity || hero.rarityDir || "").toUpperCase();
+    var season = (hero.season !== null && hero.season !== undefined) ? String(hero.season) : "";
+    var cls = safeText(hero.class || hero.heroClass || "");
+    var sub = safeText(hero.subClass || hero.subclass || hero.role || "");
 
-    if (typeof content === "string" && isProbablyHtml(content)) {
-      return el("div", { class: "prose", html: String(content), style: "line-height:1.75;text-align:center;" });
+    var rows = [];
+
+    if (rarity) rows.push(["Rarity", rarity]);
+    if (season) rows.push(["Gen", season]);
+    if (cls) rows.push(["Class", cls]);
+    if (sub) rows.push(["Type", sub]);
+
+    var sources = Array.isArray(hero.sources) ? hero.sources : null;
+    if (sources && sources.length) {
+      rows.push(["Sources", sources.join(", ")]);
     }
 
-    var text = safeText(content);
-    return el("div", {
-      class: "prose",
-      html: escapeHtml(text),
-      style: "white-space:pre-wrap;line-height:1.75;text-align:center;"
+    if (!rows.length) return null;
+
+    var table = el("table", { style: "width:100%;max-width:860px;margin:0 auto;border-collapse:separate;border-spacing:0 10px;" }, [
+      el("tbody", null, rows.map(function (r) {
+        return el("tr", null, [
+          el("td", { style: "text-align:right;vertical-align:top;padding:0 10px;color:var(--mut,#6b7280);font-weight:700;white-space:nowrap;width:140px;" }, r[0]),
+          el("td", { style: "text-align:left;vertical-align:top;padding:0 10px;font-weight:700;" }, r[1])
+        ]);
+      }))
+    ]);
+
+    return panelSection(_t("hero.section.info", "Info"), table);
+  }
+
+  function renderStatsTable(title, obj, labelMap) {
+    if (!isObj(obj)) return null;
+    var keys = Object.keys(obj);
+    if (!keys.length) return null;
+
+    var rows = keys.map(function (k) {
+      var label = (labelMap && labelMap[k]) ? labelMap[k] : k;
+      return el("tr", null, [
+        el("td", { style: "text-align:right;padding:8px 10px;color:var(--mut,#6b7280);font-weight:800;white-space:nowrap;width:180px;border-top:1px solid rgba(0,0,0,.06);" }, label),
+        el("td", { style: "text-align:left;padding:8px 10px;font-weight:800;border-top:1px solid rgba(0,0,0,.06);" }, fmtNum(obj[k]))
+      ]);
     });
+
+    var table = el("table", { style: "width:100%;max-width:860px;margin:0 auto;border-collapse:collapse;" }, [
+      el("tbody", null, rows)
+    ]);
+
+    return panelSection(title, table);
+  }
+
+  function renderStatsSection(hero, _t) {
+    var stats = hero && hero.stats;
+    if (!isObj(stats)) return null;
+
+    var exp = isObj(stats.exploration) ? stats.exploration : null;
+    var ed = isObj(stats.expedition) ? stats.expedition : null;
+
+    if (!exp && !ed) return null;
+
+    var labelExp = { attack: "Attack", defense: "Defense", def: "Defense", health: "Health" };
+
+    // 원정은 키가 다양하니까 그대로 보여주되 조금 보기 좋게 라벨만
+    var labelEd = {
+      attack_percent: "Attack",
+      defense_percent: "Defense",
+      health_percent: "Health",
+      lethality: "Lethality",
+      damage: "Damage",
+      dmg: "Damage"
+    };
+
+    var kids = [];
+    if (exp) kids.push(renderStatsTable(_t("hero.stats.exploration", "Exploration Stats"), exp, labelExp));
+    if (ed) kids.push(renderStatsTable(_t("hero.stats.expedition", "Expedition Stats"), ed, labelEd));
+
+    if (!kids.length) return null;
+
+    // kids 자체가 panelSection을 만들어서 중첩 panel 방지: wrapper만 제공
+    return el("div", null, kids);
   }
 
   function renderStorySection(hero, _t) {
@@ -432,12 +577,7 @@
     var prose = renderProseNode(raw);
     if (!prose) return null;
 
-    return el("section", { class: "section hero-story panel" }, [
-      el("div", { class: "panel-inner", style: "text-align:center;" }, [
-        el("h2", { style: "margin:0 0 12px;text-align:center;" }, _t("hero.section.story", "Story")),
-        prose
-      ])
-    ]);
+    return panelSection(_t("hero.section.story", "Story"), prose);
   }
 
   function renderDescriptionSection(hero, _t) {
@@ -445,7 +585,7 @@
     var htmlFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".description_html") : null;
     var txtFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".description") : null;
 
-    var html = htmlFromI18n || (hero && hero.descriptionHtml) || (hero && hero.descHtml) || null;
+    var html = htmlFromI18n || (hero && (hero.descriptionHtml || hero.descHtml)) || null;
     var txt = (!html ? (txtFromI18n || (hero && (hero.description || hero.desc)) || null) : null);
 
     if (!html && !txt) return null;
@@ -453,77 +593,121 @@
     var prose = renderProseNode(html || txt);
     if (!prose) return null;
 
-    return el("section", { class: "section hero-description panel" }, [
-      el("div", { class: "panel-inner", style: "text-align:center;" }, [
-        el("h2", { style: "margin:0 0 12px;text-align:center;" }, _t("hero.section.description", "Description")),
-        prose
-      ])
-    ]);
+    return panelSection(_t("hero.section.description", "Description"), prose);
   }
 
-  // =========================
-  // Skills ✅ (THIS fixes "only photo/name/story" issue)
-  // Supports:
-  //  - hero.skills: [{name/title, description/desc, descriptionHtml/descHtml, icon/image...}]
-  // i18n keys (optional):
-  //  - heroes.{slug}.skills.{i}.name
-  //  - heroes.{slug}.skills.{i}.description
-  //  - heroes.{slug}.skills.{i}.description_html
-  // =========================
   function renderSkillsSection(hero, _t, ctx) {
     var skills = (hero && Array.isArray(hero.skills)) ? hero.skills : null;
     if (!skills || !skills.length) return null;
 
-    var slug = (hero && (hero.slug || (hero.meta && hero.meta.slug))) || "";
-
-    var cards = [];
+    // mode grouping
+    var exp = [];
+    var ed = [];
     for (var i = 0; i < skills.length; i++) {
-      var sk = skills[i] || {};
-      var rawName = sk.title || sk.name || ("Skill " + String(i + 1));
-
-      var nameFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".skills." + i + ".name") : null;
-      var title = nameFromI18n || rawName;
-
-      var icon = sk.icon || sk.iconSrc || sk.image || sk.img || null;
-      var iconSrc = icon ? resolveImg(ctx, icon) : null;
-
-      var htmlFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".skills." + i + ".description_html") : null;
-      var txtFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".skills." + i + ".description") : null;
-
-      var html = htmlFromI18n || sk.descriptionHtml || sk.descHtml || null;
-      var txt = (!html ? (txtFromI18n || sk.description || sk.desc || "") : "");
-
-      var bodyNode = html
-        ? el("div", { class: "muted", html: String(html), style: "margin-top:10px;line-height:1.7;text-align:center;font-size:13px;" })
-        : (txt
-            ? el("div", { class: "muted", html: escapeHtml(String(txt)), style: "margin-top:10px;white-space:pre-wrap;line-height:1.7;text-align:center;font-size:13px;" })
-            : null);
-
-      cards.push(
-        el("div", { class: "panel hero-skill-card", style: "padding:12px;text-align:center;" }, [
-          el("div", { style: "display:flex;gap:10px;align-items:center;justify-content:center;" }, [
-            iconSrc ? el("img", { src: iconSrc, alt: safeText(title), loading: "lazy", style: "width:44px;height:44px;border-radius:12px;object-fit:cover;" }) : null,
-            el("div", { style: "font-weight:900;" }, safeText(title))
-          ].filter(Boolean)),
-          bodyNode
-        ].filter(Boolean))
-      );
+      var s = skills[i] || {};
+      var mode = safeText(s.mode || "").toLowerCase();
+      if (mode === "expedition") ed.push(s);
+      else exp.push(s); // default exploration
     }
 
-    return el("section", { class: "section hero-skills panel" }, [
-      el("div", { class: "panel-inner", style: "text-align:center;" }, [
-        el("h2", { style: "margin:0 0 12px;text-align:center;" }, _t("hero.section.skills", "Skills")),
-        el("div", {
+    function skillCard(sk) {
+      var name = sk.title || sk.name || "Skill";
+      var desc = sk.description || sk.desc || "";
+      var icon = sk.icon || sk.image || sk.img || null;
+
+      var iconSrc = icon ? resolveImg(ctx, icon) : null;
+
+      return el("div", { class: "panel hero-skill-card", style: "padding:12px;text-align:center;" }, [
+        el("div", { style: "display:flex;gap:10px;align-items:center;justify-content:center;" }, [
+          iconSrc ? el("img", { src: iconSrc, alt: safeText(name), loading: "lazy", style: "width:44px;height:44px;border-radius:12px;object-fit:cover;" }) : null,
+          el("div", { style: "font-weight:900;" }, safeText(name))
+        ].filter(Boolean)),
+        desc ? el("div", { class: "muted", html: escapeHtml(String(desc)), style: "margin-top:10px;white-space:pre-wrap;line-height:1.7;text-align:center;font-size:13px;" }) : null
+      ].filter(Boolean));
+    }
+
+    function gridOf(list) {
+      return el("div", {
+        style: [
+          "display:grid",
+          "grid-template-columns:repeat(auto-fit, minmax(240px, 1fr))",
+          "gap:12px",
+          "max-width:1200px",
+          "margin:0 auto"
+        ].join(";")
+      }, list.map(skillCard));
+    }
+
+    var kids = [];
+    if (exp.length) kids.push(panelSection(_t("hero.skills.exploration", "Exploration Skills"), gridOf(exp)));
+    if (ed.length) kids.push(panelSection(_t("hero.skills.expedition", "Expedition Skills"), gridOf(ed)));
+
+    return el("div", null, kids);
+  }
+
+  function renderSpecialSection(hero, _t, ctx) {
+    var sp = hero && hero.special;
+    if (!isObj(sp)) return null;
+
+    var nodes = [];
+
+    // special.stats
+    if (isObj(sp.stats)) {
+      var sExp = isObj(sp.stats.exploration) ? sp.stats.exploration : null;
+      var sEd = isObj(sp.stats.expedition) ? sp.stats.expedition : null;
+
+      if (sExp) nodes.push(renderStatsTable(_t("hero.special.exploration", "Special Exploration"), sExp, { attack: "Attack", defense: "Defense", def: "Defense", health: "Health" }));
+      if (sEd) nodes.push(renderStatsTable(_t("hero.special.expedition", "Special Expedition"), sEd, null));
+    }
+
+    // exclusiveWeapon
+    var ew = sp.exclusiveWeapon;
+    if (isObj(ew)) {
+      var ewName = safeText(ew.name) || _t("hero.exclusive_weapon", "Exclusive Weapon");
+      var ewPower = (ew.power !== null && ew.power !== undefined) ? fmtNum(ew.power) : "";
+      var ewImg = ew.image ? resolveImg(ctx, ew.image) : null;
+
+      var head = el("div", { style: "display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;" }, [
+        ewImg ? el("img", { src: ewImg, alt: ewName, loading: "lazy", style: "width:72px;height:72px;border-radius:16px;object-fit:cover;" }) : null,
+        el("div", { style: "text-align:center;" }, [
+          el("div", { style: "font-weight:1000;font-size:18px;" }, ewName),
+          ewPower ? el("div", { class: "muted", style: "margin-top:4px;font-weight:800;" }, "Power: " + ewPower) : null
+        ].filter(Boolean))
+      ]);
+
+      var perks = Array.isArray(ew.perks) ? ew.perks : [];
+      var perkGrid = null;
+
+      if (perks.length) {
+        perkGrid = el("div", {
           style: [
             "display:grid",
             "grid-template-columns:repeat(auto-fit, minmax(240px, 1fr))",
             "gap:12px",
             "max-width:1200px",
-            "margin:0 auto"
+            "margin:14px auto 0"
           ].join(";")
-        }, cards)
-      ])
-    ]);
+        }, perks.map(function (p) {
+          var pName = safeText(p.name) || "Perk";
+          var pLevel = (p.level !== null && p.level !== undefined) ? "Lv." + String(p.level) : "";
+          var pDesc = safeText(p.description) || "";
+          var pIcon = p.icon ? resolveImg(ctx, p.icon) : null;
+
+          return el("div", { class: "panel", style: "padding:12px;text-align:center;" }, [
+            el("div", { style: "display:flex;gap:10px;align-items:center;justify-content:center;" }, [
+              pIcon ? el("img", { src: pIcon, alt: pName, loading: "lazy", style: "width:44px;height:44px;border-radius:12px;object-fit:cover;" }) : null,
+              el("div", { style: "font-weight:1000;" }, pName + (pLevel ? " · " + pLevel : ""))
+            ].filter(Boolean)),
+            pDesc ? el("div", { class: "muted", html: escapeHtml(pDesc), style: "margin-top:10px;white-space:pre-wrap;line-height:1.7;font-size:13px;" }) : null
+          ].filter(Boolean));
+        }));
+      }
+
+      nodes.push(panelSection(_t("hero.section.exclusive_weapon", "Exclusive Weapon"), [head, perkGrid].filter(Boolean)));
+    }
+
+    if (!nodes.length) return null;
+    return el("div", null, nodes);
   }
 
   // =========================
@@ -662,7 +846,10 @@
 
     var goList = function () {
       if (ctx && typeof ctx.go === "function") ctx.go("/heroes");
-      else location.href = (ctx && typeof ctx.routeHref === "function") ? ctx.routeHref("/heroes") : "/heroes";
+      else {
+        var h = (ctx && typeof ctx.routeHref === "function") ? ctx.routeHref("/heroes") : "/heroes";
+        location.href = h;
+      }
     };
 
     if (!isValidSlug(sSlug)) {
@@ -700,7 +887,7 @@
       return loadHeroDetailByPath(ctx, found.path).then(function (heroJson) {
         var center = mountWithCenter(mount, "hero-detail-center", 2000);
 
-        // back (History Router friendly)
+        // back
         center.appendChild(el("div", { style: "text-align:center;" }, [
           el("button", {
             class: "btn back-link",
@@ -710,21 +897,34 @@
           }, _t("heroes.back", "← Back to Heroes"))
         ]));
 
+        // header
         center.appendChild(renderHeroHeaderFromIndex(found, heroJson, _t, ctx));
 
-        // ✅ description first (usually short)
+        // ✅ Info (rarity/gen/class/sources)
+        var info = renderQuickInfo(heroJson, _t);
+        if (info) center.appendChild(info);
+
+        // ✅ Stats
+        var stats = renderStatsSection(heroJson, _t);
+        if (stats) center.appendChild(stats);
+
+        // ✅ Description (if exists)
         var desc = renderDescriptionSection(heroJson, _t);
         if (desc) center.appendChild(desc);
 
-        // ✅ story
+        // ✅ Story
         var story = renderStorySection(heroJson, _t);
         if (story) center.appendChild(story);
 
-        // ✅ skills (fix)
+        // ✅ Skills (exploration/expedition)
         var skillsSec = renderSkillsSection(heroJson, _t, ctx);
         if (skillsSec) center.appendChild(skillsSec);
 
-        // ✅ apply i18n to inserted DOM if your engine supports apply(root)
+        // ✅ Special (special.stats + exclusiveWeapon + perks)
+        var specialSec = renderSpecialSection(heroJson, _t, ctx);
+        if (specialSec) center.appendChild(specialSec);
+
+        // i18n apply
         try {
           if (ctx && typeof ctx.applyI18n === "function") ctx.applyI18n(center);
           else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(center);
