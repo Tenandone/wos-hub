@@ -1,6 +1,13 @@
 /* =========================================================
-   WOS.GG - js/tips.js (MODULE) ✅ language-aware + multi-lang HTML
+   WOS.GG - js/tips.js (MODULE) ✅ FINAL (BASE-PREFIX SAFE)
    - window.WOS_TIPS
+   - ✅ GitHub Pages repo prefix / custom domain 지원:
+       * <meta name="wos-base" content="/repo"> 최우선
+       * <base href="/repo/"> 지원
+       * github.io 자동 감지(/<repo>)
+       * fetch/asset/html/json 경로 모두 withBase() 적용
+   - ✅ History Router 경로 사용 (NO HASH):
+       /tips , /tips/:slug
    - Data:
      - index:  data/tips/index.json   (supports {items:[...]} or [...])
      - detail:
@@ -38,6 +45,76 @@
 
   if (window.WOS_TIPS) return;
 
+  // =========================================================
+  // ✅ Base prefix helpers (GitHub Pages / custom domain safe)
+  // =========================================================
+  function normalizeBasePrefix(p) {
+    let s = String(p || "").trim();
+    if (!s || s === "/") return "";
+    if (!s.startsWith("/")) s = "/" + s;
+    s = s.replace(/\/+$/, "");
+    return s === "/" ? "" : s;
+  }
+
+  function detectBasePrefix() {
+    // 1) meta priority
+    try {
+      const meta = document.querySelector('meta[name="wos-base"]');
+      const c = meta && meta.getAttribute("content");
+      if (c && String(c).trim()) return normalizeBasePrefix(String(c).trim());
+    } catch (_) {}
+
+    // 2) <base href>
+    try {
+      const baseTag = document.querySelector("base[href]");
+      const href = baseTag && baseTag.getAttribute("href");
+      if (href && String(href).trim()) {
+        const u = new URL(href, location.origin);
+        return normalizeBasePrefix(u.pathname);
+      }
+    } catch (_) {}
+
+    // 3) github.io heuristic: /<repo>/...
+    try {
+      const host = String(location.hostname || "");
+      const path = String(location.pathname || "/");
+      if (host.endsWith("github.io")) {
+        const seg = path.split("/").filter(Boolean)[0];
+        if (seg) return normalizeBasePrefix("/" + seg);
+      }
+    } catch (_) {}
+
+    return "";
+  }
+
+  const __BASE_PREFIX__ = detectBasePrefix();
+
+  function withBase(path) {
+    const raw = String(path || "");
+    if (!raw) return raw;
+
+    // keep absolute urls/data/blob
+    if (/^(https?:)?\/\//i.test(raw)) return raw;
+    if (/^(data:|blob:)/i.test(raw)) return raw;
+
+    // normalize to absolute path
+    const p = raw.startsWith("/") ? raw : "/" + raw;
+
+    if (!__BASE_PREFIX__) return p;
+
+    // avoid double prefix
+    if (p === __BASE_PREFIX__ || p.startsWith(__BASE_PREFIX__ + "/")) return p;
+
+    return __BASE_PREFIX__ + p;
+  }
+
+  function mapWithBase(arr) {
+    return (arr || []).map((u) => withBase(u));
+  }
+
+  // =========================================================
+  // Index candidates (base prefix will be applied at fetch time)
+  // =========================================================
   const INDEX_CANDIDATES = [
     "data/tips/index.json",
     "page/data/tips/index.json",
@@ -51,7 +128,6 @@
   function pickLang(v) {
     const s = String(v || "").toLowerCase();
     if (s === "en" || s === "ko" || s === "ja") return s;
-    // handle "en-US", "ko-KR"
     if (s.startsWith("en")) return "en";
     if (s.startsWith("ko")) return "ko";
     if (s.startsWith("ja")) return "ja";
@@ -226,7 +302,8 @@
   }
 
   async function loadIndex(fetchJSONTryWithAttempts) {
-    const r = await fetchJSONTryWithAttempts(INDEX_CANDIDATES);
+    // ✅ 후보 경로에 base prefix 적용해서 전달
+    const r = await fetchJSONTryWithAttempts(mapWithBase(INDEX_CANDIDATES));
     return onlyPublished(normalizeIndex(r.data));
   }
 
@@ -273,10 +350,12 @@
   async function tryFetchTextFirstOk(urls) {
     for (const url of urls) {
       try {
-        const res = await fetch(url, { cache: "no-cache" });
+        // ✅ base prefix 안전하게 적용
+        const u = withBase(url);
+        const res = await fetch(u, { cache: "no-store" });
         if (res && res.ok) {
           const txt = await res.text();
-          if (typeof txt === "string") return { ok: true, url, text: txt };
+          if (typeof txt === "string") return { ok: true, url: u, text: txt };
         }
       } catch (_) {}
     }
@@ -289,12 +368,6 @@
     const enc = encodeURIComponent(s);
     const l = pickLang(lang);
 
-    // Supported patterns:
-    // - items/{slug}.{lang}.html
-    // - items/{slug}-{lang}.html
-    // - items/{lang}/{slug}.html
-    // - items/{slug}.html
-    // (same set for /data, /page/data, etc)
     const variants = [
       // items preferred
       `data/tips/items/${s}.${l}.html`,
@@ -373,7 +446,6 @@
       `/page/data/tips/${enc}.html`,
     ];
 
-    // De-dup
     const seen = new Set();
     return variants.filter((u) => {
       if (seen.has(u)) return false;
@@ -390,25 +462,18 @@
     let html = String(rawHtml || "");
     if (!html.trim()) return "";
 
-    // Parse as document; handle both full HTML docs and fragments
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
-
-    // prefer <body> content if exists; else wrap fragment
     const container = doc.body || doc.documentElement;
 
-    // If no language blocks exist, return original fragment/body
     const hasLangBlocks = container.querySelector("[data-lang], [lang]");
     if (!hasLangBlocks) {
-      // If it was a full doc, return body innerHTML; otherwise return raw
       return (doc.body && doc.body.innerHTML && doc.body.innerHTML.trim()) ? doc.body.innerHTML : html;
     }
 
-    // Find best match
-    const pickNodes = (code) => {
-      const nodes = Array.from(container.querySelectorAll(`[data-lang="${code}"], [lang="${code}"]`));
-      return nodes;
-    };
+    const pickNodes = (code) => Array.from(
+      container.querySelectorAll(`[data-lang="${code}"], [lang="${code}"]`)
+    );
 
     let chosen = [];
     for (const code of fallbackOrder) {
@@ -419,13 +484,11 @@
       }
     }
 
-    // If still none, choose first available lang block(s)
     if (!chosen.length) {
       const any = Array.from(container.querySelectorAll("[data-lang], [lang]"));
       if (any.length) chosen = [any[0]];
     }
 
-    // Build combined HTML; remove script tags inside chosen blocks (keeps content safe/clean)
     const tmp = doc.createElement("div");
     chosen.forEach((n) => {
       const clone = n.cloneNode(true);
@@ -457,7 +520,7 @@
       };
     }
 
-    // 2) JSON fallback (original)
+    // 2) JSON fallback
     const candidates = [
       `data/tips/${s}.json`,
       `page/data/tips/${s}.json`,
@@ -478,7 +541,8 @@
       `/page/data/tips/items/${enc}.json`,
     ];
 
-    const r = await fetchJSONTryWithAttempts(candidates);
+    // ✅ 후보 경로에 base prefix 적용해서 전달
+    const r = await fetchJSONTryWithAttempts(mapWithBase(candidates));
     return r.data;
   }
 
@@ -488,7 +552,7 @@
   function bindTipCardNav(rootEl, go) {
     rootEl.querySelectorAll("[data-tip]").forEach((el) => {
       const slug = el.getAttribute("data-tip") || "";
-      const to = `/tips/${slug}`;
+      const to = `/tips/${encodeURIComponent(slug)}`;
       const on = () => go(to);
 
       el.addEventListener("click", on);
@@ -530,7 +594,7 @@
             <h2 style="margin:0 0 6px;">${esc(getText("homeTitle"))}</h2>
             <div class="wos-muted" style="font-size:13px;">${esc(getText("homeSub"))}</div>
           </div>
-          <a class="wos-btn" href="#/tips" data-link>${esc(getText("homeBtn"))}</a>
+          <a class="wos-btn" href="/tips" data-link>${esc(getText("homeBtn"))}</a>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;" data-area="cards"></div>
       </div>
@@ -541,7 +605,7 @@
             <h2 style="margin:0 0 6px;">${esc(getText("pinnedTitle"))}</h2>
             <div class="wos-muted" style="font-size:13px;">${esc(getText("pinnedSub"))}</div>
           </div>
-          <a class="wos-btn" href="#/tips" data-link>${esc(getText("pinnedBtn"))}</a>
+          <a class="wos-btn" href="/tips" data-link>${esc(getText("pinnedBtn"))}</a>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;" data-area="cards"></div>
       </div>
@@ -619,12 +683,11 @@
 
           const title = getLocalizedField(it?.title ?? it?.name ?? slug, "Untitled");
           const desc = getLocalizedField(it?.summary ?? it?.desc ?? it?.description ?? "", "");
-
           const date = getLocalizedField(it?.date ?? "", "");
           const badge = isPackageItem(it) ? "PACKAGE" : "TIP";
 
           return `
-            <a class="wos-item" href="#/tips/${esc(hrefSlug)}" data-link style="flex-direction:column; gap:8px;">
+            <a class="wos-item" href="/tips/${esc(hrefSlug)}" data-link style="flex-direction:column; gap:8px;">
               <div class="wos-badge">${esc(badge)}</div>
               <div class="wos-item-title">${esc(clampStr(title, 70))}</div>
               ${desc ? `<div class="wos-muted" style="font-size:13px;">${esc(clampStr(desc, 120))}</div>` : ""}
@@ -718,7 +781,7 @@
               <h2 style="margin:0;">${esc(getText("tipsTitle"))}</h2>
               <div class="wos-muted" style="font-size:13px; margin-top:6px;">${esc(String(slug))}</div>
             </div>
-            <a class="wos-btn" href="#/tips" data-link>${esc(getText("back"))}</a>
+            <a class="wos-btn" href="/tips" data-link>${esc(getText("back"))}</a>
           </div>
           <div class="wos-muted" style="font-size:13px; line-height:1.65;">
             ${esc(getText("empty"))}<br>
@@ -746,7 +809,7 @@
               tips/${esc(String(slug))}${tip?.__source ? ` · ${esc(String(tip.__source))}` : ""}
             </div>
           </div>
-          <a class="wos-btn" href="#/tips" data-link>${esc(getText("back"))}</a>
+          <a class="wos-btn" href="/tips" data-link>${esc(getText("back"))}</a>
         </div>
 
         ${
@@ -759,6 +822,7 @@
       </div>
     `;
 
+    // ✅ back button: history router로 이동
     const back = appEl.querySelector('a[data-link]');
     if (back) {
       back.addEventListener("click", (e) => {
