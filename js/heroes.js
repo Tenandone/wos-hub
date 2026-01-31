@@ -25,6 +25,7 @@
  *      - stats.expedition (attack_percent/defense_percent etc)
  *      - sources (array)
  *      - skills[] (mode: exploration|expedition)
+ *      - ✅ talent[] (ONLY render when exists & length > 0)
  *      - special.stats (exploration / expedition)
  *      - special.exclusiveWeapon (name/power/image/perks[])
  *
@@ -101,7 +102,6 @@
     if (v === null || v === undefined) return "";
     var n = Number(v);
     if (!isFinite(n)) return String(v);
-    // 천단위 콤마
     try { return n.toLocaleString(); } catch (_) { return String(n); }
   }
 
@@ -152,21 +152,16 @@
     var s = safeText(p).trim();
     if (!s) return s;
 
-    // 절대 URL은 그대로
     if (/^(https?:)?\/\//i.test(s)) return s;
 
-    // "../assets/..." or "../../assets/..." => "assets/..."
     if (s.indexOf("../") === 0 && s.indexOf("assets/") !== -1) {
       s = s.replace(/^(\.\.\/)+/g, "");
     }
 
-    // "./assets/..." => "assets/..."
     if (s.indexOf("./assets/") === 0) {
       s = s.replace(/^\.\//, "");
     }
 
-    // "/assets/..." stays
-    // "assets/..." stays
     return s;
   }
 
@@ -178,9 +173,9 @@
 
     if (p.charAt(0) === "/") {
       try {
-        var base = document.baseURI; // e.g. https://host/REPO/index.html
+        var base = document.baseURI;
         var u = new URL(base);
-        var repoPrefix = u.pathname.replace(/[^\/]*$/, ""); // directory of baseURI
+        var repoPrefix = u.pathname.replace(/[^\/]*$/, "");
         return u.origin + repoPrefix + p.slice(1);
       } catch (e) {
         return p;
@@ -463,7 +458,7 @@
           })
         : null,
       el("div", { class: "card-body", style: "margin-top:10px;" }, [
-        el("div", { class: "card-title", style: "font-weight:800;" }, clampStr(title, 60))
+        el("div", { class: "card-title", style: "font-weight:800;" }, (typeof ctx?.clampStr === "function" ? ctx.clampStr(title, 60) : title))
       ])
     ]);
   }
@@ -536,7 +531,6 @@
 
     var labelExp = { attack: "Attack", defense: "Defense", def: "Defense", health: "Health" };
 
-    // 원정은 키가 다양하니까 그대로 보여주되 조금 보기 좋게 라벨만
     var labelEd = {
       attack_percent: "Attack",
       defense_percent: "Defense",
@@ -552,7 +546,6 @@
 
     if (!kids.length) return null;
 
-    // kids 자체가 panelSection을 만들어서 중첩 panel 방지: wrapper만 제공
     return el("div", null, kids);
   }
 
@@ -600,14 +593,13 @@
     var skills = (hero && Array.isArray(hero.skills)) ? hero.skills : null;
     if (!skills || !skills.length) return null;
 
-    // mode grouping
     var exp = [];
     var ed = [];
     for (var i = 0; i < skills.length; i++) {
       var s = skills[i] || {};
       var mode = safeText(s.mode || "").toLowerCase();
       if (mode === "expedition") ed.push(s);
-      else exp.push(s); // default exploration
+      else exp.push(s);
     }
 
     function skillCard(sk) {
@@ -645,13 +637,56 @@
     return el("div", null, kids);
   }
 
+  // =========================
+  // ✅ Talent section (HIDE if none)
+  // =========================
+  function renderTalentSection(hero, _t, ctx) {
+    if (!hero) return null;
+
+    // user rule: talent 없는 영웅은 숨김
+    var talent = null;
+
+    if (Array.isArray(hero.talent)) talent = hero.talent;
+    else if (Array.isArray(hero.talents)) talent = hero.talents;
+    else if (hero.talent && Array.isArray(hero.talent.items)) talent = hero.talent.items;
+
+    if (!talent || !talent.length) return null;
+
+    function talentCard(tl) {
+      var name = tl.title || tl.name || "Talent";
+      var desc = tl.description || tl.desc || "";
+      var icon = tl.icon || tl.image || tl.img || null;
+
+      var iconSrc = icon ? resolveImg(ctx, icon) : null;
+
+      return el("div", { class: "panel hero-talent-card", style: "padding:12px;text-align:center;" }, [
+        el("div", { style: "display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;" }, [
+          iconSrc ? el("img", { src: iconSrc, alt: safeText(name), loading: "lazy", style: "width:44px;height:44px;border-radius:12px;object-fit:cover;" }) : null,
+          el("div", { style: "font-weight:1000;" }, safeText(name))
+        ].filter(Boolean)),
+        desc ? el("div", { class: "muted", html: escapeHtml(String(desc)), style: "margin-top:10px;white-space:pre-wrap;line-height:1.7;text-align:center;font-size:13px;" }) : null
+      ].filter(Boolean));
+    }
+
+    var grid = el("div", {
+      style: [
+        "display:grid",
+        "grid-template-columns:repeat(auto-fit, minmax(240px, 1fr))",
+        "gap:12px",
+        "max-width:1200px",
+        "margin:0 auto"
+      ].join(";")
+    }, talent.map(talentCard));
+
+    return panelSection(_t("hero.section.talent", "Talent"), grid);
+  }
+
   function renderSpecialSection(hero, _t, ctx) {
     var sp = hero && hero.special;
     if (!isObj(sp)) return null;
 
     var nodes = [];
 
-    // special.stats
     if (isObj(sp.stats)) {
       var sExp = isObj(sp.stats.exploration) ? sp.stats.exploration : null;
       var sEd = isObj(sp.stats.expedition) ? sp.stats.expedition : null;
@@ -660,7 +695,6 @@
       if (sEd) nodes.push(renderStatsTable(_t("hero.special.expedition", "Special Expedition"), sEd, null));
     }
 
-    // exclusiveWeapon
     var ew = sp.exclusiveWeapon;
     if (isObj(ew)) {
       var ewName = safeText(ew.name) || _t("hero.exclusive_weapon", "Exclusive Weapon");
@@ -900,27 +934,31 @@
         // header
         center.appendChild(renderHeroHeaderFromIndex(found, heroJson, _t, ctx));
 
-        // ✅ Info (rarity/gen/class/sources)
+        // Info (rarity/gen/class/sources)
         var info = renderQuickInfo(heroJson, _t);
         if (info) center.appendChild(info);
 
-        // ✅ Stats
+        // Stats
         var stats = renderStatsSection(heroJson, _t);
         if (stats) center.appendChild(stats);
 
-        // ✅ Description (if exists)
+        // Description
         var desc = renderDescriptionSection(heroJson, _t);
         if (desc) center.appendChild(desc);
 
-        // ✅ Story
+        // Story
         var story = renderStorySection(heroJson, _t);
         if (story) center.appendChild(story);
 
-        // ✅ Skills (exploration/expedition)
+        // Skills
         var skillsSec = renderSkillsSection(heroJson, _t, ctx);
         if (skillsSec) center.appendChild(skillsSec);
 
-        // ✅ Special (special.stats + exclusiveWeapon + perks)
+        // ✅ Talent (ONLY if exists)
+        var talentSec = renderTalentSection(heroJson, _t, ctx);
+        if (talentSec) center.appendChild(talentSec);
+
+        // Special
         var specialSec = renderSpecialSection(heroJson, _t, ctx);
         if (specialSec) center.appendChild(specialSec);
 

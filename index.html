@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ✅ 커스텀 도메인(루트) + History Router 안정화 핵심 -->
+  <base href="/" />
+
   <title>WOS HUB – Whiteout Survival Tools & Data</title>
 
   <!-- SEO -->
@@ -10,14 +14,16 @@
   <meta name="keywords" content="Whiteout Survival, WOS, Whiteout Survival calculator, hero data, building data, WOS tools, WOS guide" />
   <meta name="robots" content="index, follow" />
 
-  <!-- Open Graph -->
+  <!-- Canonical / OG (커스텀 도메인 기준) -->
+  <link rel="canonical" href="https://woshub.net/" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="WOS HUB – Whiteout Survival Tools & Data" />
   <meta property="og:description" content="Tools, calculators, and data hub for Whiteout Survival players." />
   <meta property="og:site_name" content="WOS HUB" />
+  <meta property="og:url" content="https://woshub.net/" />
 
-  <!-- ✅ relative paths (GitHub Pages / custom domain 모두 OK) -->
-  <link rel="stylesheet" href="./css/app.css" />
+  <!-- ✅ 절대경로로 통일 (깊은 라우트 새로고침 안전) -->
+  <link rel="stylesheet" href="/css/app.css" />
 </head>
 
 <body>
@@ -33,8 +39,8 @@
         data-i18n-aria-label="aria.open_menu"
       >☰</button>
 
-      <!-- ✅ 핵심: Home은 "/" 금지. 상대경로 + data-link -->
-      <a class="wos-brand" href="./" data-link data-i18n="brand.name">WosHub</a>
+      <!-- ✅ Home: 커스텀 도메인에서는 "/" OK + data-link -->
+      <a class="wos-brand" href="/" data-link data-i18n="brand.name">WosHub</a>
 
       <div class="wos-desktop-only wos-langbar">
         <button
@@ -99,35 +105,34 @@
       <button class="wos-drawer-link" type="button" data-lang="ja" data-lang-link="ja">🇯🇵 JA</button>
     </div>
 
-    <!-- ✅ 내부 라우트: 전부 상대경로 + data-link -->
-    <a class="wos-drawer-link" data-nav data-link href="./" data-i18n="nav.home">Home</a>
-    <a class="wos-drawer-link" data-nav data-link href="./buildings" data-i18n="nav.buildings">Buildings</a>
-    <a class="wos-drawer-link" data-nav data-link href="./heroes" data-i18n="nav.heroes">Heroes</a>
+    <!-- ✅ 내부 라우트: 전부 절대경로 + data-link -->
+    <a class="wos-drawer-link" data-nav data-link href="/" data-i18n="nav.home">Home</a>
+    <a class="wos-drawer-link" data-nav data-link href="/buildings" data-i18n="nav.buildings">Buildings</a>
+    <a class="wos-drawer-link" data-nav data-link href="/heroes" data-i18n="nav.heroes">Heroes</a>
 
-    <!-- ⚠️ app.js에 /coupons 라우팅이 없으면 404/무반응 날 수 있음.
-         쿠폰 라우트가 app.js에 이미 있다면 아래 유지, 없다면 app.js에 라우트 추가하거나 링크를 빼야 함. -->
-    <a class="wos-drawer-link" data-nav data-link href="./coupons" data-i18n="nav.coupons">Coupons</a>
+    <!-- ✅ 쿠폰을 살릴 거면 app.js에 /coupons 라우트도 반드시 있어야 함 (아래 패치 참고) -->
+    <a class="wos-drawer-link" data-nav data-link href="/coupons" data-i18n="nav.coupons">Coupons</a>
 
-    <a class="wos-drawer-link" data-nav data-link href="./tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
-    <a class="wos-drawer-link" data-nav data-link href="./tips" data-i18n="nav.tips">Tips</a>
+    <a class="wos-drawer-link" data-nav data-link href="/tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
+    <a class="wos-drawer-link" data-nav data-link href="/tips" data-i18n="nav.tips">Tips</a>
   </nav>
 
   <main id="app" class="wos-app"></main>
 
   <footer class="site-footer">
     <div class="site-footer-inner">
-      <a href="./about.html" data-i18n="footer.about">About</a>
+      <a href="/about.html" data-i18n="footer.about">About</a>
     </div>
   </footer>
 
-  <!-- ✅ relative scripts -->
-  <script defer src="./js/i18n.js"></script>
-  <script defer src="./js/buildings.js"></script>
-  <script defer src="./js/heroes.js"></script>
-  <script defer src="./js/calculator.js"></script>
-  <script defer src="./js/building-calculator.js"></script>
-  <script defer src="./js/tips.js"></script>
-  <script defer src="./js/coupons.js"></script>
-  <script defer src="./js/app.js"></script>
+  <!-- ✅ 절대경로 scripts (깊은 라우트 새로고침 안전) -->
+  <script defer src="/js/i18n.js"></script>
+  <script defer src="/js/buildings.js"></script>
+  <script defer src="/js/heroes.js"></script>
+  <script defer src="/js/calculator.js"></script>
+  <script defer src="/js/building-calculator.js"></script>
+  <script defer src="/js/tips.js"></script>
+  <script defer src="/js/coupons.js"></script>
+  <script defer src="/js/app.js"></script>
 </body>
 </html>

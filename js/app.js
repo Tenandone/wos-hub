@@ -22,17 +22,30 @@
   // =========================
   let DATA_BASE = "/data/buildings";
   let DATA_BASE_HEROES = "/data/heroes";
+
   const APP_SEL = "#app";
   const BUILDING_CALC_KEY = "furnace";
   const SHELL_MARKER = "data-wos-shell-mounted";
   const SITE_NAME = "WosHub";
 
   // =========================
-  // ✅ GitHub Pages base prefix helper (History Router safe)
+  // 2) GitHub Pages base prefix helper (History Router safe)
   //   - DO NOT derive from location.pathname (it changes per route)
-  //   - Prefer <base href>, then currentScript src
+  //   - Prefer <meta name="wos-base">, then <base href>, then script src
   // =========================
   const WOS_BASE = (() => {
+    // 0) <meta name="wos-base" content="/repo">
+    try {
+      const meta = document.querySelector('meta[name="wos-base"][content]');
+      if (meta) {
+        let p = String(meta.getAttribute("content") || "").trim();
+        if (!p) return "";
+        if (!p.startsWith("/")) p = "/" + p.replace(/^\.?\//, "");
+        p = p.replace(/\/+$/, "");
+        return p === "/" ? "" : p;
+      }
+    } catch (_) {}
+
     // 1) <base href="...">
     try {
       const baseEl = document.querySelector("base[href]");
@@ -41,30 +54,44 @@
         const u = new URL(href, location.href);
         let p = String(u.pathname || "/");
         p = p.replace(/\/index\.html?$/i, "");
-        if (p.endsWith("/")) p = p.slice(0, -1);
-        return p; // "" or "/repo"
+        p = p.replace(/\/+$/, "");
+        return p === "/" ? "" : p; // "" or "/repo"
       }
     } catch (_) {}
 
     // 2) currentScript src before "/js/"
     try {
+      // currentScript can be null in some loading patterns -> fallback to document.scripts
+      let src = "";
       const cs = document.currentScript;
-      const src = cs && cs.src ? String(cs.src) : "";
+      if (cs && cs.src) src = String(cs.src);
+
+      if (!src) {
+        const scripts = Array.from(document.scripts || []);
+        const preferred =
+          scripts.find((s) => s && s.src && /\/js\/app\.js(\?|#|$)/i.test(String(s.src))) ||
+          scripts.find((s) => s && s.src && /app\.js(\?|#|$)/i.test(String(s.src))) ||
+          scripts[scripts.length - 1];
+        if (preferred && preferred.src) src = String(preferred.src);
+      }
+
       if (src) {
         const u = new URL(src, location.href);
         let p = String(u.pathname || "/"); // "/repo/js/app.js"
         p = p.replace(/\/index\.html?$/i, "");
+
         const idx = p.lastIndexOf("/js/");
         if (idx !== -1) {
           let base = p.slice(0, idx); // "/repo"
-          if (base.endsWith("/")) base = base.slice(0, -1);
-          return base;
+          base = base.replace(/\/+$/, "");
+          return base === "/" ? "" : base;
         }
+
         // fallback: directory of script
         p = p.replace(/\/[^\/]*$/, ""); // "/repo/js"
-        if (p.endsWith("/")) p = p.slice(0, -1);
+        p = p.replace(/\/+$/, "");
         p = p.replace(/\/js$/i, "");
-        return p;
+        return p === "/" ? "" : p;
       }
     } catch (_) {}
 
@@ -72,45 +99,37 @@
   })();
 
   // =========================
-  // ✅ withBase(): SPA 라우팅 전용
+  // 2.1) URL helpers
   // =========================
+  function isExternalLike(u) {
+    const s = String(u ?? "");
+    return (
+      /^(https?:)?\/\//i.test(s) ||
+      s.startsWith("data:") ||
+      s.startsWith("blob:") ||
+      s.startsWith("mailto:") ||
+      s.startsWith("tel:")
+    );
+  }
+
+  // ✅ withBase(): SPA 라우팅 전용
   function withBase(url) {
     const u = String(url ?? "");
     if (!u) return u;
-
-    if (
-      /^(https?:)?\/\//i.test(u) ||
-      u.startsWith("data:") ||
-      u.startsWith("blob:") ||
-      u.startsWith("mailto:") ||
-      u.startsWith("tel:")
-    )
-      return u;
+    if (isExternalLike(u)) return u;
 
     const norm = u.startsWith("/") ? u : "/" + u.replace(/^\.?\//, "");
-
     if (WOS_BASE && norm.startsWith(WOS_BASE + "/")) return norm;
     return (WOS_BASE || "") + norm;
   }
 
-  // =========================
-  // ✅ withRes(): 정적 리소스 전용
-  // =========================
+  // ✅ withRes(): 정적 리소스 전용 (repo prefix 포함)
   function withRes(url) {
     const u = String(url ?? "");
     if (!u) return u;
-
-    if (
-      /^(https?:)?\/\//i.test(u) ||
-      u.startsWith("data:") ||
-      u.startsWith("blob:") ||
-      u.startsWith("mailto:") ||
-      u.startsWith("tel:")
-    )
-      return u;
+    if (isExternalLike(u)) return u;
 
     const norm = u.startsWith("/") ? u : "/" + u.replace(/^\.?\//, "");
-
     if (WOS_BASE && norm.startsWith(WOS_BASE + "/")) return norm;
     return (WOS_BASE || "") + norm;
   }
@@ -118,10 +137,24 @@
   // expose for other modules
   window.WOS_BASE = WOS_BASE;
   window.WOS_URL = withBase; // SPA NAV
-  window.WOS_RES = withRes; // RESOURCES
+  window.WOS_RES = withRes;  // RESOURCES
 
   // =========================
-  // 2) Utils
+  // 2.2) Service Worker (safe timing)
+  // =========================
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      try {
+        // scope를 base root로 잡아야 GitHub Pages /repo 에서도 안정적
+        navigator.serviceWorker
+          .register(withBase("/sw.js"), { scope: withBase("/") })
+          .catch(() => {});
+      } catch (_) {}
+    });
+  }
+
+  // =========================
+  // 3) Utils
   // =========================
   const $app = () => document.querySelector(APP_SEL);
 
@@ -152,6 +185,11 @@
     return [];
   }
 
+  function clampStr(s, max = 80) {
+    const tx = String(s ?? "");
+    return tx.length > max ? tx.slice(0, max - 1) + "…" : tx;
+  }
+
   // ✅ History href helper (NO HASH) — SPA NAV ONLY
   function routeHref(path) {
     let p = String(path ?? "");
@@ -159,83 +197,16 @@
     return withBase(p);
   }
 
-  // ✅ i18n basePath (resource path => withRes)
-  function detectI18nBasePath() {
-    return withRes("/i18n");
-  }
-
-  // i18n helper: safe translate (works even if i18n not loaded yet)
-  function t(key, vars) {
-    try {
-      if (window.WOS_I18N && typeof window.WOS_I18N.t === "function") {
-        return window.WOS_I18N.t(key, vars);
-      }
-    } catch (_) {}
-    return String(key || "");
-  }
-
-  // translation-or-fallback (prevents showing raw key when missing)
-  function tOpt(key, fallback = "") {
-    const k = String(key || "");
-    const v = String(t(k) ?? "");
-    if (!k) return String(fallback ?? "");
-    if (!v || v === k) return String(fallback ?? "");
-    return v;
-  }
-
-  // enum translate helper (rarity/class/etc)
-  function tEnum(prefix, value) {
-    const v = String(value ?? "").trim();
-    if (!v) return "";
-    return tOpt(`${prefix}.${v}`, v);
-  }
-
-  function applyI18n(root = document) {
-    try {
-      if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") {
-        window.WOS_I18N.apply(root);
-      }
-    } catch (_) {}
-  }
-
-  // ✅ document.title helper (SPA title translation)
-  function setDocTitle(pageTitle = "") {
-    const tx = String(pageTitle || "").trim();
-    document.title = tx ? `${tx} · ${SITE_NAME}` : SITE_NAME;
-  }
-
-  // infer title from view (tips detail etc)
-  function inferTitleFromView(view) {
-    if (!view) return "";
-    const h1 = view.querySelector("h1");
-    if (h1 && h1.textContent) return h1.textContent.trim();
-    const h2 = view.querySelector("h2");
-    if (h2 && h2.textContent) return h2.textContent.trim();
-    const titleEl = view.querySelector("[data-page-title]");
-    if (titleEl && titleEl.textContent) return titleEl.textContent.trim();
-    return "";
-  }
-
   // ✅ fetch URL은 "리소스 기준 절대"로 정규화 (repo prefix 포함)
   function toAbsResourceUrl(raw) {
     const s = String(raw ?? "");
     if (!s) return s;
-
-    if (
-      /^(https?:)?\/\//i.test(s) ||
-      s.startsWith("data:") ||
-      s.startsWith("blob:") ||
-      s.startsWith("mailto:") ||
-      s.startsWith("tel:")
-    ) {
-      return s;
-    }
+    if (isExternalLike(s)) return s;
 
     if (s.startsWith("/")) return withRes(s);
     return withRes("/" + s.replace(/^\.?\//, ""));
   }
 
-  // Try multiple URLs, return parsed JSON
   async function fetchJSONTry(urls) {
     let lastErr = null;
     for (const raw of urls) {
@@ -251,7 +222,6 @@
     throw lastErr;
   }
 
-  // Try multiple URLs, return { data, usedUrl, attempted }
   async function fetchJSONTryWithAttempts(urls) {
     const attempted = [];
     let lastErr = null;
@@ -271,11 +241,6 @@
 
     if (lastErr) lastErr.attempted = attempted;
     throw lastErr || new Error("Fetch failed");
-  }
-
-  function clampStr(s, max = 80) {
-    const tx = String(s ?? "");
-    return tx.length > max ? tx.slice(0, max - 1) + "…" : tx;
   }
 
   function fmtDateLike(v) {
@@ -329,64 +294,66 @@
       }, interval);
 
       setTimeout(() => {
-        try {
-          clearInterval(tmr);
-        } catch (_) {}
+        try { clearInterval(tmr); } catch (_) {}
         finish(ok());
       }, timeoutMs + 150);
     });
   }
 
-  // Deterministic "daily random" pick:
-  function hashStringToInt(str) {
-    let h = 2166136261;
-    for (let i = 0; i < str.length; i++) {
-      h ^= str.charCodeAt(i);
-      h = Math.imul(h, 16777619);
-    }
-    return h >>> 0;
-  }
-
-  function mulberry32(seed) {
-    return function () {
-      let x = (seed += 0x6d2b79f5);
-      x = Math.imul(x ^ (x >>> 15), x | 1);
-      x ^= x + Math.imul(x ^ (x >>> 7), x | 61);
-      return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
-    };
-  }
-
-  function pickDailyFixed(items, count = 3) {
-    const list = (items || []).slice();
-    if (!list.length) return [];
-
-    const d = new Date();
-    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
-      d.getDate()
-    ).padStart(2, "0")}`;
-
-    const rnd = mulberry32(hashStringToInt(key));
-
-    for (let i = list.length - 1; i > 0; i--) {
-      const j = Math.floor(rnd() * (i + 1));
-      [list[i], list[j]] = [list[j], list[i]];
-    }
-
-    return list.slice(0, Math.min(count, list.length));
-  }
-
-  // ✅ 자동 탐지 로직 비활성화 (고정값 반환) — repo prefix 포함
-  async function detectDataBaseBuildings() {
-    return withRes("/data/buildings");
-  }
-
-  async function detectDataBaseHeroes() {
-    return withRes("/data/heroes");
-  }
-
   // =========================
-  // 2.5) i18n Integration (matches YOUR i18n.js)
+  // 4) i18n helpers
   // =========================
+  function detectI18nBasePath() {
+    return withRes("/i18n");
+  }
+
+  function t(key, vars) {
+    try {
+      if (window.WOS_I18N && typeof window.WOS_I18N.t === "function") {
+        return window.WOS_I18N.t(key, vars);
+      }
+    } catch (_) {}
+    return String(key || "");
+  }
+
+  function tOpt(key, fallback = "") {
+    const k = String(key || "");
+    const v = String(t(k) ?? "");
+    if (!k) return String(fallback ?? "");
+    if (!v || v === k) return String(fallback ?? "");
+    return v;
+  }
+
+  function tEnum(prefix, value) {
+    const v = String(value ?? "").trim();
+    if (!v) return "";
+    return tOpt(`${prefix}.${v}`, v);
+  }
+
+  function applyI18n(root = document) {
+    try {
+      if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") {
+        window.WOS_I18N.apply(root);
+      }
+    } catch (_) {}
+  }
+
+  function setDocTitle(pageTitle = "") {
+    const tx = String(pageTitle || "").trim();
+    document.title = tx ? `${tx} · ${SITE_NAME}` : SITE_NAME;
+  }
+
+  function inferTitleFromView(view) {
+    if (!view) return "";
+    const h1 = view.querySelector("h1");
+    if (h1 && h1.textContent) return h1.textContent.trim();
+    const h2 = view.querySelector("h2");
+    if (h2 && h2.textContent) return h2.textContent.trim();
+    const titleEl = view.querySelector("[data-page-title]");
+    if (titleEl && titleEl.textContent) return titleEl.textContent.trim();
+    return "";
+  }
+
   async function initI18n() {
     if (!window.WOS_I18N || typeof window.WOS_I18N.init !== "function") {
       return {
@@ -411,16 +378,13 @@
       window.__WOS_I18N_LANGCHANGE_BOUND__ = true;
       window.addEventListener("wos:langchange", () => {
         applyI18n(document);
-        try {
-          router().catch(() => {});
-        } catch (_) {}
+        try { router().catch(() => {}); } catch (_) {}
       });
     }
 
     return { ok: true, lang: lang || (window.WOS_I18N.getLang ? window.WOS_I18N.getLang() : "en") };
   }
 
-  // current language safe
   function getLangSafe() {
     try {
       const v =
@@ -434,7 +398,6 @@
     }
   }
 
-  // JSON localized field: string | {en,ko,ja} | {i18n:{...}}
   function getLocalizedField(value, lang, fallback = "") {
     const l = lang === "ko" || lang === "ja" || lang === "en" ? lang : "en";
     if (value == null) return String(fallback ?? "");
@@ -452,7 +415,6 @@
     return String(fallback ?? "");
   }
 
-  // Back-compat: #langSelect / [data-lang-link]
   function bindLangUIOnce() {
     if (window.__WOS_LANG_UI_BOUND__) return;
     window.__WOS_LANG_UI_BOUND__ = true;
@@ -485,7 +447,7 @@
   }
 
   // =========================
-  // 2.6) Minimal Styles (NO THEME)
+  // 5) Minimal Styles (NO THEME)
   // =========================
   function ensureStyles() {
     if (document.querySelector('style[data-wos-app-style="1"]')) return;
@@ -609,7 +571,7 @@
   }
 
   // =========================
-  // 3) App Shell (View Root only)
+  // 6) Path helpers (NO HASH)
   // =========================
   function toAppPathFromLocation() {
     let p = String(location.pathname || "/");
@@ -663,6 +625,10 @@
     );
   }
 
+  function getPath() {
+    return toAppPathFromLocation();
+  }
+
   function setActiveMenu(_path) {
     const links = document.querySelectorAll(".wos-menu a[data-link]");
     const path = _path || getPath();
@@ -676,6 +642,9 @@
     });
   }
 
+  // =========================
+  // 7) Shell
+  // =========================
   function ensureShellMounted() {
     const el = $app();
     if (!el) return null;
@@ -684,7 +653,6 @@
       return el.querySelector("#view");
     }
 
-    // Render shell ONCE (NO HEADER here)
     el.innerHTML = `
       <div class="wos-shell">
         <main class="wos-wrap" style="padding: 14px 0 30px;">
@@ -714,7 +682,6 @@
       }
     }
 
-    // ✅ SPA document title
     setDocTitle(title || "");
 
     if (typeof contentHTML === "string" && contentHTML) view.innerHTML = contentHTML;
@@ -731,7 +698,7 @@
   }
 
   // =========================
-  // 4) Error screen
+  // 8) Error screen
   // =========================
   function showError(err, extra = {}) {
     console.error(err);
@@ -772,6 +739,7 @@
           <div><span class="wos-muted">Index URL</span> <code class="wos-mono">${esc(
             toAbsResourceUrl((DATA_BASE ?? "") + "/index.json")
           )}</code></div>
+
           <div style="margin-top:6px"><span class="wos-muted">DATA_BASE_HEROES</span> <code class="wos-mono">${esc(
             DATA_BASE_HEROES ?? "(not set)"
           )}</code></div>
@@ -788,12 +756,8 @@
   }
 
   // =========================
-  // 5) History Router (NO HASH)
+  // 9) History Router (NO HASH)
   // =========================
-  function getPath() {
-    return toAppPathFromLocation();
-  }
-
   function go(path) {
     let p = String(path ?? "").trim();
     const appPath = toAppPathFromHref(p) || (p.startsWith("/") ? p : p ? "/" + p : "/");
@@ -854,7 +818,7 @@
   }
 
   // =========================
-  // 5.5) Drawer (Off-canvas) — unified + guarded
+  // 10) Drawer (Off-canvas) — unified + guarded
   // =========================
   function initDrawerOnce() {
     if (window.__WOS_DRAWER_BOUND__) return;
@@ -908,15 +872,16 @@
         a.classList.toggle("active", ap && (path === ap || path.startsWith(ap + "/")));
       });
     };
+
     window.addEventListener("popstate", syncActive);
     syncActive();
   }
 
   // =========================
-  // 6) Home data (latest uploads)
+  // 11) Home data (latest uploads)
   // =========================
   async function loadLatestUploads() {
-    const candidates = ["/data/home/latest.json"];
+    const candidates = ["/data/latest.json"];
     try {
       const r = await fetchJSONTryWithAttempts(candidates);
       const list = normalizeIndex(r.data);
@@ -940,7 +905,7 @@
   }
 
   // =========================
-  // 6.3) Tips data (home preview only)
+  // 12) Tips data (home preview only)
   // =========================
   async function loadTipsIndex() {
     const candidates = ["/data/tips/index.json"];
@@ -957,8 +922,51 @@
     return { title, slug, date, category };
   }
 
+  // Deterministic "daily random" pick
+  function hashStringToInt(str) {
+    let h = 2166136261;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    return h >>> 0;
+  }
+
+  function mulberry32(seed) {
+    return function () {
+      let x = (seed += 0x6d2b79f5);
+      x = Math.imul(x ^ (x >>> 15), x | 1);
+      x ^= x + Math.imul(x ^ (x >>> 7), x | 61);
+      return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function pickDailyFixed(items, count = 3) {
+    const list = (items || []).slice();
+    if (!list.length) return [];
+
+    const d = new Date();
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    const rnd = mulberry32(hashStringToInt(key));
+
+    for (let i = list.length - 1; i > 0; i--) {
+      const j = Math.floor(rnd() * (i + 1));
+      [list[i], list[j]] = [list[j], list[i]];
+    }
+
+    return list.slice(0, Math.min(count, list.length));
+  }
+
+  // ✅ 자동 탐지 로직 비활성화 (고정값 반환) — repo prefix 포함
+  async function detectDataBaseBuildings() {
+    return withRes("/data/buildings");
+  }
+  async function detectDataBaseHeroes() {
+    return withRes("/data/heroes");
+  }
+
   // =========================
-  // 7) Routing
+  // 13) Routing
   // =========================
   async function router() {
     const path = getPath();
@@ -966,9 +974,7 @@
     // buildings
     if (path.startsWith("/buildings/") && path.split("/").length >= 3) {
       let slug = path.replace("/buildings/", "");
-      try {
-        slug = decodeURIComponent(slug);
-      } catch (_) {}
+      try { slug = decodeURIComponent(slug); } catch (_) {}
       return pageBuilding(slug);
     }
     if (path === "/buildings") return pageBuildings();
@@ -976,9 +982,7 @@
     // heroes
     if (path.startsWith("/heroes/") && path.split("/").length >= 3) {
       let slug = path.replace("/heroes/", "");
-      try {
-        slug = decodeURIComponent(slug);
-      } catch (_) {}
+      try { slug = decodeURIComponent(slug); } catch (_) {}
       return pageHero(slug);
     }
     if (path === "/heroes") return pageHeroes();
@@ -999,7 +1003,7 @@
   }
 
   // =========================
-  // 8) Pages
+  // 14) Pages
   // =========================
   async function pageHome() {
     const path = getPath();
@@ -1222,9 +1226,7 @@
           <a class="wos-item" href="${routeHref("/tools/building-calculator")}" data-link style="align-items:center;">
             <div class="wos-badge" data-i18n="nav.calculator">${esc(t("nav.calculator") || "Calculator")}</div>
             <div style="flex:1;">
-              <div class="wos-item-title" data-i18n="tools.building_calc">${esc(
-                t("tools.building_calc") || "Building Calculator"
-              )}</div>
+              <div class="wos-item-title" data-i18n="tools.building_calc">${esc(t("tools.building_calc") || "Building Calculator")}</div>
               <div class="wos-item-meta wos-mono">/tools/building-calculator</div>
             </div>
           </a>
@@ -1290,7 +1292,7 @@
   }
 
   // =========================
-  // Buildings ✅ i18n pass-through already included
+  // Buildings (delegated)
   // =========================
   async function pageBuildings() {
     const path = getPath();
@@ -1359,7 +1361,7 @@
   }
 
   // =========================
-  // Heroes (✅ i18n enabled for fallback + pass-through)
+  // Heroes (delegated + fallback)
   // =========================
   async function pageHeroes() {
     const path = getPath();
@@ -1387,7 +1389,11 @@
       }
     }
 
-    const urls = [`${DATA_BASE_HEROES}/r/index.json`, `${DATA_BASE_HEROES}/sr/index.json`, `${DATA_BASE_HEROES}/ssr/index.json`];
+    const urls = [
+      `${DATA_BASE_HEROES}/r/index.json`,
+      `${DATA_BASE_HEROES}/sr/index.json`,
+      `${DATA_BASE_HEROES}/ssr/index.json`,
+    ];
 
     const attempted = [];
     const combined = [];
@@ -1414,7 +1420,7 @@
             const slug2 = String(h.slug ?? "");
             const rawTitle = h.title ?? h.name ?? slug2;
 
-            const title = tOpt(`heroes.${slug2}.namename`, rawTitle) || tOpt(`heroes.${slug2}.name`, rawTitle);
+            const title = tOpt(`heroes.${slug2}.name`, rawTitle);
 
             const portrait = h.portrait ?? h.portraitSrc ?? h.image ?? "";
             const rarity = tEnum("hero.rarity", h.rarity ?? h.tier ?? "");
@@ -1426,6 +1432,7 @@
             return `
             <a class="wos-item"
                href="${routeHref("/heroes/" + hrefSlug)}"
+               data-link
                style="flex-direction:column; align-items:stretch;">
               ${
                 portrait
@@ -1483,7 +1490,11 @@
       }
     }
 
-    const idxUrls = [`${DATA_BASE_HEROES}/r/index.json`, `${DATA_BASE_HEROES}/sr/index.json`, `${DATA_BASE_HEROES}/ssr/index.json`];
+    const idxUrls = [
+      `${DATA_BASE_HEROES}/r/index.json`,
+      `${DATA_BASE_HEROES}/sr/index.json`,
+      `${DATA_BASE_HEROES}/ssr/index.json`,
+    ];
 
     const attempted = [];
     let foundRarityDir = null;
@@ -1509,7 +1520,10 @@
       return showError(new Error("Hero not found in any rarity index.json: " + slug), { attempted });
     }
 
-    const urls = [`${DATA_BASE_HEROES}/${foundRarityDir}/${slug}.json`, `${DATA_BASE_HEROES}/${foundRarityDir}/${encodeURIComponent(slug)}.json`];
+    const urls = [
+      `${DATA_BASE_HEROES}/${foundRarityDir}/${slug}.json`,
+      `${DATA_BASE_HEROES}/${foundRarityDir}/${encodeURIComponent(slug)}.json`,
+    ];
 
     let hero, attempted2;
     try {
@@ -1517,7 +1531,9 @@
       hero = r.data;
       attempted2 = r.attempted;
     } catch (err) {
-      return showError(err, { attempted: attempted.concat(err?.attempted || attempted2 || urls.map(toAbsResourceUrl)) });
+      return showError(err, {
+        attempted: attempted.concat(err?.attempted || attempted2 || urls.map(toAbsResourceUrl)),
+      });
     }
 
     const rawTitle = hero?.title ?? hero?.name ?? slug;
@@ -1530,7 +1546,6 @@
 
     const storyHtmlFromI18n = tOpt(`heroes.${slug}.story_html`, "");
     const storyTextFromI18n = tOpt(`heroes.${slug}.story`, "");
-
     const descHtmlFromI18n = tOpt(`heroes.${slug}.description_html`, "");
     const descTextFromI18n = tOpt(`heroes.${slug}.description`, "");
 
@@ -1567,9 +1582,8 @@
                   <div style="display:flex; gap:10px; align-items:center;">
                     ${
                       icon
-                        ? `<img src="${esc(toAbsResourceUrl(icon))}" alt="${esc(
-                            st
-                          )}" style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">`
+                        ? `<img src="${esc(toAbsResourceUrl(icon))}" alt="${esc(st)}"
+                           style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">`
                         : ""
                     }
                     <div style="font-weight:900;">${esc(st)}</div>
@@ -1601,9 +1615,8 @@
         <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
           ${
             portrait
-              ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(
-                  title
-                )}" style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">`
+              ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(title)}"
+                 style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">`
               : ""
           }
           <div style="flex:1; min-width:260px;">
@@ -1641,7 +1654,7 @@
   }
 
   // =========================
-  // 9) Boot
+  // 15) Boot
   // =========================
   (async () => {
     // ✅ 404.html 리다이렉트 복구 (History SPA on GitHub Pages)
@@ -1651,17 +1664,13 @@
         const p = sp.get("p"); // original app path (e.g. "/buildings/furnace")
         const q = sp.get("q"); // original search (e.g. "?x=1")
         const h = sp.get("h"); // original hash (e.g. "#y")
-
         if (!p) return;
 
-        // ✅ p는 encodeURIComponent로 들어오므로 decode 해야 함
         const appPath = decodeURIComponent(p || "/");
         const qs = q ? decodeURIComponent(q) : "";
         const hs = h ? decodeURIComponent(h) : "";
 
         const cleanUrl = withBase(appPath) + qs + hs;
-
-        // query(p,q,h) 제거 + 원래 경로로 복원
         history.replaceState({}, "", cleanUrl);
       } catch (_) {}
     })();
@@ -1678,7 +1687,7 @@
     // drawer bind (if available now)
     initDrawerOnce();
 
-    // ✅ bases are fixed (no auto-detect, no fetch)
+    // ✅ bases are fixed (repo prefix 포함)
     DATA_BASE = await detectDataBaseBuildings();
     DATA_BASE_HEROES = await detectDataBaseHeroes();
 
@@ -1689,12 +1698,8 @@
 
     // debug
     window.__WOS_DEV__ = {
-      get DATA_BASE() {
-        return DATA_BASE;
-      },
-      get DATA_BASE_HEROES() {
-        return DATA_BASE_HEROES;
-      },
+      get DATA_BASE() { return DATA_BASE; },
+      get DATA_BASE_HEROES() { return DATA_BASE_HEROES; },
       getPath,
       go,
       router,
