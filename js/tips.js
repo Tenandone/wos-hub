@@ -1,30 +1,27 @@
 /* =========================================================
-   WOS.GG - js/tips.js (MODULE) ✅ FINAL (BASE-PREFIX SAFE)
+   WOS.GG - js/tips.js (MODULE) ✅ FINAL (APP.JS COMPAT)
    - window.WOS_TIPS
-   - ✅ GitHub Pages repo prefix / custom domain 지원:
-       * <meta name="wos-base" content="/repo"> 최우선
-       * <base href="/repo/"> 지원
-       * github.io 자동 감지(/<repo>)
-       * fetch/asset/html/json 경로 모두 withBase() 적용
-   - ✅ History Router 경로 사용 (NO HASH):
+   - ✅ Works with app.js Split Build (History Router / NO HASH)
+   - ✅ GitHub Pages repo prefix / custom domain safe:
+       * prefers window.WOS_RES / window.WOS_URL from app.js
+       * falls back to local withBase() if app.js helpers not present
+   - ✅ Router paths:
        /tips , /tips/:slug
    - Data:
-     - index:  data/tips/index.json   (supports {items:[...]} or [...])
+     - index:  /data/tips/index.json   (supports {items:[...]} or [...])
      - detail:
        - HTML priority:
-         1) data/tips/items/{slug}.{lang}.html (and variants)
-         2) data/tips/items/{slug}.html        (and variants)
-         3) data/tips/{slug}.{lang}.html       (and variants)
-         4) data/tips/{slug}.html              (and variants)
+         1) /data/tips/items/{slug}.{lang}.html (and variants)
+         2) /data/tips/items/{slug}.html        (and variants)
+         3) /data/tips/{slug}.{lang}.html       (and variants)
+         4) /data/tips/{slug}.html              (and variants)
        - JSON fallback:
-         5) data/tips/items/{slug}.json (and variants)
-         6) data/tips/{slug}.json       (and variants)
-
+         5) /data/tips/items/{slug}.json (and variants)
+         6) /data/tips/{slug}.json       (and variants)
    - Multi-language single HTML support:
      - Put blocks with: [data-lang="en|ko|ja"] OR [lang="en|ko|ja"]
      - Script extracts the best-matching block for current site language.
      - Fallback order: current lang -> en -> first available
-
    - Category:
      - Package category:
        - it.category === "package" | "packages"
@@ -33,11 +30,10 @@
      - List rule:
        - non-package first (top)
        - package last (bottom)
-
    - API:
-     - renderHomePreview({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts, pinnedSlugs })
-     - renderList({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts })
-     - renderDetail({ appEl, slug, go, esc, nl2br, fetchJSONTryWithAttempts })
+     - renderHomePreview({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts, pinnedSlugs, routeHref })
+     - renderList({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts, routeHref })
+     - renderDetail({ appEl, slug, go, esc, nl2br, fetchJSONTryWithAttempts, routeHref })
    ========================================================= */
 
 (() => {
@@ -46,7 +42,10 @@
   if (window.WOS_TIPS) return;
 
   // =========================================================
-  // ✅ Base prefix helpers (GitHub Pages / custom domain safe)
+  // 1) Base/prefix helpers
+  //   - Prefer app.js helpers:
+  //     window.WOS_RES (resource fetch path), window.WOS_URL (spa nav)
+  //   - Fallback to local detect if not present
   // =========================================================
   function normalizeBasePrefix(p) {
     let s = String(p || "").trim();
@@ -56,7 +55,7 @@
     return s === "/" ? "" : s;
   }
 
-  function detectBasePrefix() {
+  function detectBasePrefixFallback() {
     // 1) meta priority
     try {
       const meta = document.querySelector('meta[name="wos-base"]');
@@ -87,39 +86,52 @@
     return "";
   }
 
-  const __BASE_PREFIX__ = detectBasePrefix();
+  const __BASE_PREFIX_FALLBACK__ = detectBasePrefixFallback();
 
-  function withBase(path) {
+  function withBaseFallback(path) {
     const raw = String(path || "");
     if (!raw) return raw;
 
-    // keep absolute urls/data/blob
+    // keep absolute urls / data / blob / mailto / tel
     if (/^(https?:)?\/\//i.test(raw)) return raw;
-    if (/^(data:|blob:)/i.test(raw)) return raw;
+    if (/^(data:|blob:|mailto:|tel:)/i.test(raw)) return raw;
 
-    // normalize to absolute path
     const p = raw.startsWith("/") ? raw : "/" + raw;
+    if (!__BASE_PREFIX_FALLBACK__) return p;
 
-    if (!__BASE_PREFIX__) return p;
-
-    // avoid double prefix
-    if (p === __BASE_PREFIX__ || p.startsWith(__BASE_PREFIX__ + "/")) return p;
-
-    return __BASE_PREFIX__ + p;
+    if (p === __BASE_PREFIX_FALLBACK__ || p.startsWith(__BASE_PREFIX_FALLBACK__ + "/")) return p;
+    return __BASE_PREFIX_FALLBACK__ + p;
   }
 
-  function mapWithBase(arr) {
-    return (arr || []).map((u) => withBase(u));
+  // ✅ Resource URL builder:
+  // Prefer app.js: window.WOS_RES (repo prefix aware)
+  // else fallback: local prefix
+  function resUrl(path) {
+    try {
+      if (typeof window.WOS_RES === "function") return window.WOS_RES(path);
+    } catch (_) {}
+    return withBaseFallback(path);
+  }
+
+  // ✅ SPA href builder for anchors:
+  // Prefer app.js route href: window.WOS_URL
+  function spaHref(path) {
+    try {
+      if (typeof window.WOS_URL === "function") return window.WOS_URL(path);
+    } catch (_) {}
+    return withBaseFallback(path);
   }
 
   // =========================================================
-  // Index candidates (base prefix will be applied at fetch time)
+  // 2) Index candidates
+  //   - keep them as "logical paths"
+  //   - app.js fetchJSONTryWithAttempts already applies withRes()
   // =========================================================
   const INDEX_CANDIDATES = [
-    "data/tips/index.json",
-    "page/data/tips/index.json",
     "/data/tips/index.json",
     "/page/data/tips/index.json",
+    "data/tips/index.json",
+    "page/data/tips/index.json",
   ];
 
   // -------------------------
@@ -212,7 +224,7 @@
     return (dict[lang] && dict[lang][key]) || dict.en[key] || key;
   }
 
-  // Localized field support: string | number | {en,ko,ja} | {i18n:{...}}
+  // Localized field: string | number | {en,ko,ja} | {i18n:{...}}
   function getLocalizedField(value, fallback = "") {
     const lang = getLangSafe();
     if (value == null) return String(fallback ?? "");
@@ -302,8 +314,8 @@
   }
 
   async function loadIndex(fetchJSONTryWithAttempts) {
-    // ✅ 후보 경로에 base prefix 적용해서 전달
-    const r = await fetchJSONTryWithAttempts(mapWithBase(INDEX_CANDIDATES));
+    // ✅ app.js가 이미 /repo prefix 포함해서 fetch 해주도록 "논리 경로" 그대로 전달
+    const r = await fetchJSONTryWithAttempts(INDEX_CANDIDATES);
     return onlyPublished(normalizeIndex(r.data));
   }
 
@@ -327,16 +339,6 @@
     return false;
   }
 
-  function sortNonPackageFirst(items) {
-    const arr = (items || []).slice();
-    arr.sort((a, b) => {
-      const ap = isPackageItem(a) ? 1 : 0;
-      const bp = isPackageItem(b) ? 1 : 0;
-      return ap - bp;
-    });
-    return arr;
-  }
-
   function splitByPackage(items) {
     const nonPackages = [];
     const packages = [];
@@ -344,105 +346,69 @@
     return { nonPackages, packages };
   }
 
+  function sortNonPackageFirst(items) {
+    const arr = (items || []).slice();
+    arr.sort((a, b) => (isPackageItem(a) ? 1 : 0) - (isPackageItem(b) ? 1 : 0));
+    return arr;
+  }
+
   // =========================
   // HTML/JSON detail loader
   // =========================
   async function tryFetchTextFirstOk(urls) {
-    for (const url of urls) {
+    const attempted = [];
+    for (const raw of urls) {
+      const u = resUrl(raw);
+      attempted.push(u);
       try {
-        // ✅ base prefix 안전하게 적용
-        const u = withBase(url);
         const res = await fetch(u, { cache: "no-store" });
         if (res && res.ok) {
           const txt = await res.text();
-          if (typeof txt === "string") return { ok: true, url: u, text: txt };
+          if (typeof txt === "string") return { ok: true, url: u, text: txt, attempted };
         }
       } catch (_) {}
     }
-    return { ok: false, url: null, text: "" };
+    return { ok: false, url: null, text: "", attempted };
   }
 
-  // Build HTML candidates including lang variants
   function buildHtmlCandidates(slug, lang) {
     const s = String(slug ?? "");
     const enc = encodeURIComponent(s);
     const l = pickLang(lang);
 
     const variants = [
-      // items preferred
-      `data/tips/items/${s}.${l}.html`,
-      `page/data/tips/items/${s}.${l}.html`,
+      // items preferred (lang)
       `/data/tips/items/${s}.${l}.html`,
-      `/page/data/tips/items/${s}.${l}.html`,
-      `data/tips/items/${enc}.${l}.html`,
-      `page/data/tips/items/${enc}.${l}.html`,
       `/data/tips/items/${enc}.${l}.html`,
-      `/page/data/tips/items/${enc}.${l}.html`,
-
-      `data/tips/items/${s}-${l}.html`,
-      `page/data/tips/items/${s}-${l}.html`,
       `/data/tips/items/${s}-${l}.html`,
-      `/page/data/tips/items/${s}-${l}.html`,
-      `data/tips/items/${enc}-${l}.html`,
-      `page/data/tips/items/${enc}-${l}.html`,
       `/data/tips/items/${enc}-${l}.html`,
-      `/page/data/tips/items/${enc}-${l}.html`,
-
-      `data/tips/items/${l}/${s}.html`,
-      `page/data/tips/items/${l}/${s}.html`,
       `/data/tips/items/${l}/${s}.html`,
-      `/page/data/tips/items/${l}/${s}.html`,
-      `data/tips/items/${l}/${enc}.html`,
-      `page/data/tips/items/${l}/${enc}.html`,
       `/data/tips/items/${l}/${enc}.html`,
-      `/page/data/tips/items/${l}/${enc}.html`,
 
-      // base items
-      `data/tips/items/${s}.html`,
-      `page/data/tips/items/${s}.html`,
+      // items base
       `/data/tips/items/${s}.html`,
-      `/page/data/tips/items/${s}.html`,
-      `data/tips/items/${enc}.html`,
-      `page/data/tips/items/${enc}.html`,
       `/data/tips/items/${enc}.html`,
-      `/page/data/tips/items/${enc}.html`,
 
-      // tips root as fallback
-      `data/tips/${s}.${l}.html`,
-      `page/data/tips/${s}.${l}.html`,
+      // tips root (lang)
       `/data/tips/${s}.${l}.html`,
-      `/page/data/tips/${s}.${l}.html`,
-      `data/tips/${enc}.${l}.html`,
-      `page/data/tips/${enc}.${l}.html`,
       `/data/tips/${enc}.${l}.html`,
-      `/page/data/tips/${enc}.${l}.html`,
-
-      `data/tips/${s}-${l}.html`,
-      `page/data/tips/${s}-${l}.html`,
       `/data/tips/${s}-${l}.html`,
-      `/page/data/tips/${s}-${l}.html`,
-      `data/tips/${enc}-${l}.html`,
-      `page/data/tips/${enc}-${l}.html`,
       `/data/tips/${enc}-${l}.html`,
-      `/page/data/tips/${enc}-${l}.html`,
-
-      `data/tips/${l}/${s}.html`,
-      `page/data/tips/${l}/${s}.html`,
       `/data/tips/${l}/${s}.html`,
-      `/page/data/tips/${l}/${s}.html`,
-      `data/tips/${l}/${enc}.html`,
-      `page/data/tips/${l}/${enc}.html`,
       `/data/tips/${l}/${enc}.html`,
-      `/page/data/tips/${l}/${enc}.html`,
 
-      // base tips root
-      `data/tips/${s}.html`,
-      `page/data/tips/${s}.html`,
+      // tips root base
       `/data/tips/${s}.html`,
-      `/page/data/tips/${s}.html`,
-      `data/tips/${enc}.html`,
-      `page/data/tips/${enc}.html`,
       `/data/tips/${enc}.html`,
+
+      // legacy "/page" mirror (optional)
+      `/page/data/tips/items/${s}.${l}.html`,
+      `/page/data/tips/items/${enc}.${l}.html`,
+      `/page/data/tips/items/${s}.html`,
+      `/page/data/tips/items/${enc}.html`,
+      `/page/data/tips/${s}.${l}.html`,
+      `/page/data/tips/${enc}.${l}.html`,
+      `/page/data/tips/${s}.html`,
       `/page/data/tips/${enc}.html`,
     ];
 
@@ -454,12 +420,11 @@
     });
   }
 
-  // Extract language block from a multi-lang HTML fragment
   function extractLangHtml(rawHtml, lang) {
     const l = pickLang(lang);
     const fallbackOrder = [l, "en", "ko", "ja"].filter((x, i, a) => a.indexOf(x) === i);
 
-    let html = String(rawHtml || "");
+    const html = String(rawHtml || "");
     if (!html.trim()) return "";
 
     const parser = new DOMParser();
@@ -471,17 +436,12 @@
       return (doc.body && doc.body.innerHTML && doc.body.innerHTML.trim()) ? doc.body.innerHTML : html;
     }
 
-    const pickNodes = (code) => Array.from(
-      container.querySelectorAll(`[data-lang="${code}"], [lang="${code}"]`)
-    );
+    const pickNodes = (code) => Array.from(container.querySelectorAll(`[data-lang="${code}"], [lang="${code}"]`));
 
     let chosen = [];
     for (const code of fallbackOrder) {
       const nodes = pickNodes(code);
-      if (nodes.length) {
-        chosen = nodes;
-        break;
-      }
+      if (nodes.length) { chosen = nodes; break; }
     }
 
     if (!chosen.length) {
@@ -504,7 +464,7 @@
     const enc = encodeURIComponent(s);
     const lang = getLangSafe();
 
-    // 1) HTML first (lang-aware candidates)
+    // 1) HTML first
     const htmlCandidates = buildHtmlCandidates(s, lang);
     const htmlRes = await tryFetchTextFirstOk(htmlCandidates);
 
@@ -517,33 +477,30 @@
         bodyHtml: body || htmlRes.text,
         __source: "html",
         __path: htmlRes.url,
+        __attempted: htmlRes.attempted,
       };
     }
 
     // 2) JSON fallback
     const candidates = [
-      `data/tips/${s}.json`,
-      `page/data/tips/${s}.json`,
-      `/data/tips/${s}.json`,
-      `/page/data/tips/${s}.json`,
-      `data/tips/${enc}.json`,
-      `page/data/tips/${enc}.json`,
-      `/data/tips/${enc}.json`,
-      `/page/data/tips/${enc}.json`,
-
-      `data/tips/items/${s}.json`,
-      `page/data/tips/items/${s}.json`,
       `/data/tips/items/${s}.json`,
-      `/page/data/tips/items/${s}.json`,
-      `data/tips/items/${enc}.json`,
-      `page/data/tips/items/${enc}.json`,
       `/data/tips/items/${enc}.json`,
+      `/data/tips/${s}.json`,
+      `/data/tips/${enc}.json`,
+      `/page/data/tips/items/${s}.json`,
       `/page/data/tips/items/${enc}.json`,
+      `/page/data/tips/${s}.json`,
+      `/page/data/tips/${enc}.json`,
     ];
 
-    // ✅ 후보 경로에 base prefix 적용해서 전달
-    const r = await fetchJSONTryWithAttempts(mapWithBase(candidates));
-    return r.data;
+    // ✅ app.js fetch helper already prefixes resources; keep logical candidates
+    const r = await fetchJSONTryWithAttempts(candidates);
+    const tip = r.data || {};
+    // attach attempted list for debugging (if provided)
+    try {
+      if (!tip.__attempted && r.attempted) tip.__attempted = r.attempted;
+    } catch (_) {}
+    return tip;
   }
 
   // -------------------------
@@ -574,6 +531,33 @@
     `;
   }
 
+  function renderTipsGrid(items, esc, clampStr, routeHref) {
+    const href = (p) => (typeof routeHref === "function" ? routeHref(p) : spaHref(p));
+
+    return `
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px;">
+        ${items.map((it) => {
+          const slug = String(it?.slug ?? "");
+          const hrefSlug = encodeURIComponent(slug);
+
+          const title = getLocalizedField(it?.title ?? it?.name ?? slug, "Untitled");
+          const desc = getLocalizedField(it?.summary ?? it?.desc ?? it?.description ?? "", "");
+          const date = getLocalizedField(it?.date ?? "", "");
+          const badge = isPackageItem(it) ? "PACKAGE" : "TIP";
+
+          return `
+            <a class="wos-item" href="${href(`/tips/${hrefSlug}`)}" data-link style="flex-direction:column; gap:8px;">
+              <div class="wos-badge">${esc(badge)}</div>
+              <div class="wos-item-title">${esc(clampStr(title, 70))}</div>
+              ${desc ? `<div class="wos-muted" style="font-size:13px;">${esc(clampStr(desc, 120))}</div>` : ""}
+              ${date ? `<div class="wos-item-meta">${esc(String(date))}</div>` : ""}
+            </a>
+          `;
+        }).join("")}
+      </div>
+    `;
+  }
+
   // -------------------------
   // Public: Home preview
   // -------------------------
@@ -584,8 +568,11 @@
     clampStr,
     fetchJSONTryWithAttempts,
     pinnedSlugs = ["immigration-system-guide", "frost-dragon-emperor"],
+    routeHref,
   }) {
     if (!appEl) return;
+
+    const href = (p) => (typeof routeHref === "function" ? routeHref(p) : spaHref(p));
 
     appEl.innerHTML = `
       <div class="wos-panel" id="homeTipsRandom">
@@ -594,7 +581,7 @@
             <h2 style="margin:0 0 6px;">${esc(getText("homeTitle"))}</h2>
             <div class="wos-muted" style="font-size:13px;">${esc(getText("homeSub"))}</div>
           </div>
-          <a class="wos-btn" href="/tips" data-link>${esc(getText("homeBtn"))}</a>
+          <a class="wos-btn" href="${href("/tips")}" data-link>${esc(getText("homeBtn"))}</a>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;" data-area="cards"></div>
       </div>
@@ -605,7 +592,7 @@
             <h2 style="margin:0 0 6px;">${esc(getText("pinnedTitle"))}</h2>
             <div class="wos-muted" style="font-size:13px;">${esc(getText("pinnedSub"))}</div>
           </div>
-          <a class="wos-btn" href="/tips" data-link>${esc(getText("pinnedBtn"))}</a>
+          <a class="wos-btn" href="${href("/tips")}" data-link>${esc(getText("pinnedBtn"))}</a>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px; margin-top:12px;" data-area="cards"></div>
       </div>
@@ -618,8 +605,8 @@
       } catch (e) {
         const randBox = appEl.querySelector("#homeTipsRandom [data-area='cards']");
         const pinBox = appEl.querySelector("#homeTipsPinned [data-area='cards']");
-        if (randBox) renderEmptyCard(randBox, esc(getText("loadFail")), "data/tips/index.json");
-        if (pinBox) renderEmptyCard(pinBox, esc(getText("loadFail")), "data/tips/index.json");
+        if (randBox) renderEmptyCard(randBox, esc(getText("loadFail")), "/data/tips/index.json");
+        if (pinBox) renderEmptyCard(pinBox, esc(getText("loadFail")), "/data/tips/index.json");
         console.error(e);
         return;
       }
@@ -633,7 +620,7 @@
 
       if (randBox) {
         if (!random3.length) {
-          renderEmptyCard(randBox, esc(getText("noTips")), "data/tips/index.json");
+          renderEmptyCard(randBox, esc(getText("noTips")), "/data/tips/index.json");
         } else {
           randBox.innerHTML = random3.map((t) => `
             <div class="wos-tip-card" role="button" tabindex="0" data-tip="${esc(t.slug)}">
@@ -657,7 +644,7 @@
           renderEmptyCard(
             pinBox,
             esc(getText("pinnedNotReady")),
-            "PINNED_TIP_SLUGS / data/tips/index.json"
+            "PINNED_TIP_SLUGS / /data/tips/index.json"
           );
         } else {
           pinBox.innerHTML = pinnedCards.map((t) => `
@@ -674,35 +661,10 @@
     })().catch((e) => console.error(e));
   }
 
-  function renderTipsGrid(items, esc, clampStr) {
-    return `
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:12px;">
-        ${items.map((it) => {
-          const slug = String(it?.slug ?? "");
-          const hrefSlug = encodeURIComponent(slug);
-
-          const title = getLocalizedField(it?.title ?? it?.name ?? slug, "Untitled");
-          const desc = getLocalizedField(it?.summary ?? it?.desc ?? it?.description ?? "", "");
-          const date = getLocalizedField(it?.date ?? "", "");
-          const badge = isPackageItem(it) ? "PACKAGE" : "TIP";
-
-          return `
-            <a class="wos-item" href="/tips/${esc(hrefSlug)}" data-link style="flex-direction:column; gap:8px;">
-              <div class="wos-badge">${esc(badge)}</div>
-              <div class="wos-item-title">${esc(clampStr(title, 70))}</div>
-              ${desc ? `<div class="wos-muted" style="font-size:13px;">${esc(clampStr(desc, 120))}</div>` : ""}
-              ${date ? `<div class="wos-item-meta">${esc(String(date))}</div>` : ""}
-            </a>
-          `;
-        }).join("")}
-      </div>
-    `;
-  }
-
   // -------------------------
   // Public: List
   // -------------------------
-  async function renderList({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts }) {
+  async function renderList({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts, routeHref }) {
     if (!appEl) return;
 
     let items = [];
@@ -713,8 +675,8 @@
         <div class="wos-panel">
           <h2 style="margin:0 0 10px;">${esc(getText("tipsTitle"))}</h2>
           <div class="wos-muted" style="font-size:13px; line-height:1.65;">
-            ${esc(getText("empty"))}<br>
-            <span class="wos-mono">data/tips/index.json</span>
+            ${esc(getText("loadFail"))}<br>
+            <span class="wos-mono">/data/tips/index.json</span>
           </div>
         </div>
       `;
@@ -736,7 +698,7 @@
                   <div class="wos-muted" style="font-size:12px;">${nonPackages.length} ${esc(getText("items"))}</div>
                 </div>
                 ${nonPackages.length
-                  ? renderTipsGrid(nonPackages, esc, clampStr)
+                  ? renderTipsGrid(nonPackages, esc, clampStr, routeHref)
                   : `<div class="wos-muted" style="font-size:13px; line-height:1.65;">${esc(getText("empty"))}</div>`
                 }
               </div>
@@ -748,15 +710,15 @@
                   <div class="wos-muted" style="font-size:12px;">${packages.length} ${esc(getText("items"))}</div>
                 </div>
                 ${packages.length
-                  ? renderTipsGrid(packages, esc, clampStr)
+                  ? renderTipsGrid(packages, esc, clampStr, routeHref)
                   : `<div class="wos-muted" style="font-size:13px; line-height:1.65;">${esc(getText("empty"))}</div>`
                 }
               </div>
             `
             : `
               <div class="wos-muted" style="font-size:13px; line-height:1.65;">
-                ${esc(getText("empty"))}<br>
-                <span class="wos-mono">data/tips/index.json</span>
+                ${esc(getText("noTips"))}<br>
+                <span class="wos-mono">/data/tips/index.json</span>
               </div>
             `
         }
@@ -767,12 +729,16 @@
   // -------------------------
   // Public: Detail
   // -------------------------
-  async function renderDetail({ appEl, slug, go, esc, nl2br, fetchJSONTryWithAttempts }) {
+  async function renderDetail({ appEl, slug, go, esc, nl2br, fetchJSONTryWithAttempts, routeHref }) {
     if (!appEl) return;
 
+    const href = (p) => (typeof routeHref === "function" ? routeHref(p) : spaHref(p));
+
     let tip = null;
+    let attempted = [];
     try {
       tip = await loadDetail(fetchJSONTryWithAttempts, slug);
+      attempted = Array.isArray(tip?.__attempted) ? tip.__attempted : [];
     } catch (e) {
       appEl.innerHTML = `
         <div class="wos-panel">
@@ -781,12 +747,11 @@
               <h2 style="margin:0;">${esc(getText("tipsTitle"))}</h2>
               <div class="wos-muted" style="font-size:13px; margin-top:6px;">${esc(String(slug))}</div>
             </div>
-            <a class="wos-btn" href="/tips" data-link>${esc(getText("back"))}</a>
+            <a class="wos-btn" href="${href("/tips")}" data-link>${esc(getText("back"))}</a>
           </div>
+
           <div class="wos-muted" style="font-size:13px; line-height:1.65;">
-            ${esc(getText("empty"))}<br>
-            <span class="wos-mono">data/tips/items/${esc(String(slug))}.html</span><br>
-            <span class="wos-mono">data/tips/${esc(String(slug))}.json</span>
+            ${esc(getText("detailEmpty"))}
           </div>
         </div>
       `;
@@ -799,6 +764,17 @@
     const bodyHtml = tip?.bodyHtml ?? tip?.html ?? tip?.contentHtml ?? "";
     const bodyText = !bodyHtml ? getLocalizedField(tip?.body ?? tip?.content ?? "", "") : "";
 
+    const debugHtml = attempted.length
+      ? `
+        <div class="wos-panel" style="margin-top:12px; padding:12px;">
+          <div class="wos-muted" style="font-size:12px; margin-bottom:6px;">Tried URLs</div>
+          <div class="wos-mono" style="font-size:12px;">
+            ${attempted.map((u) => `<div><code>${esc(u)}</code></div>`).join("")}
+          </div>
+        </div>
+      `
+      : "";
+
     appEl.innerHTML = `
       <div class="wos-panel">
         <div class="wos-row" style="margin-bottom:10px;">
@@ -809,7 +785,7 @@
               tips/${esc(String(slug))}${tip?.__source ? ` · ${esc(String(tip.__source))}` : ""}
             </div>
           </div>
-          <a class="wos-btn" href="/tips" data-link>${esc(getText("back"))}</a>
+          <a class="wos-btn" href="${href("/tips")}" data-link>${esc(getText("back"))}</a>
         </div>
 
         ${
@@ -820,6 +796,7 @@
                 : `<div class="wos-muted">${esc(getText("detailEmpty"))}</div>`)
         }
       </div>
+      ${debugHtml}
     `;
 
     // ✅ back button: history router로 이동

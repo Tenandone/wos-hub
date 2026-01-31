@@ -3,36 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <base href="/" />
-  <title>404</title>
-  <meta name="robots" content="noindex" />
-  <script>
-    (function () {
-      try {
-        var p = location.pathname || "/";
-        var q = location.search || "";
-        var h = location.hash || "";
-
-        // 혹시라도 index/404 파일명이 붙는 경우 대비
-        p = p.replace(/\/index\.html?$/i, "/");
-
-        // 루트면 그냥 홈으로
-        if (!p || p === "/") {
-          location.replace("/"); 
-          return;
-        }
-
-        var url =
-          "/?p=" + encodeURIComponent(p) +
-          "&q=" + encodeURIComponent(q) +
-          "&h=" + encodeURIComponent(h);
-
-        location.replace(url);
-      } catch (e) {
-        location.replace("/");
-      }
-    })();
-  </script>
+  <title>Redirecting…</title>
 </head>
-<body></body>
+<body>
+<script>
+(function () {
+  // 요청된 원래 주소를 그대로 복원해서 index로 넘기는 용도
+  var path = location.pathname || "/";
+  var search = location.search || "";
+  var hash = location.hash || "";
+
+  // GitHub Pages project page(/repo/...) 인지, 커스텀 도메인 루트인지 자동 판별
+  // 첫 경로 세그먼트가 SPA 최상위 라우트면 base=""
+  // 아니면 "/repo"로 보고 base를 잡는다
+  var seg = path.split("/").filter(Boolean);
+  var first = seg[0] || "";
+
+  var spaTop = { buildings:1, heroes:1, tips:1, tools:1 };
+  var base = "";
+  if (first && !spaTop[first]) base = "/" + first;
+
+  // base 제거한 "앱 경로" 만들기
+  var appSeg = base ? seg.slice(1) : seg;
+  var appPath = "/" + appSeg.join("/");
+  if (appPath === "/") appPath = "/";
+
+  // index로 이동 (app.js의 restoreSpaPathFrom404가 p/q/h 읽어서 복원)
+  var target =
+    base + "/?p=" + encodeURIComponent(appPath) +
+    "&q=" + encodeURIComponent(search) +
+    "&h=" + encodeURIComponent(hash);
+
+  location.replace(target);
+})();
+</script>
+</body>
 </html>

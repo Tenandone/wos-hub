@@ -11,7 +11,7 @@
         "en": "Furnace Updated (Levels Added)",
         "ja": "溶鉱炉アップデート（レベル追加）"
       },
-      "href": "#/buildings/furnace",
+      "href": "/buildings/furnace",
       "date": "2026-01-30"
     },
     {
@@ -25,7 +25,7 @@
         "en": "Building Calculator Improved",
         "ja": "建物計算機の改善"
       },
-      "href": "#/tools/building-calculator",
+      "href": "/tools/building-calculator",
       "date": "2026-01-30"
     },
     {
@@ -39,7 +39,7 @@
         "en": "New Hero Added: Eugene",
         "ja": "新英雄追加：Eugene"
       },
-      "href": "#/heroes/eugene",
+      "href": "/heroes/eugene",
       "date": "2026-01-30"
     }
   ]

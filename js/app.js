@@ -61,7 +61,6 @@
 
     // 2) currentScript src before "/js/"
     try {
-      // currentScript can be null in some loading patterns -> fallback to document.scripts
       let src = "";
       const cs = document.currentScript;
       if (cs && cs.src) src = String(cs.src);
@@ -257,6 +256,71 @@
       return `${yy}-${mm}-${dd} ${hh}:${mi}`;
     }
     return s;
+  }
+
+  // =========================
+  // Affiliate (Home only)
+  // =========================
+  async function loadAffiliateBox() {
+    try {
+      // ✅ /data/affiliate-lootbar.json 을 읽어서 홈에만 표시
+      const r = await fetchJSONTryWithAttempts(["/data/affiliate-lootbar.json"]);
+      return r.data || null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function renderAffiliateBox(data) {
+    if (!data) return "";
+
+    const lang = getLangSafe();
+
+    // ✅ 다국어 필드: ko/en/ja 대응
+    const badge = getLocalizedField(data.badge, lang, "Affiliate/Ad");
+    const title = getLocalizedField(data.title, lang, "Discount Guide");
+    const intro = getLocalizedField(data.intro, lang, "");
+    const coupon = getLocalizedField(data.coupon, lang, "");
+    const trust = getLocalizedField(data.trust, lang, "");
+    const choice = getLocalizedField(data.choiceNote, lang, "");
+
+    const linkLabel = getLocalizedField(data?.link?.label, lang, "Open");
+    const linkUrl = String(data?.link?.url || "").trim();
+
+    const points = (data?.keyPoints && data.keyPoints[lang]) ? data.keyPoints[lang] : [];
+    const safePoints = Array.isArray(points) ? points : [];
+
+    return `
+      <div class="wos-panel" style="margin-top:12px;">
+        <div class="wos-row" style="align-items:flex-start;">
+          <div style="min-width:0;">
+            <div class="wos-badge">${esc(badge)}</div>
+            <h2 style="margin:10px 0 6px; font-size:18px; letter-spacing:-.2px;">${esc(title)}</h2>
+            ${intro ? `<div class="wos-muted" style="font-size:13px; line-height:1.65;">${esc(intro)}</div>` : ""}
+          </div>
+          ${
+            linkUrl
+              ? `<a class="wos-btn" href="${esc(linkUrl)}" target="_blank" rel="noopener noreferrer">${esc(linkLabel)}</a>`
+              : ""
+          }
+        </div>
+
+        ${coupon ? `<div style="margin-top:10px; font-weight:800;">${esc(coupon)}</div>` : ""}
+
+        ${
+          safePoints.length
+            ? `<div style="margin-top:10px;">
+                 <ul style="margin:8px 0 0; padding-left:18px; line-height:1.75;">
+                   ${safePoints.map((s) => `<li>${esc(String(s))}</li>`).join("")}
+                 </ul>
+               </div>`
+            : ""
+        }
+
+        ${trust ? `<div class="wos-muted" style="margin-top:10px; font-size:13px; line-height:1.65;">${esc(trust)}</div>` : ""}
+        ${choice ? `<div class="wos-muted" style="margin-top:10px; font-size:13px; line-height:1.65;">${esc(choice)}</div>` : ""}
+      </div>
+    `;
   }
 
   // wait for global module (stabilize race conditions)
@@ -1025,6 +1089,10 @@
     const latestRaw = await loadLatestUploads();
     const latest = latestRaw.map(normLatestItem).slice(0, 10);
 
+    // ✅ Affiliate (Home only) — under Latest Uploads
+    const affiliateData = await loadAffiliateBox();
+    const affiliateHtml = renderAffiliateBox(affiliateData);
+
     view.innerHTML = `
       <section class="wos-home">
         <div class="wos-home-grid">
@@ -1138,6 +1206,9 @@
                   </div>`
             }
           </div>
+
+          <!-- 4) Affiliate Box (Home only) -->
+          ${affiliateHtml}
 
         </div>
       </section>

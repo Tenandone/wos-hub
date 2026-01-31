@@ -1,0 +1,17 @@
+{
+  "badge": { "ko": "제휴/광고", "en": "Affiliate/Ad", "ja": "提携/広告" },
+  "title": { "ko": "루트바 할인 안내", "en": "LootBar Discount Guide", "ja": "LootBar 割引ガイド" },
+  "intro": { "ko": "…", "en": "…", "ja": "…" },
+  "coupon": { "ko": "…", "en": "…", "ja": "…" },
+  "keyPoints": {
+    "ko": ["…", "…"],
+    "en": ["…", "…"],
+    "ja": ["…", "…"]
+  },
+  "trust": { "ko": "…", "en": "…", "ja": "…" },
+  "choiceNote": { "ko": "…", "en": "…", "ja": "…" },
+  "link": {
+    "url": "https://....",
+    "label": { "ko": "바로가기", "en": "Open", "ja": "開く" }
+  }
+}
