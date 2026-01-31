@@ -10,7 +10,7 @@
      * 정적 리소스(/data,/assets,/i18n): withRes()
 
    - ✅ popstate 기반 뒤로/앞으로가기 지원
-   - ✅ a[data-link] 유지 + (외부 모듈 링크 보호 위해) SPA 라우트에 한해 일반 <a>도 인터셉트
+   - ✅ a[data-link] 유지 + (#view 내부 일반 <a> 중 SPA 라우트만 인터셉트)
    - ✅ heroes.js / buildings.js / tips.js 등 외부 모듈 수정 없음
    ========================================================= */
 
@@ -20,18 +20,11 @@
   // =========================
   // 1) Config
   // =========================
-  // ✅ 고정 (자동 탐지 비활성화) — 실제 값은 Boot에서 withRes()로 확정
-  let DATA_BASE = "/data/buildings";        // buildings
-  let DATA_BASE_HEROES = "/data/heroes";    // heroes
+  let DATA_BASE = "/data/buildings";
+  let DATA_BASE_HEROES = "/data/heroes";
   const APP_SEL = "#app";
-
-  // tools (fallback key for core calculator.js demo)
   const BUILDING_CALC_KEY = "furnace";
-
-  // shell marker
   const SHELL_MARKER = "data-wos-shell-mounted";
-
-  // site title base
   const SITE_NAME = "WosHub";
 
   // =========================
@@ -40,7 +33,7 @@
   //   - Prefer <base href>, then currentScript src
   // =========================
   const WOS_BASE = (() => {
-    // 1) <base href="...">가 있으면 그 경로를 우선 사용
+    // 1) <base href="...">
     try {
       const baseEl = document.querySelector("base[href]");
       if (baseEl) {
@@ -53,7 +46,7 @@
       }
     } catch (_) {}
 
-    // 2) currentScript src에서 "/js/" 앞까지를 base로 추정
+    // 2) currentScript src before "/js/"
     try {
       const cs = document.currentScript;
       const src = cs && cs.src ? String(cs.src) : "";
@@ -65,82 +58,67 @@
         if (idx !== -1) {
           let base = p.slice(0, idx); // "/repo"
           if (base.endsWith("/")) base = base.slice(0, -1);
-          return base; // "" or "/repo"
+          return base;
         }
         // fallback: directory of script
         p = p.replace(/\/[^\/]*$/, ""); // "/repo/js"
         if (p.endsWith("/")) p = p.slice(0, -1);
-        // if endswith "/js" remove it
         p = p.replace(/\/js$/i, "");
         return p;
       }
     } catch (_) {}
 
-    // 3) 최후: 루트로 간주
     return "";
   })();
 
   // =========================
-  // ✅ withBase(): SPA 라우팅 전용 (pushState / href)
+  // ✅ withBase(): SPA 라우팅 전용
   // =========================
   function withBase(url) {
     const u = String(url ?? "");
     if (!u) return u;
 
-    // keep absolute urls / data urls
     if (
       /^(https?:)?\/\//i.test(u) ||
       u.startsWith("data:") ||
       u.startsWith("blob:") ||
       u.startsWith("mailto:") ||
       u.startsWith("tel:")
-    ) {
+    )
       return u;
-    }
 
-    // normalize path-ish strings
-    const norm = u.startsWith("/") ? u : ("/" + u.replace(/^\.?\//, ""));
+    const norm = u.startsWith("/") ? u : "/" + u.replace(/^\.?\//, "");
 
-    // already prefixed
     if (WOS_BASE && norm.startsWith(WOS_BASE + "/")) return norm;
-
-    // SPA routes only
     return (WOS_BASE || "") + norm;
   }
 
   // =========================
-  // ✅ withRes(): 정적 리소스(/data,/assets,/i18n) 전용
-  //   - GitHub Pages repo prefix에서도 리소스가 깨지지 않게 WOS_BASE를 붙임
+  // ✅ withRes(): 정적 리소스 전용
   // =========================
   function withRes(url) {
     const u = String(url ?? "");
     if (!u) return u;
 
-    // keep absolute urls / data urls
     if (
       /^(https?:)?\/\//i.test(u) ||
       u.startsWith("data:") ||
       u.startsWith("blob:") ||
       u.startsWith("mailto:") ||
       u.startsWith("tel:")
-    ) {
+    )
       return u;
-    }
 
-    // normalize
-    const norm = u.startsWith("/") ? u : ("/" + u.replace(/^\.?\//, ""));
+    const norm = u.startsWith("/") ? u : "/" + u.replace(/^\.?\//, "");
 
-    // already prefixed
     if (WOS_BASE && norm.startsWith(WOS_BASE + "/")) return norm;
-
-    // prefix always (WOS_BASE==""이면 그대로 "/..." 유지)
     return (WOS_BASE || "") + norm;
   }
 
   // expose for other modules
   window.WOS_BASE = WOS_BASE;
-  window.WOS_URL = withBase;   // SPA NAV
-  window.WOS_RES = withRes;    // RESOURCES
+  window.WOS_URL = withBase; // SPA NAV
+  window.WOS_RES = withRes; // RESOURCES
 
   // =========================
   // 2) Utils
@@ -253,7 +231,6 @@
       return s;
     }
 
-    // force absolute path, then prefix repo base
     if (s.startsWith("/")) return withRes(s);
     return withRes("/" + s.replace(/^\.?\//, ""));
   }
@@ -352,7 +329,9 @@
       }, interval);
 
       setTimeout(() => {
-        try { clearInterval(tmr); } catch (_) {}
+        try {
+          clearInterval(tmr);
+        } catch (_) {}
         finish(ok());
       }, timeoutMs + 150);
     });
@@ -370,7 +349,7 @@
 
   function mulberry32(seed) {
     return function () {
-      let x = (seed += 0x6D2B79F5);
+      let x = (seed += 0x6d2b79f5);
       x = Math.imul(x ^ (x >>> 15), x | 1);
       x ^= x + Math.imul(x ^ (x >>> 7), x | 61);
       return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
@@ -382,8 +361,9 @@
     if (!list.length) return [];
 
     const d = new Date();
-    const key =
-      `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+      d.getDate()
+    ).padStart(2, "0")}`;
 
     const rnd = mulberry32(hashStringToInt(key));
 
@@ -409,7 +389,10 @@
   // =========================
   async function initI18n() {
     if (!window.WOS_I18N || typeof window.WOS_I18N.init !== "function") {
-      return { ok: false, lang: (document.documentElement.getAttribute("lang") || "en").toLowerCase() || "en" };
+      return {
+        ok: false,
+        lang: (document.documentElement.getAttribute("lang") || "en").toLowerCase() || "en",
+      };
     }
 
     const basePath = detectI18nBasePath();
@@ -428,7 +411,9 @@
       window.__WOS_I18N_LANGCHANGE_BOUND__ = true;
       window.addEventListener("wos:langchange", () => {
         applyI18n(document);
-        try { router().catch(() => {}); } catch (_) {}
+        try {
+          router().catch(() => {});
+        } catch (_) {}
       });
     }
 
@@ -443,7 +428,7 @@
         document.documentElement.getAttribute("lang") ||
         "en";
       const l = String(v).toLowerCase();
-      return (l === "ko" || l === "ja" || l === "en") ? l : "en";
+      return l === "ko" || l === "ja" || l === "en" ? l : "en";
     } catch (_) {
       return "en";
     }
@@ -451,7 +436,7 @@
 
   // JSON localized field: string | {en,ko,ja} | {i18n:{...}}
   function getLocalizedField(value, lang, fallback = "") {
-    const l = (lang === "ko" || lang === "ja" || lang === "en") ? lang : "en";
+    const l = lang === "ko" || lang === "ja" || lang === "en" ? lang : "en";
     if (value == null) return String(fallback ?? "");
 
     if (typeof value === "string" || typeof value === "number") return String(value);
@@ -656,7 +641,6 @@
     } catch (_) {
       // relative-like
       let p = h;
-      // already base-prefixed?
       if (WOS_BASE && p.startsWith(WOS_BASE + "/")) p = p.slice(WOS_BASE.length) || "/";
       if (!p.startsWith("/")) p = "/" + p;
       if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
@@ -668,10 +652,14 @@
     const p = String(appPath || "/");
     return (
       p === "/" ||
-      p === "/buildings" || p.startsWith("/buildings/") ||
-      p === "/heroes" || p.startsWith("/heroes/") ||
-      p === "/tips" || p.startsWith("/tips/") ||
-      p === "/tools" || p.startsWith("/tools/")
+      p === "/buildings" ||
+      p.startsWith("/buildings/") ||
+      p === "/heroes" ||
+      p.startsWith("/heroes/") ||
+      p === "/tips" ||
+      p.startsWith("/tips/") ||
+      p === "/tools" ||
+      p.startsWith("/tools/")
     );
   }
 
@@ -682,9 +670,7 @@
       const href = a.getAttribute("href") || "";
       const ap = toAppPathFromHref(href) || "";
       const isHome = ap === "/" && (path === "/" || path === "");
-      const isMatch =
-        isHome ||
-        (ap !== "/" && (path === ap || path.startsWith(ap + "/")));
+      const isMatch = isHome || (ap !== "/" && (path === ap || path.startsWith(ap + "/")));
       if (isMatch) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");
     });
@@ -751,10 +737,11 @@
     console.error(err);
 
     const path = getPath();
-    const attempted =
-      Array.isArray(extra.attempted) ? extra.attempted :
-      Array.isArray(err?.attempted) ? err.attempted :
-      [];
+    const attempted = Array.isArray(extra.attempted)
+      ? extra.attempted
+      : Array.isArray(err?.attempted)
+      ? err.attempted
+      : [];
 
     const triedLabel = t("error.tried_urls") || "Tried URLs";
     const errTitle = t("error.title") || "Error";
@@ -764,7 +751,7 @@
         <div class="wos-panel" style="margin-top:12px">
           <div class="wos-muted" style="margin-bottom:6px">${esc(triedLabel)}</div>
           <div class="wos-mono" style="font-size:12px">
-            ${attempted.map(u => `<div><code>${esc(u)}</code></div>`).join("")}
+            ${attempted.map((u) => `<div><code>${esc(u)}</code></div>`).join("")}
           </div>
         </div>
       `
@@ -779,10 +766,18 @@
         <p class="wos-muted" style="margin:0">${esc(err?.message ?? err)}</p>
 
         <div style="margin-top:12px; display:grid; gap:8px">
-          <div><span class="wos-muted">DATA_BASE (buildings)</span> <code class="wos-mono">${esc(DATA_BASE ?? "(not set)")}</code></div>
-          <div><span class="wos-muted">Index URL</span> <code class="wos-mono">${esc(toAbsResourceUrl((DATA_BASE ?? "") + "/index.json"))}</code></div>
-          <div style="margin-top:6px"><span class="wos-muted">DATA_BASE_HEROES</span> <code class="wos-mono">${esc(DATA_BASE_HEROES ?? "(not set)")}</code></div>
-          <div><span class="wos-muted">Heroes Index URL</span> <code class="wos-mono">${esc(toAbsResourceUrl((DATA_BASE_HEROES ?? "") + "/{r|sr|ssr}/index.json"))}</code></div>
+          <div><span class="wos-muted">DATA_BASE (buildings)</span> <code class="wos-mono">${esc(
+            DATA_BASE ?? "(not set)"
+          )}</code></div>
+          <div><span class="wos-muted">Index URL</span> <code class="wos-mono">${esc(
+            toAbsResourceUrl((DATA_BASE ?? "") + "/index.json")
+          )}</code></div>
+          <div style="margin-top:6px"><span class="wos-muted">DATA_BASE_HEROES</span> <code class="wos-mono">${esc(
+            DATA_BASE_HEROES ?? "(not set)"
+          )}</code></div>
+          <div><span class="wos-muted">Heroes Index URL</span> <code class="wos-mono">${esc(
+            toAbsResourceUrl((DATA_BASE_HEROES ?? "") + "/{r|sr|ssr}/index.json")
+          )}</code></div>
         </div>
       </div>
       ${attemptedHTML}
@@ -801,7 +796,7 @@
 
   function go(path) {
     let p = String(path ?? "").trim();
-    const appPath = toAppPathFromHref(p) || (p.startsWith("/") ? p : (p ? ("/" + p) : "/"));
+    const appPath = toAppPathFromHref(p) || (p.startsWith("/") ? p : p ? "/" + p : "/");
     if (!isSpaPath(appPath)) return;
 
     history.pushState({}, "", withBase(appPath));
@@ -937,7 +932,7 @@
     const date = fmtDateLike(it?.date ?? it?.time ?? it?.updatedAt ?? it?.createdAt ?? "");
     let href = it?.href ?? it?.url ?? it?.link ?? it?.path ?? "";
 
-    const ap = href ? (toAppPathFromHref(href) || (href.startsWith("/") ? href : "")) : "";
+    const ap = href ? toAppPathFromHref(href) || (href.startsWith("/") ? href : "") : "";
     if (ap && isSpaPath(ap)) href = routeHref(ap);
     else href = routeHref("/");
 
@@ -951,7 +946,7 @@
     const candidates = ["/data/tips/index.json"];
     const r = await fetchJSONTryWithAttempts(candidates);
     const items = normalizeIndex(r.data);
-    return items.filter(it => (it?.status ?? "published") === "published");
+    return items.filter((it) => (it?.status ?? "published") === "published");
   }
 
   function normTipItem(it) {
@@ -971,7 +966,9 @@
     // buildings
     if (path.startsWith("/buildings/") && path.split("/").length >= 3) {
       let slug = path.replace("/buildings/", "");
-      try { slug = decodeURIComponent(slug); } catch (_) {}
+      try {
+        slug = decodeURIComponent(slug);
+      } catch (_) {}
       return pageBuilding(slug);
     }
     if (path === "/buildings") return pageBuildings();
@@ -979,7 +976,9 @@
     // heroes
     if (path.startsWith("/heroes/") && path.split("/").length >= 3) {
       let slug = path.replace("/heroes/", "");
-      try { slug = decodeURIComponent(slug); } catch (_) {}
+      try {
+        slug = decodeURIComponent(slug);
+      } catch (_) {}
       return pageHero(slug);
     }
     if (path === "/heroes") return pageHeroes();
@@ -1076,13 +1075,14 @@
             ${
               todaysTips.length
                 ? `<div class="wos-grid3" style="margin-top:12px;">
-                    ${todaysTips.map((ti, i) => {
-                      const titleTxt = getLocalizedField(ti.title, lang, "Tip");
-                      const catTxt = getLocalizedField(ti.category, lang, "Tip");
-                      const slugEnc = encodeURIComponent(String(ti.slug || ""));
-                      const dateTxt = ti.date ? String(ti.date) : "";
+                    ${todaysTips
+                      .map((ti, i) => {
+                        const titleTxt = getLocalizedField(ti.title, lang, "Tip");
+                        const catTxt = getLocalizedField(ti.category, lang, "Tip");
+                        const slugEnc = encodeURIComponent(String(ti.slug || ""));
+                        const dateTxt = ti.date ? String(ti.date) : "";
 
-                      return `
+                        return `
                         <a class="wos-item" href="${routeHref(`/tips/${slugEnc}`)}" data-link style="flex-direction:column;">
                           <div style="display:flex; align-items:center; gap:10px; width:100%;">
                             <div class="wos-badge">${esc(String(i + 1))}</div>
@@ -1096,7 +1096,8 @@
                           </div>
                         </a>
                       `;
-                    }).join("")}
+                      })
+                      .join("")}
                   </div>`
                 : `<div class="wos-muted" style="font-size:13px; line-height:1.65;" data-i18n="home.no_tips">
                     ${esc(t("home.no_tips") || "No tips data yet.")}
@@ -1110,12 +1111,13 @@
             ${
               latest.length
                 ? `<div class="wos-list">
-                    ${latest.map((it) => {
-                      const catTxt = getLocalizedField(it.category, lang, "Update");
-                      const titleTxt = getLocalizedField(it.title, lang, "Untitled");
-                      const dateTxt = it.date ? String(it.date) : "";
+                    ${latest
+                      .map((it) => {
+                        const catTxt = getLocalizedField(it.category, lang, "Update");
+                        const titleTxt = getLocalizedField(it.title, lang, "Untitled");
+                        const dateTxt = it.date ? String(it.date) : "";
 
-                      return `
+                        return `
                         <a class="wos-item" href="${esc(it.href)}" data-link>
                           <div class="wos-badge">${esc(catTxt)}</div>
                           <div style="flex:1; min-width:0;">
@@ -1124,7 +1126,8 @@
                           </div>
                         </a>
                       `;
-                    }).join("")}
+                      })
+                      .join("")}
                   </div>`
                 : `<div class="wos-muted" style="font-size:13px; line-height:1.65;" data-i18n="home.no_latest">
                     ${esc(t("home.no_latest") || "No latest uploads data.")}
@@ -1150,14 +1153,8 @@
     const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
     if (!view) return;
 
-    const ok = await waitForGlobal(
-      "WOS_TIPS",
-      () => window.WOS_TIPS && typeof window.WOS_TIPS.renderList === "function"
-    );
-
-    if (!ok) {
-      return showError(new Error("tips.js not loaded (window.WOS_TIPS.renderList missing)."));
-    }
+    const ok = await waitForGlobal("WOS_TIPS", () => window.WOS_TIPS && typeof window.WOS_TIPS.renderList === "function");
+    if (!ok) return showError(new Error("tips.js not loaded (window.WOS_TIPS.renderList missing)."));
 
     await window.WOS_TIPS.renderList({
       appEl: view,
@@ -1168,7 +1165,7 @@
       t,
       tOpt,
       routeHref,
-      withBase
+      withBase,
     });
 
     setActiveMenu(path);
@@ -1182,14 +1179,8 @@
     const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
     if (!view) return;
 
-    const ok = await waitForGlobal(
-      "WOS_TIPS",
-      () => window.WOS_TIPS && typeof window.WOS_TIPS.renderDetail === "function"
-    );
-
-    if (!ok) {
-      return showError(new Error("tips.js not loaded (window.WOS_TIPS.renderDetail missing)."));
-    }
+    const ok = await waitForGlobal("WOS_TIPS", () => window.WOS_TIPS && typeof window.WOS_TIPS.renderDetail === "function");
+    if (!ok) return showError(new Error("tips.js not loaded (window.WOS_TIPS.renderDetail missing)."));
 
     await window.WOS_TIPS.renderDetail({
       appEl: view,
@@ -1201,7 +1192,7 @@
       t,
       tOpt,
       routeHref,
-      withBase
+      withBase,
     });
 
     setActiveMenu(path);
@@ -1231,7 +1222,9 @@
           <a class="wos-item" href="${routeHref("/tools/building-calculator")}" data-link style="align-items:center;">
             <div class="wos-badge" data-i18n="nav.calculator">${esc(t("nav.calculator") || "Calculator")}</div>
             <div style="flex:1;">
-              <div class="wos-item-title" data-i18n="tools.building_calc">${esc(t("tools.building_calc") || "Building Calculator")}</div>
+              <div class="wos-item-title" data-i18n="tools.building_calc">${esc(
+                t("tools.building_calc") || "Building Calculator"
+              )}</div>
               <div class="wos-item-meta wos-mono">/tools/building-calculator</div>
             </div>
           </a>
@@ -1269,7 +1262,7 @@
           t,
           tOpt,
           withBase,
-          routeHref
+          routeHref,
         });
         applyI18n(root);
         setDocTitle(pageTitle);
@@ -1279,13 +1272,11 @@
       }
     }
 
-    const okFallback = await waitForGlobal(
-      "WOS_CALC",
-      () => window.WOS_CALC && typeof window.WOS_CALC.render === "function"
-    );
-
+    const okFallback = await waitForGlobal("WOS_CALC", () => window.WOS_CALC && typeof window.WOS_CALC.render === "function");
     if (!okFallback) {
-      return showError(new Error("Calculator modules not loaded (window.WOS_BUILDING_CALC.initCalculator / window.WOS_CALC.render missing)."));
+      return showError(
+        new Error("Calculator modules not loaded (window.WOS_BUILDING_CALC.initCalculator / window.WOS_CALC.render missing).")
+      );
     }
 
     const ctx = { go, esc, fmtNum, t, tOpt, withBase, routeHref };
@@ -1307,14 +1298,8 @@
     const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
     if (!view) return;
 
-    const ok = await waitForGlobal(
-      "WOS_BUILDINGS",
-      () => window.WOS_BUILDINGS && typeof window.WOS_BUILDINGS.renderList === "function"
-    );
-
-    if (!ok) {
-      return showError(new Error("buildings.js is not loaded (window.WOS_BUILDINGS.renderList missing)."));
-    }
+    const ok = await waitForGlobal("WOS_BUILDINGS", () => window.WOS_BUILDINGS && typeof window.WOS_BUILDINGS.renderList === "function");
+    if (!ok) return showError(new Error("buildings.js is not loaded (window.WOS_BUILDINGS.renderList missing)."));
 
     const ret = await window.WOS_BUILDINGS.renderList({
       DATA_BASE,
@@ -1325,7 +1310,7 @@
       t,
       tOpt,
       withBase,
-      routeHref
+      routeHref,
     });
 
     setActiveMenu(path);
@@ -1344,10 +1329,7 @@
       "WOS_BUILDINGS",
       () => window.WOS_BUILDINGS && typeof window.WOS_BUILDINGS.renderDetail === "function"
     );
-
-    if (!ok) {
-      return showError(new Error("buildings.js is not loaded (window.WOS_BUILDINGS.renderDetail missing)."));
-    }
+    if (!ok) return showError(new Error("buildings.js is not loaded (window.WOS_BUILDINGS.renderDetail missing)."));
 
     const ret = await window.WOS_BUILDINGS.renderDetail({
       slug,
@@ -1364,7 +1346,7 @@
       t,
       tOpt,
       withBase,
-      routeHref
+      routeHref,
     });
 
     setActiveMenu(path);
@@ -1395,7 +1377,7 @@
           routeHref,
           go,
           withBase,
-          DATA_BASE_HEROES
+          DATA_BASE_HEROES,
         });
         applyI18n(view);
         setDocTitle(pageTitle);
@@ -1405,11 +1387,7 @@
       }
     }
 
-    const urls = [
-      `${DATA_BASE_HEROES}/r/index.json`,
-      `${DATA_BASE_HEROES}/sr/index.json`,
-      `${DATA_BASE_HEROES}/ssr/index.json`,
-    ];
+    const urls = [`${DATA_BASE_HEROES}/r/index.json`, `${DATA_BASE_HEROES}/sr/index.json`, `${DATA_BASE_HEROES}/ssr/index.json`];
 
     const attempted = [];
     const combined = [];
@@ -1431,29 +1409,31 @@
 
     view.innerHTML = `
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
-        ${combined.map((h) => {
-          const slug2 = String(h.slug ?? "");
-          const rawTitle = h.title ?? h.name ?? slug2;
+        ${combined
+          .map((h) => {
+            const slug2 = String(h.slug ?? "");
+            const rawTitle = h.title ?? h.name ?? slug2;
 
-          // ✅ FIXED: 문법오류 원인(\` ... \`) 제거 — 정상 템플릿리터럴 사용
-          const title = tOpt(`heroes.${slug2}.namename`, rawTitle) || tOpt(`heroes.${slug2}.name`, rawTitle);
+            const title = tOpt(`heroes.${slug2}.namename`, rawTitle) || tOpt(`heroes.${slug2}.name`, rawTitle);
 
-          const portrait = h.portrait ?? h.portraitSrc ?? h.image ?? "";
-          const rarity = tEnum("hero.rarity", (h.rarity ?? h.tier ?? ""));
-          const cls = tEnum("hero.class", (h.class ?? h.heroClass ?? ""));
-          const meta = [rarity, cls].filter(Boolean).join(" · ");
+            const portrait = h.portrait ?? h.portraitSrc ?? h.image ?? "";
+            const rarity = tEnum("hero.rarity", h.rarity ?? h.tier ?? "");
+            const cls = tEnum("hero.class", h.class ?? h.heroClass ?? "");
+            const meta = [rarity, cls].filter(Boolean).join(" · ");
 
-          const hrefSlug = encodeURIComponent(slug2);
+            const hrefSlug = encodeURIComponent(slug2);
 
-          return `
+            return `
             <a class="wos-item"
                href="${routeHref("/heroes/" + hrefSlug)}"
                style="flex-direction:column; align-items:stretch;">
-              ${portrait
-                ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(title)}"
-                        style="width:100%;height:auto;border-radius:12px; border:1px solid var(--w-border);"
-                        loading="lazy">`
-                : ""}
+              ${
+                portrait
+                  ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(title)}"
+                          style="width:100%;height:auto;border-radius:12px; border:1px solid var(--w-border);"
+                          loading="lazy">`
+                  : ""
+              }
 
               <div style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
                 <div class="wos-badge" data-i18n="nav.hero">${esc(t("nav.hero") || "Hero")}</div>
@@ -1465,7 +1445,8 @@
               </div>
             </a>
           `;
-        }).join("")}
+          })
+          .join("")}
       </div>
     `;
 
@@ -1480,8 +1461,6 @@
     const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
     if (!view) return;
 
-    // ✅ DATA_BASE_HEROES is fixed already
-
     if (window.WOS_HEROES && typeof window.WOS_HEROES.renderDetail === "function") {
       try {
         const ret = await window.WOS_HEROES.renderDetail(view, slug, {
@@ -1493,7 +1472,7 @@
           routeHref,
           go,
           withBase,
-          DATA_BASE_HEROES
+          DATA_BASE_HEROES,
         });
         applyI18n(view);
         const inferred = inferTitleFromView(view);
@@ -1504,11 +1483,7 @@
       }
     }
 
-    const idxUrls = [
-      `${DATA_BASE_HEROES}/r/index.json`,
-      `${DATA_BASE_HEROES}/sr/index.json`,
-      `${DATA_BASE_HEROES}/ssr/index.json`,
-    ];
+    const idxUrls = [`${DATA_BASE_HEROES}/r/index.json`, `${DATA_BASE_HEROES}/sr/index.json`, `${DATA_BASE_HEROES}/ssr/index.json`];
 
     const attempted = [];
     let foundRarityDir = null;
@@ -1534,10 +1509,7 @@
       return showError(new Error("Hero not found in any rarity index.json: " + slug), { attempted });
     }
 
-    const urls = [
-      `${DATA_BASE_HEROES}/${foundRarityDir}/${slug}.json`,
-      `${DATA_BASE_HEROES}/${foundRarityDir}/${encodeURIComponent(slug)}.json`,
-    ];
+    const urls = [`${DATA_BASE_HEROES}/${foundRarityDir}/${slug}.json`, `${DATA_BASE_HEROES}/${foundRarityDir}/${encodeURIComponent(slug)}.json`];
 
     let hero, attempted2;
     try {
@@ -1552,9 +1524,9 @@
     const title = tOpt(`heroes.${slug}.name`, rawTitle);
 
     const portrait = hero?.portrait ?? hero?.portraitSrc ?? hero?.image ?? "";
-    const rarity = tEnum("hero.rarity", (hero?.rarity ?? ""));
-    const cls = tEnum("hero.class", (hero?.class ?? hero?.heroClass ?? ""));
-    const sub = tEnum("hero.subclass", (hero?.subClass ?? hero?.subclass ?? ""));
+    const rarity = tEnum("hero.rarity", hero?.rarity ?? "");
+    const cls = tEnum("hero.class", hero?.class ?? hero?.heroClass ?? "");
+    const sub = tEnum("hero.subclass", hero?.subClass ?? hero?.subclass ?? "");
 
     const storyHtmlFromI18n = tOpt(`heroes.${slug}.story_html`, "");
     const storyTextFromI18n = tOpt(`heroes.${slug}.story`, "");
@@ -1569,10 +1541,7 @@
       (typeof hero?.story === "string" ? hero.story : "");
 
     const descHtml = descHtmlFromI18n || (hero?.descriptionHtml ?? "");
-    const descText =
-      !descHtml
-        ? (descTextFromI18n || (hero?.description ?? ""))
-        : "";
+    const descText = !descHtml ? descTextFromI18n || hero?.description || "" : "";
 
     const skills = Array.isArray(hero?.skills) ? hero.skills : [];
     const skillsHtml = skills.length
@@ -1580,50 +1549,73 @@
         <div class="wos-panel" style="margin-top:12px">
           <h2 style="margin:0 0 10px;" data-i18n="hero.skills">${esc(t("hero.skills") || "Skills")}</h2>
           <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
-            ${skills.map((sk, idx) => {
-              const rawSt = sk?.title ?? sk?.name ?? "Skill";
-              const st = tOpt(`heroes.${slug}.skills.${idx}.name`, rawSt);
+            ${skills
+              .map((sk, idx) => {
+                const rawSt = sk?.title ?? sk?.name ?? "Skill";
+                const st = tOpt(`heroes.${slug}.skills.${idx}.name`, rawSt);
 
-              const icon = sk?.icon ?? sk?.iconSrc ?? sk?.image ?? "";
+                const icon = sk?.icon ?? sk?.iconSrc ?? sk?.image ?? "";
 
-              const sHtmlI18n = tOpt(`heroes.${slug}.skills.${idx}.description_html`, "");
-              const sTxtI18n = tOpt(`heroes.${slug}.skills.${idx}.description`, "");
+                const sHtmlI18n = tOpt(`heroes.${slug}.skills.${idx}.description_html`, "");
+                const sTxtI18n = tOpt(`heroes.${slug}.skills.${idx}.description`, "");
 
-              const sHtml = sHtmlI18n || sk?.descriptionHtml || sk?.descHtml || "";
-              const sTxt = !sHtml ? (sTxtI18n || (sk?.description ?? sk?.desc ?? "")) : "";
+                const sHtml = sHtmlI18n || sk?.descriptionHtml || sk?.descHtml || "";
+                const sTxt = !sHtml ? sTxtI18n || sk?.description || sk?.desc || "" : "";
 
-              return `
+                return `
                 <div class="wos-panel" style="padding:12px;">
                   <div style="display:flex; gap:10px; align-items:center;">
-                    ${icon ? `<img src="${esc(toAbsResourceUrl(icon))}" alt="${esc(st)}" style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">` : ""}
+                    ${
+                      icon
+                        ? `<img src="${esc(toAbsResourceUrl(icon))}" alt="${esc(
+                            st
+                          )}" style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">`
+                        : ""
+                    }
                     <div style="font-weight:900;">${esc(st)}</div>
                   </div>
-                  ${sHtml ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${sHtml}</div>` : (sTxt ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${nl2br(sTxt)}</div>` : "")}
+                  ${
+                    sHtml
+                      ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${sHtml}</div>`
+                      : sTxt
+                      ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${nl2br(sTxt)}</div>`
+                      : ""
+                  }
                 </div>
               `;
-            }).join("")}
+              })
+              .join("")}
           </div>
         </div>
       `
       : "";
 
-    const storyBlock =
-      storyHtml
-        ? `<div class="wos-panel" style="margin-top:12px">${storyHtml}</div>`
-        : (storyTextFromI18n ? `<div class="wos-panel wos-muted" style="margin-top:12px; font-size:13px;">${nl2br(storyTextFromI18n)}</div>` : "");
+    const storyBlock = storyHtml
+      ? `<div class="wos-panel" style="margin-top:12px">${storyHtml}</div>`
+      : storyTextFromI18n
+      ? `<div class="wos-panel wos-muted" style="margin-top:12px; font-size:13px;">${nl2br(storyTextFromI18n)}</div>`
+      : "";
 
     view.innerHTML = `
       <div class="wos-panel">
         <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-          ${portrait ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(title)}" style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">` : ""}
+          ${
+            portrait
+              ? `<img src="${esc(toAbsResourceUrl(portrait))}" alt="${esc(
+                  title
+                )}" style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">`
+              : ""
+          }
           <div style="flex:1; min-width:260px;">
             <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">${esc(title)}</h2>
             <div class="wos-muted" style="font-size:13px;">
               ${[
                 rarity && `${esc(t("hero.rarity") || "Rarity")}: ${esc(rarity)}`,
                 cls && `${esc(t("hero.class") || "Class")}: ${esc(cls)}`,
-                sub && `${esc(t("hero.subclass") || "SubClass")}: ${esc(sub)}`
-              ].filter(Boolean).join(" · ")}
+                sub && `${esc(t("hero.subclass") || "SubClass")}: ${esc(sub)}`,
+              ]
+                .filter(Boolean)
+                .join(" · ")}
             </div>
             <div class="wos-muted wos-mono" style="font-size:12px; margin-top:10px;">${esc(slug)}</div>
           </div>
@@ -1632,7 +1624,9 @@
         ${
           descHtml
             ? `<div style="margin-top:12px">${descHtml}</div>`
-            : (descText ? `<div class="wos-muted" style="margin-top:12px; font-size:13px;">${nl2br(descText)}</div>` : "")
+            : descText
+            ? `<div class="wos-muted" style="margin-top:12px; font-size:13px;">${nl2br(descText)}</div>`
+            : ""
         }
 
         ${storyBlock}
@@ -1646,7 +1640,7 @@
     setDocTitle(title || pageTitle);
   }
 
-    // =========================
+  // =========================
   // 9) Boot
   // =========================
   (async () => {
@@ -1695,8 +1689,12 @@
 
     // debug
     window.__WOS_DEV__ = {
-      get DATA_BASE() { return DATA_BASE; },
-      get DATA_BASE_HEROES() { return DATA_BASE_HEROES; },
+      get DATA_BASE() {
+        return DATA_BASE;
+      },
+      get DATA_BASE_HEROES() {
+        return DATA_BASE_HEROES;
+      },
       getPath,
       go,
       router,

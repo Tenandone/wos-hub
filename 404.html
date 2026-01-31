@@ -9,22 +9,31 @@
     (function () {
       var l = window.location;
 
-      // ✅ 너는 아직 커스텀도메인 X, GitHub Pages 프로젝트 페이지
-      // ✅ base를 확정으로 고정 (추측 제거)
-      var base = "/wos-hub";
-
+      // ===== base auto-detect (project page vs custom domain) =====
+      // project page: https://tenandone.github.io/wos-hub/...
+      // custom domain: https://wos.gg/...
       var path = l.pathname || "/";
-      var search = l.search || "";
-      var hash = l.hash || "";
+      var base = "";
 
-      // base 제거해서 appPath 만들기
+      // repo name 추정: 첫 세그먼트가 'wos-hub'면 project page로 간주
+      // (원하면 여기 값을 바꿔도 됨)
+      if (path === "/wos-hub" || path.indexOf("/wos-hub/") === 0) base = "/wos-hub";
+
+      // ===== remove base from path => appPath =====
       var appPath = path;
       if (base && appPath.indexOf(base + "/") === 0) appPath = appPath.slice(base.length);
       if (base && appPath === base) appPath = "/";
 
-      var target = base + "/?p=" + encodeURIComponent(appPath || "/")
-                 + "&q=" + encodeURIComponent(search || "")
-                 + "&h=" + encodeURIComponent(hash || "");
+      if (!appPath) appPath = "/";
+      if (appPath.charAt(0) !== "/") appPath = "/" + appPath;
+
+      var search = l.search || "";
+      var hash = l.hash || "";
+
+      // ===== redirect target (index will read ?p=...) =====
+      var target = base + "/?p=" + encodeURIComponent(appPath)
+                 + "&q=" + encodeURIComponent(search)
+                 + "&h=" + encodeURIComponent(hash);
 
       l.replace(target);
     })();
