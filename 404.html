@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WOS HUB</title>
+  <script>
+    // GitHub Pages SPA redirect (non-hash routing)
+    (function () {
+      const redirect =
+        location.pathname +
+        location.search +
+        location.hash;
+
+      sessionStorage.setItem("wos:redirect", redirect);
+
+      // always go to SPA entry
+      location.replace("/");
+    })();
+  </script>
+</head>
+<body></body>
+</html>

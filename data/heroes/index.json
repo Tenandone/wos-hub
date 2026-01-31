@@ -1,0 +1,376 @@
+{
+  "heroes": [
+    {
+      "slug": "ahmose",
+      "rarity": "SSR",
+      "season": 4,
+      "path": "ssr/ahmose.json"
+    },
+    {
+      "slug": "alonso",
+      "rarity": "SSR",
+      "season": 2,
+      "path": "ssr/alonso.json"
+    },
+    {
+      "slug": "blanchette",
+      "rarity": "SSR",
+      "season": 10,
+      "path": "ssr/blanchette.json"
+    },
+    {
+      "slug": "bradley",
+      "rarity": "SSR",
+      "season": 7,
+      "path": "ssr/bradley.json"
+    },
+    {
+      "slug": "cara",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/cara.json"
+    },
+    {
+      "slug": "dominic",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/dominic.json"
+    },
+    {
+      "slug": "edith",
+      "rarity": "SSR",
+      "season": 7,
+      "path": "ssr/edith.json"
+    },
+    {
+      "slug": "eleonora",
+      "rarity": "SSR",
+      "season": 11,
+      "path": "ssr/eleonora.json"
+    },
+    {
+      "slug": "elif",
+      "rarity": "SSR",
+      "season": 14,
+      "path": "ssr/elif.json"
+    },
+    {
+      "slug": "estrella",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/estrella.json"
+    },
+    {
+      "slug": "flint",
+      "rarity": "SSR",
+      "season": 2,
+      "path": "ssr/flint.json"
+    },
+    {
+      "slug": "flora",
+      "rarity": "SSR",
+      "season": 13,
+      "path": "ssr/flora.json"
+    },
+    {
+      "slug": "fred",
+      "rarity": "SSR",
+      "season": 9,
+      "path": "ssr/fred.json"
+    },
+    {
+      "slug": "freya",
+      "rarity": "SSR",
+      "season": 10,
+      "path": "ssr/freya.json"
+    },
+    {
+      "slug": "gatot",
+      "rarity": "SSR",
+      "season": 8,
+      "path": "ssr/gatot.json"
+    },
+    {
+      "slug": "gisela",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/gisela.json"
+    },
+    {
+      "slug": "gordon",
+      "rarity": "SSR",
+      "season": 7,
+      "path": "ssr/gordon.json"
+    },
+    {
+      "slug": "greg",
+      "rarity": "SSR",
+      "season": 3,
+      "path": "ssr/greg.json"
+    },
+    {
+      "slug": "gregory",
+      "rarity": "SSR",
+      "season": 10,
+      "path": "ssr/gregory.json"
+    },
+    {
+      "slug": "gwen",
+      "rarity": "SSR",
+      "season": 5,
+      "path": "ssr/gwen.json"
+    },
+    {
+      "slug": "hank",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/hank.json"
+    },
+    {
+      "slug": "hector",
+      "rarity": "SSR",
+      "season": 5,
+      "path": "ssr/hector.json"
+    },
+    {
+      "slug": "hendrik",
+      "rarity": "SSR",
+      "season": 8,
+      "path": "ssr/hendrik.json"
+    },
+    {
+      "slug": "hervor",
+      "rarity": "SSR",
+      "season": 12,
+      "path": "ssr/hervor.json"
+    },
+    {
+      "slug": "index",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/index.json"
+    },
+    {
+      "slug": "jeronimo",
+      "rarity": "SSR",
+      "season": 1,
+      "path": "ssr/jeronimo.json"
+    },
+    {
+      "slug": "karol",
+      "rarity": "SSR",
+      "season": 12,
+      "path": "ssr/karol.json"
+    },
+    {
+      "slug": "ligeia",
+      "rarity": "SSR",
+      "season": 12,
+      "path": "ssr/ligeia.json"
+    },
+    {
+      "slug": "lloyd",
+      "rarity": "SSR",
+      "season": 11,
+      "path": "ssr/lloyd.json"
+    },
+    {
+      "slug": "logan",
+      "rarity": "SSR",
+      "season": 3,
+      "path": "ssr/logan.json"
+    },
+    {
+      "slug": "lynn",
+      "rarity": "SSR",
+      "season": 4,
+      "path": "ssr/lynn.json"
+    },
+    {
+      "slug": "magnus",
+      "rarity": "SSR",
+      "season": 9,
+      "path": "ssr/magnus.json"
+    },
+    {
+      "slug": "mia",
+      "rarity": "SSR",
+      "season": 3,
+      "path": "ssr/mia.json"
+    },
+    {
+      "slug": "molly",
+      "rarity": "SSR",
+      "season": 1,
+      "path": "ssr/molly.json"
+    },
+    {
+      "slug": "natalia",
+      "rarity": "SSR",
+      "season": 1,
+      "path": "ssr/natalia.json"
+    },
+    {
+      "slug": "norah",
+      "rarity": "SSR",
+      "season": 5,
+      "path": "ssr/norah.json"
+    },
+    {
+      "slug": "philly",
+      "rarity": "SSR",
+      "season": 2,
+      "path": "ssr/philly.json"
+    },
+    {
+      "slug": "reina",
+      "rarity": "SSR",
+      "season": 4,
+      "path": "ssr/reina.json"
+    },
+    {
+      "slug": "renee",
+      "rarity": "SSR",
+      "season": 6,
+      "path": "ssr/renee.json"
+    },
+    {
+      "slug": "rufus",
+      "rarity": "SSR",
+      "season": 11,
+      "path": "ssr/rufus.json"
+    },
+    {
+      "slug": "sonya",
+      "rarity": "SSR",
+      "season": 8,
+      "path": "ssr/sonya.json"
+    },
+    {
+      "slug": "viveca",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/viveca.json"
+    },
+    {
+      "slug": "vulcanus",
+      "rarity": "SSR",
+      "season": null,
+      "path": "ssr/vulcanus.json"
+    },
+    {
+      "slug": "wayne",
+      "rarity": "SSR",
+      "season": 6,
+      "path": "ssr/wayne.json"
+    },
+    {
+      "slug": "wuming",
+      "rarity": "SSR",
+      "season": 6,
+      "path": "ssr/wuming.json"
+    },
+    {
+      "slug": "xura",
+      "rarity": "SSR",
+      "season": 9,
+      "path": "ssr/xura.json"
+    },
+    {
+      "slug": "zinman",
+      "rarity": "SSR",
+      "season": 1,
+      "path": "ssr/zinman.json"
+    },
+    {
+      "slug": "bahiti",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/bahiti.json"
+    },
+    {
+      "slug": "gina",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/gina.json"
+    },
+    {
+      "slug": "index",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/index.json"
+    },
+    {
+      "slug": "jasser",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/jasser.json"
+    },
+    {
+      "slug": "jessie",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/jessie.json"
+    },
+    {
+      "slug": "lingxue",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/lingxue.json"
+    },
+    {
+      "slug": "lumakvokan",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/lumakvokan.json"
+    },
+    {
+      "slug": "patrick",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/patrick.json"
+    },
+    {
+      "slug": "seoyoon",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/seoyoon.json"
+    },
+    {
+      "slug": "sergey",
+      "rarity": "SR",
+      "season": null,
+      "path": "sr/sergey.json"
+    },
+    {
+      "slug": "charlie",
+      "rarity": "R",
+      "season": null,
+      "path": "r/charlie.json"
+    },
+    {
+      "slug": "cloris",
+      "rarity": "R",
+      "season": null,
+      "path": "r/cloris.json"
+    },
+    {
+      "slug": "eugene",
+      "rarity": "R",
+      "season": null,
+      "path": "r/eugene.json"
+    },
+    {
+      "slug": "index",
+      "rarity": "R",
+      "season": null,
+      "path": "r/index.json"
+    },
+    {
+      "slug": "smith",
+      "rarity": "R",
+      "season": null,
+      "path": "r/smith.json"
+    }
+  ]
+}

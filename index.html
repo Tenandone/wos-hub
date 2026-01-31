@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script>
+(() => {
+  // Restore path after GitHub Pages 404 redirect
+  const redirect = sessionStorage.getItem("wos:redirect");
+  if (redirect) {
+    sessionStorage.removeItem("wos:redirect");
+    history.replaceState({}, "", redirect);
+  }
+})();
+</script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WOS HUB – Whiteout Survival Tools & Data</title>
@@ -76,7 +87,7 @@
         data-i18n-aria-label="aria.open_menu"
       >☰</button>
 
-      <a class="wos-brand" href="#/" data-i18n="brand.name">WosHub</a>
+      <a class="wos-brand" href="/" data-i18n="brand.name">WosHub</a>
 
       <div class="wos-desktop-only wos-langbar">
         <button
@@ -141,12 +152,12 @@
       <button class="wos-drawer-link" type="button" data-lang="ja" data-lang-link="ja">🇯🇵 JA</button>
     </div>
 
-    <a class="wos-drawer-link" data-nav href="#/" data-i18n="nav.home">Home</a>
-    <a class="wos-drawer-link" data-nav href="#/buildings" data-i18n="nav.buildings">Buildings</a>
-    <a class="wos-drawer-link" data-nav href="#/heroes" data-i18n="nav.heroes">Heroes</a>
-    <a class="wos-drawer-link" data-nav href="#/coupons" data-i18n="nav.coupons">Coupons</a>
-    <a class="wos-drawer-link" data-nav href="#/tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
-    <a class="wos-drawer-link" data-nav href="#/tips" data-i18n="nav.tips">Tips</a>
+    <a class="wos-drawer-link" data-nav href="/" data-i18n="nav.home">Home</a>
+    <a class="wos-drawer-link" data-nav href="/buildings" data-i18n="nav.buildings">Buildings</a>
+    <a class="wos-drawer-link" data-nav href="/heroes" data-i18n="nav.heroes">Heroes</a>
+    <a class="wos-drawer-link" data-nav href="/coupons" data-i18n="nav.coupons">Coupons</a>
+    <a class="wos-drawer-link" data-nav href="/tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
+    <a class="wos-drawer-link" data-nav href="/tips" data-i18n="nav.tips">Tips</a>
   </nav>
 
   <main id="app" class="wos-app"></main>

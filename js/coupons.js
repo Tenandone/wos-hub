@@ -1,42 +1,7 @@
-/* =========================================================
-   WosHub - js/coupons.js  (FULL / STANDALONE + SPA) ✅ FINAL (app.js 호환 최적화)
-   - Works in 3 modes:
-
-   (A) Standalone coupon pages (index.en.html / index.ko.html / index.ja.html)
-       - Put: <div id="couponGrid" data-coupon-grid="1"></div>
-       - Optional: #lastUpdated, filter chips (.chip[data-filter])
-       - Script tag can pass:
-         <script defer src="/js/coupons.js"
-                 data-locale="ko"
-                 data-json="/coupons/coupons.json"
-                 data-max="999"
-                 data-footer="0"></script>
-
-   (B) SPA (#/coupons) via app.js
-       - app.js calls: window.WOS_COUPONS.renderPage({ appEl, locale, jsonUrl, ... })
-       - app.js template mode calls: window.WOS_COUPONS.renderList({ appEl, locale, jsonUrl, ... })
-       - app.js optional lastUpdated:
-           - prefers window.WOS_COUPONS._fetchCoupons(jsonUrl)
-
-   (C) Home/footer strip injection (optional)
-       - injects #wosFooterCoupons unless disabled: data-footer="0"
-
-   JSON format accepted:
-     - Array: [ { code, expires, ... }, ... ]
-     - Object: { updatedAt, items:[...]} OR { lastUpdated, coupons:[...] } OR { updated, items:[...] }
-
-   Expiry rule:
-     - If expires is "YYYY-MM-DD": expires at UTC 00:00 of that date.
-       (now >= that instant => expired)
-     - If expires is full ISO datetime: Date(expires) used as-is.
-   ========================================================= */
-
+/* js/coupons.js (IIFE) */
 (() => {
   "use strict";
 
-  // -------------------------
-  // Helpers
-  // -------------------------
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -49,9 +14,9 @@
       .replaceAll("'", "&#39;");
   }
 
-  function pickLang(input) {
-    const v = String(input || "").toLowerCase();
-    return v === "ko" || v === "en" || v === "ja" ? v : "en";
+  function pickLang(v) {
+    const s = String(v || "").toLowerCase();
+    return s === "ko" || s === "ja" || s === "en" ? s : "en";
   }
 
   function uniq(arr) {
@@ -67,40 +32,85 @@
     return out;
   }
 
-  function safeToAbs(url) {
-    // keep absolute/protocol-relative/relative as-is (caller provides proper path)
-    const u = String(url || "").trim();
-    return u || "";
+  function routeHref(path) {
+    let p = String(path ?? "");
+    if (!p.startsWith("/")) p = "/" + p;
+    return "#" + p;
   }
 
-  function findCouponsScriptTag() {
-    // In SPA route changes, currentScript can be null.
-    // We'll pick last script that includes "coupons.js".
-    const cur = document.currentScript;
-    if (cur && String(cur.src || "").includes("coupons.js")) return cur;
-    const hits = $$("script[src]").filter((s) => String(s.src || "").includes("coupons.js"));
-    return hits.length ? hits[hits.length - 1] : null;
+  function safeDecode(s) {
+    try {
+      return decodeURIComponent(String(s ?? ""));
+    } catch (_) {
+      return String(s ?? "");
+    }
   }
 
-  function getScriptConfig() {
-    const cur = findCouponsScriptTag();
+  function t(key, vars) {
+    try {
+      if (window.WOS_I18N && typeof window.WOS_I18N.t === "function") {
+        return window.WOS_I18N.t(key, vars);
+      }
+    } catch (_) {}
+    return String(key || "");
+  }
 
-    const htmlLang = pickLang(document.documentElement.getAttribute("lang"));
-    const dataLocale = cur ? pickLang(cur.getAttribute("data-locale")) : "";
-    const locale = pickLang(dataLocale || htmlLang || "en");
+  function tOpt(key, fallback = "") {
+    const k = String(key || "");
+    const v = String(t(k) ?? "");
+    if (!k) return String(fallback ?? "");
+    if (!v || v === k) return String(fallback ?? "");
+    return v;
+  }
 
-    // ✅ FIX: 올바른 attribute에서 json 경로 읽기
-    const json =
-      (cur && (cur.getAttribute("data-json") || cur.getAttribute("data-coupons-json"))) ||
-      "/coupons/coupons.json";
+  function applyI18n(root = document) {
+    try {
+      if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") {
+        window.WOS_I18N.apply(root);
+      }
+    } catch (_) {}
+  }
 
-    const max = Number(cur && cur.getAttribute("data-max"));
-    const maxNum = Number.isFinite(max) && max > 0 ? Math.floor(max) : 999;
+  function setDocTitle(pageTitle = "") {
+    const site = "WosHub";
+    const tx = String(pageTitle || "").trim();
+    document.title = tx ? `${tx} · ${site}` : site;
+  }
 
-    const footer = (cur && cur.getAttribute("data-footer")) || "1";
-    const footerOn = footer !== "0" && footer !== "false";
+  function fmtDateLike(v) {
+    if (!v) return "";
+    const s = String(v);
+    if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 16).replace("T", " ");
+    const d = new Date(s);
+    if (!Number.isNaN(d.getTime())) {
+      const yy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mi = String(d.getMinutes()).padStart(2, "0");
+      return `${yy}-${mm}-${dd} ${hh}:${mi}`;
+    }
+    return s;
+  }
 
-    return { cur, locale, json, max: maxNum, footerOn };
+  async function fetchTextTryWithAttempts(urls) {
+    const attempted = [];
+    let lastErr = null;
+
+    for (const u of urls) {
+      attempted.push(u);
+      try {
+        const res = await fetch(u, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const text = await res.text();
+        return { text, usedUrl: u, attempted };
+      } catch (e) {
+        lastErr = new Error(`Fetch failed: ${u} (${e.message})`);
+      }
+    }
+
+    if (lastErr) lastErr.attempted = attempted;
+    throw lastErr || new Error("Fetch failed");
   }
 
   function normalizeList(payload) {
@@ -113,11 +123,11 @@
 
   function getUpdatedAt(payload) {
     const v =
-      payload?.updatedAt ||
-      payload?.lastUpdated ||
-      payload?.updated || // ✅ supports your {updated, items}
-      payload?.time ||
-      payload?.date ||
+      payload?.updatedAt ??
+      payload?.lastUpdated ??
+      payload?.updated ??
+      payload?.time ??
+      payload?.date ??
       "";
     return String(v || "");
   }
@@ -142,7 +152,6 @@
     const s = String(expires).trim();
     if (!s) return null;
 
-    // date-only => UTC 00:00
     if (/^\d{4}-\d{2}-\d{2}$/.test(s)) {
       const [y, m, d] = s.split("-").map((x) => Number(x));
       if (!y || !m || !d) return null;
@@ -219,8 +228,18 @@
         tried: "試行したURL",
       },
     };
+
     const l = pickLang(locale);
-    return dict[l]?.[key] ?? dict.en[key] ?? String(key);
+    const v = dict[l]?.[key] ?? dict.en[key] ?? String(key);
+
+    if (key === "coupons") return tOpt("nav.coupons", v);
+    if (key === "copy") return tOpt("coupons.copy", v);
+    if (key === "copied") return tOpt("coupons.copied", v);
+    if (key === "active") return tOpt("coupons.active", v);
+    if (key === "expired") return tOpt("coupons.expired", v);
+    if (key === "lastUpdated") return tOpt("coupons.updated", v);
+    if (key === "noCoupons") return tOpt("coupons.empty", v);
+    return v;
   }
 
   function normalizeCoupon(raw) {
@@ -249,14 +268,8 @@
     };
   }
 
-  // -------------------------
-  // Robust fetch (tries many URLs)
-  // -------------------------
   function buildJsonCandidates(inputUrl) {
-    const cfg = getScriptConfig();
-    const base = safeToAbs(inputUrl || cfg.json || "/coupons/coupons.json");
-
-    // ✅ 중복 제거 + 구조 유지
+    const base = String(inputUrl || "/coupons/coupons.json").trim() || "/coupons/coupons.json";
     return uniq([
       base,
       "/coupons/coupons.json",
@@ -265,6 +278,8 @@
       "coupons.json",
       "/page/data/coupons.json",
       "page/data/coupons.json",
+      "/data/coupons.json",
+      "data/coupons.json",
     ]);
   }
 
@@ -356,13 +371,9 @@
     }
   }
 
-  // -------------------------
-  // Render: Grid
-  // -------------------------
   function renderCouponCards(root, coupons, locale, opts = {}) {
     const now = Date.now();
     const redeemUrl = opts.redeemUrl || "https://wos-giftcode.centurygame.com/";
-
     const max = Number.isFinite(opts.max) && opts.max > 0 ? Math.floor(opts.max) : 999;
     const sliced = (coupons || []).slice(0, Math.min(max, (coupons || []).length));
 
@@ -410,7 +421,6 @@
       return;
     }
 
-    // SPA style
     root.innerHTML = `
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:12px;">
         ${sliced.map((c) => {
@@ -444,9 +454,6 @@
     `;
   }
 
-  // -------------------------
-  // Events (guarded)
-  // -------------------------
   function bindCopyButtons(root, locale) {
     if (!root || root.__wosCouponsCopyBound) return;
     root.__wosCouponsCopyBound = true;
@@ -459,7 +466,7 @@
       const ok = await copyToClipboard(code);
 
       const old = btn.textContent;
-      btn.textContent = ok ? getText(locale, "copied") : old;
+      if (ok) btn.textContent = getText(locale, "copied");
       btn.setAttribute("disabled", "disabled");
 
       setTimeout(() => {
@@ -478,12 +485,10 @@
     if (!chips.length) return;
 
     const setPressed = (activeFilter) => {
-      chips.forEach((c) =>
-        c.setAttribute(
-          "aria-pressed",
-          c.getAttribute("data-filter") === activeFilter ? "true" : "false"
-        )
-      );
+      chips.forEach((c) => {
+        const f = c.getAttribute("data-filter") || "";
+        c.setAttribute("aria-pressed", f === activeFilter ? "true" : "false");
+      });
     };
 
     const applyFilter = (filter) => {
@@ -509,99 +514,286 @@
     applyFilter("all");
   }
 
-  // -------------------------
-  // Footer strip
-  // -------------------------
-  function ensureFooterSlot() {
-    const footer = $("footer.site-footer") || $("footer") || null;
-    if (!footer) return null;
+  function focusCouponCard(gridEl, focusSlug) {
+    if (!gridEl || !focusSlug) return;
+    const slug = String(focusSlug || "").toLowerCase().trim();
+    if (!slug) return;
 
-    let slot = $("#wosFooterCoupons", footer);
-    if (slot) return slot;
+    const cards = $$("[data-coupon-card='1']", gridEl);
+    const target = cards.find((el) => {
+      const btn = el.querySelector("[data-copy]");
+      const code = btn ? String(btn.getAttribute("data-copy") || "") : "";
+      return code.toLowerCase() === slug;
+    });
 
-    slot = document.createElement("div");
-    slot.id = "wosFooterCoupons";
-    slot.style.marginTop = "10px";
-    slot.style.width = "100%";
-    footer.appendChild(slot);
-    return slot;
+    if (target && typeof target.scrollIntoView === "function") {
+      try {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      } catch (_) {
+        target.scrollIntoView();
+      }
+    }
   }
 
-  function renderFooterStrip(slot, coupons, locale, opts = {}) {
-    const max = Number.isFinite(opts.max) && opts.max > 0 ? Math.floor(opts.max) : 3;
-    const now = Date.now();
+  async function loadCouponsTemplateInto(container, lang) {
+    const l = pickLang(lang);
+    const candidates = [
+      `/coupons/index.${l}.html`,
+      `coupons/index.${l}.html`,
+      `/page/coupons/index.${l}.html`,
+      `page/coupons/index.${l}.html`,
+    ];
 
-    const top = stableSortCoupons(coupons)
-      .filter((c) => !isExpired(c.expiresMs, now))
-      .slice(0, max);
+    const r = await fetchTextTryWithAttempts(candidates);
 
-    if (!top.length) {
-      slot.innerHTML = "";
-      return;
+    const doc = new DOMParser().parseFromString(r.text || "", "text/html");
+    const root = doc.querySelector("#couponPage") || doc.querySelector("main") || doc.body;
+
+    try {
+      root.querySelectorAll("script").forEach((s) => s.remove());
+    } catch (_) {}
+
+    container.innerHTML = root ? root.innerHTML : (r.text || "");
+    return { usedUrl: r.usedUrl, attempted: r.attempted };
+  }
+
+  function getCouponKeyRaw(it) {
+    return String(
+      it?.code ??
+        it?.coupon ??
+        it?.slug ??
+        it?.id ??
+        it?.key ??
+        it?.name ??
+        ""
+    ).trim();
+  }
+
+  function isCouponExpiredRaw(it) {
+    const raw =
+      it?.expiresAt ??
+      it?.expireAt ??
+      it?.expiredAt ??
+      it?.endAt ??
+      it?.endDate ??
+      it?.expiry ??
+      it?.expires ??
+      it?.until;
+
+    if (!raw) return false;
+
+    const d = new Date(String(raw));
+    if (Number.isNaN(d.getTime())) {
+      const n = Number(raw);
+      if (Number.isFinite(n)) return n < Date.now();
+      return false;
     }
+    return d.getTime() < Date.now();
+  }
 
-    const title = getText(locale, "coupons");
-    const openLabel = getText(locale, "openCoupons");
+  function renderCouponPreviewCard(view, coupon, { slug, updatedAt, pageTitle, locale }) {
+    const code = getCouponKeyRaw(coupon) || slug || "";
+    const expired = isCouponExpiredRaw(coupon);
 
-    slot.innerHTML = `
-      <div style="margin-top:10px; border-top:1px solid rgba(15,23,42,.10); padding-top:10px;">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
-          <div style="font-weight:900; font-size:13px;">${esc(title)}</div>
-          <a href="#/coupons" data-link style="font-weight:800; font-size:12px; text-decoration:none; color:#1d4ed8;">
-            ${esc(openLabel)} →
-          </a>
+    const title =
+      String(coupon?.title ?? coupon?.name ?? coupon?.label ?? "") ||
+      code ||
+      (tOpt("nav.coupons", getText(locale, "coupons")) || getText(locale, "coupons"));
+
+    const desc =
+      coupon?.descriptionHtml ??
+      coupon?.descHtml ??
+      coupon?.html ??
+      "";
+
+    const descText =
+      !desc ? String(coupon?.description ?? coupon?.desc ?? coupon?.note ?? coupon?.notes ?? "") : "";
+
+    const reward = String(coupon?.reward ?? coupon?.benefit ?? coupon?.value ?? coupon?.bonus ?? "");
+    const start = String(coupon?.startAt ?? coupon?.startDate ?? coupon?.startsAt ?? coupon?.from ?? "");
+    const end = String(coupon?.expiresAt ?? coupon?.expireAt ?? coupon?.endAt ?? coupon?.endDate ?? coupon?.until ?? "");
+
+    const statusLabel = expired
+      ? tOpt("coupons.expired", getText(locale, "expired"))
+      : tOpt("coupons.active", getText(locale, "active"));
+
+    view.innerHTML = `
+      <div class="wos-panel">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div style="min-width:220px;">
+            <div class="wos-muted" style="font-size:12px; margin-bottom:6px;">
+              <a class="wos-a" href="${routeHref("/coupons")}" data-link>← ${esc(tOpt("common.back", "Back"))}</a>
+            </div>
+            <h2 style="margin:0; font-size:20px; letter-spacing:-.2px;">${esc(title)}</h2>
+            <div class="wos-muted" style="font-size:13px; margin-top:6px;">
+              <span class="wos-badge" style="${expired ? "opacity:.7" : ""}">${esc(statusLabel)}</span>
+              ${reward ? ` <span class="wos-muted">· ${esc(reward)}</span>` : ""}
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px; align-items:center;">
+            <button class="wos-btn" type="button" id="couponCopyBtn" data-copy="${esc(code)}">
+              ${esc(tOpt("coupons.copy", getText(locale, "copy")))}
+            </button>
+            <span class="wos-mono" style="font-size:13px; padding:8px 10px; border:1px solid var(--w-border); border-radius:12px;">
+              ${esc(code || "-")}
+            </span>
+          </div>
         </div>
 
-        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-          ${top.map((c) => `
-            <button type="button"
-              data-copy="${esc(c.code)}"
-              style="padding:7px 10px; border-radius:999px; border:1px solid rgba(15,23,42,.10); background:#fff; cursor:pointer; font-weight:900; font-size:12px;"
-              title="${esc(getText(locale, "copy"))}">
-              ${esc(c.code)}
-            </button>
-          `).join("")}
+        ${(start || end) ? `
+          <div class="wos-muted" style="font-size:12px; margin-top:10px;">
+            ${start ? `${esc(tOpt("coupons.starts", "Starts"))}: ${esc(fmtDateLike(start))}` : ""}
+            ${(start && end) ? " · " : ""}
+            ${end ? `${esc(tOpt("coupons.ends", "Ends"))}: ${esc(fmtDateLike(end))}` : ""}
+          </div>
+        ` : ""}
+
+        ${desc ? `<div style="margin-top:12px;">${desc}</div>` : ""}
+        ${(!desc && descText) ? `<div class="wos-muted" style="margin-top:12px; font-size:13px; line-height:1.7;">${esc(descText).replace(/\n/g, "<br>")}</div>` : ""}
+
+        <div class="wos-muted" style="font-size:12px; margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+          ${updatedAt ? `<span>${esc(tOpt("coupons.updated", "Updated"))}: ${esc(fmtDateLike(updatedAt))}</span>` : ""}
+          <span>/${esc(pageTitle || "coupons")}</span>
         </div>
       </div>
     `;
+
+    const btn = $("#couponCopyBtn", view);
+    if (btn) {
+      btn.addEventListener("click", async () => {
+        const v = btn.getAttribute("data-copy") || "";
+        if (!v) return;
+
+        let ok = false;
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(v);
+            ok = true;
+          }
+        } catch (_) {}
+
+        if (!ok) {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = v;
+            ta.style.position = "fixed";
+            ta.style.left = "-9999px";
+            document.body.appendChild(ta);
+            ta.select();
+            ok = document.execCommand("copy");
+            document.body.removeChild(ta);
+          } catch (_) {}
+        }
+
+        btn.textContent = ok ? tOpt("coupons.copied", getText(locale, "copied")) : tOpt("coupons.copy_failed", "Copy failed");
+        setTimeout(() => {
+          btn.textContent = tOpt("coupons.copy", getText(locale, "copy"));
+        }, 900);
+      });
+    }
+
+    applyI18n(view);
   }
 
-  // -------------------------
-  // Public API (for app.js)
-  // -------------------------
   function resolveLocale(argsLocale) {
-    const cfg = getScriptConfig();
     const htmlLang = pickLang(document.documentElement.getAttribute("lang"));
-    return pickLang(argsLocale || cfg.locale || htmlLang || "en");
+    return pickLang(argsLocale || htmlLang || "en");
   }
 
   function resolveJsonUrl(args = {}) {
-    const cfg = getScriptConfig();
     return (
       args.jsonUrl ||
       args.dataUrl ||
       args.dataCouponsJson ||
       args.couponsJson ||
-      cfg.json ||
       "/coupons/coupons.json"
     );
   }
 
-  async function renderPage(args = {}) {
+  function renderFetchError(root, locale, err, attempted) {
+    const tried = attempted && attempted.length ? attempted : buildJsonCandidates("/coupons/coupons.json");
+    root.innerHTML = `
+      <div class="wos-panel">
+        <h2 style="margin:0 0 8px; font-size:20px;">${esc(getText(locale, "failed"))}</h2>
+        <div class="wos-muted" style="font-size:13px; line-height:1.7;">${esc(String(err?.message || err || ""))}</div>
+      </div>
+      <div class="wos-panel" style="margin-top:12px;">
+        <div class="wos-muted" style="font-weight:900; margin-bottom:6px;">${esc(getText(locale, "tried"))}</div>
+        <div class="wos-mono" style="font-size:12px;">
+          ${tried.map((u) => `<div><code>${esc(u)}</code></div>`).join("")}
+        </div>
+      </div>
+    `;
+    applyI18n(root);
+  }
+
+  async function renderList(args = {}) {
     const appEl = args.appEl || null;
     if (!appEl) return;
 
     const locale = resolveLocale(args.locale);
     const jsonUrl = resolveJsonUrl(args);
     const max = Number.isFinite(args.max) ? args.max : 999;
-    const focusSlug = String(args.focusSlug || "");
 
-    // skeleton
+    bindCopyButtons(appEl, locale);
+
+    try {
+      const { list } = await fetchCouponsAny(jsonUrl);
+      const sorted = stableSortCoupons(list);
+      renderCouponCards(appEl, sorted, locale, { max });
+    } catch (err) {
+      const attempted = Array.isArray(err?.attempted) ? err.attempted : buildJsonCandidates(jsonUrl);
+      appEl.innerHTML = `
+        <div class="muted" style="padding:10px 2px;">
+          ${esc(getText(locale, "failed"))}
+        </div>
+        <div class="muted" style="font-size:12px;">
+          ${attempted.map((u) => `<div><code>${esc(u)}</code></div>`).join("")}
+        </div>
+      `;
+      applyI18n(appEl);
+    }
+  }
+
+  async function renderListPage(appEl, locale, jsonUrl, max, focusSlug) {
+    let templateLoaded = false;
+    let gridEl = null;
+
+    try {
+      await loadCouponsTemplateInto(appEl, locale);
+      templateLoaded = true;
+    } catch (_) {
+      templateLoaded = false;
+    }
+
+    if (templateLoaded) {
+      gridEl = $("#couponGrid", appEl) || $("[data-coupon-grid='1']", appEl) || appEl;
+      if (gridEl && gridEl.id === "couponGrid") {
+        gridEl.setAttribute("data-coupon-grid", gridEl.getAttribute("data-coupon-grid") || "1");
+      }
+
+      await renderList({ appEl: gridEl, locale, jsonUrl, max });
+
+      try {
+        const r = await fetchCouponsAny(jsonUrl);
+        const el = $("#lastUpdated", appEl);
+        if (el && r.updatedAt) el.textContent = String(r.updatedAt);
+      } catch (_) {}
+
+      bindFilterChips(appEl, gridEl);
+      if (focusSlug) focusCouponCard(gridEl, focusSlug);
+
+      applyI18n(appEl);
+      setDocTitle(tOpt("nav.coupons", getText(locale, "coupons")));
+      return;
+    }
+
     appEl.innerHTML = `
       <div class="wos-panel">
         <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;">
           <div>
-            <h2 style="margin:0 0 6px; font-size:20px; letter-spacing:-.2px;">${esc(getText(locale, "coupons"))}</h2>
+            <h2 style="margin:0 0 6px; font-size:20px; letter-spacing:-.2px;">${esc(tOpt("nav.coupons", getText(locale, "coupons")))}</h2>
             <div class="wos-muted" style="font-size:13px; line-height:1.55;">
               ${esc(getText(locale, "hint"))}
             </div>
@@ -640,61 +832,120 @@
       renderCouponCards(grid, sorted, locale, { max });
       bindFilterChips(appEl, grid);
 
-      // debug info (hidden by default)
       if (debug) {
         debug.style.display = "";
         debug.innerHTML = `<div>json: <code>${esc(usedUrl || "")}</code></div>`;
       }
 
-      // optional focus: scroll to code
-      if (focusSlug) {
-        const target = $$("[data-coupon-card='1']", grid).find((el) => {
-          const btn = el.querySelector("[data-copy]");
-          return btn && String(btn.getAttribute("data-copy") || "").toLowerCase() === focusSlug.toLowerCase();
-        });
-        if (target && typeof target.scrollIntoView === "function") {
-          try { target.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) { target.scrollIntoView(); }
-        }
-      }
+      if (focusSlug) focusCouponCard(grid, focusSlug);
+      applyI18n(appEl);
+      setDocTitle(tOpt("nav.coupons", getText(locale, "coupons")));
     } catch (err) {
-      console.error(err);
       const attempted = Array.isArray(err?.attempted) ? err.attempted : buildJsonCandidates(jsonUrl);
-
-      if (grid) {
-        grid.innerHTML = `
-          <div class="wos-muted" style="padding:10px 2px;">
-            ${esc(getText(locale, "failed"))}<br>
-            <span style="font-size:12px;">${esc(String(err?.message || err))}</span>
-          </div>
-          <div class="wos-panel" style="margin-top:10px; padding:10px;">
-            <div class="wos-muted" style="font-weight:900; margin-bottom:6px;">${esc(getText(locale, "tried"))}</div>
-            <div class="wos-mono" style="font-size:12px;">
-              ${attempted.map((u) => `<div><code>${esc(u)}</code></div>`).join("")}
-            </div>
-          </div>
-        `;
-      }
+      renderFetchError(appEl, locale, err, attempted);
+      setDocTitle(tOpt("nav.coupons", getText(locale, "coupons")));
     }
   }
 
-  async function renderList(args = {}) {
+  async function renderDetailPage(appEl, locale, jsonUrl, focusSlug) {
+    const pageTitle = tOpt("nav.coupons", getText(locale, "coupons"));
+    const focus = safeDecode(focusSlug).trim();
+    if (!focus) {
+      await renderListPage(appEl, locale, jsonUrl, 999, "");
+      return;
+    }
+
+    let r;
+    try {
+      r = await fetchCouponsAny(jsonUrl);
+    } catch (err) {
+      const attempted = Array.isArray(err?.attempted) ? err.attempted : buildJsonCandidates(jsonUrl);
+      renderFetchError(appEl, locale, err, attempted);
+      setDocTitle(pageTitle);
+      return;
+    }
+
+    const payload = r.payload;
+    const items = normalizeList(payload);
+    const key = focus.toLowerCase();
+    const found = items.find((it) => getCouponKeyRaw(it).toLowerCase() === key);
+
+    if (!found) {
+      appEl.innerHTML = `
+        <div class="wos-panel">
+          <div class="wos-muted" style="font-size:12px; margin-bottom:6px;">
+            <a class="wos-a" href="${routeHref("/coupons")}" data-link>← ${esc(tOpt("common.back", "Back"))}</a>
+          </div>
+          <h2 style="margin:0 0 8px;">${esc(tOpt("coupons.not_found", "Coupon not found"))}</h2>
+          <div class="wos-muted" style="font-size:13px; line-height:1.7;">
+            ${esc(tOpt("coupons.not_found_desc", "This coupon code was not found in the current list."))}<br>
+            <span class="wos-mono">${esc(focus)}</span>
+          </div>
+          <div style="margin-top:12px;">
+            <a class="wos-btn" href="${routeHref("/coupons")}" data-link>${esc(pageTitle)}</a>
+          </div>
+        </div>
+      `;
+      applyI18n(appEl);
+      setDocTitle(pageTitle);
+      return;
+    }
+
+    renderCouponPreviewCard(appEl, found, {
+      slug: focus,
+      updatedAt: r.updatedAt,
+      pageTitle: "coupons",
+      locale,
+    });
+
+    setDocTitle(getCouponKeyRaw(found) || pageTitle);
+  }
+
+  async function renderPage(args = {}) {
     const appEl = args.appEl || null;
     if (!appEl) return;
 
     const locale = resolveLocale(args.locale);
     const jsonUrl = resolveJsonUrl(args);
     const max = Number.isFinite(args.max) ? args.max : 999;
+    const focusSlug = String(args.focusSlug || "");
 
-    bindCopyButtons(appEl, locale);
+    if (focusSlug) {
+      await renderDetailPage(appEl, locale, jsonUrl, focusSlug);
+      return;
+    }
+
+    await renderListPage(appEl, locale, jsonUrl, max, "");
+  }
+
+  async function autoInitStandalone() {
+    const locale = pickLang(document.documentElement.getAttribute("lang"));
+    const grid = $("#couponGrid") || $("[data-coupon-grid='1']");
+    if (!grid) return;
+
+    const jsonUrl =
+      (document.currentScript && (document.currentScript.getAttribute("data-json") || document.currentScript.getAttribute("data-coupons-json"))) ||
+      "/coupons/coupons.json";
+
+    const maxRaw = document.currentScript && Number(document.currentScript.getAttribute("data-max"));
+    const max = Number.isFinite(maxRaw) && maxRaw > 0 ? Math.floor(maxRaw) : 999;
+
+    const lastUpdated = $("#lastUpdated");
+
+    bindCopyButtons(document, locale);
 
     try {
-      const { list } = await fetchCouponsAny(jsonUrl);
+      const { list, updatedAt } = await fetchCouponsAny(jsonUrl);
       const sorted = stableSortCoupons(list);
-      renderCouponCards(appEl, sorted, locale, { max });
+
+      if (lastUpdated) lastUpdated.textContent = updatedAt || "—";
+
+      renderCouponCards(grid, sorted, locale, { max });
+      bindFilterChips(document, grid);
+      applyI18n(document);
     } catch (err) {
-      console.error(err);
       const attempted = Array.isArray(err?.attempted) ? err.attempted : buildJsonCandidates(jsonUrl);
-      appEl.innerHTML = `
+      grid.innerHTML = `
         <div class="muted" style="padding:10px 2px;">
           ${esc(getText(locale, "failed"))}
         </div>
@@ -702,101 +953,20 @@
           ${attempted.map((u) => `<div><code>${esc(u)}</code></div>`).join("")}
         </div>
       `;
+      applyI18n(document);
     }
   }
 
-  async function renderFooter(args = {}) {
-    const locale = resolveLocale(args.locale);
-    const jsonUrl = resolveJsonUrl(args);
-    const max = Number.isFinite(args.max) ? args.max : 3;
-
-    const slot = args.rootEl || ensureFooterSlot();
-    if (!slot) return;
-
-    bindCopyButtons(slot, locale);
-
-    try {
-      const { list } = await fetchCouponsAny(jsonUrl);
-      renderFooterStrip(slot, list, locale, { max });
-    } catch (_) {
-      // silent in footer
-    }
-  }
-
-  // -------------------------
-  // Auto init (standalone pages + footer)
-  // -------------------------
-  async function autoInit() {
-    const cfg = getScriptConfig();
-    const locale = cfg.locale;
-
-    // Standalone page hook
-    const grid = $("#couponGrid") || $("[data-coupon-grid='1']");
-    const lastUpdated = $("#lastUpdated");
-
-    if (grid) {
-      bindCopyButtons(document, locale);
-
-      try {
-        const { list, updatedAt } = await fetchCouponsAny(cfg.json);
-        const sorted = stableSortCoupons(list);
-
-        if (lastUpdated) lastUpdated.textContent = updatedAt || "—";
-
-        renderCouponCards(grid, sorted, locale, { max: cfg.max });
-        bindFilterChips(document, grid);
-      } catch (err) {
-        console.error(err);
-        const attempted = Array.isArray(err?.attempted) ? err.attempted : buildJsonCandidates(cfg.json);
-        grid.innerHTML = `
-          <div class="muted" style="padding:10px 2px;">
-            ${esc(getText(locale, "failed"))}
-          </div>
-          <div class="muted" style="font-size:12px;">
-            ${attempted.map((u) => `<div><code>${esc(u)}</code></div>`).join("")}
-          </div>
-        `;
-      }
-    }
-
-    // Footer strip (optional)
-    if (cfg.footerOn) {
-      const slot = ensureFooterSlot();
-      if (slot && !slot.__wosCouponsFooterBound) {
-        slot.__wosCouponsFooterBound = true;
-        await renderFooter({ rootEl: slot, locale, jsonUrl: cfg.json, max: 3 });
-      }
-    }
-  }
-
-  // -------------------------
-  // Export (app.js 호환)
-  // -------------------------
   window.WOS_COUPONS = {
-    // Preferred for app.js
     renderPage,
-
-    // Template mode / fallback
     renderList,
-
-    // Footer helper
-    renderFooter,
-
-    // ✅ app.js가 lastUpdated를 위해 호출하는 이름 호환
     _fetchCoupons: fetchCouponsAny,
-
-    // Debug / utilities
     _fetchCouponsAny: fetchCouponsAny,
-    _normalizeCoupon: normalizeCoupon,
-    _stableSort: stableSortCoupons,
-    _buildJsonCandidates: buildJsonCandidates,
-    _getScriptConfig: getScriptConfig,
   };
 
-  // Run
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", autoInit, { once: true });
+    document.addEventListener("DOMContentLoaded", autoInitStandalone, { once: true });
   } else {
-    autoInit().catch(() => {});
+    autoInitStandalone().catch(() => {});
   }
 })();

@@ -1,12 +1,17 @@
 /* =========================================================
    WosHub - js/app.js (Split Build) - FULL (FINAL) ✅ i18n
-   - Hash router (#/...)
-   - DATA_BASE auto-detect
-   - Delegates: buildings.js / heroes.js / tips.js / coupons.js
-   - ✅ GitHub Pages base prefix fix:
-       - fetch URL withBase()
-       - injected HTML absolute urls fix (img/src, link/href, etc)
-       - BUT: do NOT rewrite SPA anchors (a[data-link], a[data-nav])
+   - ✅ History API Router (NO HASH):
+     (/buildings, /buildings/furnace, /heroes, /heroes/charlie,
+      /tools, /tools/building-calculator,
+      /tips, /tips/xxx)
+
+   - ✅ GitHub Pages repo prefix supported for SPA NAV ONLY (pushState / href)
+   - ✅ popstate 기반 뒤로/앞으로가기 지원
+   - ✅ a[data-link] 유지 + (외부 모듈 링크 보호 위해) SPA 라우트에 한해 일반 <a>도 인터셉트
+   - ✅ heroes.js / buildings.js / tips.js 등 외부 모듈 수정 없음
+   - ⚠️ 리소스 규칙 강제:
+       * fetch/img/json/assets에는 base(prefix) 절대 적용하지 않음
+       * 모든 리소스는 /data..., /assets..., /i18n... 절대경로로 가정
    ========================================================= */
 
 (() => {
@@ -15,8 +20,9 @@
   // =========================
   // 1) Config
   // =========================
-  let DATA_BASE = null;          // buildings
-  let DATA_BASE_HEROES = null;   // heroes
+  // ✅ 고정 (자동 탐지 비활성화)
+  let DATA_BASE = "/data/buildings";        // buildings
+  let DATA_BASE_HEROES = "/data/heroes";    // heroes
   const APP_SEL = "#app";
 
   // tools (fallback key for core calculator.js demo)
@@ -29,33 +35,85 @@
   const SITE_NAME = "WosHub";
 
   // =========================
-  // ✅ GitHub Pages base prefix helper
+  // ✅ GitHub Pages base prefix helper (History Router safe)
+  //   - DO NOT derive from location.pathname (it changes per route)
+  //   - Prefer <base href>, then currentScript src
   // =========================
   const WOS_BASE = (() => {
-    // ex) /wos-hub/  or /wos-hub/index.html  or /
-    let p = String(location.pathname || "/");
-    p = p.replace(/\/index\.html?$/i, "");
-    if (p.endsWith("/")) p = p.slice(0, -1);
-    return p; // "" or "/wos-hub"
+    // 1) <base href="...">가 있으면 그 경로를 우선 사용
+    try {
+      const baseEl = document.querySelector("base[href]");
+      if (baseEl) {
+        const href = baseEl.getAttribute("href") || "";
+        const u = new URL(href, location.href);
+        let p = String(u.pathname || "/");
+        p = p.replace(/\/index\.html?$/i, "");
+        if (p.endsWith("/")) p = p.slice(0, -1);
+        return p; // "" or "/repo"
+      }
+    } catch (_) {}
+
+    // 2) currentScript src에서 "/js/" 앞까지를 base로 추정
+    try {
+      const cs = document.currentScript;
+      const src = cs && cs.src ? String(cs.src) : "";
+      if (src) {
+        const u = new URL(src, location.href);
+        let p = String(u.pathname || "/"); // "/repo/js/app.js"
+        p = p.replace(/\/index\.html?$/i, "");
+        const idx = p.lastIndexOf("/js/");
+        if (idx !== -1) {
+          let base = p.slice(0, idx); // "/repo"
+          if (base.endsWith("/")) base = base.slice(0, -1);
+          return base; // "" or "/repo"
+        }
+        // fallback: directory of script
+        p = p.replace(/\/[^\/]*$/, ""); // "/repo/js"
+        if (p.endsWith("/")) p = p.slice(0, -1);
+        // if endswith "/js" remove it
+        p = p.replace(/\/js$/i, "");
+        return p;
+      }
+    } catch (_) {}
+
+    // 3) 최후: 루트로 간주
+    return "";
   })();
 
+  // ✅ base(prefix)는 SPA 라우팅(href/pushState) 전용으로 제한
+  //    - /data, /assets, /i18n 리소스에는 절대 적용하지 않음
   function withBase(url) {
     const u = String(url ?? "");
     if (!u) return u;
 
     // keep absolute urls / data urls
-    if (/^(https?:)?\/\//i.test(u) || u.startsWith("data:") || u.startsWith("blob:")) return u;
-    // keep hash routes
-    if (u.startsWith("#")) return u;
+    if (
+      /^(https?:)?\/\//i.test(u) ||
+      u.startsWith("data:") ||
+      u.startsWith("blob:") ||
+      u.startsWith("mailto:") ||
+      u.startsWith("tel:")
+    ) {
+      return u;
+    }
+
+    // normalize path-ish strings
+    const norm = u.startsWith("/") ? u : ("/" + u.replace(/^\.?\//, ""));
+
+    // ✅ resources: NEVER prefix with repo base
+    if (
+      norm === "/data" || norm.startsWith("/data/") ||
+      norm === "/assets" || norm.startsWith("/assets/") ||
+      norm === "/i18n" || norm.startsWith("/i18n/")
+    ) {
+      return norm;
+    }
 
     // already prefixed
-    if (WOS_BASE && u.startsWith(WOS_BASE + "/")) return u;
+    if (WOS_BASE && norm.startsWith(WOS_BASE + "/")) return norm;
 
-    // absolute path => prefix with base
-    if (u.startsWith("/")) return (WOS_BASE || "") + u;
-
-    // relative path => resolve under base
-    return (WOS_BASE ? (WOS_BASE + "/") : "") + u.replace(/^\.?\//, "");
+    // SPA routes only
+    return (WOS_BASE || "") + norm;
   }
 
   // expose for other modules
@@ -90,37 +148,20 @@
   function normalizeIndex(data) {
     if (Array.isArray(data)) return data;
     if (data && Array.isArray(data.items)) return data.items;
+    if (data && Array.isArray(data.heroes)) return data.heroes;
     return [];
   }
 
-  // Hash href helper
+  // ✅ History href helper (NO HASH) — SPA NAV ONLY
   function routeHref(path) {
     let p = String(path ?? "");
     if (!p.startsWith("/")) p = "/" + p;
-    return "#" + p;
+    return withBase(p);
   }
 
-  // ✅ i18n basePath auto-detect
+  // ✅ i18n basePath (resource path => NO base prefix)
   function detectI18nBasePath() {
-    try {
-      const p = String(location.pathname || "/");
-      const path = p.startsWith("/") ? p : "/" + p;
-
-      const idx = path.lastIndexOf("/i18n/");
-      if (idx !== -1) {
-        const prefix = path.slice(0, idx);
-        return (prefix || "") + "/i18n";
-      }
-
-      const dir = path.endsWith("/")
-        ? path
-        : path.slice(0, path.lastIndexOf("/") + 1);
-
-      const base = dir.replace(/\/$/, "");
-      return (base || "") + "/i18n";
-    } catch (_) {
-      return "/i18n";
-    }
+    return "/i18n";
   }
 
   // i18n helper: safe translate (works even if i18n not loaded yet)
@@ -149,58 +190,7 @@
     return tOpt(`${prefix}.${v}`, v);
   }
 
-  // =========================
-  // ✅ HTML 내부 절대경로(/...) 자동 보정 (이미지/미디어/리소스)
-  // - 주의: SPA 링크(a[data-link], a[data-nav])는 건드리면 해시 라우팅 꼬임
-  // =========================
-  function fixAbsoluteUrls(root = document) {
-    if (!root || !root.querySelectorAll) return;
-
-    const nodes = root.querySelectorAll(
-      "img[src],source[src],video[src],audio[src],script[src],link[href],a[href]"
-    );
-
-    nodes.forEach((el) => {
-      const tag = (el.tagName || "").toUpperCase();
-
-      // A 태그는 SPA 링크면 보정 금지 (hash router 망가짐)
-      if (tag === "A") {
-        if (el.hasAttribute("data-link") || el.hasAttribute("data-nav")) return;
-
-        const rawHref = el.getAttribute("href");
-        if (!rawHref) return;
-
-        const v = String(rawHref);
-
-        // keep external / data / blob / hash
-        if (/^(https?:)?\/\//i.test(v) || v.startsWith("data:") || v.startsWith("blob:") || v.startsWith("#")) return;
-        if (/^(mailto:|tel:)/i.test(v)) return;
-
-        const fixed = withBase(v);
-        if (fixed && fixed !== v) el.setAttribute("href", fixed);
-        return;
-      }
-
-      // LINK는 href, 나머지는 src
-      const attr = (tag === "LINK") ? "href" : "src";
-      const raw = el.getAttribute(attr);
-      if (!raw) return;
-
-      const v = String(raw);
-
-      // keep external / data / blob / hash
-      if (/^(https?:)?\/\//i.test(v) || v.startsWith("data:") || v.startsWith("blob:") || v.startsWith("#")) return;
-      if (/^(mailto:|tel:)/i.test(v)) return;
-
-      const fixed = withBase(v);
-      if (fixed && fixed !== v) el.setAttribute(attr, fixed);
-    });
-  }
-
   function applyI18n(root = document) {
-    // ✅ IMPORTANT: always fix absolute urls after any HTML injection
-    try { fixAbsoluteUrls(root); } catch (_) {}
-
     try {
       if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") {
         window.WOS_I18N.apply(root);
@@ -226,11 +216,31 @@
     return "";
   }
 
-  // Try multiple URLs, return parsed JSON
+  // ✅ fetch URL은 항상 절대경로로 정규화 (base(prefix) 적용 금지)
+  function toAbsResourceUrl(raw) {
+    const s = String(raw ?? "");
+    if (!s) return s;
+
+    if (
+      /^(https?:)?\/\//i.test(s) ||
+      s.startsWith("data:") ||
+      s.startsWith("blob:") ||
+      s.startsWith("mailto:") ||
+      s.startsWith("tel:")
+    ) {
+      return s;
+    }
+
+    // force absolute-from-origin
+    if (s.startsWith("/")) return s;
+    return "/" + s.replace(/^\.?\//, "");
+  }
+
+  // Try multiple URLs, return parsed JSON (NO base prefix)
   async function fetchJSONTry(urls) {
     let lastErr = null;
-    for (const u0 of urls) {
-      const u = withBase(u0);
+    for (const raw of urls) {
+      const u = toAbsResourceUrl(raw);
       try {
         const res = await fetch(u, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -242,43 +252,19 @@
     throw lastErr;
   }
 
-  // Try multiple URLs, return { data, usedUrl, attempted }
+  // Try multiple URLs, return { data, usedUrl, attempted } (NO base prefix)
   async function fetchJSONTryWithAttempts(urls) {
     const attempted = [];
     let lastErr = null;
 
-    for (const u0 of urls) {
-      const u = withBase(u0);
+    for (const raw of urls) {
+      const u = toAbsResourceUrl(raw);
       attempted.push(u);
-
       try {
         const res = await fetch(u, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data = await res.json();
         return { data, usedUrl: u, attempted };
-      } catch (e) {
-        lastErr = new Error(`Fetch failed: ${u} (${e.message})`);
-      }
-    }
-
-    if (lastErr) lastErr.attempted = attempted;
-    throw lastErr || new Error("Fetch failed");
-  }
-
-  // ✅ Try multiple URLs, return { text, usedUrl, attempted }
-  async function fetchTextTryWithAttempts(urls) {
-    const attempted = [];
-    let lastErr = null;
-
-    for (const u0 of urls) {
-      const u = withBase(u0);
-      attempted.push(u);
-
-      try {
-        const res = await fetch(u, { cache: "no-store" });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const text = await res.text();
-        return { text, usedUrl: u, attempted };
       } catch (e) {
         lastErr = new Error(`Fetch failed: ${u} (${e.message})`);
       }
@@ -387,50 +373,17 @@
     return list.slice(0, Math.min(count, list.length));
   }
 
+  // ✅ 자동 탐지 로직 비활성화 (고정값 반환)
   async function detectDataBaseBuildings() {
-    const candidates = [
-      "data/buildings",
-      "page/data/buildings",
-      "/data/buildings",
-      "/page/data/buildings",
-    ];
-
-    for (const base of candidates) {
-      try {
-        const res = await fetch(withBase(`${base}/index.json`), { cache: "no-store" });
-        if (!res.ok) continue;
-        await res.json();
-        return base;
-      } catch (_) {}
-    }
-    return "data/buildings";
+    return "/data/buildings";
   }
 
   async function detectDataBaseHeroes() {
-    const candidates = [
-      "data/heroes",
-      "page/data/heroes",
-      "/data/heroes",
-      "/page/data/heroes",
-    ];
-
-    const rarities = ["r", "sr", "ssr"];
-
-    for (const base of candidates) {
-      for (const rr of rarities) {
-        try {
-          const res = await fetch(withBase(`${base}/${rr}/index.json`), { cache: "no-store" });
-          if (!res.ok) continue;
-          await res.json();
-          return base;
-        } catch (_) {}
-      }
-    }
-    return "data/heroes";
+    return "/data/heroes";
   }
 
   // =========================
-  // 2.5) i18n Integration
+  // 2.5) i18n Integration (matches YOUR i18n.js)
   // =========================
   async function initI18n() {
     if (!window.WOS_I18N || typeof window.WOS_I18N.init !== "function") {
@@ -460,6 +413,7 @@
     return { ok: true, lang: lang || (window.WOS_I18N.getLang ? window.WOS_I18N.getLang() : "en") };
   }
 
+  // current language safe
   function getLangSafe() {
     try {
       const v =
@@ -473,6 +427,7 @@
     }
   }
 
+  // JSON localized field: string | {en,ko,ja} | {i18n:{...}}
   function getLocalizedField(value, lang, fallback = "") {
     const l = (lang === "ko" || lang === "ja" || lang === "en") ? lang : "en";
     if (value == null) return String(fallback ?? "");
@@ -490,6 +445,7 @@
     return String(fallback ?? "");
   }
 
+  // Back-compat: #langSelect / [data-lang-link]
   function bindLangUIOnce() {
     if (window.__WOS_LANG_UI_BOUND__) return;
     window.__WOS_LANG_UI_BOUND__ = true;
@@ -519,96 +475,6 @@
         window.WOS_I18N.setLang(v);
       }
     });
-  }
-
-  // =========================
-  // 2.55) Coupons template helpers
-  // =========================
-  function pickLang3(v) {
-    const s = String(v || "").toLowerCase();
-    return (s === "ko" || s === "ja" || s === "en") ? s : "en";
-  }
-
-  async function loadCouponsTemplateInto(view, lang) {
-    const l = pickLang3(lang);
-    const candidates = [
-      `/coupons/index.${l}.html`,
-      `coupons/index.${l}.html`,
-      `/page/coupons/index.${l}.html`,
-      `page/coupons/index.${l}.html`,
-    ];
-
-    const r = await fetchTextTryWithAttempts(candidates);
-
-    const doc = new DOMParser().parseFromString(r.text || "", "text/html");
-    const root =
-      doc.querySelector("#couponPage") ||
-      doc.querySelector("main") ||
-      doc.body;
-
-    try { root.querySelectorAll("script").forEach((s) => s.remove()); } catch (_) {}
-
-    view.innerHTML = root ? root.innerHTML : (r.text || "");
-
-    // ✅ template 내부 /assets/... 즉시 보정
-    try { fixAbsoluteUrls(view); } catch (_) {}
-
-    return { usedUrl: r.usedUrl, attempted: r.attempted };
-  }
-
-  function bindCouponsTemplateChipsOnce(container, gridEl) {
-    if (!container || !gridEl) return;
-    if (container.__wosCouponsChipsBound) return;
-    container.__wosCouponsChipsBound = true;
-
-    const chips = Array.from(container.querySelectorAll(".chip[data-filter]"));
-    if (!chips.length) return;
-
-    const setPressed = (activeFilter) => {
-      chips.forEach((c) => {
-        const f = c.getAttribute("data-filter") || "";
-        c.setAttribute("aria-pressed", f === activeFilter ? "true" : "false");
-      });
-    };
-
-    const applyFilter = (filter) => {
-      const cards = Array.from(gridEl.querySelectorAll("[data-coupon-card='1']"));
-      cards.forEach((card) => {
-        const expired = card.getAttribute("data-expired") === "1";
-        const show =
-          filter === "all" ||
-          (filter === "active" && !expired) ||
-          (filter === "expired" && expired);
-        card.style.display = show ? "" : "none";
-      });
-      setPressed(filter);
-    };
-
-    chips.forEach((chip) => {
-      chip.addEventListener("click", () => {
-        const f = chip.getAttribute("data-filter") || "all";
-        applyFilter(f);
-      });
-    });
-
-    applyFilter("all");
-  }
-
-  function focusCouponCard(gridEl, focusSlug) {
-    if (!gridEl || !focusSlug) return;
-    const slug = String(focusSlug || "").toLowerCase().trim();
-    if (!slug) return;
-
-    const cards = Array.from(gridEl.querySelectorAll("[data-coupon-card='1']"));
-    const target = cards.find((el) => {
-      const btn = el.querySelector("[data-copy]");
-      const code = btn ? String(btn.getAttribute("data-copy") || "") : "";
-      return code.toLowerCase() === slug;
-    });
-
-    if (target && typeof target.scrollIntoView === "function") {
-      try { target.scrollIntoView({ behavior: "smooth", block: "start" }); } catch (_) { target.scrollIntoView(); }
-    }
   }
 
   // =========================
@@ -738,16 +604,65 @@
   // =========================
   // 3) App Shell (View Root only)
   // =========================
+  function toAppPathFromLocation() {
+    let p = String(location.pathname || "/");
+    p = p.replace(/\/index\.html?$/i, "");
+    if (WOS_BASE && p === WOS_BASE) p = "/";
+    else if (WOS_BASE && p.startsWith(WOS_BASE + "/")) p = p.slice(WOS_BASE.length) || "/";
+    if (!p.startsWith("/")) p = "/" + p;
+    if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+    return p || "/";
+  }
+
+  function toAppPathFromHref(href) {
+    const h = String(href || "").trim();
+    if (!h) return "/";
+    if (h.startsWith("mailto:") || h.startsWith("tel:") || h.startsWith("data:") || h.startsWith("blob:")) return null;
+    if (h.startsWith("#")) return null; // hash 금지 (혼합 모드 방지)
+
+    try {
+      const u = new URL(h, location.href);
+      if (u.origin !== location.origin) return null;
+
+      let p = u.pathname || "/";
+      p = p.replace(/\/index\.html?$/i, "");
+      if (WOS_BASE && p === WOS_BASE) p = "/";
+      else if (WOS_BASE && p.startsWith(WOS_BASE + "/")) p = p.slice(WOS_BASE.length) || "/";
+      if (!p.startsWith("/")) p = "/" + p;
+      if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+      return p || "/";
+    } catch (_) {
+      // relative-like
+      let p = h;
+      // already base-prefixed?
+      if (WOS_BASE && p.startsWith(WOS_BASE + "/")) p = p.slice(WOS_BASE.length) || "/";
+      if (!p.startsWith("/")) p = "/" + p;
+      if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+      return p || "/";
+    }
+  }
+
+  function isSpaPath(appPath) {
+    const p = String(appPath || "/");
+    return (
+      p === "/" ||
+      p === "/buildings" || p.startsWith("/buildings/") ||
+      p === "/heroes" || p.startsWith("/heroes/") ||
+      p === "/tips" || p.startsWith("/tips/") ||
+      p === "/tools" || p.startsWith("/tools/")
+    );
+  }
+
   function setActiveMenu(_path) {
     const links = document.querySelectorAll(".wos-menu a[data-link]");
+    const path = _path || getPath();
     links.forEach((a) => {
       const href = a.getAttribute("href") || "";
-      const target = href.startsWith("#") ? href.slice(1) : href;
-      const path = _path || getPath();
-      const isHome = target === "/" && (path === "/" || path === "");
+      const ap = toAppPathFromHref(href) || "";
+      const isHome = ap === "/" && (path === "/" || path === "");
       const isMatch =
         isHome ||
-        (target !== "/" && (path === target || path.startsWith(target + "/")));
+        (ap !== "/" && (path === ap || path.startsWith(ap + "/")));
       if (isMatch) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");
     });
@@ -791,12 +706,10 @@
       }
     }
 
+    // ✅ SPA document title
     setDocTitle(title || "");
 
-    if (typeof contentHTML === "string" && contentHTML) {
-      view.innerHTML = contentHTML;
-      fixAbsoluteUrls(view);
-    }
+    if (typeof contentHTML === "string" && contentHTML) view.innerHTML = contentHTML;
 
     setActiveMenu(path || getPath());
     initDrawerOnce();
@@ -845,9 +758,9 @@
 
         <div style="margin-top:12px; display:grid; gap:8px">
           <div><span class="wos-muted">DATA_BASE (buildings)</span> <code class="wos-mono">${esc(DATA_BASE ?? "(not set)")}</code></div>
-          <div><span class="wos-muted">Index URL</span> <code class="wos-mono">${esc(withBase((DATA_BASE ?? "") + "/index.json"))}</code></div>
+          <div><span class="wos-muted">Index URL</span> <code class="wos-mono">${esc(toAbsResourceUrl((DATA_BASE ?? "") + "/index.json"))}</code></div>
           <div style="margin-top:6px"><span class="wos-muted">DATA_BASE_HEROES</span> <code class="wos-mono">${esc(DATA_BASE_HEROES ?? "(not set)")}</code></div>
-          <div><span class="wos-muted">Heroes Index URL</span> <code class="wos-mono">${esc(withBase((DATA_BASE_HEROES ?? "") + "/{r|sr|ssr}/index.json"))}</code></div>
+          <div><span class="wos-muted">Heroes Index URL</span> <code class="wos-mono">${esc(toAbsResourceUrl((DATA_BASE_HEROES ?? "") + "/{r|sr|ssr}/index.json"))}</code></div>
         </div>
       </div>
       ${attemptedHTML}
@@ -858,22 +771,19 @@
   }
 
   // =========================
-  // 5) Hash router
+  // 5) History Router (NO HASH)
   // =========================
   function getPath() {
-    const h = location.hash || "#/";
-    const p = h.startsWith("#") ? h.slice(1) : h;
-    return p || "/";
+    return toAppPathFromLocation();
   }
 
   function go(path) {
-    let p = String(path ?? "");
-    if (p.startsWith("#")) {
-      location.hash = p;
-      return;
-    }
-    if (!p.startsWith("/")) p = "/" + p;
-    location.hash = "#" + p;
+    let p = String(path ?? "").trim();
+    const appPath = toAppPathFromHref(p) || (p.startsWith("/") ? p : (p ? ("/" + p) : "/"));
+    if (!isSpaPath(appPath)) return;
+
+    history.pushState({}, "", withBase(appPath));
+    router().catch((err) => showError(err));
   }
 
   function bindLinkInterceptOnce() {
@@ -881,22 +791,47 @@
     window.__WOS_LINK_INTERCEPT_BOUND__ = true;
 
     document.addEventListener("click", (e) => {
-      const a = e.target.closest("a[data-link]");
+      const a = e.target.closest("a");
       if (!a) return;
 
+      // modifiers / new tab / downloads: pass through
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (a.target === "_blank") return;
+      if (a.hasAttribute("download")) return;
+
       const href = a.getAttribute("href") || "";
-      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank") return;
+      if (!href) return;
+
+      // external links -> pass through
+      if (/^(https?:)?\/\//i.test(href)) {
+        try {
+          const u = new URL(href, location.href);
+          if (u.origin !== location.origin) return;
+        } catch (_) {
+          return;
+        }
+      }
+
+      // Only intercept:
+      //  - a[data-link] 유지
+      //  - + 외부 모듈이 생성하는 일반 <a href="/heroes/..."> 도 SPA 라우트에 한해 인터셉트
+      const isDataLink = a.hasAttribute("data-link");
+      const appPath = toAppPathFromHref(href);
+
+      if (!appPath) return;
+      if (!isSpaPath(appPath)) return;
+      if (!isDataLink && a.closest("#view") == null) return; // data-link 아니면 #view 내부만 인터셉트
 
       e.preventDefault();
-      go(href);
+      go(appPath);
     });
   }
 
-  function bindHashChangeOnce() {
-    if (window.__WOS_HASHCHANGE_BOUND__) return;
-    window.__WOS_HASHCHANGE_BOUND__ = true;
+  function bindPopStateOnce() {
+    if (window.__WOS_POPSTATE_BOUND__) return;
+    window.__WOS_POPSTATE_BOUND__ = true;
 
-    window.addEventListener("hashchange", () => {
+    window.addEventListener("popstate", () => {
       router().catch((err) => showError(err));
     });
   }
@@ -939,7 +874,7 @@
     backdrop.addEventListener("click", closeDrawer);
 
     drawer.addEventListener("click", (e) => {
-      const a = e.target.closest("a[data-nav]");
+      const a = e.target.closest("a[data-nav],a[data-link]");
       if (a) closeDrawer();
     });
 
@@ -947,33 +882,24 @@
       if (e.key === "Escape") closeDrawer();
     });
 
-    window.addEventListener("hashchange", closeDrawer);
+    window.addEventListener("popstate", closeDrawer);
 
     const syncActive = () => {
-      const hash = location.hash || "#/";
+      const path = getPath();
       drawer.querySelectorAll(".wos-drawer-link").forEach((a) => {
-        a.classList.toggle("active", a.getAttribute("href") === hash);
+        const ap = toAppPathFromHref(a.getAttribute("href") || "") || "";
+        a.classList.toggle("active", ap && (path === ap || path.startsWith(ap + "/")));
       });
     };
-    window.addEventListener("hashchange", syncActive);
+    window.addEventListener("popstate", syncActive);
     syncActive();
   }
 
   // =========================
-  // 6) Home data (latest uploads) — NO dummy
+  // 6) Home data (latest uploads) — fixed path (NO env guessing)
   // =========================
   async function loadLatestUploads() {
-    const candidates = [
-      "data/home/latest.json",
-      "page/data/home/latest.json",
-      "/data/home/latest.json",
-      "/page/data/home/latest.json",
-      "data/latest.json",
-      "page/data/latest.json",
-      "/data/latest.json",
-      "/page/data/latest.json",
-    ];
-
+    const candidates = ["/data/home/latest.json"];
     try {
       const r = await fetchJSONTryWithAttempts(candidates);
       const list = normalizeIndex(r.data);
@@ -987,42 +913,22 @@
     const category = it?.category ?? it?.type ?? it?.badge ?? "Update";
     const title = it?.title ?? it?.name ?? it?.label ?? it?.slug ?? "Untitled";
     const date = fmtDateLike(it?.date ?? it?.time ?? it?.updatedAt ?? it?.createdAt ?? "");
-    let href = it?.href ?? it?.url ?? it?.link ?? "";
+    let href = it?.href ?? it?.url ?? it?.link ?? it?.path ?? "";
 
-    const slug = it?.slug ?? "";
-    const kind = String(it?.kind ?? it?.type ?? "").toLowerCase();
-
-    if (!href && kind && slug) {
-      if (kind.includes("building")) href = routeHref(`/buildings/${slug}`);
-      else if (kind.includes("hero")) href = routeHref(`/heroes/${slug}`);
-      else if (kind.includes("calc") || kind.includes("tool")) href = routeHref(`/tools/${slug}`);
-      else if (kind.includes("tip")) href = routeHref(`/tips/${slug}`);
-      else if (kind.includes("coupon")) href = routeHref(`/coupons/${slug}`);
-    }
-
-    if (!href && typeof it?.path === "string") href = routeHref(it.path);
-    if (!href) href = routeHref("/");
-
-    if (!href.startsWith("#")) href = routeHref(href);
+    // ✅ 스마트 추론 제거: kind/slug로 링크 생성하지 않음
+    // href가 SPA 경로로 해석되면 routeHref로 정규화, 아니면 홈으로
+    const ap = href ? (toAppPathFromHref(href) || (href.startsWith("/") ? href : "")) : "";
+    if (ap && isSpaPath(ap)) href = routeHref(ap);
+    else href = routeHref("/");
 
     return { category, title, date, href };
   }
 
   // =========================
-  // 6.3) Tips data (home preview only) — NO dummy
+  // 6.3) Tips data (home preview only) — fixed path (NO env guessing)
   // =========================
   async function loadTipsIndex() {
-    const candidates = [
-      "data/tips/index.json",
-      "page/data/tips/index.json",
-      "/data/tips/index.json",
-      "/page/data/tips/index.json",
-      "data/tips/items/index.json",
-      "page/data/tips/items/index.json",
-      "/data/tips/items/index.json",
-      "/page/data/tips/items/index.json",
-    ];
-
+    const candidates = ["/data/tips/index.json"];
     const r = await fetchJSONTryWithAttempts(candidates);
     const items = normalizeIndex(r.data);
     return items.filter(it => (it?.status ?? "published") === "published");
@@ -1037,31 +943,26 @@
   }
 
   // =========================
-  // 7) Routing
+  // 7) Routing (router() branches unchanged)
   // =========================
   async function router() {
     const path = getPath();
 
     // buildings
     if (path.startsWith("/buildings/") && path.split("/").length >= 3) {
-      const slug = path.replace("/buildings/", "");
+      let slug = path.replace("/buildings/", "");
+      try { slug = decodeURIComponent(slug); } catch (_) {}
       return pageBuilding(slug);
     }
     if (path === "/buildings") return pageBuildings();
 
     // heroes
     if (path.startsWith("/heroes/") && path.split("/").length >= 3) {
-      const slug = path.replace("/heroes/", "");
+      let slug = path.replace("/heroes/", "");
+      try { slug = decodeURIComponent(slug); } catch (_) {}
       return pageHero(slug);
     }
     if (path === "/heroes") return pageHeroes();
-
-    // coupons
-    if (path === "/coupons") return pageCoupons();
-    if (path.startsWith("/coupons/") && path.split("/").length >= 3) {
-      const slug = path.replace("/coupons/", "");
-      return pageCoupon(slug);
-    }
 
     // tools
     if (path === "/tools") return pageTools();
@@ -1088,6 +989,7 @@
 
     const lang = getLangSafe();
 
+    // Tips — daily fixed random
     let todaysTips = [];
     try {
       const tipsAll = (await loadTipsIndex()).map(normTipItem);
@@ -1096,6 +998,7 @@
       todaysTips = [];
     }
 
+    // Latest uploads (local only)
     const latestRaw = await loadLatestUploads();
     const latest = latestRaw.map(normLatestItem).slice(0, 10);
 
@@ -1103,6 +1006,7 @@
       <section class="wos-home">
         <div class="wos-home-grid">
 
+          <!-- 1) Quick Cards -->
           <div class="wos-panel">
             <div class="wos-row" style="margin-bottom:10px;">
               <div>
@@ -1140,6 +1044,7 @@
             </div>
           </div>
 
+          <!-- 2) Today’s Tips -->
           <div class="wos-panel">
             <div class="wos-row">
               <div>
@@ -1179,6 +1084,7 @@
             }
           </div>
 
+          <!-- 3) Latest Uploads -->
           <div class="wos-panel">
             <h2 data-i18n="home.latest_uploads">${esc(t("home.latest_uploads") || "Latest Uploads")}</h2>
             ${
@@ -1216,382 +1122,6 @@
   }
 
   // =========================
-  // ✅ Coupon Preview Helpers
-  // =========================
-  function safeDecode(s) {
-    try { return decodeURIComponent(String(s ?? "")); }
-    catch (_) { return String(s ?? ""); }
-  }
-
-  function normalizeCouponsPayload(data) {
-    if (!data) return { items: [], updatedAt: "" };
-
-    const items =
-      Array.isArray(data) ? data :
-      Array.isArray(data.items) ? data.items :
-      Array.isArray(data.coupons) ? data.coupons :
-      Array.isArray(data.data) ? data.data :
-      [];
-
-    const updatedAt = String(
-      data.updatedAt ?? data.lastUpdated ?? data.updated ?? data.time ?? data.date ?? ""
-    );
-
-    return { items, updatedAt };
-  }
-
-  function getCouponKey(it) {
-    return String(
-      it?.code ??
-      it?.coupon ??
-      it?.slug ??
-      it?.id ??
-      it?.key ??
-      it?.name ??
-      ""
-    ).trim();
-  }
-
-  function isCouponExpired(it) {
-    const raw =
-      it?.expiresAt ?? it?.expireAt ?? it?.expiredAt ?? it?.endAt ?? it?.endDate ??
-      it?.expiry ?? it?.expires ?? it?.until;
-
-    if (!raw) return false;
-
-    const d = new Date(String(raw));
-    if (Number.isNaN(d.getTime())) {
-      const n = Number(raw);
-      if (Number.isFinite(n)) return n < Date.now();
-      return false;
-    }
-    return d.getTime() < Date.now();
-  }
-
-  function renderCouponPreviewCard(view, coupon, { slug, updatedAt, pageTitle }) {
-    const code = getCouponKey(coupon) || slug || "";
-    const expired = isCouponExpired(coupon);
-
-    const title =
-      String(coupon?.title ?? coupon?.name ?? coupon?.label ?? "") ||
-      code ||
-      (t("nav.coupons") || "Coupons");
-
-    const desc =
-      coupon?.descriptionHtml ??
-      coupon?.descHtml ??
-      coupon?.html ??
-      "";
-
-    const descText =
-      !desc ? String(coupon?.description ?? coupon?.desc ?? coupon?.note ?? coupon?.notes ?? "") : "";
-
-    const reward = String(coupon?.reward ?? coupon?.benefit ?? coupon?.value ?? coupon?.bonus ?? "");
-    const start = String(coupon?.startAt ?? coupon?.startDate ?? coupon?.startsAt ?? coupon?.from ?? "");
-    const end = String(coupon?.expiresAt ?? coupon?.expireAt ?? coupon?.endAt ?? coupon?.endDate ?? coupon?.until ?? "");
-
-    const statusLabel = expired
-      ? tOpt("coupons.expired", "Expired")
-      : tOpt("coupons.active", "Active");
-
-    view.innerHTML = `
-      <div class="wos-panel">
-        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-          <div style="min-width:220px;">
-            <div class="wos-muted" style="font-size:12px; margin-bottom:6px;">
-              <a class="wos-a" href="${routeHref("/coupons")}" data-link>← ${esc(tOpt("common.back", "Back"))}</a>
-            </div>
-            <h2 style="margin:0; font-size:20px; letter-spacing:-.2px;">${esc(title)}</h2>
-            <div class="wos-muted" style="font-size:13px; margin-top:6px;">
-              <span class="wos-badge" style="${expired ? "opacity:.7" : ""}">${esc(statusLabel)}</span>
-              ${reward ? ` <span class="wos-muted">· ${esc(reward)}</span>` : ""}
-            </div>
-          </div>
-
-          <div style="display:flex; gap:8px; align-items:center;">
-            <button class="wos-btn" type="button" id="couponCopyBtn" data-copy="${esc(code)}">
-              ${esc(tOpt("coupons.copy", "Copy"))}
-            </button>
-            <span class="wos-mono" style="font-size:13px; padding:8px 10px; border:1px solid var(--w-border); border-radius:12px;">
-              ${esc(code || "-")}
-            </span>
-          </div>
-        </div>
-
-        ${(start || end) ? `
-          <div class="wos-muted" style="font-size:12px; margin-top:10px;">
-            ${start ? `${esc(tOpt("coupons.starts", "Starts"))}: ${esc(fmtDateLike(start))}` : ""}
-            ${(start && end) ? " · " : ""}
-            ${end ? `${esc(tOpt("coupons.ends", "Ends"))}: ${esc(fmtDateLike(end))}` : ""}
-          </div>
-        ` : ""}
-
-        ${desc ? `<div style="margin-top:12px;">${desc}</div>` : ""}
-        ${(!desc && descText) ? `<div class="wos-muted" style="margin-top:12px; font-size:13px; line-height:1.7;">${nl2br(descText)}</div>` : ""}
-
-        <div class="wos-muted" style="font-size:12px; margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-          ${updatedAt ? `<span>${esc(tOpt("coupons.updated", "Updated"))}: ${esc(fmtDateLike(updatedAt))}</span>` : ""}
-          <span>/${esc(pageTitle || "coupons")}</span>
-        </div>
-      </div>
-    `;
-
-    const btn = view.querySelector("#couponCopyBtn");
-    if (btn) {
-      btn.addEventListener("click", async () => {
-        const v = btn.getAttribute("data-copy") || "";
-        if (!v) return;
-
-        let ok = false;
-        try {
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            await navigator.clipboard.writeText(v);
-            ok = true;
-          }
-        } catch (_) {}
-
-        if (!ok) {
-          try {
-            const ta = document.createElement("textarea");
-            ta.value = v;
-            ta.style.position = "fixed";
-            ta.style.left = "-9999px";
-            document.body.appendChild(ta);
-            ta.select();
-            ok = document.execCommand("copy");
-            document.body.removeChild(ta);
-          } catch (_) {}
-        }
-
-        btn.textContent = ok ? tOpt("coupons.copied", "Copied") : tOpt("coupons.copy_failed", "Copy failed");
-        setTimeout(() => { btn.textContent = tOpt("coupons.copy", "Copy"); }, 900);
-      });
-    }
-
-    applyI18n(view);
-  }
-
-  async function fetchCouponsPayloadAny(jsonUrl = "/coupons/coupons.json") {
-    try {
-      if (window.WOS_COUPONS && typeof window.WOS_COUPONS._fetchCouponsAny === "function") {
-        const r = await window.WOS_COUPONS._fetchCouponsAny(jsonUrl);
-        const payload = r?.payload ?? r;
-        return normalizeCouponsPayload(payload);
-      }
-      if (window.WOS_COUPONS && typeof window.WOS_COUPONS._fetchCoupons === "function") {
-        const r = await window.WOS_COUPONS._fetchCoupons(jsonUrl);
-        const payload = r?.payload ?? r;
-        return normalizeCouponsPayload(payload);
-      }
-    } catch (_) {}
-
-    const candidates = [
-      jsonUrl,
-      "/coupons/coupons.json",
-      "coupons/coupons.json",
-      "/coupons.json",
-      "coupons.json",
-      "/page/data/coupons.json",
-      "page/data/coupons.json",
-      "/data/coupons.json",
-      "data/coupons.json",
-    ];
-
-    const r = await fetchJSONTryWithAttempts(candidates);
-    return normalizeCouponsPayload(r.data);
-  }
-
-  async function pageCoupons(focusSlug = "") {
-    const path = getPath();
-    const pageTitle = t("nav.coupons") || "Coupons";
-    const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
-    if (!view) return;
-
-    const lang = getLangSafe();
-    const jsonUrl = "/coupons/coupons.json";
-
-    let templateLoaded = false;
-    try {
-      await loadCouponsTemplateInto(view, lang);
-      templateLoaded = true;
-    } catch (_) {
-      templateLoaded = false;
-    }
-
-    const grid = (templateLoaded && view.querySelector("#couponGrid")) ? view.querySelector("#couponGrid") : view;
-    if (grid && grid.id === "couponGrid") {
-      grid.setAttribute("data-coupon-grid", grid.getAttribute("data-coupon-grid") || "1");
-    }
-
-    const hasCouponsJs = await waitForGlobal(
-      "WOS_COUPONS",
-      () =>
-        window.WOS_COUPONS &&
-        (
-          typeof window.WOS_COUPONS.renderPage === "function" ||
-          typeof window.WOS_COUPONS.renderList === "function" ||
-          typeof window.WOS_COUPONS.renderGrid === "function"
-        ),
-      700
-    );
-
-    async function trySetLastUpdatedFromPayload() {
-      const el = view.querySelector("#lastUpdated");
-      if (!el) return;
-      try {
-        const payload = await fetchCouponsPayloadAny(jsonUrl);
-        if (payload.updatedAt) el.textContent = String(payload.updatedAt);
-      } catch (_) {}
-    }
-
-    if (hasCouponsJs) {
-      try {
-        if (templateLoaded && typeof window.WOS_COUPONS.renderList === "function") {
-          await window.WOS_COUPONS.renderList({ appEl: grid, locale: lang, jsonUrl, max: 999 });
-          await trySetLastUpdatedFromPayload();
-          bindCouponsTemplateChipsOnce(view, grid);
-          focusCouponCard(grid, focusSlug);
-          setActiveMenu(path); applyI18n(view); setDocTitle(pageTitle);
-          return;
-        }
-
-        if (typeof window.WOS_COUPONS.renderPage === "function") {
-          await window.WOS_COUPONS.renderPage({
-            appEl: view, locale: lang, jsonUrl, max: 999, focusSlug,
-            go, esc, nl2br, clampStr, fetchJSONTryWithAttempts, normalizeIndex, fmtDateLike, t, tOpt, getLangSafe,
-          });
-          await trySetLastUpdatedFromPayload();
-          setActiveMenu(path); applyI18n(view); setDocTitle(pageTitle);
-          return;
-        }
-
-        if (typeof window.WOS_COUPONS.renderList === "function") {
-          view.innerHTML = `<div class="wos-panel"><div id="couponGrid" data-coupon-grid="1"></div></div>`;
-          const root = view.querySelector("#couponGrid");
-          await window.WOS_COUPONS.renderList({ appEl: root, locale: lang, jsonUrl, max: 999, focusSlug });
-          await trySetLastUpdatedFromPayload();
-          setActiveMenu(path); applyI18n(view); setDocTitle(pageTitle);
-          return;
-        }
-      } catch (_) {}
-    }
-
-    let payload;
-    try {
-      payload = await fetchCouponsPayloadAny(jsonUrl);
-    } catch (err) {
-      return showError(err);
-    }
-
-    const items = Array.isArray(payload.items) ? payload.items : [];
-    const updatedAt = payload.updatedAt || "";
-
-    if (!templateLoaded) {
-      view.innerHTML = `
-        <div class="wos-panel">
-          <div class="wos-row" style="margin-bottom:10px;">
-            <h2 style="margin:0;" data-i18n="nav.coupons">${esc(pageTitle)}</h2>
-            <div id="lastUpdated" class="wos-muted" style="font-size:12px;"></div>
-          </div>
-          <div id="couponGrid" data-coupon-grid="1"></div>
-        </div>
-      `;
-    } else {
-      const el = view.querySelector("#lastUpdated");
-      if (el && updatedAt) el.textContent = String(updatedAt);
-    }
-
-    const root = view.querySelector("#couponGrid") || grid || view;
-
-    const cards = items.map((it) => {
-      const code = getCouponKey(it);
-      const title = String(it?.title ?? it?.name ?? it?.label ?? code ?? "");
-      const expired = isCouponExpired(it);
-      const status = expired ? tOpt("coupons.expired", "Expired") : tOpt("coupons.active", "Active");
-      const href = routeHref("/coupons/" + encodeURIComponent(code || title || ""));
-      const reward = String(it?.reward ?? it?.benefit ?? it?.value ?? it?.bonus ?? "");
-
-      return `
-        <a class="wos-item" href="${href}" data-link data-coupon-card="1" data-expired="${expired ? "1" : "0"}">
-          <div class="wos-badge" style="${expired ? "opacity:.7" : ""}">${esc(status)}</div>
-          <div style="flex:1; min-width:0;">
-            <div class="wos-item-title">${esc(clampStr(title || code || "Coupon", 70))}</div>
-            <div class="wos-item-meta wos-mono">${esc(code || "")}${reward ? ` · ${esc(reward)}` : ""}</div>
-          </div>
-        </a>
-      `;
-    }).join("");
-
-    root.innerHTML = cards || `
-      <div class="wos-muted" style="font-size:13px; line-height:1.7;" data-i18n="coupons.empty">
-        ${esc(tOpt("coupons.empty", "No coupons available."))}
-      </div>
-    `;
-
-    bindCouponsTemplateChipsOnce(view, root);
-
-    const lastUpdatedEl = view.querySelector("#lastUpdated");
-    if (lastUpdatedEl && updatedAt) lastUpdatedEl.textContent = String(updatedAt);
-
-    setActiveMenu(path);
-    applyI18n(view);
-    setDocTitle(pageTitle);
-  }
-
-  async function pageCoupon(slug) {
-    const path = getPath();
-    const pageTitle = t("nav.coupons") || "Coupons";
-    const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
-    if (!view) return;
-
-    const focus = safeDecode(slug).trim();
-    if (!focus) return pageCoupons();
-
-    let payload;
-    try {
-      payload = await fetchCouponsPayloadAny("/coupons/coupons.json");
-    } catch (err) {
-      return showError(err);
-    }
-
-    const items = Array.isArray(payload.items) ? payload.items : [];
-    const key = focus.toLowerCase();
-
-    const found = items.find((it) => getCouponKey(it).toLowerCase() === key);
-
-    if (!found) {
-      view.innerHTML = `
-        <div class="wos-panel">
-          <div class="wos-muted" style="font-size:12px; margin-bottom:6px;">
-            <a class="wos-a" href="${routeHref("/coupons")}" data-link>← ${esc(tOpt("common.back", "Back"))}</a>
-          </div>
-          <h2 style="margin:0 0 8px;">${esc(tOpt("coupons.not_found", "Coupon not found"))}</h2>
-          <div class="wos-muted" style="font-size:13px; line-height:1.7;">
-            ${esc(tOpt("coupons.not_found_desc", "This coupon code was not found in the current list."))}<br>
-            <span class="wos-mono">${esc(focus)}</span>
-          </div>
-          <div style="margin-top:12px;">
-            <a class="wos-btn" href="${routeHref("/coupons")}" data-link>${esc(tOpt("nav.coupons", "Coupons"))}</a>
-          </div>
-        </div>
-      `;
-      setActiveMenu(path);
-      applyI18n(view);
-      setDocTitle(pageTitle);
-      return;
-    }
-
-    renderCouponPreviewCard(view, found, {
-      slug: focus,
-      updatedAt: payload.updatedAt,
-      pageTitle: "coupons",
-    });
-
-    setActiveMenu(path);
-    setDocTitle(getCouponKey(found) || pageTitle);
-  }
-
-  // =========================
   // Tips pages (tips.js delegated)
   // =========================
   async function pageTips() {
@@ -1617,6 +1147,8 @@
       fetchJSONTryWithAttempts,
       t,
       tOpt,
+      routeHref,
+      withBase
     });
 
     setActiveMenu(path);
@@ -1648,6 +1180,8 @@
       fetchJSONTryWithAttempts,
       t,
       tOpt,
+      routeHref,
+      withBase
     });
 
     setActiveMenu(path);
@@ -1714,6 +1248,8 @@
           fetchJSONTry,
           t,
           tOpt,
+          withBase,
+          routeHref
         });
         applyI18n(root);
         setDocTitle(pageTitle);
@@ -1732,7 +1268,7 @@
       return showError(new Error("Calculator modules not loaded (window.WOS_BUILDING_CALC.initCalculator / window.WOS_CALC.render missing)."));
     }
 
-    const ctx = { go, esc, fmtNum, t, tOpt };
+    const ctx = { go, esc, fmtNum, t, tOpt, withBase, routeHref };
     try {
       window.WOS_CALC.render({ root, key: BUILDING_CALC_KEY, ctx });
       applyI18n(root);
@@ -1743,7 +1279,7 @@
   }
 
   // =========================
-  // Buildings
+  // Buildings ✅ i18n pass-through already included
   // =========================
   async function pageBuildings() {
     const path = getPath();
@@ -1768,6 +1304,8 @@
       fetchJSONTry,
       t,
       tOpt,
+      withBase,
+      routeHref
     });
 
     setActiveMenu(path);
@@ -1805,6 +1343,8 @@
       normalizeIndex,
       t,
       tOpt,
+      withBase,
+      routeHref
     });
 
     setActiveMenu(path);
@@ -1817,7 +1357,7 @@
   }
 
   // =========================
-  // Heroes
+  // Heroes (✅ i18n enabled for fallback + pass-through)
   // =========================
   async function pageHeroes() {
     const path = getPath();
@@ -1825,11 +1365,20 @@
     const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
     if (!view) return;
 
-    if (!DATA_BASE_HEROES) DATA_BASE_HEROES = await detectDataBaseHeroes();
+    // ✅ DATA_BASE_HEROES is fixed already
 
     if (window.WOS_HEROES && typeof window.WOS_HEROES.renderList === "function") {
       try {
-        const ret = await window.WOS_HEROES.renderList(view, { t, tOpt, esc, clampStr, routeHref, go, withBase });
+        const ret = await window.WOS_HEROES.renderList(view, {
+          t,
+          tOpt,
+          esc,
+          clampStr,
+          routeHref,
+          go,
+          withBase,
+          DATA_BASE_HEROES
+        });
         applyI18n(view);
         setDocTitle(pageTitle);
         return ret;
@@ -1853,7 +1402,7 @@
         attempted.push(...r.attempted.filter((x) => !attempted.includes(x)));
         combined.push(...normalizeIndex(r.data));
       } catch (err) {
-        const at = Array.isArray(err?.attempted) ? err.attempted : [withBase(u)];
+        const at = Array.isArray(err?.attempted) ? err.attempted : [toAbsResourceUrl(u)];
         attempted.push(...at.filter((x) => !attempted.includes(x)));
       }
     }
@@ -1862,48 +1411,41 @@
       return showError(new Error("No heroes found in r/sr/ssr index.json"), { attempted });
     }
 
-    const cardsHtml = combined.map((h) => {
-      const slug2 = String(h.slug ?? "");
-      const rawTitle = h.title ?? h.name ?? slug2;
-
-      // ✅ FIX: \` / \${...} 제거 (문법 + 보간)
-      const title = tOpt(`heroes.${slug2}.name`, rawTitle);
-
-      const portraitRaw = h.portrait ?? h.portraitSrc ?? h.image ?? "";
-      const portrait = portraitRaw ? withBase(String(portraitRaw)) : "";
-
-      const rarity = tEnum("hero.rarity", (h.rarity ?? h.tier ?? ""));
-      const cls = tEnum("hero.class", (h.class ?? h.heroClass ?? ""));
-      const meta = [rarity, cls].filter(Boolean).join(" · ");
-
-      const hrefSlug = encodeURIComponent(slug2);
-
-      return `
-        <a class="wos-item"
-           href="${routeHref("/heroes/" + hrefSlug)}"
-           data-link
-           style="flex-direction:column; align-items:stretch;">
-          ${portrait ? `
-            <img src="${esc(portrait)}" alt="${esc(title)}"
-                 style="width:100%;height:auto;border-radius:12px;border:1px solid var(--w-border);"
-                 loading="lazy">
-          ` : ""}
-
-          <div style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
-            <div class="wos-badge" data-i18n="nav.hero">${esc(t("nav.hero") || "Hero")}</div>
-            <div style="flex:1; min-width:0;">
-              <div class="wos-item-title">${esc(clampStr(title, 60))}</div>
-              <div class="wos-item-meta">${esc(meta || "")}</div>
-              <div class="wos-item-meta wos-mono">${esc(slug2)}</div>
-            </div>
-          </div>
-        </a>
-      `;
-    }).join("");
-
     view.innerHTML = `
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:12px;">
-        ${cardsHtml}
+        ${combined.map((h) => {
+          const slug2 = String(h.slug ?? "");
+          const rawTitle = h.title ?? h.name ?? slug2;
+          const title = tOpt(`heroes.${slug2}.namename`, rawTitle) || tOpt(`heroes.${slug2}.name`, rawTitle);
+
+          const portrait = h.portrait ?? h.portraitSrc ?? h.image ?? "";
+          const rarity = tEnum("hero.rarity", (h.rarity ?? h.tier ?? ""));
+          const cls = tEnum("hero.class", (h.class ?? h.heroClass ?? ""));
+          const meta = [rarity, cls].filter(Boolean).join(" · ");
+
+          const hrefSlug = encodeURIComponent(slug2);
+
+          return `
+            <a class="wos-item"
+               href="${routeHref("/heroes/" + hrefSlug)}"
+               style="flex-direction:column; align-items:stretch;">
+              ${portrait
+                ? `<img src="${esc(withBase(portrait))}" alt="${esc(title)}"
+                        style="width:100%;height:auto;border-radius:12px; border:1px solid var(--w-border);"
+                        loading="lazy">`
+                : ""}
+
+              <div style="display:flex; gap:10px; align-items:flex-start; margin-top:10px;">
+                <div class="wos-badge" data-i18n="nav.hero">${esc(t("nav.hero") || "Hero")}</div>
+                <div style="flex:1; min-width:0;">
+                  <div class="wos-item-title">${esc(clampStr(title, 60))}</div>
+                  <div class="wos-item-meta">${esc(meta || "")}</div>
+                  <div class="wos-item-meta wos-mono">${esc(slug2)}</div>
+                </div>
+              </div>
+            </a>
+          `;
+        }).join("")}
       </div>
     `;
 
@@ -1918,11 +1460,21 @@
     const view = renderShell({ path, title: pageTitle, contentHTML: "" }) || getViewEl();
     if (!view) return;
 
-    if (!DATA_BASE_HEROES) DATA_BASE_HEROES = await detectDataBaseHeroes();
+    // ✅ DATA_BASE_HEROES is fixed already
 
     if (window.WOS_HEROES && typeof window.WOS_HEROES.renderDetail === "function") {
       try {
-        const ret = await window.WOS_HEROES.renderDetail(view, slug, { t, tOpt, esc, nl2br, fmtNum, routeHref, go, withBase });
+        const ret = await window.WOS_HEROES.renderDetail(view, slug, {
+          t,
+          tOpt,
+          esc,
+          nl2br,
+          fmtNum,
+          routeHref,
+          go,
+          withBase,
+          DATA_BASE_HEROES
+        });
         applyI18n(view);
         const inferred = inferTitleFromView(view);
         setDocTitle(inferred || pageTitle);
@@ -1953,7 +1505,7 @@
           break;
         }
       } catch (err) {
-        const at = Array.isArray(err?.attempted) ? err.attempted : [withBase(u)];
+        const at = Array.isArray(err?.attempted) ? err.attempted : [toAbsResourceUrl(u)];
         attempted.push(...at.filter((x) => !attempted.includes(x)));
       }
     }
@@ -1973,15 +1525,13 @@
       hero = r.data;
       attempted2 = r.attempted;
     } catch (err) {
-      return showError(err, { attempted: attempted.concat(err?.attempted || attempted2 || urls.map(withBase)) });
+      return showError(err, { attempted: attempted.concat(err?.attempted || attempted2 || urls.map(toAbsResourceUrl)) });
     }
 
     const rawTitle = hero?.title ?? hero?.name ?? slug;
     const title = tOpt(`heroes.${slug}.name`, rawTitle);
 
-    const portraitRaw = hero?.portrait ?? hero?.portraitSrc ?? hero?.image ?? "";
-    const portrait = portraitRaw ? withBase(String(portraitRaw)) : "";
-
+    const portrait = hero?.portrait ?? hero?.portraitSrc ?? hero?.image ?? "";
     const rarity = tEnum("hero.rarity", (hero?.rarity ?? ""));
     const cls = tEnum("hero.class", (hero?.class ?? hero?.heroClass ?? ""));
     const sub = tEnum("hero.subclass", (hero?.subClass ?? hero?.subclass ?? ""));
@@ -2014,8 +1564,7 @@
               const rawSt = sk?.title ?? sk?.name ?? "Skill";
               const st = tOpt(`heroes.${slug}.skills.${idx}.name`, rawSt);
 
-              const iconRaw = sk?.icon ?? sk?.iconSrc ?? sk?.image ?? "";
-              const icon = iconRaw ? withBase(String(iconRaw)) : "";
+              const icon = sk?.icon ?? sk?.iconSrc ?? sk?.image ?? "";
 
               const sHtmlI18n = tOpt(`heroes.${slug}.skills.${idx}.description_html`, "");
               const sTxtI18n = tOpt(`heroes.${slug}.skills.${idx}.description`, "");
@@ -2026,7 +1575,7 @@
               return `
                 <div class="wos-panel" style="padding:12px;">
                   <div style="display:flex; gap:10px; align-items:center;">
-                    ${icon ? `<img src="${esc(icon)}" alt="${esc(st)}" style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">` : ""}
+                    ${icon ? `<img src="${esc(withBase(icon))}" alt="${esc(st)}" style="width:40px;height:40px;border-radius:10px; border:1px solid var(--w-border);" loading="lazy">` : ""}
                     <div style="font-weight:900;">${esc(st)}</div>
                   </div>
                   ${sHtml ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${sHtml}</div>` : (sTxt ? `<div class="wos-muted" style="margin-top:8px; font-size:13px;">${nl2br(sTxt)}</div>` : "")}
@@ -2046,7 +1595,7 @@
     view.innerHTML = `
       <div class="wos-panel">
         <div style="display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;">
-          ${portrait ? `<img src="${esc(portrait)}" alt="${esc(title)}" style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">` : ""}
+          ${portrait ? `<img src="${esc(withBase(portrait))}" alt="${esc(title)}" style="width:120px;height:auto;border-radius:14px; border:1px solid var(--w-border);" loading="lazy">` : ""}
           <div style="flex:1; min-width:260px;">
             <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">${esc(title)}</h2>
             <div class="wos-muted" style="font-size:13px;">
@@ -2083,29 +1632,36 @@
   (async () => {
     ensureStyles();
 
+    // i18n first
     await initI18n();
 
+    // core bindings
     bindLinkInterceptOnce();
-    bindHashChangeOnce();
+    bindPopStateOnce();
 
+    // drawer bind (if available now)
     initDrawerOnce();
 
+    // ✅ bases are fixed (no auto-detect, no fetch)
     DATA_BASE = await detectDataBaseBuildings();
     DATA_BASE_HEROES = await detectDataBaseHeroes();
 
-    if (!location.hash) location.hash = "#/";
     await router();
 
+    // final apply
     applyI18n(document);
 
+    // debug
     window.__WOS_DEV__ = {
       get DATA_BASE() { return DATA_BASE; },
       get DATA_BASE_HEROES() { return DATA_BASE_HEROES; },
+      getPath,
       go,
       router,
+      withBase,
+      routeHref,
       waitForGlobal,
       i18n: () => window.WOS_I18N,
-      withBase,
     };
   })().catch((err) => showError(err));
 })();
