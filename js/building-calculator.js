@@ -37,16 +37,75 @@
 
   const useFireCrystal = true;
 
+  // ✅ FIX: 절대경로(/assets/...)로 통일 (상대경로 assets/... 는 라우트에 따라 깨짐)
   const DEFAULT_RES_ICONS = {
-    fireCrystal: "assets/buildings/furnace/firecrystal_img/item_icon_100081.png",
-    refined: "assets/buildings/furnace/firecrystal_img/item_icon_100082.png",
-    food: "assets/buildings/furnace/firecrystal_img/item_icon_100011.png",
-    wood: "assets/buildings/furnace/firecrystal_img/item_icon_103.png",
-    coal: "assets/buildings/furnace/firecrystal_img/item_icon_104.png",
-    iron: "assets/buildings/furnace/firecrystal_img/item_icon_105.png",
-    time: "assets/resources/time.png",
-    svs: "assets/resources/svs.png",
+    fireCrystal: "/assets/buildings/furnace/firecrystal_img/item_icon_100081.png",
+    refined: "/assets/buildings/furnace/firecrystal_img/item_icon_100082.png",
+    food: "/assets/buildings/furnace/firecrystal_img/item_icon_100011.png",
+    wood: "/assets/buildings/furnace/firecrystal_img/item_icon_103.png",
+    coal: "/assets/buildings/furnace/firecrystal_img/item_icon_104.png",
+    iron: "/assets/buildings/furnace/firecrystal_img/item_icon_105.png",
+    time: "/assets/resources/time.png",
+    svs: "/assets/resources/svs.png",
   };
+
+  // =========================================================
+  // ✅ Resource URL resolver (GitHub Pages /repo prefix + route-safe)
+  // - 왜 필요?
+  //   1) "assets/..." 상대경로는 /tools/... 에서 깨짐
+  //   2) GitHub Pages 프로젝트 페이지는 /repo prefix 필요
+  //   3) app.js는 window.WOS_RES로 해결하므로, 여기서도 반드시 사용
+  // =========================================================
+  function isExternalLike(u) {
+    const s = String(u ?? "");
+    return (
+      /^(https?:)?\/\//i.test(s) ||
+      s.startsWith("data:") ||
+      s.startsWith("blob:") ||
+      s.startsWith("mailto:") ||
+      s.startsWith("tel:")
+    );
+  }
+
+  function normalizeToRootPath(u) {
+    const s = String(u ?? "").trim();
+    if (!s) return s;
+
+    if (isExternalLike(s)) return s;
+
+    // "./assets/..", "assets/.." 같은 상대경로를 "/assets/.." 로 강제 변환
+    const clean = s.replace(/^\.?\//, ""); // remove leading "./" or "/"
+    if (s.startsWith("/")) return s;
+    return "/" + clean;
+  }
+
+  function withResSafe(u) {
+    const raw = String(u ?? "");
+    if (!raw) return raw;
+    if (isExternalLike(raw)) return raw;
+
+    const rootPath = normalizeToRootPath(raw);
+
+    // app.js에서 제공
+    if (typeof window.WOS_RES === "function") {
+      return window.WOS_RES(rootPath);
+    }
+
+    // fallback: WOS_BASE가 있으면 prefix 적용
+    const base = typeof window.WOS_BASE === "string" ? window.WOS_BASE : "";
+    if (base && rootPath.startsWith(base + "/")) return rootPath;
+    return (base || "") + rootPath;
+  }
+
+  function withNavSafe(path) {
+    const p = String(path ?? "").trim() || "/";
+    const rootPath = p.startsWith("/") ? p : "/" + p.replace(/^\.?\//, "");
+    if (typeof window.WOS_URL === "function") return window.WOS_URL(rootPath); // app.js withBase
+    // fallback
+    const base = typeof window.WOS_BASE === "string" ? window.WOS_BASE : "";
+    if (base && rootPath.startsWith(base + "/")) return rootPath;
+    return (base || "") + rootPath;
+  }
 
   function makeT(t) {
     return (k, fb) => {
@@ -114,9 +173,11 @@
     return [];
   }
 
+  // ✅ FIX: fetch도 리소스 기준 URL로 정규화해야 라우트/레포 prefix에서 안 깨짐
   async function fetchJSON(url) {
-    const r = await fetch(url, { cache: "no-store" });
-    if (!r.ok) throw new Error(`HTTP ${r.status}: ${url}`);
+    const u = withResSafe(url);
+    const r = await fetch(u, { cache: "no-store" });
+    if (!r.ok) throw new Error(`HTTP ${r.status}: ${u}`);
     return await r.json();
   }
 
@@ -135,8 +196,12 @@
   function getIconUrl(key) {
     const w = window.WOS_BUILDING_CALC_ASSETS;
     const map = w && w.resourceIcons && typeof w.resourceIcons === "object" ? w.resourceIcons : null;
-    const url = map && map[key] ? String(map[key]) : (DEFAULT_RES_ICONS[key] || "");
-    return url;
+
+    const raw = (map && map[key] ? String(map[key]) : (DEFAULT_RES_ICONS[key] || "")) || "";
+    if (!raw) return "";
+
+    // ✅ FIX: 어떤 형태로 들어와도 (assets/... / /assets/...) repo prefix + route safe 처리
+    return withResSafe(raw);
   }
 
   function iconHTML(key, alt, size = 16) {
@@ -476,7 +541,10 @@
 
   async function loadBuildingDataFromJSON(DATA_BASE, fetchJSONTry) {
     const _try = fetchJSONTry || fetchJSONTryFallback;
-    const base = String(DATA_BASE || "data/buildings").replace(/\/+$/, "");
+
+    // ✅ FIX: DATA_BASE가 상대값으로 들어오면 라우트에 따라 깨짐 → withResSafe로 보정
+    const baseResolved = withResSafe(DATA_BASE || "/data/buildings");
+    const base = String(baseResolved).replace(/\/+$/, "");
 
     const idxUrl = `${base}/index.json`;
     const idx = await _try([idxUrl]);
@@ -616,6 +684,9 @@
   function renderShell(appEl, _t) {
     ensureStyleOnce();
 
+    // ✅ FIX: NO HASH 라우터에 맞춤 (app.js History Router)
+    const toolsHref = withNavSafe("/tools");
+
     appEl.innerHTML = `
       <div class="bcalc-wrap">
         <div class="container">
@@ -625,7 +696,7 @@
               <div class="muted small" data-i18n="tools.building_calc.breadcrumb">${esc(_t("tools.building_calc.breadcrumb", "Tools · Building Calculator"))}</div>
             </div>
             <div>
-              <a class="btn" href="#/tools" data-link data-i18n="tools.common.back">${esc(_t("tools.common.back", "Back"))}</a>
+              <a class="btn" href="${attr(toolsHref)}" data-link data-i18n="tools.common.back">${esc(_t("tools.common.back", "Back"))}</a>
             </div>
           </div>
 
@@ -853,7 +924,6 @@
     `;
   }
 
-  // ✅ 변경: title/slug 기반으로 building.<slug> 번역 우선 적용
   function renderSummaryRow({ title, slug, curLabel, tarLabel, result }, _t) {
     const tb = document.getElementById("fc-summary-tbody");
     if (!tb) return;
@@ -997,21 +1067,10 @@
       }
     }
 
+    // ✅ FIX: 중복 바인딩 방지 (여기서 else로 또 붙일 필요 없음)
     if (!_app[BIND_KEY]) {
       _app[BIND_KEY] = true;
 
-      if (btn10) btn10.addEventListener("click", () => { updateVPButtons(btn10); recalcAll(); });
-      if (btn15) btn15.addEventListener("click", () => { updateVPButtons(btn15); recalcAll(); });
-      if (btnServer) btnServer.addEventListener("click", () => { togglePressed(btnServer); recalcAll(); });
-      if (btnChief) btnChief.addEventListener("click", () => { togglePressed(btnChief); recalcAll(); });
-
-      const controls = ["fc-buildspeed", "fc-hyena", "fc-agenes", "fc-valeria"];
-      for (const id of controls) {
-        const el = document.getElementById(id);
-        if (el) el.addEventListener("input", () => recalcAll());
-        if (el) el.addEventListener("change", () => recalcAll());
-      }
-    } else {
       if (btn10) btn10.addEventListener("click", () => { updateVPButtons(btn10); recalcAll(); });
       if (btn15) btn15.addEventListener("click", () => { updateVPButtons(btn15); recalcAll(); });
       if (btnServer) btnServer.addEventListener("click", () => { togglePressed(btnServer); recalcAll(); });
@@ -1041,7 +1100,6 @@
     const tarSel = document.getElementById("fc-tar");
     if (!buildingSel || !curSel || !tarSel) return;
 
-    // ✅ 변경: 드롭다운 건물명에 i18n 적용 (building.<slug>)
     const bOpts = list.map((it) => {
       const d = data.get(it.slug);
       const rawTitle = d?.title || it.title || it.slug;
@@ -1164,7 +1222,8 @@
         title: "Building Calculator",
         render(root, ctx) {
           initCalculator({
-            DATA_BASE: ctx?.DATA_BASE,
+            // ✅ FIX: ctx 없으면 상대경로로 깨질 수 있어 기본값 보정
+            DATA_BASE: (ctx && ctx.DATA_BASE) ? ctx.DATA_BASE : "/data/buildings",
             appEl: root,
             fetchJSONTry: ctx?.fetchJSONTry,
             t: ctx?.t,
