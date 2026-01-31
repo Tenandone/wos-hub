@@ -1,4 +1,4 @@
-/* /js/heroes.js (FULL) — GitHub Pages + 3-index structure FINAL
+/* /js/heroes.js (FULL) — GitHub Pages + 3-index structure FINAL ✅ (History Router NO HASH)
  * Data structure (fixed):
  *   data/heroes/r/index.json
  *   data/heroes/sr/index.json
@@ -15,6 +15,10 @@
  *    (no auto-fit/auto-fill/responsive column calc)
  *  - SSR separated by season(gen), season null/invalid goes bottom
  *  - Fetch paths are location-based (GitHub Pages safe)
+ *  - History Router friendly:
+ *      - uses ctx.routeHref(...) for href (NO HASH)
+ *      - uses data-link attr for app.js interception
+ *      - back button uses ctx.go("/heroes")
  *  - Public API:
  *      window.WOS_HEROES = { renderList(rootEl, ctx), renderDetail(rootEl, slug, ctx) }
  *
@@ -119,41 +123,28 @@
 
   // =========================
   // GitHub Pages-safe URL resolver
-  //  - Always resolve relative to location (not domain root)
-  //  - If ctx.withBase exists, trust it (project-aware)
+  //  - Always resolve relative to document.baseURI (repo-safe)
+  //  - If ctx.withBase exists, trust it
   // =========================
   function resolveUrlLocationRelative(path) {
-    // ensures "data/..." => https://host/REPO/data/...
-    // ensures "/assets/..." => https://host/assets/... (domain root)  <-- this is why ctx.withBase is preferred
-    // But we convert "/assets/..." to project-relative using baseURI.
     var p = String(path || "");
     if (!p) return p;
 
-    // already absolute URL
     if (/^(https?:)?\/\//i.test(p)) return p;
 
-    // convert "/assets/..." domain-root into baseURI-root (repo-root)
-    // GitHub Pages project: baseURI contains "/REPO/" so this fixes missing REPO prefix
     if (p.charAt(0) === "/") {
       try {
-        // new URL("/assets/x", base) ignores base path; so we need manual: join base origin + base path prefix
-        // Use document.baseURI to preserve "/REPO/".
         var base = document.baseURI; // e.g. https://host/REPO/index.html
         var u = new URL(base);
-        // repoPrefix = "/REPO/" (or "/")
         var repoPrefix = u.pathname.replace(/[^\/]*$/, ""); // directory of baseURI
-        // if baseURI ends with /index.html -> keep /REPO/
-        // if ends with / -> keep that
-        // Now join: origin + repoPrefix + p(without leading "/")
         return u.origin + repoPrefix + p.slice(1);
       } catch (e) {
         return p;
       }
     }
 
-    // normal relative
     try {
-      return new URL(p, location.href).toString();
+      return new URL(p, document.baseURI).toString();
     } catch (e2) {
       return p;
     }
@@ -161,17 +152,16 @@
 
   function resolveImg(ctx, src) {
     if (!src) return src;
+    // ✅ IMG is a RESOURCE -> prefer WOS_RES if available (repo prefix safe)
+    if (typeof window.WOS_RES === "function") return window.WOS_RES(src);
+    // fallback: withBase if user provided (still ok in your split build)
     if (ctx && typeof ctx.withBase === "function") return ctx.withBase(src);
     return resolveUrlLocationRelative(src);
   }
 
   function resolveFetchUrl(ctx, path) {
-    // fetch MUST be location-based relative
-    // We never pass "/data/..." here; we pass "data/..." so it becomes /REPO/data/...
-    // Still safe if caller passes leading "/" accidentally.
+    // fetch MUST be location-based relative (repo-safe)
     if (ctx && typeof ctx.withBase === "function") {
-      // withBase is primarily for assets; for data, it should also work in your app.js.
-      // But we still ensure it's location-relative by fallback.
       var r = ctx.withBase(path);
       if (r) return r;
     }
@@ -198,7 +188,6 @@
   }
 
   function fixedGrid(columns, cards) {
-    // no auto-fit/auto-fill; fixed column count always
     var style = [
       "display:grid",
       "justify-content:center",
@@ -228,20 +217,10 @@
   // Data fetch
   // =========================
   function normalizeIndexPayload(payload) {
-    // allow: [] or {items:[]} or {heroes:[]} (defensive but simple)
     if (Array.isArray(payload)) return payload;
     if (payload && Array.isArray(payload.items)) return payload.items;
     if (payload && Array.isArray(payload.heroes)) return payload.heroes;
     return [];
-  }
-
-  function normalizeRarityName(v) {
-    var s = safeText(v).trim().toLowerCase();
-    if (!s) return null;
-    if (s === "rare" || s === "r") return "r";
-    if (s === "epic" || s === "sr") return "sr";
-    if (s === "legend" || s === "legendary" || s === "ssr") return "ssr";
-    return null;
   }
 
   function parseSeason(v) {
@@ -255,20 +234,18 @@
   function isValidSlug(slug) {
     var s = safeText(slug).trim();
     if (!s) return false;
-    if (s.toLowerCase() === "index") return false; // rule: exclude always
+    if (s.toLowerCase() === "index") return false;
     return true;
   }
 
   function pickIndexItem(raw, rarityDir) {
-    // trust: slug/season/image/path from index.json
-    var slug = raw && (raw.slug || (raw.meta && raw.meta.slug)) || "";
+    var slug = (raw && (raw.slug || (raw.meta && raw.meta.slug))) || "";
     if (!isValidSlug(slug)) return null;
 
     var season = parseSeason(raw.season);
     var image = raw.image || (raw.assets && raw.assets.image) || raw.portrait || raw.icon || null;
     var path = raw.path || null;
 
-    // if path missing, default to "{slug}.json" under the rarity folder (detail-only)
     if (!path) path = rarityDir + "/" + encodeURIComponent(String(slug)) + ".json";
 
     return {
@@ -312,7 +289,6 @@
   }
 
   function loadHeroDetailByPath(ctx, path) {
-    // path is relative under data/heroes/
     var rel = HERO_BASE.replace(/\/$/, "") + "/" + String(path).replace(/^\//, "");
     var url = resolveFetchUrl(ctx, rel);
     return fetchJson(url, "no-cache");
@@ -331,9 +307,10 @@
     var slug = item.slug;
     var title = resolveHeroTitleFromSlug(slug, _t);
 
-    var href = ctx && typeof ctx.routeHref === "function"
+    // ✅ History Router (NO HASH): routeHref + data-link
+    var href = (ctx && typeof ctx.routeHref === "function")
       ? ctx.routeHref("/heroes/" + encodeURIComponent(String(slug)))
-      : "#/heroes/" + encodeURIComponent(String(slug));
+      : "/heroes/" + encodeURIComponent(String(slug));
 
     var clampStr = (ctx && typeof ctx.clampStr === "function")
       ? ctx.clampStr
@@ -348,7 +325,12 @@
     var extraCls = "hero-card hero-card-rarity-" + item.rarityDir +
       (item.rarityDir === "ssr" && item.season ? " hero-card-gen-" + item.season : " hero-card-gen-none");
 
-    return el("a", { class: "card " + extraCls, href: href, style: "text-align:center;padding:14px;" }, [
+    return el("a", {
+      class: "card " + extraCls,
+      href: href,
+      "data-link": "1",
+      style: "text-align:center;padding:14px;"
+    }, [
       imgSrc
         ? el("img", {
             class: "card-img hero-card-img",
@@ -369,8 +351,8 @@
     var title = resolveHeroTitleFromSlug(slug, _t);
 
     // detail image rule:
-    //  - prefer index.json.image (stable)
-    //  - fallback to hero.json.image only if missing
+    //  - prefer index.json.image
+    //  - fallback to hero.json.image if needed
     var img = (indexItem && indexItem.image) ? indexItem.image : (heroJson && heroJson.image) ? heroJson.image : null;
     var imgSrc = img ? resolveImg(ctx, img) : null;
 
@@ -430,8 +412,13 @@
   }
 
   function renderStorySection(hero, _t) {
-    var slug = hero && (hero.slug || (hero.meta && hero.meta.slug)) || "";
-    var rawFromI18n = slug ? (tMaybe(_t, "hero." + slug + ".storyHtml") || tMaybe(_t, "hero." + slug + ".story")) : null;
+    var slug = (hero && (hero.slug || (hero.meta && hero.meta.slug))) || "";
+    var rawFromI18n = slug
+      ? (tMaybe(_t, "heroes." + slug + ".story_html") ||
+         tMaybe(_t, "heroes." + slug + ".story") ||
+         tMaybe(_t, "hero." + slug + ".storyHtml") ||
+         tMaybe(_t, "hero." + slug + ".story"))
+      : null;
 
     var rawFromHero =
       (hero && hero.storyHtml) ||
@@ -454,8 +441,13 @@
   }
 
   function renderDescriptionSection(hero, _t) {
-    var html = hero && hero.descriptionHtml;
-    var txt = hero && hero.description;
+    var slug = (hero && (hero.slug || (hero.meta && hero.meta.slug))) || "";
+    var htmlFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".description_html") : null;
+    var txtFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".description") : null;
+
+    var html = htmlFromI18n || (hero && hero.descriptionHtml) || (hero && hero.descHtml) || null;
+    var txt = (!html ? (txtFromI18n || (hero && (hero.description || hero.desc)) || null) : null);
+
     if (!html && !txt) return null;
 
     var prose = renderProseNode(html || txt);
@@ -470,12 +462,75 @@
   }
 
   // =========================
-  // List rendering (fixed layout)
+  // Skills ✅ (THIS fixes "only photo/name/story" issue)
+  // Supports:
+  //  - hero.skills: [{name/title, description/desc, descriptionHtml/descHtml, icon/image...}]
+  // i18n keys (optional):
+  //  - heroes.{slug}.skills.{i}.name
+  //  - heroes.{slug}.skills.{i}.description
+  //  - heroes.{slug}.skills.{i}.description_html
+  // =========================
+  function renderSkillsSection(hero, _t, ctx) {
+    var skills = (hero && Array.isArray(hero.skills)) ? hero.skills : null;
+    if (!skills || !skills.length) return null;
+
+    var slug = (hero && (hero.slug || (hero.meta && hero.meta.slug))) || "";
+
+    var cards = [];
+    for (var i = 0; i < skills.length; i++) {
+      var sk = skills[i] || {};
+      var rawName = sk.title || sk.name || ("Skill " + String(i + 1));
+
+      var nameFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".skills." + i + ".name") : null;
+      var title = nameFromI18n || rawName;
+
+      var icon = sk.icon || sk.iconSrc || sk.image || sk.img || null;
+      var iconSrc = icon ? resolveImg(ctx, icon) : null;
+
+      var htmlFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".skills." + i + ".description_html") : null;
+      var txtFromI18n = slug ? tMaybe(_t, "heroes." + slug + ".skills." + i + ".description") : null;
+
+      var html = htmlFromI18n || sk.descriptionHtml || sk.descHtml || null;
+      var txt = (!html ? (txtFromI18n || sk.description || sk.desc || "") : "");
+
+      var bodyNode = html
+        ? el("div", { class: "muted", html: String(html), style: "margin-top:10px;line-height:1.7;text-align:center;font-size:13px;" })
+        : (txt
+            ? el("div", { class: "muted", html: escapeHtml(String(txt)), style: "margin-top:10px;white-space:pre-wrap;line-height:1.7;text-align:center;font-size:13px;" })
+            : null);
+
+      cards.push(
+        el("div", { class: "panel hero-skill-card", style: "padding:12px;text-align:center;" }, [
+          el("div", { style: "display:flex;gap:10px;align-items:center;justify-content:center;" }, [
+            iconSrc ? el("img", { src: iconSrc, alt: safeText(title), loading: "lazy", style: "width:44px;height:44px;border-radius:12px;object-fit:cover;" }) : null,
+            el("div", { style: "font-weight:900;" }, safeText(title))
+          ].filter(Boolean)),
+          bodyNode
+        ].filter(Boolean))
+      );
+    }
+
+    return el("section", { class: "section hero-skills panel" }, [
+      el("div", { class: "panel-inner", style: "text-align:center;" }, [
+        el("h2", { style: "margin:0 0 12px;text-align:center;" }, _t("hero.section.skills", "Skills")),
+        el("div", {
+          style: [
+            "display:grid",
+            "grid-template-columns:repeat(auto-fit, minmax(240px, 1fr))",
+            "gap:12px",
+            "max-width:1200px",
+            "margin:0 auto"
+          ].join(";")
+        }, cards)
+      ])
+    ]);
+  }
+
+  // =========================
+  // SSR grouping helpers
   // =========================
   function sortSsrItemsForGrouping(items) {
-    // group by season desc, null bottom
     var ssr = items.slice();
-
     ssr.sort(function (a, b) {
       var sa = a.season;
       var sb = b.season;
@@ -487,23 +542,20 @@
       if (aNull) return 1;
       if (bNull) return -1;
 
-      // desc
       if (sb !== sa) return sb - sa;
       return 0;
     });
-
     return ssr;
   }
 
   function groupSsrBySeason(items) {
-    var map = {};       // { "1": [..], "2":[..] }
-    var unknown = [];   // season null
+    var map = {};
+    var unknown = [];
     for (var i = 0; i < items.length; i++) {
       var it = items[i];
       var s = it.season;
-      if (s === null || s === undefined) {
-        unknown.push(it);
-      } else {
+      if (s === null || s === undefined) unknown.push(it);
+      else {
         var key = String(s);
         if (!map[key]) map[key] = [];
         map[key].push(it);
@@ -541,7 +593,6 @@
         el("h1", { style: "text-align:center;margin:10px 0 14px;" }, _t("nav.heroes", "Heroes"))
       ]));
 
-      // Build cards
       var rCards = [];
       for (var i = 0; i < all.r.length; i++) rCards.push(cardForHeroIndex(all.r[i], _t, ctx));
 
@@ -552,7 +603,6 @@
       var grouped = groupSsrBySeason(ssrSorted);
       var seasonsDesc = getSortedSeasonNumbersDesc(grouped.bySeason);
 
-      // SSR sections: Gen1 fixed 4 cols, Gen>=2 fixed 3 cols
       for (var sidx = 0; sidx < seasonsDesc.length; sidx++) {
         var season = seasonsDesc[sidx];
         var list = grouped.bySeason[String(season)] || [];
@@ -569,7 +619,6 @@
         if (sec) center.appendChild(sec);
       }
 
-      // SSR unknown bottom
       if (grouped.unknown && grouped.unknown.length) {
         var unkCards = [];
         for (var u = 0; u < grouped.unknown.length; u++) unkCards.push(cardForHeroIndex(grouped.unknown[u], _t, ctx));
@@ -577,19 +626,16 @@
         if (unkSec) center.appendChild(unkSec);
       }
 
-      // SR section (3 cols)
       if (srCards.length) {
         var srSec = renderGridSection(_t("heroes.sr", "SR"), "sr", 3, srCards, "hero-grid-sr");
         if (srSec) center.appendChild(srSec);
       }
 
-      // R section (4 cols)
       if (rCards.length) {
         var rSec = renderGridSection(_t("heroes.r", "R"), "r", 4, rCards, "hero-grid-r");
         if (rSec) center.appendChild(rSec);
       }
 
-      // empty state
       if (!seasonsDesc.length && !(grouped.unknown && grouped.unknown.length) && !srCards.length && !rCards.length) {
         center.appendChild(el("p", { class: "muted", style: "text-align:center;" }, _t("heroes.empty", "No heroes found.")));
       }
@@ -614,21 +660,23 @@
     mount.innerHTML = "";
     mount.appendChild(el("div", { class: "loading" }, _t("heroes.loading_detail", "Loading hero…")));
 
+    var goList = function () {
+      if (ctx && typeof ctx.go === "function") ctx.go("/heroes");
+      else location.href = (ctx && typeof ctx.routeHref === "function") ? ctx.routeHref("/heroes") : "/heroes";
+    };
+
     if (!isValidSlug(sSlug)) {
       var c0 = mountWithCenter(mount, "hero-error-center", 980);
       c0.appendChild(el("div", { class: "error", style: "text-align:center;" }, [
         el("h2", null, _t("heroes.detail_failed", "Failed to load hero detail")),
         el("p", null, _t("heroes.slug", "Slug") + ": " + safeText(sSlug)),
         el("p", null, _t("heroes.not_found", "Hero not found.")),
-        el("p", null, el("a", { href: "#/heroes" }, _t("heroes.go_list", "Go to Heroes list")))
+        el("p", null, el("button", { class: "btn", type: "button", onclick: goList }, _t("heroes.go_list", "Go to Heroes list")))
       ]));
       return;
     }
 
     loadAllIndexes(ctx).then(function (all) {
-      // Find index item by slug (in r/sr/ssr indexes)
-      var found = null;
-
       function findIn(list) {
         for (var i = 0; i < list.length; i++) {
           if (list[i].slug === sSlug) return list[i];
@@ -636,7 +684,7 @@
         return null;
       }
 
-      found = findIn(all.ssr) || findIn(all.sr) || findIn(all.r);
+      var found = findIn(all.ssr) || findIn(all.sr) || findIn(all.r);
 
       if (!found) {
         var c1 = mountWithCenter(mount, "hero-error-center", 980);
@@ -644,7 +692,7 @@
           el("h2", null, _t("heroes.detail_failed", "Failed to load hero detail")),
           el("p", null, _t("heroes.slug", "Slug") + ": " + safeText(sSlug)),
           el("p", null, _t("heroes.not_found", "Hero not found in index.json.")),
-          el("p", null, el("a", { href: "#/heroes" }, _t("heroes.go_list", "Go to Heroes list")))
+          el("p", null, el("button", { class: "btn", type: "button", onclick: goList }, _t("heroes.go_list", "Go to Heroes list")))
         ]));
         return;
       }
@@ -652,21 +700,35 @@
       return loadHeroDetailByPath(ctx, found.path).then(function (heroJson) {
         var center = mountWithCenter(mount, "hero-detail-center", 2000);
 
-        // back
+        // back (History Router friendly)
         center.appendChild(el("div", { style: "text-align:center;" }, [
-          el("a", { class: "btn back-link", href: "#/heroes", style: "display:inline-flex;margin:10px 0 14px;" }, _t("heroes.back", "← Back to Heroes"))
+          el("button", {
+            class: "btn back-link",
+            type: "button",
+            style: "display:inline-flex;margin:10px 0 14px;",
+            onclick: goList
+          }, _t("heroes.back", "← Back to Heroes"))
         ]));
 
-        // header (detail image: prefer index image)
         center.appendChild(renderHeroHeaderFromIndex(found, heroJson, _t, ctx));
 
-        // story (i18n override supported)
+        // ✅ description first (usually short)
+        var desc = renderDescriptionSection(heroJson, _t);
+        if (desc) center.appendChild(desc);
+
+        // ✅ story
         var story = renderStorySection(heroJson, _t);
         if (story) center.appendChild(story);
 
-        // description
-        var desc = renderDescriptionSection(heroJson, _t);
-        if (desc) center.appendChild(desc);
+        // ✅ skills (fix)
+        var skillsSec = renderSkillsSection(heroJson, _t, ctx);
+        if (skillsSec) center.appendChild(skillsSec);
+
+        // ✅ apply i18n to inserted DOM if your engine supports apply(root)
+        try {
+          if (ctx && typeof ctx.applyI18n === "function") ctx.applyI18n(center);
+          else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(center);
+        } catch (_) {}
       });
     }).catch(function (e) {
       var centerErr2 = mountWithCenter(mount, "hero-error-center", 980);
@@ -674,7 +736,7 @@
         el("h2", null, _t("heroes.detail_failed", "Failed to load hero detail")),
         el("p", null, _t("heroes.slug", "Slug") + ": " + safeText(slug)),
         el("p", null, safeText(e && (e.message || e))),
-        el("p", null, el("a", { href: "#/heroes" }, _t("heroes.go_list", "Go to Heroes list")))
+        el("p", null, el("button", { class: "btn", type: "button", onclick: goList }, _t("heroes.go_list", "Go to Heroes list")))
       ]));
     });
   }
