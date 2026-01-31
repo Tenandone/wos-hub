@@ -2,22 +2,65 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WOS HUB</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Redirecting…</title>
+  <meta name="robots" content="noindex" />
   <script>
-    // GitHub Pages SPA redirect (non-hash routing)
     (function () {
-      const redirect =
-        location.pathname +
-        location.search +
-        location.hash;
+      var l = window.location;
 
-      sessionStorage.setItem("wos:redirect", redirect);
+      // ===== 1) Detect base exactly like app.js: <base href> first =====
+      function detectBase() {
+        // 1) <base href="..."> priority
+        try {
+          var baseEl = document.querySelector("base[href]");
+          if (baseEl) {
+            var href = baseEl.getAttribute("href") || "";
+            var u = new URL(href, l.href);
+            var p = String(u.pathname || "/");
+            p = p.replace(/\/index\.html?$/i, "");
+            if (p.endsWith("/")) p = p.slice(0, -1);
+            return p; // "" or "/repo"
+          }
+        } catch (e) {}
 
-      // always go to SPA entry
-      location.replace("/");
+        // 2) If no <base>, assume GitHub project page base from first segment
+        //    (Good enough for /<repo>/... 404 context)
+        try {
+          var path = String(l.pathname || "/");
+          var seg = path.split("/").filter(Boolean);
+          if (seg.length > 0) return "/" + seg[0];
+        } catch (e) {}
+
+        // 3) fallback root
+        return "";
+      }
+
+      var base = detectBase();
+
+      // ===== 2) Original path/query/hash =====
+      var path = String(l.pathname || "/");
+      var search = String(l.search || "");
+      var hash = String(l.hash || "");
+
+      // ===== 3) Convert to appPath (strip base) =====
+      var appPath = path.replace(/\/index\.html?$/i, "");
+      if (base && appPath === base) appPath = "/";
+      else if (base && appPath.indexOf(base + "/") === 0) appPath = appPath.slice(base.length) || "/";
+
+      if (!appPath.startsWith("/")) appPath = "/" + appPath;
+
+      // ===== 4) Redirect to (base)/?p=...&q=...&h=... =====
+      // NOTE: base=="" => "/?p=..."
+      var target =
+        (base || "") +
+        "/?p=" + encodeURIComponent(appPath || "/") +
+        "&q=" + encodeURIComponent(search || "") +
+        "&h=" + encodeURIComponent(hash || "");
+
+      l.replace(target);
     })();
   </script>
 </head>
-<body></body>
+<body>Redirecting…</body>
 </html>

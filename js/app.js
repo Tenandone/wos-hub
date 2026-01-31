@@ -1646,10 +1646,32 @@
     setDocTitle(title || pageTitle);
   }
 
-  // =========================
+    // =========================
   // 9) Boot
   // =========================
   (async () => {
+    // ✅ 404.html 리다이렉트 복구 (History SPA on GitHub Pages)
+    (function restoreSpaPathFrom404() {
+      try {
+        const sp = new URLSearchParams(location.search || "");
+        const p = sp.get("p"); // original app path (e.g. "/buildings/furnace")
+        const q = sp.get("q"); // original search (e.g. "?x=1")
+        const h = sp.get("h"); // original hash (e.g. "#y")
+
+        if (!p) return;
+
+        // ✅ p는 encodeURIComponent로 들어오므로 decode 해야 함
+        const appPath = decodeURIComponent(p || "/");
+        const qs = q ? decodeURIComponent(q) : "";
+        const hs = h ? decodeURIComponent(h) : "";
+
+        const cleanUrl = withBase(appPath) + qs + hs;
+
+        // query(p,q,h) 제거 + 원래 경로로 복원
+        history.replaceState({}, "", cleanUrl);
+      } catch (_) {}
+    })();
+
     ensureStyles();
 
     // i18n first
