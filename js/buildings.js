@@ -1,36 +1,28 @@
 /* =========================================================
    WOS.GG - buildings.js (List + Detail Module) - FULL (FINAL) ✅
-   ✅ GitHub Pages 프로젝트(/wos-hub) + 커스텀도메인 모두 안전
-   ✅ History Router (NO HASH) 친화:
-      - href는 ctx.routeHref() 우선
-      - SPA 인터셉트를 위해 data-link="1" 부여
-      - 뒤로가기/목록가기 버튼은 ctx.go("/buildings") 우선
-   ✅ i18n READY:
-      - ctx.t 우선, 없으면 window.WOS_I18N.t fallback
-      - 빌딩 메타 키 우선:
-        buildings.{slug}.meta.title
-        buildings.{slug}.meta.description
-      - 고정 UI 텍스트는 data-i18n + fallback 텍스트 동시 제공
-   ✅ FIX(중요): 빌딩 이미지 깨짐 해결
-      - "/assets/..." "/data/..." 같은 루트절대경로도
-        window.WOS_RES / ctx.withBase / document.baseURI 기반으로 repo prefix 자동 보정
-      - index.json img / detail assets.mainImage / fallback 이미지 모두 동일 규칙 적용
-   ✅ 데이터 구조 (유연 대응):
-      - index:
-          data/buildings/index.json
-          data/buildings/base/index.json (fallback)
-      - detail:
-          data/buildings/{slug}.json
-          data/buildings/base/{slug}.json (fallback)
-      - index payload: [] or {items:[]}
+   ✅ "객체 인자" 호출 방식 유지 (app.js 호환)
+      - renderList({ DATA_BASE, appEl, showError, esc, fetchJSONTry, t, ctx })
+      - renderDetail({ slug, DATA_BASE, appEl, showError, esc, fmtNum, fetchJSONTry, t, ctx })
+
+   ✅ GitHub Pages repo prefix 안전 (중요)
+      - /data/... /assets/... 처럼 "슬래시로 시작"하면 repo 페이지에서 404가 나므로
+        fetch/img 모두 resolveFetch/resolveRes로 prefix 보정
+
+   ✅ i18n READY
+      - ctx.t 우선, 없으면 opts.t, 없으면 window.WOS_I18N.t fallback
+      - buildings.{slug}.meta.title / buildings.{slug}.meta.description 우선
+
+   ✅ FIX: 빌딩 이미지 깨짐/진입 불가 원인 해결
+      - 시그니처 불일치 해결(객체 인자)
+      - 리소스 경로 prefix 해결
    ========================================================= */
-(function () {
+(() => {
   "use strict";
 
   // =========================
   // A) Cost mapping (resource keys)
   // =========================
-  var RES = {
+  const RES = {
     food: "res_100011",
     wood: "res_103",
     coal: "res_104",
@@ -39,7 +31,7 @@
     refineStone: "res_100082",
   };
 
-  var RES_COLS_ALL = [
+  const RES_COLS_ALL = [
     { id: "food",        labelKey: "buildings.res.food",        fallback: "Food",           key: RES.food },
     { id: "wood",        labelKey: "buildings.res.wood",        fallback: "Wood",           key: RES.wood },
     { id: "coal",        labelKey: "buildings.res.coal",        fallback: "Coal",           key: RES.coal },
@@ -50,78 +42,70 @@
 
   function colsForSection(sectionKey) {
     if (sectionKey === "base") {
-      return RES_COLS_ALL.filter(function (c) { return c.id !== "fireCrystal" && c.id !== "refineStone"; });
+      return RES_COLS_ALL.filter(c => c.id !== "fireCrystal" && c.id !== "refineStone");
     }
     if (sectionKey === "firecrystal") {
-      return RES_COLS_ALL.filter(function (c) { return c.id !== "refineStone"; });
+      return RES_COLS_ALL.filter(c => c.id !== "refineStone");
     }
     return RES_COLS_ALL;
   }
 
   function getCost(costs, key) {
     if (!costs) return null;
-    return (costs[key] !== undefined ? costs[key] : null);
+    return costs[key] ?? null;
   }
 
   // =========================
   // B) Slug aliases
   // =========================
-  var SLUG_ALIASES = {
+  const SLUG_ALIASES = {
     crystallaboratory: "crystallaboratory",
     crystallalaboratory: "crystallaboratory",
   };
 
   function normalizedSlug(slug) {
-    var s = String(slug || "").trim();
+    const s = String(slug || "").trim();
     return SLUG_ALIASES[s] || s;
   }
 
   // =========================
-  // C) i18n
+  // C) i18n (ctx.t > opts.t > window.WOS_I18N.t)
   // =========================
-  function makeT(ctx) {
-    var tFn =
+  function makeT(opts) {
+    const ctx = (opts && opts.ctx) ? opts.ctx : null;
+    const tFn =
       (ctx && typeof ctx.t === "function" ? ctx.t : null) ||
-      (window.WOS_I18N && typeof window.WOS_I18N.t === "function"
-        ? function (key, vars) { return window.WOS_I18N.t(key, vars); }
-        : null);
+      (opts && typeof opts.t === "function" ? opts.t : null) ||
+      (window.WOS_I18N && typeof window.WOS_I18N.t === "function" ? window.WOS_I18N.t.bind(window.WOS_I18N) : null);
 
     return function _t(key, fallback, vars) {
       try {
         if (!tFn) return (fallback !== undefined ? fallback : key);
-        var v = tFn(key, vars);
-        var s = (v === null || v === undefined) ? "" : String(v);
+        const v = tFn(key, vars);
+        const s = (v === null || v === undefined) ? "" : String(v);
         if (!s.trim() || s === key) return (fallback !== undefined ? fallback : key);
         return s;
-      } catch (e) {
+      } catch (_) {
         return (fallback !== undefined ? fallback : key);
       }
     };
   }
 
-  function tMaybe(_t, key, vars) {
-    var v = _t(key, "", vars);
-    if (!v || v === key) return null;
-    return v;
-  }
-
   // =========================
-  // D) Safe HTML helpers
+  // D) Safe helpers
   // =========================
   function esc(v) {
-    return String(v === null || v === undefined ? "" : v).replace(/[&<>"']/g, function (m) {
-      return ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      })[m];
-    });
+    return String(v ?? "").replace(/[&<>"']/g, m => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    }[m]));
   }
 
   function attr(v) {
-    return String(v === null || v === undefined ? "" : v)
+    return String(v ?? "")
       .replace(/&/g, "&amp;")
       .replace(/"/g, "&quot;")
       .replace(/</g, "&lt;")
@@ -129,94 +113,118 @@
   }
 
   function isProbablyHtml(s) {
-    var t = String(s === null || s === undefined ? "" : s);
+    const t = String(s ?? "");
     return /<\/?[a-z][\s\S]*>/i.test(t);
   }
 
   function renderDescHtml(desc) {
-    var d = (desc === null || desc === undefined) ? "" : desc;
+    const d = desc ?? "";
     if (!d) return "";
     if (typeof d === "string" && isProbablyHtml(d)) {
-      return '<div class="prose" style="line-height:1.75;text-align:center;">' + String(d) + "</div>";
+      return `<div class="prose" style="line-height:1.75;text-align:center;">${String(d)}</div>`;
     }
-    var safe = esc(String(d));
-    return '<div class="prose" style="white-space:pre-wrap;line-height:1.75;text-align:center;">' + safe + "</div>";
+    return `<div class="prose" style="white-space:pre-wrap;line-height:1.75;text-align:center;">${esc(String(d))}</div>`;
+  }
+
+  function safeSlug(slug) {
+    return encodeURIComponent(String(slug ?? "").trim());
+  }
+
+  function cleanTitle(raw, fallback) {
+    const t = String(raw ?? "").trim();
+    if (!t) return String(fallback ?? "").trim() || "Building";
+    const cut = t.split(" - ")[0].trim();
+    return cut || t;
   }
 
   // =========================
-  // E) URL / Router helpers (GitHub Pages safe)
+  // E) URL helpers (repo prefix safe)
   // =========================
-  function resUrl(ctx, p) {
-    if (!p) return p;
-    var s = String(p);
+  function ensureLeadingSlash(p) {
+    const s = String(p || "");
+    if (!s) return s;
+    return s.charAt(0) === "/" ? s : ("/" + s);
+  }
+
+  function stripLeadingSlash(p) {
+    return String(p || "").replace(/^\//, "");
+  }
+
+  function resolveRes(opts, path) {
+    if (!path) return path;
+    const ctx = (opts && opts.ctx) ? opts.ctx : null;
 
     // absolute URL keep
-    if (/^(https?:)?\/\//i.test(s)) return s;
+    if (/^(https?:)?\/\//i.test(String(path))) return String(path);
 
-    // normalize ../ ./ (SPA에서 base 흔들릴 때 치명적)
-    s = s.replace(/^(\.\.\/)+/, "");
-    s = s.replace(/^\.\//, "");
+    // normalize ../ ./ (상대경로 꼬임 방지)
+    let p = String(path).replace(/^(\.\.\/)+/, "").replace(/^\.\//, "");
 
-    // unify leading slash for resolver
-    if (s.charAt(0) !== "/") s = "/" + s;
+    // window.WOS_RES는 보통 "/assets/..." 형태를 기대함
+    if (typeof window.WOS_RES === "function") {
+      return window.WOS_RES(ensureLeadingSlash(p));
+    }
 
-    // 1) best: project-aware resource resolver
-    if (typeof window.WOS_RES === "function") return window.WOS_RES(s);
+    // ctx.withBase가 있으면 그걸 최우선(너 split build 규칙)
+    if (ctx && typeof ctx.withBase === "function") {
+      return ctx.withBase(ensureLeadingSlash(p));
+    }
 
-    // 2) app-provided base helper
-    if (ctx && typeof ctx.withBase === "function") return ctx.withBase(s);
-
-    // 3) baseURI join (repo-safe)
+    // baseURI 기반 fallback
     try {
-      return new URL(s.replace(/^\//, ""), document.baseURI).toString();
+      return new URL(stripLeadingSlash(p), document.baseURI).toString();
     } catch (_) {
-      return s;
+      return p;
     }
   }
 
-  function fetchUrl(ctx, p) {
-    // fetch에도 동일 리졸버 적용
-    return resUrl(ctx, p);
+  function resolveFetch(opts, path) {
+    // fetch도 동일 규칙(리소스와 같음)
+    return resolveRes(opts, path);
   }
 
-  function routeHref(ctx, path) {
+  function routeHref(opts, path) {
+    const ctx = (opts && opts.ctx) ? opts.ctx : null;
     if (ctx && typeof ctx.routeHref === "function") return ctx.routeHref(path);
     return path;
   }
 
-  function go(ctx, path) {
+  function go(opts, path) {
+    const ctx = (opts && opts.ctx) ? opts.ctx : null;
     if (ctx && typeof ctx.go === "function") return ctx.go(path);
-    // fallback: hard navigation (base 안전)
-    location.href = routeHref(ctx, path);
+    location.href = routeHref(opts, path);
   }
 
   // =========================
-  // F) Data paths (candidates)
+  // F) DATA_BASE 후보 (✅ 앞에 / 붙이면 repo에서 404 나서 제거!)
   // =========================
-  var DATA_BASE_CANDIDATES = [
+  const DATA_BASE_CANDIDATES = [
     "data/buildings",
     "assets/data/buildings",
-    "assets/data/buildings/base"
+    "assets/data/buildings/base",
   ];
 
   function buildIndexUrlCandidates(base) {
-    return [
-      String(base).replace(/\/$/, "") + "/index.json",
-      String(base).replace(/\/$/, "") + "/base/index.json"
-    ];
+    const b = String(base || "").replace(/\/$/, "");
+    // base가 이미 .../base면 중복 방지
+    const isBase = /\/base$/i.test(b);
+    return isBase
+      ? [`${b}/index.json`]
+      : [`${b}/index.json`, `${b}/base/index.json`];
   }
 
   function buildDetailUrlCandidates(base, slug) {
-    var s = String(slug || "").trim();
-    var a = SLUG_ALIASES[s];
-    var slugsToTry = a ? [s, a] : [s];
+    const s = String(slug || "").trim();
+    const a = SLUG_ALIASES[s];
+    const slugsToTry = a ? [s, a] : [s];
 
-    var urls = [];
-    for (var i = 0; i < slugsToTry.length; i++) {
-      var x = slugsToTry[i];
-      var b = String(base).replace(/\/$/, "");
-      urls.push(b + "/" + encodeURIComponent(x) + ".json");
-      urls.push(b + "/base/" + encodeURIComponent(x) + ".json");
+    const b = String(base || "").replace(/\/$/, "");
+    const isBase = /\/base$/i.test(b);
+
+    const urls = [];
+    for (const x of slugsToTry) {
+      urls.push(`${b}/${encodeURIComponent(x)}.json`);
+      if (!isBase) urls.push(`${b}/base/${encodeURIComponent(x)}.json`);
     }
     return urls;
   }
@@ -224,573 +232,546 @@
   function normalizeIndexItems(idx) {
     if (!idx) return [];
     if (Array.isArray(idx)) return idx;
-    if (idx && Array.isArray(idx.items)) return idx.items;
+    if (Array.isArray(idx.items)) return idx.items;
     return [];
   }
 
-  function fetchJson(ctx, url) {
-    return fetch(fetchUrl(ctx, url), { cache: "no-store" }).then(function (r) {
-      if (!r.ok) throw new Error("HTTP " + r.status + ": " + url);
-      return r.json();
-    });
+  async function fetchJSON(opts, url) {
+    const u = resolveFetch(opts, url);
+    const r = await fetch(u, { cache: "no-store" });
+    if (!r.ok) throw new Error(`HTTP ${r.status}: ${u}`);
+    return await r.json();
   }
 
-  function fetchJsonTry(ctx, urls) {
-    var i = 0;
-    var lastErr = null;
-
-    function next() {
-      if (i >= urls.length) return Promise.reject(lastErr || new Error("All candidates failed"));
-      var u = urls[i++];
-      return fetchJson(ctx, u).catch(function (e) {
+  async function fetchJSONTryFallback(opts, urls) {
+    let lastErr;
+    for (const url of urls) {
+      try {
+        return await fetchJSON(opts, url);
+      } catch (e) {
         lastErr = e;
-        return next();
-      });
+      }
     }
-    return next();
+    throw lastErr || new Error("fetchJSONTryFallback: all candidates failed");
   }
 
-  function resolveDataBase(ctx) {
-    var idx = 0;
-
-    function tryBase() {
-      if (idx >= DATA_BASE_CANDIDATES.length) return Promise.resolve(DATA_BASE_CANDIDATES[0]);
-      var base = DATA_BASE_CANDIDATES[idx++];
-      return fetchJsonTry(ctx, buildIndexUrlCandidates(base)).then(function () {
+  async function resolveDataBase(fetchTry, opts) {
+    const tryFn = fetchTry || ((urls) => fetchJSONTryFallback(opts || {}, urls));
+    const o = opts || {};
+    for (const base of DATA_BASE_CANDIDATES) {
+      try {
+        await tryFn(buildIndexUrlCandidates(base), o);
         return base;
-      }).catch(function () {
-        return tryBase();
-      });
+      } catch (_) {}
     }
-
-    return tryBase();
+    return DATA_BASE_CANDIDATES[0];
   }
 
   // =========================
-  // G) Image fallback (repo-safe via resUrl at usage)
+  // G) Image fallback
   // =========================
   function imageSlugFor(slug) {
-    var s = String(slug || "").trim();
-    var a = SLUG_ALIASES[s];
+    const s = String(slug || "").trim();
+    const a = SLUG_ALIASES[s];
     return (a || s || "unknown");
   }
 
-  function fallbackMainImageRel(slug) {
-    var imgSlug = imageSlugFor(slug);
-    // 상대경로 형태로만 만든다(리졸버가 repo prefix 붙임)
-    return "assets/buildings/" + imgSlug + "/firecrystal_img/" + imgSlug + ".png";
+  function fallbackMainImage(slug) {
+    const imgSlug = imageSlugFor(slug);
+    // ✅ 절대경로(/) 금지: repo에서 깨짐 -> 상대형으로 만들고 resolveRes로 처리
+    return `assets/buildings/${imgSlug}/firecrystal_img/${imgSlug}.png`;
   }
 
   // =========================
-  // H) UI helpers
+  // H) UI style
   // =========================
-  var PAGE_WRAP_STYLE =
+  const PAGE_WRAP_STYLE =
     "max-width:1100px;margin:0 auto;padding:0 12px;box-sizing:border-box;text-align:center;";
 
-  function mountEl(rootEl) {
-    return (typeof rootEl === "string") ? document.querySelector(rootEl) : rootEl;
-  }
-
-  function cleanTitle(raw, fallback) {
-    var t = String(raw === null || raw === undefined ? "" : raw).trim();
-    if (!t) return String(fallback || "").trim() || "Building";
-    var cut = t.split(" - ")[0].trim();
-    return cut || t;
-  }
-
-  function fmtNumDefault(n) {
-    if (n === null || n === undefined || n === "") return "-";
-    return String(n);
-  }
-
-  function showError(mount, title, detail) {
-    mount.innerHTML =
-      '<div class="wos-page" style="' + PAGE_WRAP_STYLE + '">' +
-        '<div class="error" style="text-align:center;">' +
-          "<h2>" + esc(title) + "</h2>" +
-          (detail ? "<p class='muted'>" + esc(detail) + "</p>" : "") +
-        "</div>" +
-      "</div>";
+  function defaultShowError(err) {
+    console.error(err);
   }
 
   // =========================
-  // I) Public: renderList
+  // I) LIST (객체 인자 방식 유지)
   // =========================
-  function renderList(rootEl, ctx) {
-    var _t = makeT(ctx);
-    var mount = mountEl(rootEl);
-    if (!mount) return;
+  async function renderList(opts) {
+    opts = opts || {};
+    const appEl = opts.appEl;
+    if (!appEl) return;
 
-    mount.innerHTML =
-      '<div class="wos-page" style="' + PAGE_WRAP_STYLE + '">' +
-        '<div class="loading">' + esc(_t("buildings.loading_list", "Loading buildings…")) + "</div>" +
-      "</div>";
+    const _t = makeT(opts);
+    const _showError = typeof opts.showError === "function" ? opts.showError : defaultShowError;
+    const fetchTry = typeof opts.fetchJSONTry === "function"
+      ? opts.fetchJSONTry
+      : (urls) => fetchJSONTryFallback(opts, urls);
 
-    var placeholder = resUrl(ctx, "assets/img/placeholder.png");
+    const base = opts.DATA_BASE || await resolveDataBase((urls) => fetchTry(urls), opts);
 
-    resolveDataBase(ctx).then(function (base) {
-      return fetchJsonTry(ctx, buildIndexUrlCandidates(base)).then(function (idx) {
-        var items = normalizeIndexItems(idx);
+    appEl.innerHTML = `
+      <div class="wos-page" style="${PAGE_WRAP_STYLE}">
+        <div class="loading">${esc(_t("buildings.loading_list", "Loading buildings…"))}</div>
+      </div>
+    `;
 
-        var html = "";
-        html += '<div class="wos-page" style="' + PAGE_WRAP_STYLE + '">';
-        html +=   '<header class="page-head" style="text-align:center;">';
-        html +=     '<h1 class="h1" style="margin:8px 0 6px;" data-i18n="buildings.list.title">' +
-                      esc(_t("buildings.list.title", "Buildings")) +
-                    "</h1>";
-        html +=     '<p class="muted" style="margin:0 0 14px;" data-i18n="buildings.list.subtitle">' +
-                      esc(_t("buildings.list.subtitle", "Select a building to view details.")) +
-                    "</p>";
-        html +=   "</header>";
-
-        html +=   '<section class="grid building-grid" style="' +
-                    "display:grid;" +
-                    "justify-content:center;" +
-                    "justify-items:center;" +
-                    "grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));" +
-                    "gap:14px;" +
-                    "width:100%;" +
-                    "margin:0 auto;" +
-                  '">';
-
-        for (var i = 0; i < items.length; i++) {
-          var it = items[i] || {};
-          var slug = String(it.slug || (it.meta && it.meta.slug) || "").trim();
-          if (!slug) continue;
-
-          var nSlug = normalizedSlug(slug);
-
-          var jsonTitle = it.name || (it.meta && it.meta.title) || slug;
-          var i18nTitleKey = "buildings." + nSlug + ".meta.title";
-          var name = cleanTitle(_t(i18nTitleKey, jsonTitle), slug);
-
-          // image from index (it.img / it.image / it.assets.mainImage)
-          var rawImg =
-            (it.img ? String(it.img) : "") ||
-            (it.image ? String(it.image) : "") ||
-            (it.assets && it.assets.mainImage ? String(it.assets.mainImage) : "") ||
-            "";
-
-          var imgRel = rawImg || fallbackMainImageRel(slug);
-          var imgSrc = resUrl(ctx, imgRel);
-
-          var href = routeHref(ctx, "/buildings/" + encodeURIComponent(slug));
-
-          html += (
-            '<a class="card building-card" href="' + attr(href) + '" data-link="1" ' +
-               'style="text-align:center;padding:14px;width:100%;max-width:280px;">' +
-              '<img class="building-card-img" ' +
-                   'src="' + attr(imgSrc) + '" ' +
-                   'alt="' + attr(name) + '" loading="lazy" ' +
-                   'onerror="this.onerror=null;this.src=\'' + attr(placeholder) + '\';" ' +
-                   'style="display:block;width:100%;height:160px;object-fit:contain;margin:0 auto 10px;border-radius:16px;">' +
-              '<strong style="display:block;font-weight:900;" data-i18n="' + attr(i18nTitleKey) + '">' +
-                esc(name) +
-              "</strong>" +
-            "</a>"
-          );
-        }
-
-        html +=   "</section>";
-        html += "</div>";
-
-        mount.innerHTML = html;
-
-        // i18n apply hook
-        try {
-          if (ctx && typeof ctx.applyI18n === "function") ctx.applyI18n(mount);
-          else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(mount);
-        } catch (_) {}
-      });
-    }).catch(function (e) {
-      showError(mount, _t("buildings.load_failed", "Failed to load buildings"), e && (e.message || String(e)));
-    });
-  }
-
-  // =========================
-  // J) Public: renderDetail
-  // =========================
-  function renderDetail(rootEl, slug, ctx) {
-    var _t = makeT(ctx);
-    var mount = mountEl(rootEl);
-    if (!mount) return;
-
-    var sSlug = String(slug || "").trim();
-    if (!sSlug) {
-      showError(mount, _t("buildings.detail_failed", "Failed to load building detail"), _t("buildings.not_found", "Building not found."));
+    let idx;
+    try {
+      idx = await fetchTry(buildIndexUrlCandidates(base));
+    } catch (err) {
+      _showError(err, { attempted: buildIndexUrlCandidates(base), base });
+      appEl.innerHTML = `
+        <div class="wos-page" style="${PAGE_WRAP_STYLE}">
+          <div class="error" style="text-align:center;">
+            <h2>${esc(_t("buildings.load_failed", "Failed to load buildings"))}</h2>
+            <p class="muted">${esc(String(err && (err.message || err) || ""))}</p>
+          </div>
+        </div>
+      `;
       return;
     }
 
-    mount.innerHTML =
-      '<div class="wos-page" style="' + PAGE_WRAP_STYLE + '">' +
-        '<div class="loading">' + esc(_t("buildings.loading_detail", "Loading building…")) + "</div>" +
-      "</div>";
+    const items = normalizeIndexItems(idx);
+    const placeholder = resolveRes(opts, "assets/img/placeholder.png");
 
-    var placeholder = resUrl(ctx, "assets/img/placeholder.png");
-    var fmtNum = (ctx && typeof ctx.fmtNum === "function") ? ctx.fmtNum : fmtNumDefault;
+    appEl.innerHTML = `
+      <div class="wos-page" style="${PAGE_WRAP_STYLE}">
+        <header class="page-head" style="text-align:center;">
+          <h1 class="h1" style="margin:8px 0 6px;" data-i18n="buildings.list.title">
+            ${esc(_t("buildings.list.title", "Buildings"))}
+          </h1>
+          <p class="muted" style="margin:0 0 14px;" data-i18n="buildings.list.subtitle">
+            ${esc(_t("buildings.list.subtitle", "Select a building to view details."))}
+          </p>
+        </header>
 
-    resolveDataBase(ctx).then(function (base) {
-      var attempted = buildDetailUrlCandidates(base, sSlug);
+        <section class="grid building-grid" style="
+          display:grid;
+          justify-content:center;
+          justify-items:center;
+          grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+          gap:14px;
+          width:100%;
+          margin:0 auto;
+        ">
+          ${items.map(it => {
+            const slug = String(it?.slug ?? it?.meta?.slug ?? "").trim();
+            if (!slug) return "";
 
-      return fetchJsonTry(ctx, attempted).then(function (data) {
-        // assets merge: detail + index fallback
-        var assets = (data && typeof data === "object" && data.assets && typeof data.assets === "object")
-          ? data.assets
-          : {};
+            const nSlug = normalizedSlug(slug);
 
-        var needIndexAssets = !assets || !assets.mainImage;
+            const jsonTitle = (it?.name ?? it?.meta?.title ?? slug);
+            const i18nTitleKey = `buildings.${nSlug}.meta.title`;
+            const name = cleanTitle(_t(i18nTitleKey, jsonTitle), slug);
 
-        var idxPromise = needIndexAssets
-          ? fetchJsonTry(ctx, buildIndexUrlCandidates(base)).then(function (idx) {
-              var items = normalizeIndexItems(idx);
+            const rawImg =
+              (it?.img ? String(it.img) : "") ||
+              (it?.image ? String(it.image) : "") ||
+              (it?.assets?.mainImage ? String(it.assets.mainImage) : "") ||
+              "";
 
-              var a = SLUG_ALIASES[sSlug];
-              var slugsToTry = a ? [sSlug, a] : [sSlug];
+            const imgSrc = resolveRes(opts, rawImg || fallbackMainImage(slug));
 
-              var found = null;
-              for (var i = 0; i < items.length; i++) {
-                var it = items[i] || {};
-                var islug = String(it.slug || (it.meta && it.meta.slug) || "").trim();
-                if (slugsToTry.indexOf(islug) >= 0) { found = it; break; }
-              }
+            const href = routeHref(opts, `/buildings/${safeSlug(slug)}`);
 
-              var idxAssets = (found && found.assets && typeof found.assets === "object") ? found.assets : {};
-              // also allow found.img as mainImage fallback
-              if (!idxAssets.mainImage) {
-                var fimg = (found && (found.img || found.image)) ? String(found.img || found.image) : "";
-                if (fimg) idxAssets.mainImage = fimg;
-              }
+            return `
+              <a class="card building-card" href="${attr(href)}" data-link="1"
+                 style="text-align:center;padding:14px;width:100%;max-width:280px;">
+                <img
+                  class="building-card-img"
+                  src="${attr(imgSrc)}"
+                  alt="${attr(name)}"
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='${attr(placeholder)}';"
+                  style="display:block;width:100%;height:160px;object-fit:contain;margin:0 auto 10px;border-radius:16px;"
+                >
+                <strong style="display:block;font-weight:900;"
+                        data-i18n="${attr(i18nTitleKey)}">${esc(name)}</strong>
+              </a>
+            `;
+          }).join("")}
+        </section>
+      </div>
+    `;
 
-              assets = Object.assign({}, idxAssets || {}, assets || {});
-              data.assets = assets;
-            }).catch(function () {})
-          : Promise.resolve();
+    // i18n apply hook
+    try {
+      if (opts.ctx && typeof opts.ctx.applyI18n === "function") opts.ctx.applyI18n(appEl);
+      else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(appEl);
+    } catch (_) {}
+  }
 
-        return idxPromise.then(function () {
-          var nSlug = normalizedSlug(sSlug);
+  // =========================
+  // J) DETAIL (객체 인자 방식 유지)
+  // =========================
+  async function renderDetail(opts) {
+    opts = opts || {};
+    const appEl = opts.appEl;
+    if (!appEl) return;
 
-          var jsonTitle =
-            (data && data.meta && data.meta.displayTitle) ||
-            (data && data.meta && data.meta.name) ||
-            (data && data.name) ||
-            (data && data.meta && data.meta.title) ||
-            (data && data.title) ||
-            nSlug;
+    const _t = makeT(opts);
+    const _showError = typeof opts.showError === "function" ? opts.showError : defaultShowError;
 
-          var jsonDesc =
-            (data && data.meta && data.meta.displayDescription) ||
-            (data && data.meta && data.meta.description) ||
-            (data && data.description) ||
-            "";
+    const fetchTry = typeof opts.fetchJSONTry === "function"
+      ? opts.fetchJSONTry
+      : (urls) => fetchJSONTryFallback(opts, urls);
 
-          var i18nTitleKey = "buildings." + nSlug + ".meta.title";
-          var i18nDescKey  = "buildings." + nSlug + ".meta.description";
+    const slug = String(opts.slug ?? "").trim();
+    if (!slug) {
+      appEl.innerHTML = `
+        <div class="wos-page" style="${PAGE_WRAP_STYLE}">
+          <div class="error" style="text-align:center;">
+            <h2>${esc(_t("buildings.detail_failed", "Failed to load building detail"))}</h2>
+            <p class="muted">${esc(_t("buildings.not_found", "Building not found."))}</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
 
-          var title = cleanTitle(_t(i18nTitleKey, jsonTitle), nSlug);
-          var rawDesc = _t(i18nDescKey, jsonDesc);
+    const base = opts.DATA_BASE || await resolveDataBase((urls) => fetchTry(urls), opts);
+    const attempted = buildDetailUrlCandidates(base, slug);
 
-          var mainImageRel =
-            (assets && assets.mainImage ? String(assets.mainImage) : "") ||
-            fallbackMainImageRel(nSlug);
+    appEl.innerHTML = `
+      <div class="wos-page" style="${PAGE_WRAP_STYLE}">
+        <div class="loading">${esc(_t("buildings.loading_detail", "Loading building…"))}</div>
+      </div>
+    `;
 
-          var mainImageSrc = resUrl(ctx, mainImageRel);
+    let data;
+    try {
+      data = await fetchTry(attempted);
+    } catch (err) {
+      _showError(err, { attempted, base });
+      appEl.innerHTML = `
+        <div class="wos-page" style="${PAGE_WRAP_STYLE}">
+          <div class="error" style="text-align:center;">
+            <h2>${esc(_t("buildings.detail_failed", "Failed to load building detail"))}</h2>
+            <p class="muted">${esc(String(err && (err.message || err) || ""))}</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
 
-          var phases = [
-            { key: "base",            labelKey: "buildings.phase.1", fallback: "Phase 1" },
-            { key: "firecrystal",     labelKey: "buildings.phase.2", fallback: "Phase 2" },
-            { key: "firecrystalPlus", labelKey: "buildings.phase.3", fallback: "Phase 3" },
-          ];
+    // ---- assets merge (detail + index fallback) ----
+    let assets = (data && typeof data === "object" && data.assets && typeof data.assets === "object")
+      ? data.assets
+      : {};
 
-          for (var pi = 0; pi < phases.length; pi++) {
-            var k = phases[pi].key;
-            phases[pi].hasRows = !!(data && data[k] && Array.isArray(data[k].rows) && data[k].rows.length);
-          }
+    const needsIndexAssets = !assets || !assets.mainImage;
 
-          var available = phases.filter(function (p) { return p.hasRows; });
-          var hasAnyPhase = available.length > 0;
-          var defaultPhase = (available[0] && available[0].key) ? available[0].key : "base";
+    if (needsIndexAssets) {
+      try {
+        const idx = await fetchTry(buildIndexUrlCandidates(base));
+        const items = normalizeIndexItems(idx);
 
-          // Build skeleton HTML
-          var html = "";
-          html += '<div class="wos-page" style="' + PAGE_WRAP_STYLE + '">';
+        const s = String(slug || "").trim();
+        const a = SLUG_ALIASES[s];
+        const slugsToTry = a ? [s, a] : [s];
 
-          // topbar
-          html +=   '<div class="topbar" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">';
-          html +=     '<button class="btn" type="button" data-i18n="buildings.detail.back">' +
-                        esc(_t("buildings.detail.back", "← Buildings")) +
-                      "</button>";
-          html +=   "</div>";
+        const found =
+          items.find(it => it && slugsToTry.includes(String(it.slug || "").trim())) ||
+          items.find(it => it && slugsToTry.includes(String(it.meta?.slug || "").trim())) ||
+          null;
 
-          // header
-          html +=   '<header class="page-head" style="text-align:center;">';
-          html +=     '<div class="building-hero" style="display:flex;justify-content:center;margin:12px 0;">';
-          html +=       '<img class="building-main-img" ' +
-                            'src="' + attr(mainImageSrc) + '" ' +
-                            'alt="' + attr(title) + '" loading="lazy" ' +
-                            'onerror="this.onerror=null;this.src=\'' + attr(placeholder) + '\';" ' +
-                            'style="display:block;margin:0 auto;border-radius:18px;max-height:320px;object-fit:contain;">';
-          html +=     "</div>";
+        const idxAssets = found?.assets && typeof found.assets === "object" ? found.assets : {};
+        if (!idxAssets.mainImage) {
+          const fimg = (found && (found.img || found.image)) ? String(found.img || found.image) : "";
+          if (fimg) idxAssets.mainImage = fimg;
+        }
 
-          html +=     '<h1 class="h1" style="margin:8px 0 10px;" data-i18n="' + attr(i18nTitleKey) + '">' + esc(title) + "</h1>";
+        assets = { ...(idxAssets || {}), ...(assets || {}) };
+        data.assets = assets;
+      } catch (_) {}
+    }
 
-          if (rawDesc) {
-            html += '<div class="muted" style="max-width:920px;margin:0 auto;" data-i18n="' + attr(i18nDescKey) + '">';
-            html +=   renderDescHtml(rawDesc);
-            html += "</div>";
-          }
-          html +=   "</header>";
+    // ---- meta i18n ----
+    const nSlug = normalizedSlug(slug);
 
-          // phases
-          if (hasAnyPhase) {
-            html += '<section class="panel" style="text-align:center;">';
-            html +=   '<p class="common-note" style="margin:0;line-height:1.7;text-align:center;" data-i18n="buildings.notice.build_time">';
-            html +=     esc(_t(
-                        "buildings.notice.build_time",
-                        "The construction times recorded beneath are the base times. It does not take into account any reduction benefits like State Buff, Research, Zinman's skill and etc. For most players, the time to build would be lesser than what is listed here."
-                      ));
-            html +=   "</p>";
-            html += "</section>";
+    const jsonTitle =
+      data?.meta?.displayTitle ??
+      data?.meta?.name ??
+      data?.name ??
+      data?.meta?.title ??
+      data?.title ??
+      nSlug;
 
-            html += '<div class="tabs" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0 10px;">';
-            for (var ti = 0; ti < available.length; ti++) {
-              var p = available[ti];
-              html += '<button type="button" class="tab" data-key="' + attr(p.key) + '" data-i18n="' + attr(p.labelKey) + '">' +
-                        esc(_t(p.labelKey, p.fallback)) +
-                      "</button>";
-            }
-            html += "</div>";
+    const jsonDesc =
+      data?.meta?.displayDescription ??
+      data?.meta?.description ??
+      data?.description ??
+      "";
 
-            html += '<section id="table-area"></section>';
-          }
+    const i18nTitleKey = `buildings.${nSlug}.meta.title`;
+    const i18nDescKey  = `buildings.${nSlug}.meta.description`;
 
-          html += '<section id="extra-area"></section>';
-          html += "</div>";
+    const title = cleanTitle(_t(i18nTitleKey, jsonTitle), nSlug);
+    const rawDesc = _t(i18nDescKey, jsonDesc);
 
-          mount.innerHTML = html;
+    const mainImageSrc = resolveRes(
+      opts,
+      (assets?.mainImage ? String(assets.mainImage) : "") || fallbackMainImage(nSlug)
+    );
 
-          // Back button hook (History Router friendly)
-          var backBtn = mount.querySelector(".topbar .btn");
-          if (backBtn) {
-            backBtn.addEventListener("click", function () { go(ctx, "/buildings"); });
-          }
+    const placeholder = resolveRes(opts, "assets/img/placeholder.png");
 
-          // tabs bind + initial render
-          if (hasAnyPhase) {
-            setActiveTab(defaultPhase);
-            renderSection(defaultPhase);
+    const phases = [
+      { key: "base",            labelKey: "buildings.phase.1", fallback: "Phase 1" },
+      { key: "firecrystal",     labelKey: "buildings.phase.2", fallback: "Phase 2" },
+      { key: "firecrystalPlus", labelKey: "buildings.phase.3", fallback: "Phase 3" },
+    ].map(p => ({
+      ...p,
+      hasRows: Array.isArray(data?.[p.key]?.rows) && data[p.key].rows.length > 0
+    }));
 
-            var tabs = mount.querySelectorAll(".tabs .tab");
-            for (var bi = 0; bi < tabs.length; bi++) {
-              (function (btn) {
-                btn.addEventListener("click", function () {
-                  var key = btn.getAttribute("data-key");
-                  setActiveTab(key);
-                  renderSection(key);
-                });
-              })(tabs[bi]);
-            }
-          } else {
-            // no phase rows -> empty table area
-            var area0 = mount.querySelector("#table-area");
-            if (area0) area0.innerHTML = "";
-          }
+    const available = phases.filter(p => p.hasRows);
+    const hasAnyPhase = available.length > 0;
+    const defaultPhase = (available[0]?.key) || "base";
 
-          // extras
-          renderExtras(data);
+    const _fmtNum = typeof opts.fmtNum === "function" ? opts.fmtNum : (n => (n === null || n === undefined || n === "" ? "-" : String(n)));
 
-          // i18n apply hook
-          try {
-            if (ctx && typeof ctx.applyI18n === "function") ctx.applyI18n(mount);
-            else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(mount);
-          } catch (_) {}
+    appEl.innerHTML = `
+      <div class="wos-page" style="${PAGE_WRAP_STYLE}">
+        <div class="topbar" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+          <button class="btn" type="button" data-i18n="buildings.detail.back">
+            ${esc(_t("buildings.detail.back","← Buildings"))}
+          </button>
+        </div>
 
-          // ---- inner helpers for detail ----
-          function setActiveTab(key) {
-            var btns = mount.querySelectorAll(".tabs .tab");
-            for (var i = 0; i < btns.length; i++) {
-              var b = btns[i];
-              b.classList.toggle("active", b.getAttribute("data-key") === key);
-            }
-          }
+        <header class="page-head" style="text-align:center;">
+          <div class="building-hero" style="display:flex;justify-content:center;margin:12px 0;">
+            <img
+              class="building-main-img"
+              src="${attr(mainImageSrc)}"
+              alt="${attr(title)}"
+              loading="lazy"
+              onerror="this.onerror=null; this.src='${attr(placeholder)}';"
+              style="display:block;margin:0 auto;border-radius:18px;max-height:320px;object-fit:contain;"
+            >
+          </div>
 
-          function renderSection(sectionKey) {
-            var rows = (data && data[sectionKey] && Array.isArray(data[sectionKey].rows)) ? data[sectionKey].rows : [];
-            var area = mount.querySelector("#table-area");
-            if (!area) return;
+          <h1 class="h1" style="margin:8px 0 10px;" data-i18n="${attr(i18nTitleKey)}">${esc(title)}</h1>
 
-            if (!rows.length) { area.innerHTML = ""; return; }
+          ${rawDesc ? `
+            <div class="muted" style="max-width:920px;margin:0 auto;" data-i18n="${attr(i18nDescKey)}">
+              ${renderDescHtml(rawDesc)}
+            </div>
+          ` : ""}
+        </header>
 
-            var cols = colsForSection(sectionKey);
+        ${hasAnyPhase ? `
+          <section class="panel" style="text-align:center;">
+            <p class="common-note" style="margin:0;line-height:1.7;text-align:center;" data-i18n="buildings.notice.build_time">
+              ${esc(_t("buildings.notice.build_time",
+                "The construction times recorded beneath are the base times. It does not take into account any reduction benefits like State Buff, Research, Zinman's skill and etc. For most players, the time to build would be lesser than what is listed here."
+              ))}
+            </p>
+          </section>
 
-            var table = "";
-            table += '<div class="panel" style="text-align:center;">';
-            table +=   '<div class="table-wrap" style="overflow-x:auto;">';
-            table +=     '<table class="tbl" style="min-width:860px;width:max-content;margin:0 auto;border-collapse:collapse;">';
-            table +=       "<thead><tr>";
-            table +=         '<th data-i18n="buildings.table.level">' + esc(_t("buildings.table.level", "Level")) + "</th>";
-            table +=         '<th class="prereq" data-i18n="buildings.table.prereq">' + esc(_t("buildings.table.prereq", "Prerequisites")) + "</th>";
-            for (var ci = 0; ci < cols.length; ci++) {
-              var c = cols[ci];
-              table += '<th class="res-head"><span data-i18n="' + attr(c.labelKey) + '">' + esc(_t(c.labelKey, c.fallback)) + "</span></th>";
-            }
-            table +=         '<th data-i18n="buildings.table.time">' + esc(_t("buildings.table.time", "Time")) + "</th>";
-            table +=         '<th data-i18n="buildings.table.power">' + esc(_t("buildings.table.power", "Power")) + "</th>";
-            table +=       "</tr></thead>";
+          <div class="tabs" style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:14px 0 10px;">
+            ${available.map(p => `
+              <button type="button" class="tab" data-key="${esc(p.key)}" data-i18n="${esc(p.labelKey)}">
+                ${esc(_t(p.labelKey, p.fallback))}
+              </button>
+            `).join("")}
+          </div>
 
-            table += "<tbody>";
-            for (var ri = 0; ri < rows.length; ri++) {
-              var r = rows[ri] || {};
-              var costs = r.costs || {};
-              var prereq = esc(String(r.prerequisites || "")).replace(/\n/g, "<br>");
+          <section id="table-area"></section>
+        ` : ``}
 
-              table += "<tr>";
-              table +=   '<td class="mono">' + esc(r.level) + "</td>";
-              table +=   '<td class="prereq" style="text-align:left;white-space:normal;line-height:1.35;">' + prereq + "</td>";
+        <section id="extra-area"></section>
+      </div>
+    `;
 
-              for (var cj = 0; cj < cols.length; cj++) {
-                var col = cols[cj];
-                table += '<td class="num">' + esc(fmtNum(getCost(costs, col.key))) + "</td>";
-              }
+    // back hook
+    const backBtn = appEl.querySelector(".topbar .btn");
+    if (backBtn) backBtn.addEventListener("click", () => go(opts, "/buildings"));
 
-              table +=   '<td class="mono">' + esc((r.time && r.time.raw) ? r.time.raw : "-") + "</td>";
-              table +=   '<td class="num">' + esc((r.power !== undefined && r.power !== null) ? r.power : "-") + "</td>";
-              table += "</tr>";
-            }
-            table += "</tbody>";
+    // tabs + table
+    if (hasAnyPhase) {
+      setActiveTab(defaultPhase);
+      renderSection(defaultPhase);
 
-            table +=     "</table>";
-            table +=   "</div>";
-            table += "</div>";
-
-            area.innerHTML = table;
-
-            // i18n apply (table re-rendered)
-            try {
-              if (ctx && typeof ctx.applyI18n === "function") ctx.applyI18n(area);
-              else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(area);
-            } catch (_) {}
-          }
-
-          function renderExtras(dataObj) {
-            var root = mount.querySelector("#extra-area");
-            if (!root) return;
-
-            var sections = dataObj && dataObj.extras && dataObj.extras.sections;
-            if (!Array.isArray(sections) || sections.length === 0) {
-              root.innerHTML = "";
-              return;
-            }
-
-            var out = "";
-            out += '<div class="panel" style="text-align:center;">';
-            out +=   '<h2 class="h2" style="margin:0 0 12px;" data-i18n="buildings.extras.title">' +
-                      esc(_t("buildings.extras.title", "Tips & Notes")) +
-                    "</h2>";
-            out +=   '<div class="stack" style="text-align:left;max-width:980px;margin:0 auto;">';
-
-            for (var si = 0; si < sections.length; si++) {
-              out += renderExtraSection(sections[si]);
-            }
-
-            out +=   "</div>";
-            out += "</div>";
-
-            root.innerHTML = out;
-
-            try {
-              if (ctx && typeof ctx.applyI18n === "function") ctx.applyI18n(root);
-              else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(root);
-            } catch (_) {}
-          }
-
-          function renderExtraSection(sec) {
-            sec = sec || {};
-            var type = String(sec.type || "").toLowerCase();
-
-            var titleHtml = sec.title
-              ? '<h3 class="h3" style="margin:14px 0 8px;">' + esc(sec.title) + "</h3>"
-              : "";
-
-            if (type === "table") {
-              var cols2 = Array.isArray(sec.columns) ? sec.columns : [];
-              var rows2 = Array.isArray(sec.rows) ? sec.rows : [];
-
-              var tHtml = "";
-              tHtml += '<div class="extra-section">';
-              tHtml +=   titleHtml;
-              tHtml +=   '<div class="table-wrap" style="overflow-x:auto;">';
-              tHtml +=     '<table class="tbl" style="min-width:720px;width:max-content;margin:0 auto;border-collapse:collapse;">';
-              tHtml +=       "<thead><tr>";
-              for (var ci = 0; ci < cols2.length; ci++) tHtml += "<th>" + esc(cols2[ci]) + "</th>";
-              tHtml +=       "</tr></thead>";
-              tHtml +=       "<tbody>";
-              for (var ri = 0; ri < rows2.length; ri++) {
-                var row = Array.isArray(rows2[ri]) ? rows2[ri] : [];
-                tHtml += "<tr>";
-                for (var cci = 0; cci < row.length; cci++) {
-                  tHtml += "<td>" + esc(String(row[cci] === null || row[cci] === undefined ? "" : row[cci])).replace(/\n/g, "<br>") + "</td>";
-                }
-                tHtml += "</tr>";
-              }
-              tHtml +=       "</tbody>";
-              tHtml +=     "</table>";
-              tHtml +=   "</div>";
-              tHtml += "</div>";
-              return tHtml;
-            }
-
-            if (type === "text") {
-              var body = sec.text
-                ? '<div class="muted" style="white-space:pre-wrap;line-height:1.75;">' + esc(sec.text) + "</div>"
-                : "";
-
-              var bullets = Array.isArray(sec.bullets) ? sec.bullets : [];
-              var list = "";
-              if (bullets.length) {
-                list += '<ul class="ul">';
-                for (var bi = 0; bi < bullets.length; bi++) {
-                  list += '<li style="line-height:1.7;">' +
-                            esc(String(bullets[bi] === null || bullets[bi] === undefined ? "" : bullets[bi])).replace(/\n/g, "<br>") +
-                          "</li>";
-                }
-                list += "</ul>";
-              }
-
-              return '<div class="extra-section">' + titleHtml + body + list + "</div>";
-            }
-
-            return (
-              '<div class="extra-section">' +
-                titleHtml +
-                '<p class="muted small" data-i18n="buildings.extras.unsupported">' +
-                  esc(_t("buildings.extras.unsupported", "Unsupported extra type:")) +
-                  ' <span class="mono">' + esc(sec.type || "") + "</span>" +
-                "</p>" +
-              "</div>"
-            );
-          }
+      appEl.querySelectorAll(".tabs .tab").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.dataset.key;
+          setActiveTab(key);
+          renderSection(key);
         });
       });
-    }).catch(function (e) {
-      showError(mount, _t("buildings.detail_failed", "Failed to load building detail"), e && (e.message || String(e)));
-    });
+    }
+
+    // extras
+    renderExtras(data);
+
+    // i18n apply hook
+    try {
+      if (opts.ctx && typeof opts.ctx.applyI18n === "function") opts.ctx.applyI18n(appEl);
+      else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(appEl);
+    } catch (_) {}
+
+    function setActiveTab(key) {
+      appEl.querySelectorAll(".tabs .tab").forEach(b => {
+        b.classList.toggle("active", b.dataset.key === key);
+      });
+    }
+
+    function renderSection(sectionKey) {
+      const rows = data?.[sectionKey]?.rows ?? [];
+      const area = appEl.querySelector("#table-area");
+      if (!area) return;
+
+      if (!rows.length) {
+        area.innerHTML = "";
+        return;
+      }
+
+      const cols = colsForSection(sectionKey);
+
+      area.innerHTML = `
+        <div class="panel" style="text-align:center;">
+          <div class="table-wrap" style="overflow-x:auto;">
+            <table class="tbl" style="min-width:860px;width:max-content;margin:0 auto;border-collapse:collapse;">
+              <thead>
+                <tr>
+                  <th data-i18n="buildings.table.level">${esc(_t("buildings.table.level","Level"))}</th>
+                  <th class="prereq" data-i18n="buildings.table.prereq">${esc(_t("buildings.table.prereq","Prerequisites"))}</th>
+                  ${cols.map(c => `
+                    <th class="res-head">
+                      <span data-i18n="${esc(c.labelKey)}">${esc(_t(c.labelKey, c.fallback))}</span>
+                    </th>
+                  `).join("")}
+                  <th data-i18n="buildings.table.time">${esc(_t("buildings.table.time","Time"))}</th>
+                  <th data-i18n="buildings.table.power">${esc(_t("buildings.table.power","Power"))}</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(r => {
+                  const costs = r.costs ?? {};
+                  const prereq = esc(String(r.prerequisites ?? "")).replace(/\n/g, "<br>");
+                  return `
+                    <tr>
+                      <td class="mono">${esc(r.level)}</td>
+                      <td class="prereq" style="text-align:left;white-space:normal;line-height:1.35;">${prereq}</td>
+                      ${cols.map(c => `<td class="num">${esc(_fmtNum(getCost(costs, c.key)))}</td>`).join("")}
+                      <td class="mono">${esc(r.time?.raw ?? "-")}</td>
+                      <td class="num">${esc(r.power ?? "-")}</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+
+      // re-apply i18n (table rerender)
+      try {
+        if (opts.ctx && typeof opts.ctx.applyI18n === "function") opts.ctx.applyI18n(area);
+        else if (window.WOS_I18N && typeof window.WOS_I18N.apply === "function") window.WOS_I18N.apply(area);
+      } catch (_) {}
+    }
+
+    function renderExtras(dataObj) {
+      const root = appEl.querySelector("#extra-area");
+      if (!root) return;
+
+      const sections = dataObj?.extras?.sections;
+      if (!Array.isArray(sections) || sections.length === 0) {
+        root.innerHTML = "";
+        return;
+      }
+
+      root.innerHTML = `
+        <div class="panel" style="text-align:center;">
+          <h2 class="h2" style="margin:0 0 12px;" data-i18n="buildings.extras.title">
+            ${esc(_t("buildings.extras.title","Tips & Notes"))}
+          </h2>
+          <div class="stack" style="text-align:left;max-width:980px;margin:0 auto;">
+            ${sections.map(sec => renderExtraSection(sec)).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderExtraSection(sec) {
+      const type = String(sec?.type ?? "").toLowerCase();
+      const titleHtml = sec?.title
+        ? `<h3 class="h3" style="margin:14px 0 8px;">${esc(sec.title)}</h3>`
+        : "";
+
+      if (type === "table") {
+        const cols = Array.isArray(sec.columns) ? sec.columns : [];
+        const rows = Array.isArray(sec.rows) ? sec.rows : [];
+
+        return `
+          <div class="extra-section">
+            ${titleHtml}
+            <div class="table-wrap" style="overflow-x:auto;">
+              <table class="tbl" style="min-width:720px;width:max-content;margin:0 auto;border-collapse:collapse;">
+                <thead>
+                  <tr>${cols.map(c => `<th>${esc(c)}</th>`).join("")}</tr>
+                </thead>
+                <tbody>
+                  ${rows.map(r => `
+                    <tr>
+                      ${(Array.isArray(r) ? r : []).map(cell =>
+                        `<td>${esc(String(cell ?? "")).replace(/\n/g, "<br>")}</td>`
+                      ).join("")}
+                    </tr>
+                  `).join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      if (type === "text") {
+        const body = sec?.text
+          ? `<div class="muted" style="white-space:pre-wrap;line-height:1.75;">${esc(sec.text)}</div>`
+          : "";
+
+        const bullets = Array.isArray(sec?.bullets) ? sec.bullets : [];
+        const list = bullets.length
+          ? `<ul class="ul">
+              ${bullets.map(b => `<li style="line-height:1.7;">${esc(String(b ?? "")).replace(/\n/g, "<br>")}</li>`).join("")}
+            </ul>`
+          : "";
+
+        return `
+          <div class="extra-section">
+            ${titleHtml}
+            ${body}
+            ${list}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="extra-section">
+          ${titleHtml}
+          <p class="muted small" data-i18n="buildings.extras.unsupported">
+            ${esc(_t("buildings.extras.unsupported","Unsupported extra type:"))}
+            <span class="mono">${esc(sec?.type ?? "")}</span>
+          </p>
+        </div>
+      `;
+    }
   }
 
   // =========================
   // Export
   // =========================
   window.WOS_BUILDINGS = {
-    RES: RES,
-    SLUG_ALIASES: SLUG_ALIASES,
-    // helpers (optional)
-    normalizedSlug: normalizedSlug,
-    buildIndexUrlCandidates: buildIndexUrlCandidates,
-    buildDetailUrlCandidates: buildDetailUrlCandidates,
-    normalizeIndexItems: normalizeIndexItems,
-    resolveDataBase: resolveDataBase,
-    resUrl: resUrl,
-    // main
-    renderList: renderList,
-    renderDetail: renderDetail,
+    RES,
+    SLUG_ALIASES,
+    buildIndexUrlCandidates,
+    buildDetailUrlCandidates,
+    normalizeIndexItems,
+    fallbackMainImage,
+    resolveDataBase,
+    renderList,
+    renderDetail,
   };
 })();
