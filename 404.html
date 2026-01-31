@@ -9,54 +9,22 @@
     (function () {
       var l = window.location;
 
-      // ===== 1) Detect base exactly like app.js: <base href> first =====
-      function detectBase() {
-        // 1) <base href="..."> priority
-        try {
-          var baseEl = document.querySelector("base[href]");
-          if (baseEl) {
-            var href = baseEl.getAttribute("href") || "";
-            var u = new URL(href, l.href);
-            var p = String(u.pathname || "/");
-            p = p.replace(/\/index\.html?$/i, "");
-            if (p.endsWith("/")) p = p.slice(0, -1);
-            return p; // "" or "/repo"
-          }
-        } catch (e) {}
+      // ✅ 너는 아직 커스텀도메인 X, GitHub Pages 프로젝트 페이지
+      // ✅ base를 확정으로 고정 (추측 제거)
+      var base = "/wos-hub";
 
-        // 2) If no <base>, assume GitHub project page base from first segment
-        //    (Good enough for /<repo>/... 404 context)
-        try {
-          var path = String(l.pathname || "/");
-          var seg = path.split("/").filter(Boolean);
-          if (seg.length > 0) return "/" + seg[0];
-        } catch (e) {}
+      var path = l.pathname || "/";
+      var search = l.search || "";
+      var hash = l.hash || "";
 
-        // 3) fallback root
-        return "";
-      }
-
-      var base = detectBase();
-
-      // ===== 2) Original path/query/hash =====
-      var path = String(l.pathname || "/");
-      var search = String(l.search || "");
-      var hash = String(l.hash || "");
-
-      // ===== 3) Convert to appPath (strip base) =====
-      var appPath = path.replace(/\/index\.html?$/i, "");
+      // base 제거해서 appPath 만들기
+      var appPath = path;
+      if (base && appPath.indexOf(base + "/") === 0) appPath = appPath.slice(base.length);
       if (base && appPath === base) appPath = "/";
-      else if (base && appPath.indexOf(base + "/") === 0) appPath = appPath.slice(base.length) || "/";
 
-      if (!appPath.startsWith("/")) appPath = "/" + appPath;
-
-      // ===== 4) Redirect to (base)/?p=...&q=...&h=... =====
-      // NOTE: base=="" => "/?p=..."
-      var target =
-        (base || "") +
-        "/?p=" + encodeURIComponent(appPath || "/") +
-        "&q=" + encodeURIComponent(search || "") +
-        "&h=" + encodeURIComponent(hash || "");
+      var target = base + "/?p=" + encodeURIComponent(appPath || "/")
+                 + "&q=" + encodeURIComponent(search || "")
+                 + "&h=" + encodeURIComponent(hash || "");
 
       l.replace(target);
     })();

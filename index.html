@@ -1,17 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script>
-(() => {
-  // Restore path after GitHub Pages 404 redirect
-  const redirect = sessionStorage.getItem("wos:redirect");
-  if (redirect) {
-    sessionStorage.removeItem("wos:redirect");
-    history.replaceState({}, "", redirect);
-  }
-})();
-</script>
-
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WOS HUB – Whiteout Survival Tools & Data</title>
@@ -27,50 +16,7 @@
   <meta property="og:description" content="Tools, calculators, and data hub for Whiteout Survival players." />
   <meta property="og:site_name" content="WOS HUB" />
 
-  <!-- ✅ GitHub Pages project base auto-fix (fix "/img/.." absolute paths) -->
-  <script>
-  (() => {
-    // e.g. https://tenandone.github.io/wos-hub/  -> base="/wos-hub"
-    const p = location.pathname || "/";
-    const base = p.startsWith("/") ? (p.split("/")[1] ? "/" + p.split("/")[1] : "") : "";
-    if (!base || base === "/") return;
-
-    const fix = (v) => {
-      if (typeof v !== "string") return v;
-      if (v.startsWith("//")) return v;
-      if (!v.startsWith("/")) return v;
-      if (v.startsWith(base + "/")) return v;
-      return base + v;
-    };
-
-    const origSet = Element.prototype.setAttribute;
-    Element.prototype.setAttribute = function (name, value) {
-      if (name === "src" || name === "href") value = fix(value);
-      return origSet.call(this, name, value);
-    };
-
-    // Also patch direct property assignments: img.src = "/..."
-    const patchProp = (proto, prop) => {
-      const d = Object.getOwnPropertyDescriptor(proto, prop);
-      if (!d || !d.set || !d.get) return;
-      Object.defineProperty(proto, prop, {
-        get: d.get,
-        set(v) { return d.set.call(this, fix(v)); },
-        configurable: true,
-        enumerable: d.enumerable,
-      });
-    };
-
-    patchProp(HTMLImageElement.prototype, "src");
-    patchProp(HTMLScriptElement.prototype, "src");
-    patchProp(HTMLLinkElement.prototype, "href");
-    patchProp(HTMLAnchorElement.prototype, "href");
-
-    window.WOS_BASE = base;
-  })();
-  </script>
-
-  <!-- ✅ relative paths for GitHub Pages -->
+  <!-- ✅ relative paths (GitHub Pages / custom domain 모두 OK) -->
   <link rel="stylesheet" href="./css/app.css" />
 </head>
 
@@ -87,7 +33,8 @@
         data-i18n-aria-label="aria.open_menu"
       >☰</button>
 
-      <a class="wos-brand" href="/" data-i18n="brand.name">WosHub</a>
+      <!-- ✅ 핵심: Home은 "/" 금지. 상대경로 + data-link -->
+      <a class="wos-brand" href="./" data-link data-i18n="brand.name">WosHub</a>
 
       <div class="wos-desktop-only wos-langbar">
         <button
@@ -152,12 +99,17 @@
       <button class="wos-drawer-link" type="button" data-lang="ja" data-lang-link="ja">🇯🇵 JA</button>
     </div>
 
-    <a class="wos-drawer-link" data-nav href="/" data-i18n="nav.home">Home</a>
-    <a class="wos-drawer-link" data-nav href="/buildings" data-i18n="nav.buildings">Buildings</a>
-    <a class="wos-drawer-link" data-nav href="/heroes" data-i18n="nav.heroes">Heroes</a>
-    <a class="wos-drawer-link" data-nav href="/coupons" data-i18n="nav.coupons">Coupons</a>
-    <a class="wos-drawer-link" data-nav href="/tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
-    <a class="wos-drawer-link" data-nav href="/tips" data-i18n="nav.tips">Tips</a>
+    <!-- ✅ 내부 라우트: 전부 상대경로 + data-link -->
+    <a class="wos-drawer-link" data-nav data-link href="./" data-i18n="nav.home">Home</a>
+    <a class="wos-drawer-link" data-nav data-link href="./buildings" data-i18n="nav.buildings">Buildings</a>
+    <a class="wos-drawer-link" data-nav data-link href="./heroes" data-i18n="nav.heroes">Heroes</a>
+
+    <!-- ⚠️ app.js에 /coupons 라우팅이 없으면 404/무반응 날 수 있음.
+         쿠폰 라우트가 app.js에 이미 있다면 아래 유지, 없다면 app.js에 라우트 추가하거나 링크를 빼야 함. -->
+    <a class="wos-drawer-link" data-nav data-link href="./coupons" data-i18n="nav.coupons">Coupons</a>
+
+    <a class="wos-drawer-link" data-nav data-link href="./tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
+    <a class="wos-drawer-link" data-nav data-link href="./tips" data-i18n="nav.tips">Tips</a>
   </nav>
 
   <main id="app" class="wos-app"></main>
