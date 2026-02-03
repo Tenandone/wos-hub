@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://woshub.net/sitemap.xml
