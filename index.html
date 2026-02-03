@@ -9,6 +9,11 @@
 
   <title>WOS HUB – Whiteout Survival Tools & Data</title>
 
+  <!-- ✅ FAVICON (woshub.png를 루트에 둔 경우) -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/woshub.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/woshub.png" />
+  <link rel="shortcut icon" href="/woshub.png" />
+
   <!-- SEO -->
   <meta name="description" content="WOS HUB provides Whiteout Survival tools, calculators, hero and building data, and practical guides for players." />
   <meta name="keywords" content="Whiteout Survival, WOS, Whiteout Survival calculator, hero data, building data, WOS tools, WOS guide" />
@@ -109,10 +114,7 @@
     <a class="wos-drawer-link" data-nav data-link href="/" data-i18n="nav.home">Home</a>
     <a class="wos-drawer-link" data-nav data-link href="/buildings" data-i18n="nav.buildings">Buildings</a>
     <a class="wos-drawer-link" data-nav data-link href="/heroes" data-i18n="nav.heroes">Heroes</a>
-
-    <!-- ✅ 쿠폰을 살릴 거면 app.js에 /coupons 라우트도 반드시 있어야 함 (아래 패치 참고) -->
     <a class="wos-drawer-link" data-nav data-link href="/coupons" data-i18n="nav.coupons">Coupons</a>
-
     <a class="wos-drawer-link" data-nav data-link href="/tools/building-calculator" data-i18n="nav.calculator">Calculator</a>
     <a class="wos-drawer-link" data-nav data-link href="/tips" data-i18n="nav.tips">Tips</a>
   </nav>
@@ -125,14 +127,16 @@
     </div>
   </footer>
 
-  <!-- ✅ 절대경로 scripts (깊은 라우트 새로고침 안전) -->
+  <!-- ✅ 스크립트는 전부 defer로 통일 (실행 순서/DOM 안정화) -->
   <script defer src="/js/i18n.js"></script>
   <script defer src="/js/buildings.js"></script>
   <script defer src="/js/heroes.js"></script>
   <script defer src="/js/calculator.js"></script>
   <script defer src="/js/building-calculator.js"></script>
-  <script defer src="/js/tips.js"></script>
+  <script defer src="/js/tips.js?v=20260203_2"></script>
   <script defer src="/js/coupons.js"></script>
+
+  <script defer src="/js/app.core.js"></script>
   <script defer src="/js/app.js"></script>
 </body>
 </html>

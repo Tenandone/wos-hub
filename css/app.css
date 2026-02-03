@@ -73,6 +73,8 @@ body{
     linear-gradient(180deg, var(--bg0), var(--bg1));
 }
 
+button, input, select, textarea{ font-family: inherit; }
+
 /* media always constrained */
 img,svg,video,canvas{
   max-width:100%;
@@ -110,20 +112,22 @@ a:hover{ color:var(--brand2); }
 
 /* =========================
    C) Containers / Layout
+   (중요) app.js가 런타임에 style을 주입해도 레이아웃이 무너지지 않게
+   max-width에 !important를 줘서 "항상" 컨테이너 제한이 먹도록 함
    ========================= */
 .shell,
 .wos-page,
 .wos-wrap,
 .container{
   width:100%;
-  max-width: var(--container);
+  max-width: var(--container) !important; /* ✅ JS 주입 스타일보다 우선 */
   margin:0 auto;
   padding:0 var(--pad);
 }
 
 #app{
   width:100%;
-  max-width: var(--container); /* ✅ app.js가 내부 1500을 써도 여기서 제한 */
+  max-width: var(--container) !important; /* ✅ app.js 내부 1500 제한 */
   margin:0 auto;
 }
 #app > *{ max-width:100%; }
@@ -183,6 +187,8 @@ main{ padding:22px 0 34px; }
   color: var(--txt);
   cursor:pointer;
   user-select:none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: transform .05s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
 }
 .btn:hover{
@@ -257,6 +263,7 @@ textarea:focus{
    ========================= */
 .table-wrap{
   overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: var(--r-md);
   border:1px solid var(--line);
   background: var(--surface);
@@ -299,6 +306,7 @@ tbody tr:hover td{ background: rgba(47,107,255,.06); }
 
 /* =========================
    G) SPA (wos-*) UI
+   (color-mix는 브라우저에 따라 다를 수 있어서 안전한 rgba로 처리)
    ========================= */
 .wos-shell{ min-height:100vh; }
 .wos-home{ padding:18px 0 30px; }
@@ -319,7 +327,7 @@ tbody tr:hover td{ background: rgba(47,107,255,.06); }
   padding:10px;
   border-radius:14px;
   border:1px solid var(--line);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  background: rgba(255,255,255,.92);
 }
 .wos-item:hover{
   outline:1px solid var(--line);
@@ -359,7 +367,7 @@ tbody tr:hover td{ background: rgba(47,107,255,.06); }
   padding:12px;
   border-radius:16px;
   border:1px solid var(--line);
-  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  background: rgba(255,255,255,.92);
 }
 .wos-tile:hover{
   outline:1px solid var(--line);
@@ -489,6 +497,7 @@ tbody tr:hover td{ background: rgba(47,107,255,.06); }
   cursor:pointer;
   font-size:16px;
   line-height:1;
+  -webkit-tap-highlight-color: transparent;
 }
 .wos-iconbtn:hover{
   background: rgba(47,107,255,.08);
@@ -525,7 +534,7 @@ tbody tr:hover td{ background: rgba(47,107,255,.06); }
   position: fixed;
   top: 0;
   left: 0;
-  height: 100dvh;
+  height: 100vh;
   width: var(--drawer-w);
   background: var(--surface);
   transform: translateX(-100%);
@@ -534,6 +543,11 @@ tbody tr:hover td{ background: rgba(47,107,255,.06); }
   z-index: 130;
   display:flex;
   flex-direction:column;
+}
+
+/* 최신 브라우저면 100dvh 사용 */
+@supports (height: 100dvh){
+  .wos-drawer{ height: 100dvh; }
 }
 
 /* drawer head */
@@ -582,7 +596,16 @@ body.drawer-open .wos-drawer,
 .wos-drawer.is-open{
   transform: translateX(0);
 }
-body.drawer-open .wos-drawer-backdrop{
+
+/* ✅ 백드롭도 두 패턴 모두 지원 */
+body.drawer-open .wos-drawer-backdrop,
+.wos-drawer-backdrop.is-open{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 구조가 (drawer -> backdrop) 순서면 이것도 먹음 */
+.wos-drawer.is-open ~ .wos-drawer-backdrop{
   opacity: 1;
   pointer-events: auto;
 }

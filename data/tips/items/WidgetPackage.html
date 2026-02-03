@@ -1,101 +1,130 @@
-<!-- section: Exclusive Weapon Package (USD only) — EN/KO/JA in one HTML -->
+<!-- section: Exclusive Weapon Package (USD only) — AUTO by site language (NO extra buttons) -->
+<style>
+  /* =========================================================
+     ✅ weapon-pack 전용 언어 스코프
+     - tips.js의 data-lang 감지를 회피하기 위해 data-wos-lang 사용
+     - 사이트 언어(html lang)에 따라 1개만 노출
+     ========================================================= */
+
+  #weapon-pack-usd-content [data-wos-lang] { display: none; }
+
+  html[lang^="ko"] #weapon-pack-usd-content [data-wos-lang="ko"] { display: block; }
+  html[lang^="en"] #weapon-pack-usd-content [data-wos-lang="en"] { display: block; }
+  html[lang^="ja"] #weapon-pack-usd-content [data-wos-lang="ja"] { display: block; }
+
+  /* fallback: lang 없거나 예외면 EN */
+  html:not([lang]) #weapon-pack-usd-content [data-wos-lang="en"] { display: block; }
+  html[lang]:not([lang^="ko"]):not([lang^="en"]):not([lang^="ja"])
+    #weapon-pack-usd-content [data-wos-lang="en"] { display: block; }
+</style>
+
 <section class="tip-panel" data-i18n-scope="weapon-pack-usd">
-  <!-- EN -->
-  <div data-lang="en">
-    <div class="table-wrap" style="margin-top:4px;">
-      <table aria-label="Package price and quantity (USD only)">
-        <thead>
-          <tr>
-            <th>Price (USD)</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="center">$4.99</td><td class="center">5</td></tr>
-          <tr><td class="center">$9.99</td><td class="center">10</td></tr>
-          <tr><td class="center">$19.99</td><td class="center">20</td></tr>
-          <tr><td class="center">$49.99</td><td class="center">50</td></tr>
-          <tr><td class="center">$99.99</td><td class="center">100</td></tr>
-        </tbody>
-      </table>
+  <div id="weapon-pack-usd-content">
+
+    <!-- =========================
+         KO
+         ========================= -->
+    <div data-wos-lang="ko" lang="ko">
+      <div class="table-wrap" style="margin-top:4px;">
+        <table aria-label="패키지 가격 및 수량 (USD)">
+          <thead>
+            <tr>
+              <th>가격 (USD)</th>
+              <th>수량</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="center">$4.99</td><td class="center">5</td></tr>
+            <tr><td class="center">$9.99</td><td class="center">10</td></tr>
+            <tr><td class="center">$19.99</td><td class="center">20</td></tr>
+            <tr><td class="center">$49.99</td><td class="center">50</td></tr>
+            <tr><td class="center">$99.99</td><td class="center">100</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="tip-muted" style="margin:10px 0 0;">
+        🔹 편의상 <strong>USD 기준</strong>으로만 표기합니다.
+      </p>
+      <p class="tip-muted" style="margin:6px 0 0;">
+        🔹 레벨 구간별 소모: <strong>목표 레벨 × 5</strong>
+      </p>
+      <p class="tip-muted" style="margin:6px 0 0;">
+        📌 참고<br>
+        • 영웅 전용 무기 <strong>+10</strong>까지: 총 <strong>275</strong> 필요<br>
+        • <strong>$99.99</strong> 패키지는 최대 <strong>5회</strong> 구매 가능
+      </p>
     </div>
 
-    <p class="tip-muted" style="margin:10px 0 0;">
-      🔹 USD only (for clarity)
-    </p>
-    <p class="tip-muted" style="margin:6px 0 0;">
-      🔹 Consumption by level range: <strong>target level × 5</strong>
-    </p>
-    <p class="tip-muted" style="margin:6px 0 0;">
-      📌 Notes<br>
-      • One hero’s exclusive weapon to <strong>+10</strong>: total <strong>275</strong> required<br>
-      • The <strong>$149.00</strong> package can be purchased up to <strong>5 times</strong>
-    </p>
-  </div>
+    <!-- =========================
+         EN
+         ========================= -->
+    <div data-wos-lang="en" lang="en">
+      <div class="table-wrap" style="margin-top:4px;">
+        <table aria-label="Package price and quantity (USD only)">
+          <thead>
+            <tr>
+              <th>Price (USD)</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="center">$4.99</td><td class="center">5</td></tr>
+            <tr><td class="center">$9.99</td><td class="center">10</td></tr>
+            <tr><td class="center">$19.99</td><td class="center">20</td></tr>
+            <tr><td class="center">$49.99</td><td class="center">50</td></tr>
+            <tr><td class="center">$99.99</td><td class="center">100</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-  <!-- KO -->
-  <div data-lang="ko">
-    <div class="table-wrap" style="margin-top:4px;">
-      <table aria-label="패키지 가격 및 수량 (USD)">
-        <thead>
-          <tr>
-            <th>가격 (USD)</th>
-            <th>수량</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="center">$4.99</td><td class="center">5</td></tr>
-          <tr><td class="center">$9.99</td><td class="center">10</td></tr>
-          <tr><td class="center">$19.99</td><td class="center">20</td></tr>
-          <tr><td class="center">$49.99</td><td class="center">50</td></tr>
-          <tr><td class="center">$99.99</td><td class="center">100</td></tr>
-        </tbody>
-      </table>
+      <p class="tip-muted" style="margin:10px 0 0;">
+        🔹 USD only (for clarity)
+      </p>
+      <p class="tip-muted" style="margin:6px 0 0;">
+        🔹 Consumption by level range: <strong>target level × 5</strong>
+      </p>
+      <p class="tip-muted" style="margin:6px 0 0;">
+        📌 Notes<br>
+        • One hero’s exclusive weapon to <strong>+10</strong>: total <strong>275</strong> required<br>
+        • The <strong>$99.99</strong> package can be purchased up to <strong>5 times</strong>
+      </p>
     </div>
 
-    <p class="tip-muted" style="margin:10px 0 0;">
-      🔹 편의상 <strong>USD 기준</strong>으로만 표기합니다.
-    </p>
-    <p class="tip-muted" style="margin:6px 0 0;">
-      🔹 레벨 구간별 소모: <strong>목표 레벨 × 5</strong>
-    </p>
-    <p class="tip-muted" style="margin:6px 0 0;">
-      📌 참고<br>
-      • 영웅 전용 무기 <strong>+10</strong>까지: 총 <strong>275</strong> 필요<br>
-      • <strong>$149.00</strong> 패키지는 최대 <strong>5회</strong> 구매 가능
-    </p>
-  </div>
+    <!-- =========================
+         JA
+         ========================= -->
+    <div data-wos-lang="ja" lang="ja">
+      <div class="table-wrap" style="margin-top:4px;">
+        <table aria-label="パッケージ価格と数量 (USD)">
+          <thead>
+            <tr>
+              <th>価格 (USD)</th>
+              <th>数量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="center">$4.99</td><td class="center">5</td></tr>
+            <tr><td class="center">$9.99</td><td class="center">10</td></tr>
+            <tr><td class="center">$19.99</td><td class="center">20</td></tr>
+            <tr><td class="center">$49.99</td><td class="center">50</td></tr>
+            <tr><td class="center">$99.99</td><td class="center">100</td></tr>
+          </tbody>
+        </table>
+      </div>
 
-  <!-- JA -->
-  <div data-lang="ja">
-    <div class="table-wrap" style="margin-top:4px;">
-      <table aria-label="パッケージ価格と数量 (USD)">
-        <thead>
-          <tr>
-            <th>価格 (USD)</th>
-            <th>数量</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="center">$4.99</td><td class="center">5</td></tr>
-          <tr><td class="center">$9.99</td><td class="center">10</td></tr>
-          <tr><td class="center">$19.99</td><td class="center">20</td></tr>
-          <tr><td class="center">$49.99</td><td class="center">50</td></tr>
-          <tr><td class="center">$99.99</td><td class="center">100</td></tr>
-        </tbody>
-      </table>
+      <p class="tip-muted" style="margin:10px 0 0;">
+        🔹 分かりやすさのため <strong>USD表記のみ</strong>
+      </p>
+      <p class="tip-muted" style="margin:6px 0 0;">
+        🔹 レベル帯の消費量: <strong>目標レベル × 5</strong>
+      </p>
+      <p class="tip-muted" style="margin:6px 0 0;">
+        📌 メモ<br>
+        • 英雄の専用武器を <strong>+10</strong> まで：合計 <strong>275</strong> 必要<br>
+        • <strong>$99.99</strong> パッケージは最大 <strong>5回</strong> 購入可能
+      </p>
     </div>
 
-    <p class="tip-muted" style="margin:10px 0 0;">
-      🔹 分かりやすさのため <strong>USD表記のみ</strong>
-    </p>
-    <p class="tip-muted" style="margin:6px 0 0;">
-      🔹 レベル帯の消費量: <strong>目標レベル × 5</strong>
-    </p>
-    <p class="tip-muted" style="margin:6px 0 0;">
-      📌 メモ<br>
-      • 英雄の専用武器を <strong>+10</strong> まで：合計 <strong>275</strong> 必要<br>
-      • <strong>$149.00</strong> パッケージは最大 <strong>5回</strong> 購入可能
-    </p>
   </div>
 </section>

@@ -3,34 +3,79 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="noindex" />
   <title>Redirecting…</title>
+
+  <!-- (선택) 강제로 base 지정하고 싶으면 이거 사용:
+       <meta name="wos-base" content="/your-repo">
+       커스텀 도메인 루트면 빈값 or 삭제 -->
 </head>
 <body>
 <script>
 (function () {
-  // 요청된 원래 주소를 그대로 복원해서 index로 넘기는 용도
+  // ===== 원래 요청 URL 저장 =====
   var path = location.pathname || "/";
   var search = location.search || "";
   var hash = location.hash || "";
 
-  // GitHub Pages project page(/repo/...) 인지, 커스텀 도메인 루트인지 자동 판별
-  // 첫 경로 세그먼트가 SPA 최상위 라우트면 base=""
-  // 아니면 "/repo"로 보고 base를 잡는다
+  // index.html 같은 건 제거(안전)
+  path = path.replace(/\/index\.html?$/i, "/");
+
   var seg = path.split("/").filter(Boolean);
-  var first = seg[0] || "";
+  var spaTop = { buildings:1, heroes:1, tips:1, tools:1, lootbar:1 };
 
-  var spaTop = { buildings:1, heroes:1, tips:1, tools:1 };
+  // ===== base 자동 판별 =====
+  // 0) meta[name="wos-base"]가 있으면 최우선
   var base = "";
-  if (first && !spaTop[first]) base = "/" + first;
+  try {
+    var meta = document.querySelector('meta[name="wos-base"][content]');
+    if (meta) base = String(meta.getAttribute("content") || "").trim();
+  } catch (e) {}
 
-  // base 제거한 "앱 경로" 만들기
-  var appSeg = base ? seg.slice(1) : seg;
+  if (base) {
+    if (!base.startsWith("/")) base = "/" + base.replace(/^\.?\//, "");
+    base = base.replace(/\/+$/, "");
+    if (base === "/") base = "";
+  } else {
+    var host = String(location.hostname || "");
+    var isGithubIo = /\.github\.io$/i.test(host);
+
+    // 1) 루트면 base 없음
+    if (seg.length === 0) {
+      base = "";
+    }
+    // 2) 첫 세그가 SPA 최상위 라우트면 커스텀도메인 루트로 간주 (base 없음)
+    else if (spaTop[seg[0]]) {
+      base = "";
+    }
+    // 3) /repo/buildings 처럼 "두 번째 세그가 SPA 라우트"면 base="/repo"
+    else if (seg.length >= 2 && spaTop[seg[1]]) {
+      base = "/" + seg[0];
+    }
+    // 4) github.io 도메인인데 첫 세그가 SPA가 아니면 대개 "/repo" 구조 (project page)
+    else if (isGithubIo) {
+      base = "/" + seg[0];
+    }
+    // 5) 그 외(커스텀 도메인 + 애매한 경로)는 base 없이 처리(가장 안전)
+    else {
+      base = "";
+    }
+  }
+
+  // ===== base 제거 후 앱 경로 구성 =====
+  var appSeg = seg;
+  if (base) {
+    var b0 = base.replace(/^\//, "");
+    if (seg[0] === b0) appSeg = seg.slice(1);
+  }
+
   var appPath = "/" + appSeg.join("/");
-  if (appPath === "/") appPath = "/";
+  if (!appPath || appPath === "//") appPath = "/";
+  if (appPath.length > 1 && appPath.endsWith("/")) appPath = appPath.slice(0, -1);
 
-  // index로 이동 (app.js의 restoreSpaPathFrom404가 p/q/h 읽어서 복원)
+  // ===== index로 전달 (app.js/app.core.js에서 복원) =====
   var target =
-    base + "/?p=" + encodeURIComponent(appPath) +
+    (base || "") + "/?p=" + encodeURIComponent(appPath) +
     "&q=" + encodeURIComponent(search) +
     "&h=" + encodeURIComponent(hash);
 

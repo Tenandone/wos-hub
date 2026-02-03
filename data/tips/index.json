@@ -1,6 +1,28 @@
 {
   "items": [
     {
+  "id": "tip-lootbar-selftopup",
+  "slug": "lootbar",
+  "title": {
+    "en": "LootBar Self Top-Up Guide",
+    "ko": "루트바 셀프충전 가이드",
+    "ja": "LootBar セルフトップアップガイド"
+  },
+  "summary": {
+    "en": "A practical guide to self top-up via LootBar, including when it can be cheaper than in-game purchases.",
+    "ko": "인게임 결제보다 저렴해질 수 있는 경우를 기준으로 정리한 루트바 셀프충전 실전 가이드입니다.",
+    "ja": "ゲーム内課金より安くなるケースを基準にまとめたLootBarセルフトップアップ実用ガイドです。"
+  },
+  "tags": ["affiliate", "topup", "guide"],
+  "date": "2026-01-21",
+  "status": "published",
+  "home": {
+    "pin": false,
+    "pinOrder": 0,
+    "excludeFromRandom": false
+  }
+},
+    {
       "id": "tip-custompackage",
       "slug": "custompackage",
       "title": { "en": "Custom Package", "ko": "커스텀 패키지", "ja": "カスタムパッケージ" },

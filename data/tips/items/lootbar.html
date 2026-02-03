@@ -1,464 +1,252 @@
 <!--
-  ✅ Single HTML Multi-language Tip (KO/EN/JA) — FINAL
-  - tips.js가 [data-lang="ko|en|ja"] 또는 [lang="ko|en|ja"] 블록을 자동 선택해서 출력함
-  - 파일 예시 경로:
-    /data/tips/items/lootbar-selftopup.html
+  ✅ lootbar.html (KO/EN/JA single file) — FINAL (Launch-ready)
+  - ✅ 상세페이지 "본문(content)"만 사이트 언어에 맞춰 1개 언어로 노출
+  - ✅ 상단 언어 선택 버튼(사이트 공용 UI)은 건드리지 않음 (스코프 적용)
+  - 기준: <html lang="ko|en|ja"> 값
+  - data-lang="ko|en|ja" + lang="ko|en|ja" 유지 (tips.js 호환)
+  - fallback:
+      * html lang 없으면 EN만 노출
+      * ko/en/ja 외 언어면 EN만 노출
 -->
 
-<div data-lang="ko">
-  <article class="wos-panel" style="line-height:1.75;">
-    <header style="margin-bottom:12px;">
-      <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">
-        루트바(LootBar) 셀프충전 가이드 — 1분 완성 (텍스트 버전)
-      </h2>
-      <p class="wos-muted" style="margin:0; font-size:13px;">
-        이미지는 없이도 따라할 수 있게, “결제 → 셀프충전 진입 → 게임 내 팩 교환(구매)”까지 필요한 내용만 남겼습니다.
-      </p>
-    </header>
+<style>
+  /* =========================================================
+     ✅ DETAIL CONTENT ONLY (Scoped)
+     - 상단 언어 버튼 등 "공용 UI"는 숨기지 않음
+     - 이 페이지 본문(아래 #lootbar-detail-content)만 언어 1개 노출
+     ========================================================= */
 
-    <section style="margin-top:10px;">
-      <div class="wos-panel" style="padding:12px; background:color-mix(in srgb, var(--w-primary-weak) 35%, transparent);">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-          <div style="min-width:240px;">
-            <div style="font-weight:900; margin-bottom:4px;">바로가기 링크 (즐겨찾기 권장)</div>
-            <div class="wos-mono" style="font-size:12px; word-break:break-all;">
-              https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival
-            </div>
-            <div class="wos-muted" style="font-size:12px; margin-top:6px;">
-              불안하면 위 링크 하단의 “사용자평가(댓글)”을 먼저 확인하세요.
-            </div>
-          </div>
+  /* 기본: 본문 안의 언어 블록 전부 숨김 */
+  #lootbar-detail-content [data-lang] { display: none; }
 
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              셀프충전 하러가기
-            </a>
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              사용자평가(댓글) 보기
-            </a>
+  /* html lang에 따라 본문에서 해당 언어만 표시 */
+  html[lang^="ko"] #lootbar-detail-content [data-lang="ko"] { display: block; }
+  html[lang^="en"] #lootbar-detail-content [data-lang="en"] { display: block; }
+  html[lang^="ja"] #lootbar-detail-content [data-lang="ja"] { display: block; }
+
+  /* ✅ html lang이 없거나 예상 밖이면 EN만 */
+  html:not([lang]) #lootbar-detail-content [data-lang="en"] { display: block; }
+  html[lang]:not([lang^="ko"]):not([lang^="en"]):not([lang^="ja"])
+    #lootbar-detail-content [data-lang="en"] { display: block; }
+
+  /* ✅ 페이지 내부 외부링크 버튼: data-external로 SPA 인터셉트 방지용(보조) */
+  #lootbar-detail-content a[data-external="true"]{
+    cursor:pointer;
+  }
+</style>
+
+<!-- =========================================================
+     ✅ "상세페이지 본문" 스코프 컨테이너
+     - 여기 안에서만 언어 1개 노출됨
+     - 상단 언어 선택 버튼(UI)은 보통 이 컨테이너 밖(사이트 레이아웃)에 있음
+     ========================================================= -->
+<div id="lootbar-detail-content">
+
+  <!-- =========================
+       KO
+       ========================= -->
+  <div data-lang="ko" lang="ko">
+    <article class="wos-panel" style="line-height:1.75;">
+      <header style="margin-bottom:12px;">
+        <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">
+          루트바(LootBar) 셀프충전 가이드
+        </h2>
+        <p class="wos-muted" style="margin:0; font-size:13px;">
+          결제 후 셀프충전 화면으로 진입해 게임 내 상점에서 팩을 교환(구매)하는 절차를 안내합니다.
+        </p>
+      </header>
+
+      <section style="margin-top:12px;">
+        <div class="wos-panel" style="padding:12px; border:1px solid rgba(37,99,235,.25); background:rgba(37,99,235,.06);">
+          <div style="font-weight:900; margin-bottom:6px;">안내 전 확인</div>
+          <div class="wos-muted" style="font-size:13px; line-height:1.75;">
+            아래 내용은 이용을 강요하지 않습니다. 가격·편의성·안전성은 <b>본인이 직접 확인</b>한 뒤
+            판단해서 이용하시면 됩니다. 이용 여부는 <b>전적으로 개인의 선택</b>입니다.
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px; border:1px solid rgba(37,99,235,.25); background:rgba(37,99,235,.06);">
-        <div style="font-weight:900; margin-bottom:6px;">왜 이 안내를 하냐면</div>
-        <div class="wos-muted" style="font-size:13px; line-height:1.75;">
-          현실적으로 <b>인게임 과금보다 훨씬 싸기 때문에</b> 안내드리는 것입니다.
-          만약 가격이 비슷했다면 이런 안내는 없었을 것입니다.<br><br>
-          그래서 이렇게 생각하시면 됩니다.
-          <ul style="margin:8px 0 0; padding-left:18px;">
-            <li><b>직접 확인해보고</b> 제 말이 맞다고 판단되면 이용하면 됩니다.</li>
-            <li>모르면 이용하지 않는 게 맞습니다.</li>
-            <li>알게 된 시점에 합리적이면 이용하는 것이고, 효율적이면 개인의 선택에 따라 이용하면 됩니다.</li>
-            <li>결론적으로 <b>이용/미이용은 전적으로 개인의 선택</b>입니다.</li>
+      <section style="margin-top:12px;">
+        <div class="wos-panel" style="padding:12px;">
+          <div style="font-weight:900; margin-bottom:6px;">핵심 흐름</div>
+          <ol style="margin:0; padding-left:18px;">
+            <li>루트바에서 원하는 상품 선택 → 결제</li>
+            <li>결제 완료 후 <b>충전(Top Up)</b> 버튼으로 <b>셀프충전 화면</b> 진입</li>
+            <li><b>연동된 Google/Facebook로 로그인</b> (가능하면 2단계 인증 사용)</li>
+            <li>게임 내 상점에서 <b>동일 금액의 팩</b>을 교환(구매)</li>
+            <li>완료 확인 (남은 금액이 있으면 지갑으로 정산되는 구조일 수 있으니 안내를 확인)</li>
+          </ol>
+          <div class="wos-muted" style="margin-top:8px; font-size:13px;">
+            진행 중에는 화면을 닫거나 뒤로가기를 반복하지 않는 것을 권장합니다.
+          </div>
+        </div>
+      </section>
+
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">셀프충전이란?</h3>
+        <div class="wos-muted" style="font-size:14px;">
+          셀프충전은 사용자가 직접 로그인하여 게임 내 상점에서 팩을 교환(구매)하는 방식입니다.
+          따라서 <b>본계정 확인</b>이 가장 중요합니다.
+        </div>
+      </section>
+
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">시작 전에 체크</h3>
+        <ul style="margin:0; padding-left:18px;">
+          <li><b>연동 확인:</b> 게임 계정이 Google/Facebook에 연동되어 있어야 합니다.</li>
+          <li><b>로그인 방식:</b> 반드시 <b>연동된 계정으로 로그인</b>합니다.</li>
+          <li><b>보안:</b> 가능하면 Google/Facebook <b>2단계 인증</b>을 활성화하세요.</li>
+        </ul>
+      </section>
+
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">실수 방지</h3>
+        <div class="wos-panel" style="padding:12px; border:1px solid rgba(239,68,68,.35); background:rgba(239,68,68,.06);">
+          <ul style="margin:0; padding-left:18px;">
+            <li><b>본계정/부계정 착각</b>이 가장 흔합니다. 로그인 후 계정 정보를 꼭 확인하세요.</li>
+            <li>교환(구매) 진행 중에는 <b>창 종료/새로고침</b>을 피하세요.</li>
           </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </article>
+  </div>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px;">
-        <div style="font-weight:900; margin-bottom:6px;">1분 요약 (이것만 보고 따라해도 됩니다)</div>
-        <ol style="margin:0; padding-left:18px;">
-          <li><b>신규라면</b> 루트바 검색창에 <b>#s4qU</b> 입력 → <b>추가 쿠폰</b> 받기</li>
-          <li><b>결제 완료 후</b> 반드시 <b>충전</b> 버튼을 눌러 <b>셀프충전 화면</b>으로 진입</li>
-          <li><b>연동된 구글/페북으로 로그인합니다.</b> (※ <b>2차인증 필수</b>) → 게임 내 상점에서 <b>동일 금액 팩</b>을 교환(구매)</li>
-        </ol>
-        <div class="wos-muted" style="margin-top:8px; font-size:13px;">
-          차액은 루트바 지갑으로 환불되니 걱정하지 마세요. 교환 중에는 절대 창을 종료하지 마세요.
+  <!-- =========================
+       EN
+       ========================= -->
+  <div data-lang="en" lang="en">
+    <article class="wos-panel" style="line-height:1.75;">
+      <header style="margin-bottom:12px;">
+        <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">
+          LootBar Self Top-up Guide
+        </h2>
+        <p class="wos-muted" style="margin:0; font-size:13px;">
+          This explains the flow: pay on LootBar → enter Self Top-up → redeem/buy the pack in the in-game shop.
+        </p>
+      </header>
+
+      <section style="margin-top:12px;">
+        <div class="wos-panel" style="padding:12px; border:1px solid rgba(37,99,235,.25); background:rgba(37,99,235,.06);">
+          <div style="font-weight:900; margin-bottom:6px;">Before you use it</div>
+          <div class="wos-muted" style="font-size:13px; line-height:1.75;">
+            This guide does not force you to use anything. Please verify pricing and details yourself.
+            Using it or not is entirely your choice.
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">셀프충전이란?</h3>
-      <div class="wos-muted" style="font-size:14px;">
-        셀프충전은 본인이 직접 해당 화면에서 게임 계정에 로그인한 뒤,
-        <b>게임 내 상점에서 팩(번들)을 직접 교환(구매)하는 방식</b>입니다.
-        그래서 <b>본계정 확인</b>이 가장 중요합니다.
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">시작 전에 꼭 확인 (실수 방지)</h3>
-      <ul style="margin:0; padding-left:18px;">
-        <li><b>연동 계정 확인:</b> 게임 계정이 <b>Google/Facebook</b>에 연결되어 있어야 합니다.</li>
-        <li><b>로그인 방식:</b> <b>연동된 구글/페북으로 로그인합니다.</b></li>
-        <li><b>2차인증 필수:</b> 비밀번호만 치고 끝나는 로그인은 2차인증이 아닙니다.
-          <b>비밀번호 입력 후 “이 접속이 본인 맞냐?” 같은 추가 인증</b>이 나와야 2차인증입니다.</li>
-      </ul>
-
-      <div class="wos-panel" style="padding:12px; margin-top:10px; background:rgba(15,23,42,.03);">
-        <div style="font-weight:900; margin-bottom:6px;">2차인증(2단계 인증) 설정</div>
-        <div class="wos-muted" style="font-size:13px;">
-          루트바를 이용하려면 2차인증이 사실상 필수입니다.
-          설정 방법은 인터넷에 안내가 많습니다.<br>
-          검색 예시: <b>구글 2단계 인증 설정</b>, <b>페이스북 2단계 인증 설정</b>
+      <section style="margin-top:12px;">
+        <div class="wos-panel" style="padding:12px;">
+          <div style="font-weight:900; margin-bottom:6px;">Core flow</div>
+          <ol style="margin:0; padding-left:18px;">
+            <li>Select an item on LootBar and complete payment</li>
+            <li>After payment, click <b>Top Up</b> to enter the <b>Self Top-up</b> screen</li>
+            <li><b>Log in with your linked Google/Facebook</b> (recommended: enable 2FA)</li>
+            <li>In the in-game shop, redeem/buy the <b>same-priced pack</b></li>
+            <li>Confirm completion (check the page rules for wallet balance/refund if applicable)</li>
+          </ol>
+          <div class="wos-muted" style="margin-top:8px; font-size:13px;">
+            During redemption, avoid closing the window or repeatedly going back/refreshing.
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">충전 절차 (텍스트로 끝까지)</h3>
-      <ol style="margin:0; padding-left:18px;">
-        <li style="margin-bottom:8px;">
-          <b>링크 접속</b><br>
-          위 링크로 이동합니다.
-        </li>
-        <li style="margin-bottom:8px;">
-          <b>(신규라면) 추가 쿠폰 받기</b><br>
-          회원가입/로그인 후 루트바 <b>검색창에 #s4qU</b> 입력 → <b>추가 쿠폰</b> 확인
-        </li>
-        <li style="margin-bottom:8px;">
-          <b>원하는 팩(번들) 선택 → 결제</b><br>
-          구매할 팩을 선택하고 결제를 진행합니다.
-        </li>
-        <li style="margin-bottom:8px;">
-          <b>결제 완료 후 “충전” 버튼을 꼭 누르기</b><br>
-          결제만 하고 끝이 아닙니다. 반드시 <b>충전</b>을 눌러 <b>셀프충전 화면</b>으로 진입해야 합니다.
-        </li>
-        <li style="margin-bottom:8px;">
-          <b>셀프충전 화면에서 로그인</b><br>
-          <b>연동된 구글/페북으로 로그인합니다.</b><br>
-          이때 <b>2차인증</b>이 진행됩니다(비밀번호 입력 후 추가 확인 단계).
-        </li>
-        <li style="margin-bottom:8px;">
-          <b>게임 내 상점에서 동일 금액 팩 교환(구매)</b><br>
-          게임이 로딩되면 게임 내 상점에서 <b>결제한 금액과 동일한 팩</b>을 선택해 교환(구매)합니다.
-        </li>
-        <li style="margin-bottom:8px;">
-          <b>교환 중 주의</b><br>
-          교환이 끝날 때까지 <b>절대 창을 종료하지 마세요.</b>
-        </li>
-        <li style="margin-bottom:0;">
-          <b>완료 확인 + 차액 환불</b><br>
-          금액을 전부 소진하지 않았다면 <b>차액은 루트바 지갑으로 환불</b>됩니다.
-        </li>
-      </ol>
-    </section>
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">What is Self Top-up?</h3>
+        <div class="wos-muted" style="font-size:14px;">
+          Self Top-up means you log in yourself and redeem/buy packs directly in the in-game shop.
+          Always confirm you are on your <b>main account</b>.
+        </div>
+      </section>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px; border:1px solid rgba(239,68,68,.35); background:rgba(239,68,68,.06);">
-        <div style="font-weight:900; margin-bottom:6px;">가장 많이 하는 실수 2가지 (필독)</div>
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">Checklist</h3>
         <ul style="margin:0; padding-left:18px;">
-          <li><b>본계정 착각</b>하고 농장/부계정에 충전하는 경우가 정말 많습니다. <b>내 본계정인지 꼭 확인</b>하세요.</li>
-          <li><b>교환 중 창 종료</b>하면 진행이 꼬일 수 있습니다. <b>교환 완료까지 절대 닫지 마세요.</b></li>
+          <li><b>Linked account:</b> your game account must be linked to Google/Facebook.</li>
+          <li><b>Login method:</b> use the linked Google/Facebook login.</li>
+          <li><b>Security:</b> enable Google/Facebook <b>2FA</b> if possible.</li>
         </ul>
-      </div>
-    </section>
+      </section>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px;">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-          <div>
-            <div style="font-weight:900; margin-bottom:4px;">마지막 체크</div>
-            <div class="wos-muted" style="font-size:13px;">
-              1) #s4qU 입력(신규) · 2) 연동 계정 확인 · 3) 2차인증 설정 · 4) 교환 중 창 종료 금지 · 5) 본계정 확인
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              지금 진행하기
-            </a>
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              댓글 보기
-            </a>
-          </div>
-        </div>
-        <div class="wos-muted" style="font-size:12px; margin-top:10px;">
-          즐겨찾기 해두면 다음부터 같은 방식으로 빠르게 진행할 수 있습니다.
-          (프로모션/쿠폰 조건은 시점에 따라 달라질 수 있으니 페이지 안내도 함께 확인하세요.)
-        </div>
-      </div>
-    </section>
-  </article>
-</div>
-
-<div data-lang="en">
-  <article class="wos-panel" style="line-height:1.75;">
-    <header style="margin-bottom:12px;">
-      <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">
-        LootBar Self-TopUp Guide — 1-Minute Complete (Text Version)
-      </h2>
-      <p class="wos-muted" style="margin:0; font-size:13px;">
-        No images needed. This is the exact flow you must finish: “Payment → Enter Self-TopUp → Redeem the same-priced pack in-game”.
-      </p>
-    </header>
-
-    <section style="margin-top:10px;">
-      <div class="wos-panel" style="padding:12px; background:color-mix(in srgb, var(--w-primary-weak) 35%, transparent);">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-          <div style="min-width:240px;">
-            <div style="font-weight:900; margin-bottom:4px;">Direct Link (Bookmark Recommended)</div>
-            <div class="wos-mono" style="font-size:12px; word-break:break-all;">
-              https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival
-            </div>
-            <div class="wos-muted" style="font-size:12px; margin-top:6px;">
-              If you feel unsure, scroll down and check the user reviews/comments on that page first.
-            </div>
-          </div>
-
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              Open Self-TopUp
-            </a>
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              View Reviews
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px; border:1px solid rgba(37,99,235,.25); background:rgba(37,99,235,.06);">
-        <div style="font-weight:900; margin-bottom:6px;">Why I’m sharing this</div>
-        <div class="wos-muted" style="font-size:13px; line-height:1.75;">
-          I’m sharing this because, realistically, it can be <b>much cheaper than in-game purchases</b>.
-          If the price were similar, I wouldn’t post this guide.<br><br>
-          Here’s the right way to think about it:
-          <ul style="margin:8px 0 0; padding-left:18px;">
-            <li><b>Verify it yourself</b> first. If you agree with the benefits, then use it.</li>
-            <li>If you don’t understand it, it’s better not to use it.</li>
-            <li>If it looks reasonable and efficient to you, then it becomes a personal choice.</li>
-            <li>In the end, <b>using it or not is entirely your decision</b>.</li>
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">Avoid common mistakes</h3>
+        <div class="wos-panel" style="padding:12px; border:1px solid rgba(239,68,68,.35); background:rgba(239,68,68,.06);">
+          <ul style="margin:0; padding-left:18px;">
+            <li>The most common issue is redeeming on the wrong account (alt/farm). Confirm your account after login.</li>
+            <li>Avoid closing/refreshing the page during redemption.</li>
           </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </article>
+  </div>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px;">
-        <div style="font-weight:900; margin-bottom:6px;">1-Minute Summary</div>
-        <ol style="margin:0; padding-left:18px;">
-          <li><b>If you’re new</b>: type <b>#s4qU</b> in the LootBar search bar → get <b>extra coupons</b></li>
-          <li><b>After payment</b>: you must click <b>Top Up</b> to enter the <b>Self-TopUp screen</b></li>
-          <li><b>Log in with your linked Google/Facebook.</b> (※ <b>2FA required</b>) → redeem the <b>same-priced pack</b> in-game</li>
-        </ol>
-        <div class="wos-muted" style="margin-top:8px; font-size:13px;">
-          Any remaining balance is refunded to your LootBar wallet. Do not close the window during redemption.
+  <!-- =========================
+       JA
+       ========================= -->
+  <div data-lang="ja" lang="ja">
+    <article class="wos-panel" style="line-height:1.75;">
+      <header style="margin-bottom:12px;">
+        <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">
+          LootBar セルフトップアップ手順
+        </h2>
+        <p class="wos-muted" style="margin:0; font-size:13px;">
+          決済後にセルフトップアップ画面へ進み、ゲーム内ショップでパックを交換（購入）する流れを案内します。
+        </p>
+      </header>
+
+      <section style="margin-top:12px;">
+        <div class="wos-panel" style="padding:12px; border:1px solid rgba(37,99,235,.25); background:rgba(37,99,235,.06);">
+          <div style="font-weight:900; margin-bottom:6px;">利用前の確認</div>
+          <div class="wos-muted" style="font-size:13px; line-height:1.75;">
+            このページは利用を強制するものではありません。価格や条件はご自身で確認した上で判断してください。
+            利用するかどうかは完全に個人の選択です。
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">What is Self-TopUp?</h3>
-      <div class="wos-muted" style="font-size:14px;">
-        Self-TopUp means <b>you</b> log in and redeem packs directly in the in-game shop.
-        That’s why confirming your <b>main account</b> is the most important step.
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">Before you start (avoid mistakes)</h3>
-      <ul style="margin:0; padding-left:18px;">
-        <li><b>Linked account required:</b> your game account must be linked to <b>Google/Facebook</b>.</li>
-        <li><b>Login method:</b> <b>Log in with your linked Google/Facebook.</b></li>
-        <li><b>2FA required:</b> “password only” login is not 2FA.
-          You must see an extra step like “Is this really you?” after entering your password.</li>
-      </ul>
-
-      <div class="wos-panel" style="padding:12px; margin-top:10px; background:rgba(15,23,42,.03);">
-        <div style="font-weight:900; margin-bottom:6px;">How to enable 2FA</div>
-        <div class="wos-muted" style="font-size:13px;">
-          2FA is strongly recommended (often required in practice).
-          Search online for:
-          <b>Google 2-Step Verification</b> or <b>Facebook Two-Factor Authentication</b>.
+      <section style="margin-top:12px;">
+        <div class="wos-panel" style="padding:12px;">
+          <div style="font-weight:900; margin-bottom:6px;">基本の流れ</div>
+          <ol style="margin:0; padding-left:18px;">
+            <li>LootBarで商品を選択して決済</li>
+            <li>決済後に<b>Top Up</b>を押して<b>セルフトップアップ画面</b>へ</li>
+            <li><b>連携済みのGoogle/Facebookでログイン</b>（可能なら2段階認証を推奨）</li>
+            <li>ゲーム内ショップで<b>同額パック</b>を交換（購入）</li>
+            <li>完了を確認（ウォレット残高/返金の有無はページ案内を確認）</li>
+          </ol>
+          <div class="wos-muted" style="margin-top:8px; font-size:13px;">
+            交換（購入）中は画面を閉じたり、戻る/更新を繰り返したりしないことを推奨します。
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">Step-by-step process</h3>
-      <ol style="margin:0; padding-left:18px;">
-        <li style="margin-bottom:8px;"><b>Open the link</b> and go to the LootBar page.</li>
-        <li style="margin-bottom:8px;"><b>(New users) Get extra coupons</b>: type <b>#s4qU</b> in the search bar.</li>
-        <li style="margin-bottom:8px;"><b>Select a pack</b> and complete the payment.</li>
-        <li style="margin-bottom:8px;"><b>After payment, click “Top Up”</b> to enter the <b>Self-TopUp screen</b>.</li>
-        <li style="margin-bottom:8px;"><b>Log in with your linked Google/Facebook.</b> Complete <b>2FA</b>.</li>
-        <li style="margin-bottom:8px;"><b>In-game shop</b>: redeem/buy the <b>same-priced</b> pack.</li>
-        <li style="margin-bottom:8px;"><b>Do not close the window</b> until redemption is fully completed.</li>
-        <li style="margin-bottom:0;"><b>Check completion + wallet refund</b>: leftover balance is refunded to your LootBar wallet.</li>
-      </ol>
-    </section>
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">セルフトップアップとは？</h3>
+        <div class="wos-muted" style="font-size:14px;">
+          セルフトップアップは、ユーザー本人がログインし、ゲーム内ショップでパックを交換（購入）する方式です。
+          ログイン後に<b>本アカウント</b>であることを必ず確認してください。
+        </div>
+      </section>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px; border:1px solid rgba(239,68,68,.35); background:rgba(239,68,68,.06);">
-        <div style="font-weight:900; margin-bottom:6px;">Top 2 common mistakes</div>
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">開始前チェック</h3>
         <ul style="margin:0; padding-left:18px;">
-          <li>Redeeming on the wrong account (farm/alt). <b>Always confirm your main account.</b></li>
-          <li>Closing the window during redemption. <b>Never close it until completion.</b></li>
+          <li><b>連携必須:</b> ゲームアカウントがGoogle/Facebookに連携されている必要があります。</li>
+          <li><b>ログイン方法:</b> 連携済みのGoogle/Facebookでログインします。</li>
+          <li><b>セキュリティ:</b> 可能ならGoogle/Facebookの<b>2段階認証</b>を有効化してください。</li>
         </ul>
-      </div>
-    </section>
+      </section>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px;">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-          <div>
-            <div style="font-weight:900; margin-bottom:4px;">Final checklist</div>
-            <div class="wos-muted" style="font-size:13px;">
-              #s4qU (new) · linked account · 2FA enabled · don’t close during redemption · confirm main account
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              Start Now
-            </a>
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              Check Reviews
-            </a>
-          </div>
-        </div>
-        <div class="wos-muted" style="font-size:12px; margin-top:10px;">
-          Bookmark the link for next time. Promotion/coupon terms may change, so also read the page details.
-        </div>
-      </div>
-    </section>
-  </article>
-</div>
-
-<div data-lang="ja">
-  <article class="wos-panel" style="line-height:1.75;">
-    <header style="margin-bottom:12px;">
-      <h2 style="margin:0 0 6px; font-size:22px; letter-spacing:-.3px;">
-        LootBar セルフトップアップ手順 — 1分で完了（テキスト版）
-      </h2>
-      <p class="wos-muted" style="margin:0; font-size:13px;">
-        画像なしでも進められるように、「決済 → セルフトップアップ画面へ → ゲーム内で同額パックを交換（購入）」だけに絞って整理しました。
-      </p>
-    </header>
-
-    <section style="margin-top:10px;">
-      <div class="wos-panel" style="padding:12px; background:color-mix(in srgb, var(--w-primary-weak) 35%, transparent);">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-          <div style="min-width:240px;">
-            <div style="font-weight:900; margin-bottom:4px;">リンク（ブックマーク推奨）</div>
-            <div class="wos-mono" style="font-size:12px; word-break:break-all;">
-              https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival
-            </div>
-            <div class="wos-muted" style="font-size:12px; margin-top:6px;">
-              不安な場合は、ページ下部のユーザーレビュー（コメント）を先に確認してください。
-            </div>
-          </div>
-
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              セルフトップアップへ
-            </a>
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              レビューを見る
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px; border:1px solid rgba(37,99,235,.25); background:rgba(37,99,235,.06);">
-        <div style="font-weight:900; margin-bottom:6px;">この案内を出す理由</div>
-        <div class="wos-muted" style="font-size:13px; line-height:1.75;">
-          現実的に、ゲーム内課金より<b>かなり安くなる可能性がある</b>ため案内しています。
-          もし価格が同程度なら、この案内は出していません。<br><br>
-          考え方はシンプルです。
-          <ul style="margin:8px 0 0; padding-left:18px;">
-            <li><b>自分で確認</b>して、メリットがあると判断したら利用すればOKです。</li>
-            <li>よく分からないなら利用しないのが正解です。</li>
-            <li>合理的・効率的だと思えば利用、そうでなければ利用しない。どちらも個人の選択です。</li>
-            <li>結論として<b>利用するかどうかは完全に個人の判断</b>です。</li>
+      <section style="margin-top:12px;">
+        <h3 style="margin:0 0 8px; font-size:16px;">よくあるミス</h3>
+        <div class="wos-panel" style="padding:12px; border:1px solid rgba(239,68,68,.35); background:rgba(239,68,68,.06);">
+          <ul style="margin:0; padding-left:18px;">
+            <li>本アカとサブ（農場）を間違えるケースが多いです。ログイン後に必ずアカウントを確認してください。</li>
+            <li>交換（購入）中の画面終了や更新は避けてください。</li>
           </ul>
         </div>
-      </div>
-    </section>
+      </section>
+    </article>
+  </div>
 
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px;">
-        <div style="font-weight:900; margin-bottom:6px;">1分まとめ（これだけでOK）</div>
-        <ol style="margin:0; padding-left:18px;">
-          <li><b>新規なら</b>LootBarの検索欄に<b>#s4qU</b>を入力 → <b>追加クーポン</b>取得</li>
-          <li><b>決済後</b>、必ず<b>Top Up（チャージ）</b>を押して<b>セルフトップアップ画面</b>へ</li>
-          <li><b>連携済みのGoogle/Facebookでログインします。</b>（※ <b>2段階認証必須</b>）→ ゲーム内で<b>同額パック</b>を交換（購入）</li>
-        </ol>
-        <div class="wos-muted" style="margin-top:8px; font-size:13px;">
-          差額はLootBarのウォレットに返金されます。交換中は絶対に画面を閉じないでください。
-        </div>
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">セルフトップアップとは？</h3>
-      <div class="wos-muted" style="font-size:14px;">
-        セルフトップアップは、あなた自身がログインしてゲーム内ショップでパックを交換（購入）する方式です。
-        そのため<b>本アカウント確認</b>が最重要です。
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">開始前チェック（ミス防止）</h3>
-      <ul style="margin:0; padding-left:18px;">
-        <li><b>連携必須:</b> ゲームアカウントが<b>Google/Facebook</b>に連携されている必要があります。</li>
-        <li><b>ログイン方法:</b> <b>連携済みのGoogle/Facebookでログインします。</b></li>
-        <li><b>2段階認証必須:</b> パスワードだけで入れるのは2段階認証ではありません。
-          パスワード入力後に「本人ですか？」など追加確認が出る状態が2段階認証です。</li>
-      </ul>
-
-      <div class="wos-panel" style="padding:12px; margin-top:10px; background:rgba(15,23,42,.03);">
-        <div style="font-weight:900; margin-bottom:6px;">2段階認証の設定</div>
-        <div class="wos-muted" style="font-size:13px;">
-          利用には2段階認証が実質必須です。設定方法はネットに多数あります。<br>
-          検索例：<b>Google 2段階認証 設定</b> / <b>Facebook 2要素認証 設定</b>
-        </div>
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <h3 style="margin:0 0 8px; font-size:16px;">手順（テキストで完了）</h3>
-      <ol style="margin:0; padding-left:18px;">
-        <li style="margin-bottom:8px;"><b>リンクを開く</b> → LootBarページへ</li>
-        <li style="margin-bottom:8px;"><b>（新規）追加クーポン</b>：検索欄に<b>#s4qU</b>を入力</li>
-        <li style="margin-bottom:8px;"><b>パックを選択</b>して決済</li>
-        <li style="margin-bottom:8px;"><b>決済後にTop Upを押す</b> → <b>セルフトップアップ画面</b>へ</li>
-        <li style="margin-bottom:8px;"><b>連携済みのGoogle/Facebookでログインします。</b> → <b>2段階認証</b>を完了</li>
-        <li style="margin-bottom:8px;"><b>ゲーム内ショップ</b>で<b>同額パック</b>を交換（購入）</li>
-        <li style="margin-bottom:8px;"><b>交換中は閉じない</b>（完了まで絶対に画面を終了しない）</li>
-        <li style="margin-bottom:0;"><b>完了確認＋差額返金</b>：残額はウォレットへ返金</li>
-      </ol>
-    </section>
-
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px; border:1px solid rgba(239,68,68,.35); background:rgba(239,68,68,.06);">
-        <div style="font-weight:900; margin-bottom:6px;">よくあるミス（必読）</div>
-        <ul style="margin:0; padding-left:18px;">
-          <li>本アカと勘違いしてサブ（農場）に入れてしまう。<b>必ず本アカ確認</b>。</li>
-          <li>交換中に画面を閉じる。<b>完了まで絶対に閉じない</b>。</li>
-        </ul>
-      </div>
-    </section>
-
-    <section style="margin-top:12px;">
-      <div class="wos-panel" style="padding:12px;">
-        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;">
-          <div>
-            <div style="font-weight:900; margin-bottom:4px;">最終チェック</div>
-            <div class="wos-muted" style="font-size:13px;">
-              #s4qU（新規） · 連携確認 · 2段階認証 · 交換中は閉じない · 本アカ確認
-            </div>
-          </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              今すぐ進む
-            </a>
-            <a class="wos-btn" href="https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival" target="_blank" rel="nofollow noopener">
-              レビューを見る
-            </a>
-          </div>
-        </div>
-        <div class="wos-muted" style="font-size:12px; margin-top:10px;">
-          次回のためにブックマーク推奨。プロモーション/クーポン条件は時期により変わる場合があるため、ページ内案内も確認してください。
-        </div>
-      </div>
-    </section>
-  </article>
 </div>

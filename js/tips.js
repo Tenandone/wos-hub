@@ -1,39 +1,24 @@
 /* =========================================================
    WOS.GG - js/tips.js (MODULE) ✅ FINAL (APP.JS COMPAT)
    - window.WOS_TIPS
-   - ✅ Works with app.js Split Build (History Router / NO HASH)
-   - ✅ GitHub Pages repo prefix / custom domain safe:
+   - Works with app.js Split Build (History Router / NO HASH)
+   - GitHub Pages repo prefix / custom domain safe:
        * prefers window.WOS_RES / window.WOS_URL from app.js
        * falls back to local withBase() if app.js helpers not present
-   - ✅ Router paths:
+   - Router paths:
        /tips , /tips/:slug
-   - Data:
-     - index:  /data/tips/index.json   (supports {items:[...]} or [...])
-     - detail:
-       - HTML priority:
-         1) /data/tips/items/{slug}.{lang}.html (and variants)
-         2) /data/tips/items/{slug}.html        (and variants)
-         3) /data/tips/{slug}.{lang}.html       (and variants)
-         4) /data/tips/{slug}.html              (and variants)
-       - JSON fallback:
-         5) /data/tips/items/{slug}.json (and variants)
-         6) /data/tips/{slug}.json       (and variants)
-   - Multi-language single HTML support:
-     - Put blocks with: [data-lang="en|ko|ja"] OR [lang="en|ko|ja"]
-     - Script extracts the best-matching block for current site language.
-     - Fallback order: current lang -> en -> first available
-   - Category:
-     - Package category:
-       - it.category === "package" | "packages"
-       - OR tags include "package" | "packages"
-       - OR slug contains "package"
-     - List rule:
-       - non-package first (top)
-       - package last (bottom)
-   - API:
-     - renderHomePreview({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts, pinnedSlugs, routeHref })
-     - renderList({ appEl, go, esc, clampStr, fetchJSONTryWithAttempts, routeHref })
-     - renderDetail({ appEl, slug, go, esc, nl2br, fetchJSONTryWithAttempts, routeHref })
+   - FIX:
+       1) back 버튼 이벤트가 본문 링크를 오염시키지 않게 고정 선택자 사용
+       2) 팁 본문 외부링크에 data-link가 있으면 제거(라우터 가로채기 방지)
+       3) lootbar.gg 처럼 scheme 없는 링크는 https:// 자동 보정
+       4) 다국어 블록: [data-lang]/[lang] + .lang-ko/.lang-en/.lang-ja 지원
+
+   - ✅ 변경(요청 반영):
+       * AUTO/ALL/KO/EN/JA 토글 UI "완전 제거"
+       * 사이트 상단 언어(ko/en/ja)만 따라가서 해당 언어 블록만 노출
+       * 단, 현재 언어 블록이 없으면(예: EN인데 KO만 있음) → 전체 노출(빈 화면 방지)
+       * /lootbar(앱 렌더) / /tips/xxx(정적 HTML)도 #view 감시로
+         링크 보정 + 언어 노출 자동 적용
    ========================================================= */
 
 (() => {
@@ -42,10 +27,23 @@
   if (window.WOS_TIPS) return;
 
   // =========================================================
+  // 0) DEV/PROD debug (필요하면 ?debug=1)
+  // =========================================================
+  function getDebugFlag() {
+    try {
+      const q = new URLSearchParams(location.search);
+      if (q.get("debug") === "1") return true;
+    } catch (_) {}
+    try {
+      const host = String(location.hostname || "").toLowerCase();
+      if (host === "localhost" || host === "127.0.0.1") return true;
+    } catch (_) {}
+    return false;
+  }
+  const DEBUG = getDebugFlag();
+
+  // =========================================================
   // 1) Base/prefix helpers
-  //   - Prefer app.js helpers:
-  //     window.WOS_RES (resource fetch path), window.WOS_URL (spa nav)
-  //   - Fallback to local detect if not present
   // =========================================================
   function normalizeBasePrefix(p) {
     let s = String(p || "").trim();
@@ -56,14 +54,12 @@
   }
 
   function detectBasePrefixFallback() {
-    // 1) meta priority
     try {
       const meta = document.querySelector('meta[name="wos-base"]');
       const c = meta && meta.getAttribute("content");
       if (c && String(c).trim()) return normalizeBasePrefix(String(c).trim());
     } catch (_) {}
 
-    // 2) <base href>
     try {
       const baseTag = document.querySelector("base[href]");
       const href = baseTag && baseTag.getAttribute("href");
@@ -73,7 +69,6 @@
       }
     } catch (_) {}
 
-    // 3) github.io heuristic: /<repo>/...
     try {
       const host = String(location.hostname || "");
       const path = String(location.pathname || "/");
@@ -92,9 +87,8 @@
     const raw = String(path || "");
     if (!raw) return raw;
 
-    // keep absolute urls / data / blob / mailto / tel
     if (/^(https?:)?\/\//i.test(raw)) return raw;
-    if (/^(data:|blob:|mailto:|tel:)/i.test(raw)) return raw;
+    if (/^(data:|blob:|mailto:|tel:|sms:)/i.test(raw)) return raw;
 
     const p = raw.startsWith("/") ? raw : "/" + raw;
     if (!__BASE_PREFIX_FALLBACK__) return p;
@@ -103,9 +97,6 @@
     return __BASE_PREFIX_FALLBACK__ + p;
   }
 
-  // ✅ Resource URL builder:
-  // Prefer app.js: window.WOS_RES (repo prefix aware)
-  // else fallback: local prefix
   function resUrl(path) {
     try {
       if (typeof window.WOS_RES === "function") return window.WOS_RES(path);
@@ -113,8 +104,6 @@
     return withBaseFallback(path);
   }
 
-  // ✅ SPA href builder for anchors:
-  // Prefer app.js route href: window.WOS_URL
   function spaHref(path) {
     try {
       if (typeof window.WOS_URL === "function") return window.WOS_URL(path);
@@ -123,9 +112,115 @@
   }
 
   // =========================================================
+  // 1.1) Tip body link fix (먹통 원인 제거)
+  // =========================================================
+  function looksLikeDomainNoScheme(href) {
+    const h = String(href || "").trim();
+    return /^[a-z0-9-]+(\.[a-z0-9-]+)+([\/?#]|$)/i.test(h);
+  }
+
+  function normalizeTipHref(rawHref) {
+    let h = String(rawHref || "").trim();
+    if (!h) return h;
+
+    if (h.startsWith("#")) return h;
+
+    // 이미 scheme/특수 scheme면 그대로
+    if (/^(https?:)?\/\//i.test(h)) return h;
+    if (/^(mailto:|tel:|data:|blob:|sms:)/i.test(h)) return h;
+
+    // "www.xxx" or "xxx.com/..." => https://
+    if (h.startsWith("www.")) return "https://" + h;
+    if (looksLikeDomainNoScheme(h)) return "https://" + h;
+
+    // 내부 shorthand
+    const h0 = h.replace(/^\.\/+/, "");
+    if (h0 === "lootbar" || h0 === "lootbar/" || h0 === "lootbar.html") return "/lootbar";
+    if (h0 === "tips" || h0 === "tips/" || h0 === "tips.html") return "/tips";
+    if (/^tips\/[^\s]+/i.test(h0)) return "/" + h0;
+
+    // 내부 절대 경로
+    if (h.startsWith("/")) return h;
+
+    return h;
+  }
+
+  function isExternalAbsoluteUrl(href) {
+    try {
+      const u = new URL(href, location.origin);
+      return u.origin !== location.origin;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function ensureExternalTarget(aEl) {
+    try {
+      const href = String(aEl.getAttribute("href") || "").trim();
+      if (!href) return;
+
+      const abs = /^(https?:)?\/\//i.test(href);
+      if (!abs) return;
+
+      if (!aEl.getAttribute("target")) aEl.setAttribute("target", "_blank");
+
+      const rel = String(aEl.getAttribute("rel") || "").trim().toLowerCase();
+      const parts = rel ? rel.split(/\s+/).filter(Boolean) : [];
+      if (!parts.includes("noopener")) parts.push("noopener");
+      if (!parts.includes("noreferrer")) parts.push("noreferrer");
+      aEl.setAttribute("rel", parts.join(" ").trim());
+    } catch (_) {}
+  }
+
+  function rewriteTipBodyLinks(rootEl) {
+    if (!rootEl || !rootEl.querySelectorAll) return;
+
+    // a[href] 보정 + 외부링크면 data-link 제거
+    rootEl.querySelectorAll("a[href]").forEach((a) => {
+      const raw = a.getAttribute("href") || "";
+      const fixed = normalizeTipHref(raw);
+
+      if (fixed && fixed !== raw) a.setAttribute("href", fixed);
+
+      // 외부 absolute이면 SPA 라우터 가로채지 않게 data-link 제거
+      if (/^(https?:)?\/\//i.test(fixed) && isExternalAbsoluteUrl(fixed)) {
+        a.removeAttribute("data-link");
+        a.removeAttribute("data-nav");
+        ensureExternalTarget(a);
+      }
+    });
+
+    // data-href / data-url normalize (optional)
+    rootEl.querySelectorAll("[data-href],[data-url]").forEach((el) => {
+      if (el.getAttribute("data-wos-bound") === "1") return;
+
+      const raw = el.getAttribute("data-href") || el.getAttribute("data-url") || "";
+      const fixed = normalizeTipHref(raw);
+      if (!fixed) return;
+
+      el.setAttribute("data-wos-bound", "1");
+      el.style.cursor = "pointer";
+
+      const open = () => {
+        if (/^(https?:)?\/\//i.test(fixed) && isExternalAbsoluteUrl(fixed)) {
+          window.open(fixed, "_blank", "noopener,noreferrer");
+        } else {
+          location.href = fixed;
+        }
+      };
+
+      el.addEventListener("click", open);
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          open();
+        }
+      });
+    });
+  }
+
+  // =========================================================
   // 2) Index candidates
-  //   - keep them as "logical paths"
-  //   - app.js fetchJSONTryWithAttempts already applies withRes()
   // =========================================================
   const INDEX_CANDIDATES = [
     "/data/tips/index.json",
@@ -224,7 +319,6 @@
     return (dict[lang] && dict[lang][key]) || dict.en[key] || key;
   }
 
-  // Localized field: string | number | {en,ko,ja} | {i18n:{...}}
   function getLocalizedField(value, fallback = "") {
     const lang = getLangSafe();
     if (value == null) return String(fallback ?? "");
@@ -238,6 +332,85 @@
       if (value.en != null) return String(value.en);
     }
     return String(fallback ?? "");
+  }
+
+  // =========================================================
+  // ✅ MULTI-LANG (SITE LANG ONLY) : 토글 UI 제거 버전
+  // - tips 콘텐츠 안의 언어 블록만 show/hide
+  // - 현재 언어 블록이 없으면 전체 노출(빈 화면 방지)
+  // =========================================================
+  function getLangFromEl(el) {
+    try {
+      if (!el) return "";
+
+      // ✅ 사이트 언어 버튼(data-lang + data-lang-link)을 건드리지 않게 제외해야 함
+      // tips 본문 블록은 보통 data-lang만 있거나 lang/class로 구분됨.
+      if (el.hasAttribute && el.hasAttribute("data-lang")) {
+        if (el.hasAttribute("data-lang-link")) return ""; // 사이트 버튼이면 제외
+        return pickLang(el.getAttribute("data-lang"));
+      }
+      if (el.hasAttribute && el.hasAttribute("lang")) return pickLang(el.getAttribute("lang"));
+      if (el.classList) {
+        if (el.classList.contains("lang-ko")) return "ko";
+        if (el.classList.contains("lang-en")) return "en";
+        if (el.classList.contains("lang-ja")) return "ja";
+      }
+    } catch (_) {}
+    return "";
+  }
+
+  function applySiteLangBlocks(rootEl) {
+    if (!rootEl || !rootEl.querySelectorAll) return;
+
+    // ✅ data-lang-link 달린 버튼들 제외
+    const sel = "[data-lang]:not([data-lang-link]),[lang],.lang-ko,.lang-en,.lang-ja";
+    const nodes = Array.from(rootEl.querySelectorAll(sel));
+    if (!nodes.length) return;
+
+    // top-level 블록만(중첩 제외)
+    const topBlocks = nodes.filter((el) => {
+      let p = el.parentElement;
+      while (p && p !== rootEl) {
+        if (p.matches && p.matches(sel)) return false;
+        p = p.parentElement;
+      }
+      return true;
+    });
+
+    if (!topBlocks.length) return;
+
+    const cur = getLangSafe();
+    let matched = 0;
+
+    topBlocks.forEach((el) => {
+      const code = getLangFromEl(el);
+      if (!code) return; // 언어 판별 실패면 그대로 둠
+
+      const show = (code === cur);
+      el.style.display = show ? "" : "none";
+      if (show) matched++;
+    });
+
+    // 현재 언어 섹션이 아예 없으면 전체 표시(빈 화면 방지)
+    if (matched === 0) {
+      topBlocks.forEach((el) => {
+        const code = getLangFromEl(el);
+        if (!code) return;
+        el.style.display = "";
+      });
+    }
+  }
+
+  function sanitizeHtmlRemoveScripts(rawHtml) {
+    const html = String(rawHtml || "");
+    if (!html.trim()) return "";
+    try {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      doc.querySelectorAll("script").forEach((s) => s.remove());
+      return (doc.body && doc.body.innerHTML) ? doc.body.innerHTML : html;
+    } catch (_) {
+      return html;
+    }
   }
 
   // -------------------------
@@ -314,7 +487,6 @@
   }
 
   async function loadIndex(fetchJSONTryWithAttempts) {
-    // ✅ app.js가 이미 /repo prefix 포함해서 fetch 해주도록 "논리 경로" 그대로 전달
     const r = await fetchJSONTryWithAttempts(INDEX_CANDIDATES);
     return onlyPublished(normalizeIndex(r.data));
   }
@@ -377,7 +549,7 @@
     const l = pickLang(lang);
 
     const variants = [
-      // items preferred (lang)
+      // 언어별 파일 우선
       `/data/tips/items/${s}.${l}.html`,
       `/data/tips/items/${enc}.${l}.html`,
       `/data/tips/items/${s}-${l}.html`,
@@ -385,11 +557,10 @@
       `/data/tips/items/${l}/${s}.html`,
       `/data/tips/items/${l}/${enc}.html`,
 
-      // items base
+      // 단일 파일(멀티언어 블록)도 허용
       `/data/tips/items/${s}.html`,
       `/data/tips/items/${enc}.html`,
 
-      // tips root (lang)
       `/data/tips/${s}.${l}.html`,
       `/data/tips/${enc}.${l}.html`,
       `/data/tips/${s}-${l}.html`,
@@ -397,11 +568,9 @@
       `/data/tips/${l}/${s}.html`,
       `/data/tips/${l}/${enc}.html`,
 
-      // tips root base
       `/data/tips/${s}.html`,
       `/data/tips/${enc}.html`,
 
-      // legacy "/page" mirror (optional)
       `/page/data/tips/items/${s}.${l}.html`,
       `/page/data/tips/items/${enc}.${l}.html`,
       `/page/data/tips/items/${s}.html`,
@@ -420,61 +589,21 @@
     });
   }
 
-  function extractLangHtml(rawHtml, lang) {
-    const l = pickLang(lang);
-    const fallbackOrder = [l, "en", "ko", "ja"].filter((x, i, a) => a.indexOf(x) === i);
-
-    const html = String(rawHtml || "");
-    if (!html.trim()) return "";
-
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
-    const container = doc.body || doc.documentElement;
-
-    const hasLangBlocks = container.querySelector("[data-lang], [lang]");
-    if (!hasLangBlocks) {
-      return (doc.body && doc.body.innerHTML && doc.body.innerHTML.trim()) ? doc.body.innerHTML : html;
-    }
-
-    const pickNodes = (code) => Array.from(container.querySelectorAll(`[data-lang="${code}"], [lang="${code}"]`));
-
-    let chosen = [];
-    for (const code of fallbackOrder) {
-      const nodes = pickNodes(code);
-      if (nodes.length) { chosen = nodes; break; }
-    }
-
-    if (!chosen.length) {
-      const any = Array.from(container.querySelectorAll("[data-lang], [lang]"));
-      if (any.length) chosen = [any[0]];
-    }
-
-    const tmp = doc.createElement("div");
-    chosen.forEach((n) => {
-      const clone = n.cloneNode(true);
-      clone.querySelectorAll("script").forEach((s) => s.remove());
-      tmp.appendChild(clone);
-    });
-
-    return tmp.innerHTML || "";
-  }
-
   async function loadDetail(fetchJSONTryWithAttempts, slug) {
     const s = String(slug ?? "");
-    const enc = encodeURIComponent(s);
     const lang = getLangSafe();
 
-    // 1) HTML first
+    // 1) HTML 우선
     const htmlCandidates = buildHtmlCandidates(s, lang);
     const htmlRes = await tryFetchTextFirstOk(htmlCandidates);
 
     if (htmlRes.ok) {
-      const body = extractLangHtml(htmlRes.text, lang);
+      const safeHtml = sanitizeHtmlRemoveScripts(htmlRes.text);
       return {
         slug: s,
         title: null,
         summary: null,
-        bodyHtml: body || htmlRes.text,
+        bodyHtml: safeHtml || htmlRes.text,
         __source: "html",
         __path: htmlRes.url,
         __attempted: htmlRes.attempted,
@@ -482,6 +611,7 @@
     }
 
     // 2) JSON fallback
+    const enc = encodeURIComponent(s);
     const candidates = [
       `/data/tips/items/${s}.json`,
       `/data/tips/items/${enc}.json`,
@@ -493,10 +623,8 @@
       `/page/data/tips/${enc}.json`,
     ];
 
-    // ✅ app.js fetch helper already prefixes resources; keep logical candidates
     const r = await fetchJSONTryWithAttempts(candidates);
     const tip = r.data || {};
-    // attach attempted list for debugging (if provided)
     try {
       if (!tip.__attempted && r.attempted) tip.__attempted = r.attempted;
     } catch (_) {}
@@ -614,7 +742,6 @@
       const randBox = appEl.querySelector("#homeTipsRandom [data-area='cards']");
       const pinBox = appEl.querySelector("#homeTipsPinned [data-area='cards']");
 
-      // Random 3 (exclude packages)
       const randomPool = items.filter((it) => !isPackageItem(it));
       const random3 = pickDailyRandom(randomPool, 3).map((it, i) => normTipCard(it, `Tip ${i + 1}`, clampStr));
 
@@ -632,7 +759,6 @@
         }
       }
 
-      // Pinned
       const pinned = (pinnedSlugs || [])
         .map((slug) => items.find((x) => String(x?.slug ?? "") === String(slug)))
         .filter(Boolean);
@@ -641,11 +767,7 @@
 
       if (pinBox) {
         if (!pinnedCards.length) {
-          renderEmptyCard(
-            pinBox,
-            esc(getText("pinnedNotReady")),
-            "PINNED_TIP_SLUGS / /data/tips/index.json"
-          );
+          renderEmptyCard(pinBox, esc(getText("pinnedNotReady")), "PINNED_TIP_SLUGS / /data/tips/index.json");
         } else {
           pinBox.innerHTML = pinnedCards.map((t) => `
             <div class="wos-tip-card" role="button" tabindex="0" data-tip="${esc(t.slug)}">
@@ -691,7 +813,6 @@
         ${
           items.length
             ? `
-              <!-- non-package -->
               <div style="margin-top:6px;">
                 <div class="wos-row" style="align-items:flex-end; margin-bottom:8px;">
                   <div><div class="wos-muted" style="font-size:12px;">${esc(getText("listTips"))}</div></div>
@@ -703,7 +824,6 @@
                 }
               </div>
 
-              <!-- packages -->
               <div style="margin-top:18px;">
                 <div class="wos-row" style="align-items:flex-end; margin-bottom:8px;">
                   <div><div class="wos-muted" style="font-size:12px;">${esc(getText("listPackages"))}</div></div>
@@ -747,7 +867,7 @@
               <h2 style="margin:0;">${esc(getText("tipsTitle"))}</h2>
               <div class="wos-muted" style="font-size:13px; margin-top:6px;">${esc(String(slug))}</div>
             </div>
-            <a class="wos-btn" href="${href("/tips")}" data-link>${esc(getText("back"))}</a>
+            <a class="wos-btn" href="${href("/tips")}" data-link data-tips-back="1">${esc(getText("back"))}</a>
           </div>
 
           <div class="wos-muted" style="font-size:13px; line-height:1.65;">
@@ -764,7 +884,7 @@
     const bodyHtml = tip?.bodyHtml ?? tip?.html ?? tip?.contentHtml ?? "";
     const bodyText = !bodyHtml ? getLocalizedField(tip?.body ?? tip?.content ?? "", "") : "";
 
-    const debugHtml = attempted.length
+    const debugHtml = (DEBUG && attempted.length)
       ? `
         <div class="wos-panel" style="margin-top:12px; padding:12px;">
           <div class="wos-muted" style="font-size:12px; margin-bottom:6px;">Tried URLs</div>
@@ -781,26 +901,32 @@
           <div>
             <h2 style="margin:0;">${esc(title)}</h2>
             ${summary ? `<div class="wos-muted" style="font-size:13px; margin-top:6px;">${esc(summary)}</div>` : ""}
-            <div class="wos-muted wos-mono" style="font-size:12px; margin-top:10px;">
-              tips/${esc(String(slug))}${tip?.__source ? ` · ${esc(String(tip.__source))}` : ""}
-            </div>
+            ${DEBUG ? `
+              <div class="wos-muted wos-mono" style="font-size:12px; margin-top:10px;">
+                tips/${esc(String(slug))}${tip?.__source ? ` · ${esc(String(tip.__source))}` : ""}
+              </div>
+            ` : ""}
           </div>
-          <a class="wos-btn" href="${href("/tips")}" data-link>${esc(getText("back"))}</a>
+
+          <!-- ✅ back 버튼은 이것만 -->
+          <a class="wos-btn" href="${href("/tips")}" data-link data-tips-back="1">${esc(getText("back"))}</a>
         </div>
 
-        ${
-          bodyHtml
-            ? `<div style="margin-top:8px; line-height:1.7;">${bodyHtml}</div>`
-            : (bodyText
+        <div data-tips-body="1">
+          ${
+            bodyHtml
+              ? `<div style="margin-top:8px; line-height:1.7;">${bodyHtml}</div>`
+              : (bodyText
                 ? `<div class="wos-muted" style="margin-top:8px; font-size:14px; line-height:1.7;">${nl2br(bodyText)}</div>`
                 : `<div class="wos-muted">${esc(getText("detailEmpty"))}</div>`)
-        }
+          }
+        </div>
       </div>
       ${debugHtml}
     `;
 
-    // ✅ back button: history router로 이동
-    const back = appEl.querySelector('a[data-link]');
+    // ✅ back 버튼만 history router로 이동
+    const back = appEl.querySelector('[data-tips-back="1"]');
     if (back) {
       back.addEventListener("click", (e) => {
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || back.target === "_blank") return;
@@ -808,11 +934,132 @@
         go("/tips");
       });
     }
+
+    // ✅ 본문 링크 보정 + 사이트 언어에 맞게 언어 블록 노출
+    const bodyRoot = appEl.querySelector('[data-tips-body="1"]');
+    rewriteTipBodyLinks(bodyRoot);
+    applySiteLangBlocks(bodyRoot);
   }
 
+  // =========================================================
+  // ✅ NEW: /lootbar + /tips/* 에서 자동 보정 (#view 감시)
+  // =========================================================
+  function getAppPathNoHash() {
+    let p = String(location.pathname || "/");
+    p = p.replace(/\/index\.html?$/i, "");
+
+    const base = normalizeBasePrefix(
+      (typeof window.WOS_BASE === "string" ? window.WOS_BASE : "") || __BASE_PREFIX_FALLBACK__
+    );
+
+    if (base && p === base) p = "/";
+    else if (base && p.startsWith(base + "/")) p = p.slice(base.length) || "/";
+
+    if (!p.startsWith("/")) p = "/" + p;
+    if (p.length > 1 && p.endsWith("/")) p = p.slice(0, -1);
+    return p || "/";
+  }
+
+  function shouldFixLinksForThisPage() {
+    const ap = getAppPathNoHash();
+    return ap === "/lootbar" || ap === "/tips" || ap.startsWith("/tips/");
+  }
+
+  function globalFixOnce() {
+    if (!shouldFixLinksForThisPage()) return;
+
+    // ✅ 대부분은 #app이 안전(헤더의 data-lang 버튼과 충돌 방지)
+    const view = document.querySelector("#view") || document.querySelector("#app") || document.body;
+    if (!view) return;
+
+    // 1) 링크 보정
+    rewriteTipBodyLinks(view);
+
+    // 2) 사이트 언어만 따라가서 언어 블록 노출
+    applySiteLangBlocks(view);
+  }
+
+  function initGlobalViewObserver() {
+    if (window.__WOS_TIPS_GLOBAL_FIX__) return;
+    window.__WOS_TIPS_GLOBAL_FIX__ = true;
+
+    const run = () => {
+      try { globalFixOnce(); } catch (_) {}
+    };
+
+    // 1) 첫 실행
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", run, { once: true });
+    } else {
+      run();
+    }
+
+    // 2) #view가 나중에 생길 수 있어서 짧게 재시도 (최대 2초)
+    let tries = 0;
+    const tryAttach = () => {
+      tries++;
+      const target = document.querySelector("#view") || document.querySelector("#app");
+      if (!target) {
+        if (tries < 20) setTimeout(tryAttach, 100);
+        return;
+      }
+
+      if (typeof MutationObserver !== "undefined") {
+        let scheduled = false;
+        const schedule = () => {
+          if (scheduled) return;
+          scheduled = true;
+          (window.requestAnimationFrame || ((fn) => setTimeout(fn, 0)))(() => {
+            scheduled = false;
+            run();
+          });
+        };
+
+        const mo = new MutationObserver(schedule);
+        mo.observe(target, { childList: true, subtree: true });
+
+        window.addEventListener("popstate", schedule);
+
+        // ✅ 사이트 언어 바뀌면 팁 언어 노출도 즉시 갱신
+        if (!window.__WOS_TIPS_LANGCHANGE_BOUND__) {
+          window.__WOS_TIPS_LANGCHANGE_BOUND__ = true;
+          window.addEventListener("wos:langchange", schedule);
+        }
+
+        if (!history.__WOS_TIPS_HISTORY_PATCHED__) {
+          history.__WOS_TIPS_HISTORY_PATCHED__ = true;
+
+          const _ps = history.pushState.bind(history);
+          const _rs = history.replaceState.bind(history);
+
+          history.pushState = function () {
+            const ret = _ps.apply(history, arguments);
+            schedule();
+            return ret;
+          };
+          history.replaceState = function () {
+            const ret = _rs.apply(history, arguments);
+            schedule();
+            return ret;
+          };
+        }
+
+        run();
+      }
+    };
+    tryAttach();
+  }
+
+  // =========================================================
+  // Export
+  // =========================================================
   window.WOS_TIPS = {
     renderHomePreview,
     renderList,
     renderDetail,
+    rewriteTipBodyLinks,
   };
+
+  // ✅ 전역 감시 시작
+  initGlobalViewObserver();
 })();

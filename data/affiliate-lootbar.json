@@ -1,17 +1,52 @@
 {
-  "badge": { "ko": "제휴/광고", "en": "Affiliate/Ad", "ja": "提携/広告" },
-  "title": { "ko": "루트바 할인 안내", "en": "LootBar Discount Guide", "ja": "LootBar 割引ガイド" },
-  "intro": { "ko": "…", "en": "…", "ja": "…" },
-  "coupon": { "ko": "…", "en": "…", "ja": "…" },
-  "keyPoints": {
-    "ko": ["…", "…"],
-    "en": ["…", "…"],
-    "ja": ["…", "…"]
+  "badge": {
+    "en": "Affiliate / Ad",
+    "ko": "제휴 / 광고",
+    "ja": "提携 / 広告"
   },
-  "trust": { "ko": "…", "en": "…", "ja": "…" },
-  "choiceNote": { "ko": "…", "en": "…", "ja": "…" },
+  "title": {
+    "en": "LootBar Self Top-Up Guide",
+    "ko": "루트바 셀프충전 가이드",
+    "ja": "LootBar セルフトップアップガイド"
+  },
+  "intro": {
+    "en": "A practical self top-up guide for players looking for better value than in-game purchases.",
+    "ko": "인게임 결제보다 효율이 좋아질 수 있는 경우를 기준으로 정리한 루트바 셀프충전 가이드입니다.",
+    "ja": "ゲーム内課金よりお得になるケースを基準にまとめたLootBarセルフトップアップガイドです。"
+  },
+  "keyPoints": {
+    "en": [
+      "Can be cheaper than in-game packs depending on the package",
+      "Safe and widely used top-up platform",
+      "Coupon discounts available"
+    ],
+    "ko": [
+      "패키지에 따라 인게임 결제보다 저렴",
+      "이용자 수가 많은 검증된 충전 플랫폼",
+      "쿠폰 적용 시 추가 할인 가능"
+    ],
+    "ja": [
+      "パッケージによってはゲーム内課金より安い",
+      "利用者の多い安全なチャージプラットフォーム",
+      "クーポン適用で追加割引"
+    ]
+  },
+  "coupon": {
+    "en": "Check available coupons before purchase",
+    "ko": "결제 전 쿠폰 적용 여부를 꼭 확인하세요",
+    "ja": "購入前にクーポン適用を必ず確認してください"
+  },
   "link": {
-    "url": "https://....",
-    "label": { "ko": "바로가기", "en": "Open", "ja": "開く" }
+    "label": {
+      "en": "Open LootBar",
+      "ko": "루트바 바로가기",
+      "ja": "LootBarを開く"
+    },
+    "url": "https://lootbar.gg/ko/shop/ten/top-up/whiteout-survival"
+  },
+  "trust": {
+    "en": "Always check user reviews at the bottom of the LootBar page if you feel unsure.",
+    "ko": "불안하다면 루트바 페이지 하단의 사용자 평가(댓글)를 먼저 확인하세요.",
+    "ja": "不安な場合はLootBarページ下部のユーザー評価を確認してください。"
   }
 }
