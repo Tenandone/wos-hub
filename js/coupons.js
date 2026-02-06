@@ -1,4 +1,4 @@
-/* js/coupons.js (IIFE) */
+/* js/coupons.js (IIFE) — FINAL (NO-HASH SPA + Standalone safe) */
 (() => {
   "use strict";
 
@@ -32,10 +32,11 @@
     return out;
   }
 
+  // ✅ NO-HASH: History Router path builder
   function routeHref(path) {
     let p = String(path ?? "");
     if (!p.startsWith("/")) p = "/" + p;
-    return "#" + p;
+    return p;
   }
 
   function safeDecode(s) {
@@ -260,7 +261,7 @@
       title: String(title || ""),
       note: String(note || ""),
       region: String(region || ""),
-      reward: typeof reward === "string" ? reward : (Array.isArray(reward) ? reward.join(", ") : ""),
+      reward: typeof reward === "string" ? reward : Array.isArray(reward) ? reward.join(", ") : "",
       expiresRaw: expires ? String(expires) : "",
       expiresMs,
       permanent,
@@ -378,7 +379,9 @@
     const sliced = (coupons || []).slice(0, Math.min(max, (coupons || []).length));
 
     if (!sliced.length) {
-      root.innerHTML = `<div class="muted" style="padding:10px 2px;">${esc(getText(locale, "noCoupons"))}</div>`;
+      root.innerHTML = `<div class="muted" style="padding:10px 2px;">${esc(
+        getText(locale, "noCoupons")
+      )}</div>`;
       return;
     }
 
@@ -386,18 +389,19 @@
       root.classList.contains("grid") || root.getAttribute("data-coupon-grid") === "1";
 
     if (useStandaloneClasses) {
-      root.innerHTML = sliced.map((c) => {
-        const exp = isExpired(c.expiresMs, now);
-        const badgeClass = exp ? "badge expired" : "badge active";
-        const wrapClass = exp ? "card expired" : "card";
-        const expiryLine = formatExpiryLine(c, locale);
+      root.innerHTML = sliced
+        .map((c) => {
+          const exp = isExpired(c.expiresMs, now);
+          const badgeClass = exp ? "badge expired" : "badge active";
+          const wrapClass = exp ? "card expired" : "card";
+          const expiryLine = formatExpiryLine(c, locale);
 
-        const metaBits = [];
-        if (c.reward) metaBits.push(c.reward);
-        if (c.region) metaBits.push(c.region);
-        if (c.note) metaBits.push(c.note);
+          const metaBits = [];
+          if (c.reward) metaBits.push(c.reward);
+          if (c.region) metaBits.push(c.region);
+          if (c.note) metaBits.push(c.note);
 
-        return `
+          return `
           <article class="${wrapClass}" data-coupon-card="1" data-expired="${exp ? "1" : "0"}">
             <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
               <div class="code">${esc(c.code)}</div>
@@ -412,28 +416,34 @@
             </div>
 
             <div class="actions">
-              <button class="btn" type="button" data-copy="${esc(c.code)}">${esc(getText(locale, "copy"))}</button>
-              <a class="btn primary" href="${esc(redeemUrl)}" target="_blank" rel="noopener">${esc(getText(locale, "redeem"))}</a>
+              <button class="btn" type="button" data-copy="${esc(c.code)}">${esc(
+            getText(locale, "copy")
+          )}</button>
+              <a class="btn primary" href="${esc(redeemUrl)}" target="_blank" rel="noopener">${esc(
+            getText(locale, "redeem")
+          )}</a>
             </div>
           </article>
         `;
-      }).join("");
+        })
+        .join("");
       return;
     }
 
     root.innerHTML = `
       <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:12px;">
-        ${sliced.map((c) => {
-          const exp = isExpired(c.expiresMs, now);
-          const badge = exp ? getText(locale, "expired") : getText(locale, "active");
-          const expiryLine = formatExpiryLine(c, locale);
+        ${sliced
+          .map((c) => {
+            const exp = isExpired(c.expiresMs, now);
+            const badge = exp ? getText(locale, "expired") : getText(locale, "active");
+            const expiryLine = formatExpiryLine(c, locale);
 
-          const metaBits = [];
-          metaBits.push(expiryLine);
-          if (c.reward) metaBits.push(c.reward);
-          if (c.region) metaBits.push(c.region);
+            const metaBits = [];
+            metaBits.push(expiryLine);
+            if (c.reward) metaBits.push(c.reward);
+            if (c.region) metaBits.push(c.region);
 
-          return `
+            return `
             <div class="wos-panel" data-coupon-card="1" data-expired="${exp ? "1" : "0"}" style="padding:12px;">
               <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
                 <div style="font-weight:900; letter-spacing:.3px;" class="wos-mono">${esc(c.code)}</div>
@@ -444,12 +454,17 @@
                 ${c.note ? `<div style="margin-top:6px;">${esc(c.note)}</div>` : ""}
               </div>
               <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
-                <button class="wos-btn" type="button" data-copy="${esc(c.code)}">${esc(getText(locale, "copy"))}</button>
-                <a class="wos-btn" href="${esc(redeemUrl)}" target="_blank" rel="noopener">${esc(getText(locale, "redeem"))}</a>
+                <button class="wos-btn" type="button" data-copy="${esc(c.code)}">${esc(
+              getText(locale, "copy")
+            )}</button>
+                <a class="wos-btn" href="${esc(redeemUrl)}" target="_blank" rel="noopener">${esc(
+              getText(locale, "redeem")
+            )}</a>
               </div>
             </div>
           `;
-        }).join("")}
+          })
+          .join("")}
       </div>
     `;
   }
@@ -535,13 +550,30 @@
     }
   }
 
+  // ✅ SPA에서 템플릿을 주입했을 때 내부 링크는 data-link 달아주기
+  function markSpaLinks(root) {
+    try {
+      const links = $$('a[href^="/"]', root);
+      links.forEach((a) => {
+        const href = a.getAttribute("href") || "";
+        const target = (a.getAttribute("target") || "").toLowerCase();
+        if (!href.startsWith("/")) return;
+        if (target === "_blank") return; // 외부 새창은 유지
+        if (!a.hasAttribute("data-link")) a.setAttribute("data-link", "");
+      });
+    } catch (_) {}
+  }
+
+  // ✅ 3개 언어 템플릿 → 1개 템플릿로 통일
   async function loadCouponsTemplateInto(container, lang) {
-    const l = pickLang(lang);
+    const _l = pickLang(lang); // (미사용이지만 시그니처 유지)
     const candidates = [
-      `/coupons/index.${l}.html`,
-      `coupons/index.${l}.html`,
-      `/page/coupons/index.${l}.html`,
-      `page/coupons/index.${l}.html`,
+      "/coupons/index.html",
+      "/coupons/",
+      "coupons/index.html",
+      "coupons/",
+      "/page/coupons/index.html",
+      "page/coupons/index.html",
     ];
 
     const r = await fetchTextTryWithAttempts(candidates);
@@ -553,20 +585,13 @@
       root.querySelectorAll("script").forEach((s) => s.remove());
     } catch (_) {}
 
-    container.innerHTML = root ? root.innerHTML : (r.text || "");
+    container.innerHTML = root ? root.innerHTML : r.text || "";
+    markSpaLinks(container); // ✅ SPA friendly
     return { usedUrl: r.usedUrl, attempted: r.attempted };
   }
 
   function getCouponKeyRaw(it) {
-    return String(
-      it?.code ??
-        it?.coupon ??
-        it?.slug ??
-        it?.id ??
-        it?.key ??
-        it?.name ??
-        ""
-    ).trim();
+    return String(it?.code ?? it?.coupon ?? it?.slug ?? it?.id ?? it?.key ?? it?.name ?? "").trim();
   }
 
   function isCouponExpiredRaw(it) {
@@ -600,22 +625,14 @@
       code ||
       (tOpt("nav.coupons", getText(locale, "coupons")) || getText(locale, "coupons"));
 
-    const desc =
-      coupon?.descriptionHtml ??
-      coupon?.descHtml ??
-      coupon?.html ??
-      "";
-
-    const descText =
-      !desc ? String(coupon?.description ?? coupon?.desc ?? coupon?.note ?? coupon?.notes ?? "") : "";
+    const desc = coupon?.descriptionHtml ?? coupon?.descHtml ?? coupon?.html ?? "";
+    const descText = !desc ? String(coupon?.description ?? coupon?.desc ?? coupon?.note ?? coupon?.notes ?? "") : "";
 
     const reward = String(coupon?.reward ?? coupon?.benefit ?? coupon?.value ?? coupon?.bonus ?? "");
     const start = String(coupon?.startAt ?? coupon?.startDate ?? coupon?.startsAt ?? coupon?.from ?? "");
     const end = String(coupon?.expiresAt ?? coupon?.expireAt ?? coupon?.endAt ?? coupon?.endDate ?? coupon?.until ?? "");
 
-    const statusLabel = expired
-      ? tOpt("coupons.expired", getText(locale, "expired"))
-      : tOpt("coupons.active", getText(locale, "active"));
+    const statusLabel = expired ? tOpt("coupons.expired", getText(locale, "expired")) : tOpt("coupons.active", getText(locale, "active"));
 
     view.innerHTML = `
       <div class="wos-panel">
@@ -641,16 +658,18 @@
           </div>
         </div>
 
-        ${(start || end) ? `
+        ${(start || end)
+          ? `
           <div class="wos-muted" style="font-size:12px; margin-top:10px;">
             ${start ? `${esc(tOpt("coupons.starts", "Starts"))}: ${esc(fmtDateLike(start))}` : ""}
             ${(start && end) ? " · " : ""}
             ${end ? `${esc(tOpt("coupons.ends", "Ends"))}: ${esc(fmtDateLike(end))}` : ""}
           </div>
-        ` : ""}
+        `
+          : ""}
 
         ${desc ? `<div style="margin-top:12px;">${desc}</div>` : ""}
-        ${(!desc && descText) ? `<div class="wos-muted" style="margin-top:12px; font-size:13px; line-height:1.7;">${esc(descText).replace(/\n/g, "<br>")}</div>` : ""}
+        ${!desc && descText ? `<div class="wos-muted" style="margin-top:12px; font-size:13px; line-height:1.7;">${esc(descText).replace(/\n/g, "<br>")}</div>` : ""}
 
         <div class="wos-muted" style="font-size:12px; margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
           ${updatedAt ? `<span>${esc(tOpt("coupons.updated", "Updated"))}: ${esc(fmtDateLike(updatedAt))}</span>` : ""}
@@ -696,19 +715,15 @@
     applyI18n(view);
   }
 
+  // ✅ SPA 언어 우선: args.locale -> window.WOS_LANG -> html lang
   function resolveLocale(argsLocale) {
-    const htmlLang = pickLang(document.documentElement.getAttribute("lang"));
-    return pickLang(argsLocale || htmlLang || "en");
+    if (argsLocale) return pickLang(argsLocale);
+    if (window.WOS_LANG) return pickLang(window.WOS_LANG);
+    return pickLang(document.documentElement.getAttribute("lang") || "en");
   }
 
   function resolveJsonUrl(args = {}) {
-    return (
-      args.jsonUrl ||
-      args.dataUrl ||
-      args.dataCouponsJson ||
-      args.couponsJson ||
-      "/coupons/coupons.json"
-    );
+    return args.jsonUrl || args.dataUrl || args.dataCouponsJson || args.couponsJson || "/coupons/coupons.json";
   }
 
   function renderFetchError(root, locale, err, attempted) {
@@ -789,6 +804,7 @@
       return;
     }
 
+    // fallback template (still works inside SPA)
     appEl.innerHTML = `
       <div class="wos-panel">
         <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;">
@@ -924,7 +940,9 @@
     if (!grid) return;
 
     const jsonUrl =
-      (document.currentScript && (document.currentScript.getAttribute("data-json") || document.currentScript.getAttribute("data-coupons-json"))) ||
+      (document.currentScript &&
+        (document.currentScript.getAttribute("data-json") ||
+          document.currentScript.getAttribute("data-coupons-json"))) ||
       "/coupons/coupons.json";
 
     const maxRaw = document.currentScript && Number(document.currentScript.getAttribute("data-max"));
@@ -957,6 +975,14 @@
     }
   }
 
+  // ✅ Standalone 판별: /coupons/index.html 에만 autoInit 허용
+  function isStandaloneCouponsPage() {
+    return (
+      document.body.classList.contains("coupon-page") ||
+      document.documentElement.getAttribute("data-page") === "coupons-index"
+    );
+  }
+
   window.WOS_COUPONS = {
     renderPage,
     renderList,
@@ -964,9 +990,12 @@
     _fetchCouponsAny: fetchCouponsAny,
   };
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", autoInitStandalone, { once: true });
-  } else {
-    autoInitStandalone().catch(() => {});
+  // ✅ 핵심: SPA index.html(메인)에서는 자동 렌더 금지
+  if (isStandaloneCouponsPage()) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", autoInitStandalone, { once: true });
+    } else {
+      autoInitStandalone().catch(() => {});
+    }
   }
 })();

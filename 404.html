@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex" />
   <title>Redirecting…</title>
 
-  <!-- (선택) 강제로 base 지정하고 싶으면 이거 사용:
+  <!-- (선택) 강제로 base 지정:
        <meta name="wos-base" content="/your-repo">
        커스텀 도메인 루트면 빈값 or 삭제 -->
 </head>
@@ -22,7 +22,16 @@
   path = path.replace(/\/index\.html?$/i, "/");
 
   var seg = path.split("/").filter(Boolean);
-  var spaTop = { buildings:1, heroes:1, tips:1, tools:1, lootbar:1 };
+
+  // ✅ SPA 최상위 라우트 (너 app.js 기준)
+  var spaTop = {
+    buildings: 1,
+    heroes: 1,
+    tips: 1,
+    tools: 1,
+    coupons: 1,  // ✅ 추가
+    lootbar: 1
+  };
 
   // ===== base 자동 판별 =====
   // 0) meta[name="wos-base"]가 있으면 최우선

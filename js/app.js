@@ -2,7 +2,8 @@
    WosHub - js/app.js (Split Build) - MAIN ✅ i18n + Pages
    - ✅ History API Router (NO HASH):
      (/buildings, /buildings/furnace, /heroes, /heroes/charlie,
-      /tools, /tools/building-calculator, /tips, /tips/xxx, /lootbar)
+      /tools, /tools/building-calculator, /tips, /tips/xxx,
+      /coupons, /coupons/:code, /lootbar)
 
    - ✅ 외부 모듈 수정 없음
    - ✅ /tips/:slug 일부 정적 HTML 직접 렌더 (lootbar 등)
@@ -263,8 +264,8 @@
 
           <div class="wos-btnrow">
             <a class="wos-btn" href="${CORE.esc(CORE.routeHref("/tips/lootbar"))}" data-link>${CORE.esc(
-        labels.openGuide
-      )}</a>
+              labels.openGuide
+            )}</a>
           </div>
         </div>
       `;
@@ -736,6 +737,38 @@
     CORE.setDocTitle(pageTitle);
   }
 
+  // ✅ Coupons (list + detail)
+  async function pageCoupons(focusSlug = "") {
+    const path = CORE.getPath();
+    const pageTitle = CORE.t("nav.coupons") || "Coupons";
+    const view = CORE.renderShell({ path, title: pageTitle, contentHTML: "" }) || CORE.getViewEl();
+    if (!view) return;
+
+    const ok = await CORE.waitForGlobal(
+      "WOS_COUPONS",
+      () => window.WOS_COUPONS && typeof window.WOS_COUPONS.renderPage === "function"
+    );
+    if (!ok) return CORE.showError(new Error("coupons.js not loaded (window.WOS_COUPONS.renderPage missing)."));
+
+    try {
+      await window.WOS_COUPONS.renderPage({
+        appEl: view,
+        locale: CORE.getLangSafe(),
+        jsonUrl: CORE.withBase("/coupons/coupons.json"),
+        max: 999,
+        focusSlug: focusSlug || "",
+      });
+    } catch (err) {
+      return CORE.showError(err);
+    }
+
+    CORE.setActiveMenu(path);
+    CORE.applyI18n(view);
+    CORE.rewriteDomResources(view);
+    CORE.rewriteExternalLinks(view);
+    CORE.setDocTitle(pageTitle);
+  }
+
   async function pageTipStaticHtml(_slug, filename) {
     const path = CORE.getPath();
     const pageTitle = CORE.t("nav.tips") || "Tip";
@@ -861,6 +894,14 @@
               <div class="wos-item-meta wos-mono">/lootbar</div>
             </div>
           </a>
+
+          <a class="wos-item" href="${CORE.routeHref("/coupons")}" data-link style="align-items:center;">
+            <div class="wos-badge" data-i18n="nav.coupons">${CORE.esc(CORE.t("nav.coupons") || "Coupons")}</div>
+            <div style="flex:1;">
+              <div class="wos-item-title">${CORE.esc(CORE.t("nav.coupons") || "Coupons")}</div>
+              <div class="wos-item-meta wos-mono">/coupons</div>
+            </div>
+          </a>
         </div>
       </div>
     `;
@@ -909,7 +950,10 @@
       }
     }
 
-    const okFallback = await CORE.waitForGlobal("WOS_CALC", () => window.WOS_CALC && typeof window.WOS_CALC.render === "function");
+    const okFallback = await CORE.waitForGlobal(
+      "WOS_CALC",
+      () => window.WOS_CALC && typeof window.WOS_CALC.render === "function"
+    );
     if (!okFallback) {
       return CORE.showError(
         new Error(
@@ -1255,6 +1299,16 @@
 
       if (TIP_HTML_MAP[slug]) return pageTipStaticHtml(slug, TIP_HTML_MAP[slug]);
       return pageTip(slug);
+    }
+
+    // ✅ coupons (list / detail)
+    if (path === "/coupons") return pageCoupons("");
+    if (path.startsWith("/coupons/") && path.split("/").length >= 3) {
+      let code = path.replace("/coupons/", "");
+      try {
+        code = decodeURIComponent(code);
+      } catch (_) {}
+      return pageCoupons(code);
     }
 
     // lootbar
